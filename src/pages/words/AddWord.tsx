@@ -2,27 +2,19 @@ import { collection, addDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { db } from "../..";
 import MeaningInput from "../../components/MeaningInput";
+import MeaningsObjectsCreator from "../../components/MeaningsObjectsCreator";
 
 
 const AddWord = () => {
     const [word, setWord] = useState('')
     const [part, setPart] = useState('nothing')
-    const [meaningArray, setMeaningArray] = useState<string[]>([])
+    const [meaningArray, setMeaningArray] = useState<object[]>([])
 
+    const handleMeaningArray = (objectArray: object[]) => {
+      setMeaningArray(objectArray)
+      console.log(objectArray)
+    }
     
-    const meaningsHandle = (e: React.FocusEvent<HTMLInputElement, Element>) => {
-      e.preventDefault()
-      const newMeaning = e.target.value
-      newMeaning.length > 0 && setMeaningArray(prev => [...prev, e.target.value])
-    }
-
-    const [meaningComponent, setMeaningComponent] = useState([<MeaningInput onBlur={meaningsHandle}/>])
-
-
-    const addMeaningComponent = () => {
-      setMeaningComponent(prev => [...prev, <MeaningInput onBlur={meaningsHandle}/>])
-
-    }
 
     const [tags, setTags] = useState('')
     // const [examples, setExamples] = useState([])
@@ -63,15 +55,9 @@ const AddWord = () => {
                 <div>
                   <input type='text' placeholder="Word" value={word} onChange={(e)=> setWord(e.target.value)}/>
                 </div>
+                
                 <div>
-                  <input type='text' placeholder="part" value={part} onChange={(e)=> setPart(e.target.value)}/>
-                </div>
-
-                <div>
-                    {
-                      meaningComponent.map( (p, idx) => <div key={idx}>{p}</div>)
-                    }
-                    <button onClick={addMeaningComponent}>Add the meaning fields</button>
+                    <MeaningsObjectsCreator setObject={handleMeaningArray}/>
                 </div>
 
                 <div>          
