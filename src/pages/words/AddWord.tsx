@@ -7,21 +7,20 @@ import MeaningInput from "../../components/MeaningInput";
 const AddWord = () => {
     const [word, setWord] = useState('')
     const [part, setPart] = useState('nothing')
-    const [meaning, setMeaning] = useState('')
     const [meaningArray, setMeaningArray] = useState<string[]>([])
 
     
-    const testHandle = (e: React.FocusEvent<HTMLInputElement, Element>) => {
+    const meaningsHandle = (e: React.FocusEvent<HTMLInputElement, Element>) => {
       e.preventDefault()
-      console.log('12345', meaning)
-      meaning.length > 0 && setMeaningArray(prev => [...prev, meaning]);
+      const newMeaning = e.target.value
+      newMeaning.length > 0 && setMeaningArray(prev => [...prev, e.target.value])
     }
 
-    const [meaningComponent, setMeaningComponent] = useState([<MeaningInput onBlur={testHandle} onChange={setMeaning}/>])
+    const [meaningComponent, setMeaningComponent] = useState([<MeaningInput onBlur={meaningsHandle}/>])
 
 
     const addMeaningComponent = () => {
-      setMeaningComponent(prev => [...prev, <MeaningInput onBlur={testHandle} onChange={setMeaning}/>])
+      setMeaningComponent(prev => [...prev, <MeaningInput onBlur={meaningsHandle}/>])
 
     }
 
@@ -49,9 +48,15 @@ const AddWord = () => {
           }
     }
 
-    // useEffect(() => {
+    useEffect(()=> {
+      console.log('Change meaining', meaningArray)
+    }, [meaningArray])
 
-    // }, [meaningComponent])
+    useEffect(()=> {
+      console.log('Change word', word)
+    }, [word])
+
+
     return (
         <section>
             <div>
@@ -61,11 +66,6 @@ const AddWord = () => {
                 <div>
                   <input type='text' placeholder="part" value={part} onChange={(e)=> setPart(e.target.value)}/>
                 </div>
-                {/* <input type='text' placeholder="meaning" value={meaning} 
-                  onChange={(e)=> setMeaning(e.target.value)}
-                  onBlur={(e) => testHandle(e)}
-                /> */}
-                <MeaningInput onBlur={testHandle} onChange={setMeaning}/>
 
                 <div>
                     {
