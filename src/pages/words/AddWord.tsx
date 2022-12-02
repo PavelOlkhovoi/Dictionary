@@ -7,12 +7,19 @@ import MeaningsObjectsCreator from "../../components/MeaningsObjectsCreator";
 
 const AddWord = () => {
     const [word, setWord] = useState('')
-    const [part, setPart] = useState('nothing')
     const [meaningArray, setMeaningArray] = useState<object[]>([])
+
+
 
     const handleMeaningArray = (objectArray: object[]) => {
       setMeaningArray(objectArray)
       console.log(objectArray)
+    }
+
+    const [partComponent, setPartComponent] = useState([<MeaningsObjectsCreator setObject={handleMeaningArray} partProps={'verb'} />])
+
+    const partOfSpeechWithMeanings = () => {
+      setPartComponent(prev => [...prev, <MeaningsObjectsCreator setObject={handleMeaningArray} partProps={'verb'}/>])
     }
     
 
@@ -21,13 +28,11 @@ const AddWord = () => {
 
     
     const addNewWord = async () => {
-        console.log(part)
+        // console.log(part)
         try {
             const docRef = await addDoc(collection(db, "testWords"), {
               word: word,
-              meaning: [{
-                [part]: meaningArray,
-              }],
+              meaning: meaningArray,
               tags: tags,
               examples: [{
                 sentence: 'My mother had instigated divorce proceedings.',
@@ -40,9 +45,9 @@ const AddWord = () => {
           }
     }
 
-    useEffect(()=> {
-      console.log('Change meaining', meaningArray)
-    }, [meaningArray])
+    // useEffect(()=> {
+    //   console.log('Change meaining', meaningArray)
+    // }, [meaningArray])
 
     useEffect(()=> {
       console.log('Change word', word)
@@ -56,9 +61,10 @@ const AddWord = () => {
                   <input type='text' placeholder="Word" value={word} onChange={(e)=> setWord(e.target.value)}/>
                 </div>
                 
-                <div>
-                    <MeaningsObjectsCreator setObject={handleMeaningArray}/>
-                </div>
+                {
+                  partComponent.map((m, idx) => <div key={idx}>{m}</div>)
+                }
+                <button onClick={partOfSpeechWithMeanings}>Add part of speech</button>
 
                 <div>          
                   <input type='text' placeholder="tags" value={tags} 

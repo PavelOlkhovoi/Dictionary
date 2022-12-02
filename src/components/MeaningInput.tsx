@@ -1,21 +1,18 @@
-import {useState, FC} from 'react'
+import {useState, FC, useEffect} from 'react'
+import useTest from './useTest'
+
 
 interface Props {
     onBlur: Function
 }
 
 const MeaningInput: FC<Props> = ({onBlur}) => {
-    const [meaning, setClosedMeaning] = useState('')
+    const newInputProps = useTest('')
+
     return (
-        <div>
-            <input 
-                type="text" 
-                onChange={(e)=> setClosedMeaning(e.target.value)} 
-                onBlur={(e) => onBlur(e)}
-                value={meaning}
-                placeholder="meaning"
-            />
-        </div>
+    <div>
+        <input type="text" {...newInputProps} onBlur={(e) => onBlur(e)} />
+    </div>
     );
 }
 
