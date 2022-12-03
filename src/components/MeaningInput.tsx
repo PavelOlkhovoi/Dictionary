@@ -1,5 +1,5 @@
-import {useState, FC, useEffect} from 'react'
-import useTest from './useTest'
+import {FC} from 'react'
+import useInput from "../hooks/useInput"
 
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const MeaningInput: FC<Props> = ({onBlur}) => {
-    const newInputProps = useTest('')
+    const newInputProps = useInput('')
 
     return (
     <div>

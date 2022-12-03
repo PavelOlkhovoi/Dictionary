@@ -1,38 +1,19 @@
 import { collection, addDoc } from "firebase/firestore"; 
 import { useState, useEffect } from "react";
 import { db } from "../..";
-import MeaningInput from "../../components/MeaningInput";
-import MeaningsObjectsCreator from "../../components/MeaningsObjectsCreator";
+import CoverMeanings from "../../components/CoverMeanings";
 
 
 const AddWord = () => {
     const [word, setWord] = useState('')
-    const [meaningArray, setMeaningArray] = useState<object[]>([])
-
-
-
-    const handleMeaningArray = (objectArray: object[]) => {
-      setMeaningArray(objectArray)
-      console.log(objectArray)
-    }
-
-    const [partComponent, setPartComponent] = useState([<MeaningsObjectsCreator setObject={handleMeaningArray} partProps={'verb'} />])
-
-    const partOfSpeechWithMeanings = () => {
-      setPartComponent(prev => [...prev, <MeaningsObjectsCreator setObject={handleMeaningArray} partProps={'verb'}/>])
-    }
-    
-
+    const [meanings, setMeanings] = useState<object[]>([])
     const [tags, setTags] = useState('')
-    // const [examples, setExamples] = useState([])
-
     
     const addNewWord = async () => {
-        // console.log(part)
         try {
             const docRef = await addDoc(collection(db, "testWords"), {
               word: word,
-              meaning: meaningArray,
+              meaning: meanings,
               tags: tags,
               examples: [{
                 sentence: 'My mother had instigated divorce proceedings.',
@@ -45,26 +26,14 @@ const AddWord = () => {
           }
     }
 
-    // useEffect(()=> {
-    //   console.log('Change meaining', meaningArray)
-    // }, [meaningArray])
-
-    useEffect(()=> {
-      console.log('Change word', word)
-    }, [word])
-
-
     return (
         <section>
             <div>
                 <div>
                   <input type='text' placeholder="Word" value={word} onChange={(e)=> setWord(e.target.value)}/>
                 </div>
-                
-                {
-                  partComponent.map((m, idx) => <div key={idx}>{m}</div>)
-                }
-                <button onClick={partOfSpeechWithMeanings}>Add part of speech</button>
+
+                <CoverMeanings meaningsForAddWord={setMeanings}/>
 
                 <div>          
                   <input type='text' placeholder="tags" value={tags} 
@@ -74,7 +43,7 @@ const AddWord = () => {
                 </div>
                 {/* <input type='text' placeholder="examples" value={examples} onChange={(e)=> setExamples([e.target.value])}/> */}
 
-                <button onClick={addNewWord}>Add meaning</button>
+                <button onClick={addNewWord}>Save a new word </button>
             </div>
         </section>
     );

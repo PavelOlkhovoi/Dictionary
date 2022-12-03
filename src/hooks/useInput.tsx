@@ -1,8 +1,8 @@
 import {useState} from 'react'
 
 
-const useTest = (s: string) => {
-    const [input, setInput] = useState(s)
+const useInput = (text: string) => {
+    const [input, setInput] = useState(text)
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         setInput(e.target.value)
@@ -16,4 +16,4 @@ const useTest = (s: string) => {
 }
 
 
-export default useTest;
+export default useInput;

@@ -1,46 +1,49 @@
 import {useState, FC, useEffect} from 'react'
 import MeaningInput from './MeaningInput';
-import useTest from './useTest';
+import useInput from '../hooks/useInput';
 
 
 interface Props {
-    setObject: Function,
-    partProps: string
+  addMeaningObjToCover: Function
 }
 
-const MeaningsObjectsCreator: FC<Props> = ({setObject, partProps}) => {
-  const [test, setTest] =useState<string[]>([])
+const MeaningsObjectsCreator: FC<Props> = ({addMeaningObjToCover}) => {
+  const [meaningsArr, setMeaningsArr] = useState<string[]>([])
   
-  const testBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    setTest(p => [...p, e.target.value])
-    console.log(test)
+  const saveWhenInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    setMeaningsArr(prev => [...prev, e.target.value])
   }
-    const [meaning, setMeaning] = useState([<MeaningInput onBlur={testBlur}/>])
-    const part = useTest(partProps = 'nothing')
 
-    const results = () => {
-      const testRes = {
-        [part.value]: [test]
-      }
-      console.log(testRes)
-      return results
+  const [meaning, setMeaning] = useState([<MeaningInput onBlur={saveWhenInputBlur}/>])
+  
+  
+  const partOfSpeech = useInput('nothing')
+
+  const buildMeaningArrWithPartOfSpeech = () => {
+    const builtObject = {
+      [partOfSpeech.value]: meaningsArr
     }
+    addMeaningObjToCover(builtObject)
+  }
 
 
-    
     return (
       <div>
         <hr />
-            <input {...part}/>
+            <input {...partOfSpeech}/>
             {
-              meaning.map((i, idx) => 
-                <div key={idx}>{i}</div>
+              meaning.map((inputField, idx) => 
+                <div key={idx}>{inputField}</div>
               )
             }
 
-            <button onClick={()=> setMeaning(p => [...p, <MeaningInput onBlur={testBlur}/>])}>Add meanings</button>
+            <button 
+              onClick={()=> setMeaning(prev => [...prev, <MeaningInput onBlur={saveWhenInputBlur}/>])}
+            >
+              Add meanings
+            </button>
 
-            <button onClick={results}>Save value</button>
+            <button onClick={buildMeaningArrWithPartOfSpeech}>Save value</button>
         <hr/>
     </div>
   )

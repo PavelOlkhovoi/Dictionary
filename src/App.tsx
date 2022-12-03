@@ -18,7 +18,7 @@ function App() {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/auth">Auth</Link></li>
           <li><Link to="/words">Words</Link></li>
-          <li><Link to="/addwords">Words</Link></li>
+          <li><Link to="/addwords">Add words</Link></li>
         </ul>
       </nav>
     <Routes>
