@@ -5,11 +5,12 @@ import MeaningInput from './MeaningInput';
 
 interface Props {
   addMeaningObjToCover: Function,
+  lastState: Meaning[]
 }
 
 // TODO: Delete Input by the delete button
 
-const MeaningsObjectsCreator: FC<Props> = ({addMeaningObjToCover,}) => {
+const MeaningsObjectsCreator: FC<Props> = ({addMeaningObjToCover, lastState}) => {
   
   const [meaningsArr, setMeaningsArr] = useState<string[]>([])
   const [tempId, setTempIdx] = useState(new Date().getTime())
@@ -43,7 +44,7 @@ const MeaningsObjectsCreator: FC<Props> = ({addMeaningObjToCover,}) => {
     }
 
     setObjFinal(builtObject)
-    addMeaningObjToCover(builtObject)
+    addMeaningObjToCover(builtObject, lastState)
   }
 
   useEffect(()=> {
