@@ -20,7 +20,7 @@ const MeaningsObjectsCreator: FC<Props> = ({addMeaningObjToCover,}) => {
   const saveSingleMeaningToArr = (word: string) => {
     setMeaningsArr(prev => [...prev, word])
   }
-  const [partOfSpeech, setPartOfSpeech] = useState('nothink')
+  const [partOfSpeech, setPartOfSpeech] = useState('nothing')
 
   const deleteMeaning = (meaning: string) => {
     const newArr = meaningsArr.filter(m => m !== meaning)
@@ -43,6 +43,7 @@ const MeaningsObjectsCreator: FC<Props> = ({addMeaningObjToCover,}) => {
     }
 
     setObjFinal(builtObject)
+    addMeaningObjToCover(builtObject)
   }
 
   useEffect(()=> {
@@ -50,9 +51,9 @@ const MeaningsObjectsCreator: FC<Props> = ({addMeaningObjToCover,}) => {
   }, [meaningsArr])
 
 
-  useEffect(()=> {
-    console.log(objFinal)
-  }, [objFinal])
+  // useEffect(()=> {
+  //   console.log(objFinal)
+  // }, [objFinal])
 
 
     return (
@@ -80,7 +81,7 @@ const MeaningsObjectsCreator: FC<Props> = ({addMeaningObjToCover,}) => {
               Add meaning fields
             </button>
 
-            <button onClick={buildMeaningArrWithPartOfSpeech}>Save value</button>
+            <button onClick={buildMeaningArrWithPartOfSpeech}>Save group</button>
         <hr/>
     </div>
   )

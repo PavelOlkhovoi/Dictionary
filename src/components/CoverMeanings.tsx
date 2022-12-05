@@ -8,22 +8,25 @@ interface Props {
 }
 
 const CoverMeanings: FC<Props> = ({meaningsForAddWord, deleteMeanning}) => {
+
+    const [partsOfSpeechArray, setPartsOfSpeechArray] = useState<Meaning[]>([])
+    const [lastId, setLastId] = useState(0)
     
     const handleMeaningsObject = (obj: Meaning) => {
+        console.log(partsOfSpeechArray)
+        setLastId(obj.tempId)
         setPartsOfSpeechArray(prev => [...prev, obj])
     }
 
     const [partsComponents, setPartsComponents] = useState(
-        [<MeaningsObjectsCreator addMeaningObjToCover={handleMeaningsObject}
-        />
+        [<MeaningsObjectsCreator addMeaningObjToCover={handleMeaningsObject}/>
     ])
 
-    const [partsOfSpeechArray, setPartsOfSpeechArray] = useState<Meaning[]>([])
-
-    // useEffect(() => {
-    //     meaningsForAddWord(partsOfSpeechArray)
-    // }, [partsOfSpeechArray])
-
+    useEffect(()=> {
+        const testCh = () => {
+            console.log("Is what?", partsOfSpeechArray.filter(el => el.tempId === lastId))
+        }
+      }, [partsOfSpeechArray])
 
     return (
        <div>
