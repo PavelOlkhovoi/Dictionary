@@ -1,22 +1,28 @@
 import {useState, useEffect, FC} from 'react'
+import { Meaning } from '../pages/types/word';
 import MeaningsObjectsCreator from "./MeaningsObjectsCreator";
 
 interface Props {
-    meaningsForAddWord: React.Dispatch<React.SetStateAction<object[]>>
+    meaningsForAddWord: React.Dispatch<React.SetStateAction<Meaning[]>>,
+    deleteMeanning: Function,
 }
 
-const CoverMeanings: FC<Props> = ({meaningsForAddWord}) => {
-    const handleMeaningsObject = (obj: object) => {
-        setPartsArray(prev => [...prev, obj])
+const CoverMeanings: FC<Props> = ({meaningsForAddWord, deleteMeanning}) => {
+    
+    const handleMeaningsObject = (obj: Meaning) => {
+        setPartsOfSpeechArray(prev => [...prev, obj])
     }
 
-    const [partsComponents, setPartsComponents] = useState([<MeaningsObjectsCreator addMeaningObjToCover={handleMeaningsObject}/>])
+    const [partsComponents, setPartsComponents] = useState(
+        [<MeaningsObjectsCreator addMeaningObjToCover={handleMeaningsObject}
+        />
+    ])
 
-    const [partsArray, setPartsArray] = useState<object[]>([])
+    const [partsOfSpeechArray, setPartsOfSpeechArray] = useState<Meaning[]>([])
 
-    useEffect(() => {
-        meaningsForAddWord(partsArray)
-    }, [partsArray])
+    // useEffect(() => {
+    //     meaningsForAddWord(partsOfSpeechArray)
+    // }, [partsOfSpeechArray])
 
 
     return (
@@ -25,7 +31,14 @@ const CoverMeanings: FC<Props> = ({meaningsForAddWord}) => {
             partsComponents.map((p, idx) => <div key={idx}>{p}</div>)
         }
 
-        <button onClick={() => setPartsComponents(p => [...p, <MeaningsObjectsCreator addMeaningObjToCover={handleMeaningsObject}/>])}>Add meanings</button>
+        <button onClick={() => setPartsComponents(p => [
+            ...p, 
+            <MeaningsObjectsCreator 
+                addMeaningObjToCover={handleMeaningsObject}
+            />])}
+            >
+                Add meanings
+            </button>
        </div>
     );
 }

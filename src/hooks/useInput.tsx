@@ -10,7 +10,8 @@ const useInput = (text: string) => {
 
     const inputProps = {
         value: input,
-        onChange: handleChange
+        onChange: handleChange,
+        setInput
     }
     return inputProps
 }

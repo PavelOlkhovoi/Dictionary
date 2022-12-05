@@ -2,12 +2,19 @@ import { collection, addDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { db } from "../..";
 import CoverMeanings from "../../components/CoverMeanings";
+import { Meaning } from '../types/word';
 
 
 const AddWord = () => {
     const [word, setWord] = useState('')
-    const [meanings, setMeanings] = useState<object[]>([])
+    const [meanings, setMeanings] = useState<Meaning[]>([])
     const [tags, setTags] = useState('')
+
+    const [deletMean, settDeleteMean] = useState('') 
+
+    const testDelete = (meaningsT: string) => {
+      console.log(meaningsT)
+    }
     
     const addNewWord = async () => {
         try {
@@ -33,7 +40,7 @@ const AddWord = () => {
                   <input type='text' placeholder="Word" value={word} onChange={(e)=> setWord(e.target.value)}/>
                 </div>
 
-                <CoverMeanings meaningsForAddWord={setMeanings}/>
+                <CoverMeanings meaningsForAddWord={setMeanings} deleteMeanning={testDelete}/>
 
                 <div>          
                   <input type='text' placeholder="tags" value={tags} 

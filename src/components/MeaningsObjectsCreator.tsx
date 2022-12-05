@@ -1,36 +1,67 @@
-import {useState, FC, useEffect} from 'react'
+import {useState, FC, useEffect, useRef} from 'react'
+import { Meaning } from '../pages/types/word';
 import MeaningInput from './MeaningInput';
-import useInput from '../hooks/useInput';
 
 
 interface Props {
-  addMeaningObjToCover: Function
+  addMeaningObjToCover: Function,
 }
 
-const MeaningsObjectsCreator: FC<Props> = ({addMeaningObjToCover}) => {
-  const [meaningsArr, setMeaningsArr] = useState<string[]>([])
+// TODO: Delete Input by the delete button
+
+const MeaningsObjectsCreator: FC<Props> = ({addMeaningObjToCover,}) => {
   
-  const saveWhenInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    setMeaningsArr(prev => [...prev, e.target.value])
+  const [meaningsArr, setMeaningsArr] = useState<string[]>([])
+  const [tempId, setTempIdx] = useState(new Date().getTime())
+  const [objFinal, setObjFinal] = useState<Meaning>({
+    tempId
+  })
+  
+  const saveSingleMeaningToArr = (word: string) => {
+    setMeaningsArr(prev => [...prev, word])
+  }
+  const [partOfSpeech, setPartOfSpeech] = useState('nothink')
+
+  const deleteMeaning = (meaning: string) => {
+    const newArr = meaningsArr.filter(m => m !== meaning)
+    setMeaningsArr(newArr)
   }
 
-  const [meaning, setMeaning] = useState([<MeaningInput onBlur={saveWhenInputBlur}/>])
+  const [meaning, setMeaning] = useState([
+    <MeaningInput 
+      saveSingleMeaning={saveSingleMeaningToArr}
+      deleteMeanning={deleteMeaning}
+    />
+  ])
   
   
-  const partOfSpeech = useInput('nothing')
 
   const buildMeaningArrWithPartOfSpeech = () => {
-    const builtObject = {
-      [partOfSpeech.value]: meaningsArr
+    const builtObject: Meaning = {
+      tempId,
+      [partOfSpeech]: meaningsArr
     }
-    addMeaningObjToCover(builtObject)
+
+    setObjFinal(builtObject)
   }
+
+  useEffect(()=> {
+    console.log(meaningsArr)
+  }, [meaningsArr])
+
+
+  useEffect(()=> {
+    console.log(objFinal)
+  }, [objFinal])
 
 
     return (
       <div>
         <hr />
-            <input {...partOfSpeech}/>
+            <input 
+              value={partOfSpeech} 
+              onChange={(e) => setPartOfSpeech(e.target.value)}
+              />
             {
               meaning.map((inputField, idx) => 
                 <div key={idx}>{inputField}</div>
@@ -38,9 +69,15 @@ const MeaningsObjectsCreator: FC<Props> = ({addMeaningObjToCover}) => {
             }
 
             <button 
-              onClick={()=> setMeaning(prev => [...prev, <MeaningInput onBlur={saveWhenInputBlur}/>])}
+              onClick={()=> setMeaning(prev => [
+                ...prev, 
+                <MeaningInput 
+                  saveSingleMeaning={saveSingleMeaningToArr}
+                  deleteMeanning={deleteMeaning}
+                />
+              ])}
             >
-              Add meanings
+              Add meaning fields
             </button>
 
             <button onClick={buildMeaningArrWithPartOfSpeech}>Save value</button>
