@@ -10,30 +10,31 @@ interface Props {
 const CoverMeanings: FC<Props> = ({meaningsForAddWord, deleteMeanning}) => {
 
     const [partsOfSpeechArray, setPartsOfSpeechArray] = useState<Meaning[]>([])
-    
-    const handleMeaningsObject = (obj: Meaning) => {
+
+    const meaningComponent = <MeaningsObjectsCreator addMeaningObjToCover={handleMeaningsObject}
+    />
+
+    const [partsComponents, setPartsComponents] = useState([meaningComponent])
+
+    function handleMeaningsObject(obj: Meaning){
+
+        //TODO: Refactor this code
+        // refers https://beta.reactjs.org/learn/adding-interactivity
 
         setPartsOfSpeechArray(prev => {
             const isNew = prev.map(el => el.tempId).includes(obj.tempId)
             if(isNew) {
                 const targetObj = prev.filter(el => el.tempId === obj.tempId)
                 const idxMean = prev.indexOf(targetObj[0])
-                console.log("inside Prev", idxMean)
                 const copyPrev = [...prev]
                 copyPrev[idxMean] = obj
                 return copyPrev
             }
  
-
             return [...prev, obj]
         })
     }
 
-    const [partsComponents, setPartsComponents] = useState(
-        [<MeaningsObjectsCreator addMeaningObjToCover={handleMeaningsObject}
-            lastState={partsOfSpeechArray}
-        />
-    ])
 
     useEffect(()=> {
         console.log('PartOfSp', partsOfSpeechArray)
@@ -45,13 +46,7 @@ const CoverMeanings: FC<Props> = ({meaningsForAddWord, deleteMeanning}) => {
             partsComponents.map((p, idx) => <div key={idx}>{p}</div>)
         }
 
-        <button onClick={() => setPartsComponents(p => [
-            ...p, 
-            <MeaningsObjectsCreator 
-                addMeaningObjToCover={handleMeaningsObject}
-                lastState={partsOfSpeechArray}
-            />])}
-            >
+            <button onClick={() => setPartsComponents(p => [...p, meaningComponent])}>
                 Add meanings
             </button>
        </div>

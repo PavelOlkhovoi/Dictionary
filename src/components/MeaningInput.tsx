@@ -1,4 +1,4 @@
-import {FC, useEffect} from 'react'
+import {FC} from 'react'
 import useInput from "../hooks/useInput"
 
 
@@ -15,11 +15,11 @@ const MeaningInput: FC<Props> = ({saveSingleMeaning, deleteMeanning}) => {
     }
 
     return (
-    <div>
-        <input type="text" value={value} onChange={onChange} />
-        <button onClick={()=> saveSingleMeaning(value)}>Save</button>
-        <button onClick={deleteMeaning}>Delete field</button>
-    </div>
+        <div>
+            <input type="text" value={value} onChange={onChange} />
+            <button onClick={()=> saveSingleMeaning(value)}>Save</button>
+            <button onClick={deleteMeaning}>Delete field</button>
+        </div>
     );
 }
 

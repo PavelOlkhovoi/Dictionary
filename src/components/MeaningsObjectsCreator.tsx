@@ -1,41 +1,36 @@
-import {useState, FC, useEffect, useRef} from 'react'
+import {useState, FC, useEffect} from 'react'
 import { Meaning } from '../pages/types/word';
 import MeaningInput from './MeaningInput';
 
 
 interface Props {
   addMeaningObjToCover: Function,
-  lastState: Meaning[]
 }
 
 // TODO: Delete Input by the delete button
 
-const MeaningsObjectsCreator: FC<Props> = ({addMeaningObjToCover, lastState}) => {
+const MeaningsObjectsCreator: FC<Props> = ({addMeaningObjToCover}) => {
   
   const [meaningsArr, setMeaningsArr] = useState<string[]>([])
   const [tempId, setTempIdx] = useState(new Date().getTime())
-  const [objFinal, setObjFinal] = useState<Meaning>({
-    tempId
-  })
+  const [objFinal, setObjFinal] = useState<Meaning>({tempId})
   
-  const saveSingleMeaningToArr = (word: string) => {
-    setMeaningsArr(prev => [...prev, word])
-  }
   const [partOfSpeech, setPartOfSpeech] = useState('nothing')
 
-  const deleteMeaning = (meaning: string) => {
-    const newArr = meaningsArr.filter(m => m !== meaning)
-    setMeaningsArr(newArr)
-  }
+  const singleMeaning = <MeaningInput 
+  saveSingleMeaning={saveSingleMeaningToArr}
+  deleteMeanning={deleteMeaning}
+  />
 
-  const [meaning, setMeaning] = useState([
-    <MeaningInput 
-      saveSingleMeaning={saveSingleMeaningToArr}
-      deleteMeanning={deleteMeaning}
-    />
-  ])
+
+  const [meaning, setMeaning] = useState([singleMeaning])
   
-  
+  function saveSingleMeaningToArr(word: string){
+    setMeaningsArr(prev => [...prev, word])
+  }
+  function deleteMeaning(meaning: string){
+    setMeaningsArr(prev => prev.filter(m => m !== meaning))
+  }
 
   const buildMeaningArrWithPartOfSpeech = () => {
     const builtObject: Meaning = {
@@ -44,17 +39,13 @@ const MeaningsObjectsCreator: FC<Props> = ({addMeaningObjToCover, lastState}) =>
     }
 
     setObjFinal(builtObject)
-    addMeaningObjToCover(builtObject, lastState)
+    addMeaningObjToCover(builtObject)
   }
 
   useEffect(()=> {
     console.log(meaningsArr)
   }, [meaningsArr])
 
-
-  // useEffect(()=> {
-  //   console.log(objFinal)
-  // }, [objFinal])
 
 
     return (
@@ -71,14 +62,7 @@ const MeaningsObjectsCreator: FC<Props> = ({addMeaningObjToCover, lastState}) =>
             }
 
             <button 
-              onClick={()=> setMeaning(prev => [
-                ...prev, 
-                <MeaningInput 
-                  saveSingleMeaning={saveSingleMeaningToArr}
-                  deleteMeanning={deleteMeaning}
-                />
-              ])}
-            >
+              onClick={()=> setMeaning(prev => [...prev, singleMeaning])}>
               Add meaning fields
             </button>
 
