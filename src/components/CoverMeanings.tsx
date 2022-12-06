@@ -28,16 +28,21 @@ const CoverMeanings: FC<Props> = ({meaningsForAddWord, deleteMeanning}) => {
                 const idxMean = prev.indexOf(targetObj[0])
                 const copyPrev = [...prev]
                 copyPrev[idxMean] = obj
+                // meaningsForAddWord(copyPrev)
                 return copyPrev
             }
+
+            // meaningsForAddWord([...prev, obj])
  
             return [...prev, obj]
         })
+
+ 
     }
 
 
     useEffect(()=> {
-        console.log('PartOfSp', partsOfSpeechArray)
+        meaningsForAddWord(partsOfSpeechArray)
       }, [partsOfSpeechArray])
 
     return (

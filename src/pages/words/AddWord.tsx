@@ -15,6 +15,8 @@ const AddWord = () => {
     const testDelete = (meaningsT: string) => {
       console.log(meaningsT)
     }
+
+    // TODO: DELETE TEMPORARY ID FROM MEANinG
     
     const addNewWord = async () => {
         try {
@@ -32,6 +34,10 @@ const AddWord = () => {
             console.error("Error adding document: ", e);
           }
     }
+
+    useEffect(()=> {
+       console.log('Form', meanings)
+    }, [meanings])
 
     return (
         <section>

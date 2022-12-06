@@ -1,6 +1,7 @@
 import {FC} from 'react'
 import useInput from "../hooks/useInput"
 
+// TODO: Not add new Meaning if it has already been added
 
 interface Props {
     saveSingleMeaning: Function,
