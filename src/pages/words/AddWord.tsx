@@ -2,6 +2,8 @@ import { collection, addDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { db } from "../..";
 import CoverMeanings from "../../components/CoverMeanings";
+import Example from "../../components/wordsForm/Example";
+import ExamplesCreator from "../../components/wordsForm/ExamplesCreator";
 import { Meaning } from '../types/word';
 
 
@@ -54,6 +56,9 @@ const AddWord = () => {
                     setTags(e.target.value)}
                   />
                 </div>
+                <br />
+                <div>Write examples with this word</div>
+                <ExamplesCreator />
                 {/* <input type='text' placeholder="examples" value={examples} onChange={(e)=> setExamples([e.target.value])}/> */}
 
                 <button onClick={addNewWord}>Save a new word </button>
