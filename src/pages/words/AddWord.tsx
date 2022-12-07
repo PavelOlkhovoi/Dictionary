@@ -4,6 +4,7 @@ import { db } from "../..";
 import CoverMeanings from "../../components/CoverMeanings";
 import Example from "../../components/wordsForm/Example";
 import ExamplesCreator from "../../components/wordsForm/ExamplesCreator";
+import TagsCreator from "../../components/wordsForm/tags/TagsCreator";
 import { IExample, Meaning } from '../types/word';
 
 
@@ -50,13 +51,8 @@ const AddWord = () => {
                 </div>
 
                 <CoverMeanings meaningsForAddWord={setMeanings} deleteMeanning={testDelete}/>
-
-                <div>          
-                  <input type='text' placeholder="tags" value={tags} 
-                    onChange={(e)=> 
-                    setTags(e.target.value)}
-                  />
-                </div>
+                <br />
+                <TagsCreator />
                 <br />
                 <div>Write examples with this word</div>
                 <ExamplesCreator attachExamples={setExamples}/>
