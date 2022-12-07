@@ -1,9 +1,13 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, FC} from 'react'
 import { IExample } from '../../pages/types/word';
 import Example from './Example';
 import { copyAndUpdateArrByIndex, isElementInArr } from '../../helpers/manipulateArr';
 
-const ExamplesCreator = () => {
+interface Props {
+    attachExamples: Function
+}
+
+const ExamplesCreator: FC<Props> = ({attachExamples}) => {
     const [examples, setExamples] = useState<IExample[]>([])
     
     const exampleComponent = <Example save={saveExample} deleteExample={deleteExample}/>
@@ -28,7 +32,7 @@ const ExamplesCreator = () => {
 
     
     useEffect(() => {
-        console.log(examples)
+        attachExamples(examples)
     }, [examples])
     return <div>
         {

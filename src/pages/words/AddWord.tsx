@@ -4,7 +4,7 @@ import { db } from "../..";
 import CoverMeanings from "../../components/CoverMeanings";
 import Example from "../../components/wordsForm/Example";
 import ExamplesCreator from "../../components/wordsForm/ExamplesCreator";
-import { Meaning } from '../types/word';
+import { IExample, Meaning } from '../types/word';
 
 
 const AddWord = () => {
@@ -12,13 +12,17 @@ const AddWord = () => {
     const [meanings, setMeanings] = useState<Meaning[]>([])
     const [tags, setTags] = useState('')
 
+    const [examples, setExamples] = useState<IExample[]>([])
+
     const [deletMean, settDeleteMean] = useState('') 
 
+    // TODO: Check if I can delete it
     const testDelete = (meaningsT: string) => {
       console.log(meaningsT)
     }
 
-    // TODO: DELETE TEMPORARY ID FROM MEANinG
+    // TODO: Delete temporary key
+    // TODO: DELETE TEMPORARY ID FROM MEANinG and use new helpers functions to cleare it
     
     const addNewWord = async () => {
         try {
@@ -26,10 +30,7 @@ const AddWord = () => {
               word: word,
               meaning: meanings,
               tags: tags,
-              examples: [{
-                sentence: 'My mother had instigated divorce proceedings.',
-                translation: 'Моя мама спровоцировала процедуру развода'
-            }]
+              examples
             });
             console.log("Document written with ID: ", docRef.id);
           } catch (e) {
@@ -38,8 +39,8 @@ const AddWord = () => {
     }
 
     useEffect(()=> {
-       console.log('Form', meanings)
-    }, [meanings])
+      console.log('Form', examples)
+    }, [examples])
 
     return (
         <section>
@@ -58,7 +59,7 @@ const AddWord = () => {
                 </div>
                 <br />
                 <div>Write examples with this word</div>
-                <ExamplesCreator />
+                <ExamplesCreator attachExamples={setExamples}/>
                 {/* <input type='text' placeholder="examples" value={examples} onChange={(e)=> setExamples([e.target.value])}/> */}
 
                 <button onClick={addNewWord}>Save a new word </button>
