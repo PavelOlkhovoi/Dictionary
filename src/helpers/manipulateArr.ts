@@ -16,3 +16,10 @@ export function copyAndUpdateArrByIndex<T>(arr: T[], idx: number, item: T){
 
         return copy
     }
+
+export function makeArrayWithUniqueWords(array: string[]){
+    const uniqueArray: string[] = [array[0]]
+    array.forEach(word => !uniqueArray.includes(word) && uniqueArray.push(word))
+
+    return uniqueArray
+}

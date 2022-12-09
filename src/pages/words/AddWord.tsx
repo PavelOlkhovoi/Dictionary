@@ -6,12 +6,13 @@ import Example from "../../components/wordsForm/Example";
 import ExamplesCreator from "../../components/wordsForm/ExamplesCreator";
 import TagsCreator from "../../components/wordsForm/tags/TagsCreator";
 import { IExample, Meaning } from '../types/word';
+import { makeArrayWithUniqueWords } from "../../helpers/manipulateArr";
 
 
 const AddWord = () => {
     const [word, setWord] = useState('')
     const [meanings, setMeanings] = useState<Meaning[]>([])
-    const [tags, setTags] = useState('')
+    const [tags, setTags] = useState<string[]>([])
 
     const [examples, setExamples] = useState<IExample[]>([])
 
@@ -21,6 +22,12 @@ const AddWord = () => {
     const testDelete = (meaningsT: string) => {
       console.log(meaningsT)
     }
+
+    function handleAttachTags(tags: string[]){
+      // const clearArray = tags.filter(el => typeof el === 'string' && (el as string).length !== 0)
+      // setTags(makeArrayWithUniqueWords(clearArray))
+      setTags(tags)
+  }
 
     // TODO: Delete temporary key
     // TODO: DELETE TEMPORARY ID FROM MEANinG and use new helpers functions to cleare it
@@ -40,8 +47,8 @@ const AddWord = () => {
     }
 
     useEffect(()=> {
-      console.log('Form', examples)
-    }, [examples])
+      console.log('Form', tags)
+    }, [tags])
 
     return (
         <section>
@@ -52,7 +59,7 @@ const AddWord = () => {
 
                 <CoverMeanings meaningsForAddWord={setMeanings} deleteMeanning={testDelete}/>
                 <br />
-                <TagsCreator />
+                <TagsCreator attachTags={handleAttachTags}/>
                 <br />
                 <div>Write examples with this word</div>
                 <ExamplesCreator attachExamples={setExamples}/>
