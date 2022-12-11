@@ -1,5 +1,5 @@
 import GroupOfWords, { ISingleWord } from "./GroupOfWords"
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 
 const TagsConstructor = () => {
@@ -22,6 +22,8 @@ const TagsConstructor = () => {
             }
         ])
     }  
+
+    // TODO: Write helpers functions to manipulate It
     function deleteTag(tag: ISingleWord){
         const currentTagIdx = tags.indexOf(tag)
         const puereArr = [...tags]
@@ -32,9 +34,26 @@ const TagsConstructor = () => {
         console.log("deleteTag", puereArr[currentTagIdx])
         setAllTags(puereArr)
     }  
+
+    function saveTag(tag: ISingleWord, tagName: string) {
+        const currentTagIdx = tags.indexOf(tag)
+        const puereArr = [...tags]
+
+        puereArr[currentTagIdx] = {
+            ...tag,
+            name: tagName
+        }
+
+        setAllTags(puereArr)
+    }
+
+    useEffect(()=>{
+        console.log('effect Tag', tags)
+    }, [tags])
+
     return (
         <>
-            <GroupOfWords allWords={tags} deleteTag={deleteTag}/>
+            <GroupOfWords allWords={tags} deleteTag={deleteTag} saveTag={saveTag}/>
 
             <button onClick={addTag}>Add tag</button>
 

@@ -10,16 +10,17 @@ export interface ISingleWord {
 
 interface Props {
     allWords: ISingleWord[],
-    deleteTag: Function
+    deleteTag: Function,
+    saveTag: Function
 }
 
-const GroupOfWords: FC<Props> = ({allWords, deleteTag}) => {
+const GroupOfWords: FC<Props> = ({allWords, deleteTag, saveTag}) => {
 
     const rows: JSX.Element[] = []
 
     allWords.forEach(tag => {
         if(tag.isDispaly){
-            rows.push(<SingleWord key={tag.temId} wordData={tag} deleteTag={deleteTag}/>)
+            rows.push(<SingleWord key={tag.temId} wordData={tag} deleteField={deleteTag} saveField={saveTag} place={'tag'}/>)
         }
     })
 
