@@ -13,8 +13,12 @@ const SingleWord: FC<Props> = ({wordData, deleteField, saveField, place}) => {
     const field = useInput(wordData.name)
     return (
         <div>
-            <input placeholder={place} value={field.value} onChange={field.onChange}/>
-            <button onClick={() => saveField(wordData, field.value)}>Save / Update</button>
+            <input 
+                placeholder={place} 
+                value={field.value} 
+                onChange={field.onChange} 
+                onBlur={() => saveField(wordData, field.value)}
+            />
             <button onClick={() => deleteField(wordData)}>Delete</button>
         </div>
     );

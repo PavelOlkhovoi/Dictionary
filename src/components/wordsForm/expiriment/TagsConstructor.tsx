@@ -6,7 +6,6 @@ const TagsConstructor = () => {
     const allTags: ISingleWord = {
         name: '',
         temId: new Date().getTime(),
-        lastName: '',
         isDispaly: true
     }
 
@@ -17,7 +16,6 @@ const TagsConstructor = () => {
             {
                 name: '',
                 temId: new Date().getTime(),
-                lastName: '',
                 isDispaly: true
             }
         ])
@@ -31,7 +29,7 @@ const TagsConstructor = () => {
             ...tag,
             isDispaly: false
         }
-        console.log("deleteTag", puereArr[currentTagIdx])
+
         setAllTags(puereArr)
     }  
 
@@ -47,17 +45,34 @@ const TagsConstructor = () => {
         setAllTags(puereArr)
     }
 
+    function finalData(){
+        const tagsArr: string[] = []
+
+        tags.forEach(tag => {
+            if(tag.isDispaly && tag.name.length !== 0){
+                tagsArr.push(tag.name)
+            }
+        })
+
+        console.log('Final object', tagsArr)
+    }
+
     useEffect(()=>{
         console.log('effect Tag', tags)
     }, [tags])
 
     return (
         <>
-            <GroupOfWords allWords={tags} deleteTag={deleteTag} saveTag={saveTag}/>
+            <GroupOfWords 
+            allWords={tags} 
+            deleteTag={deleteTag} 
+            saveTag={saveTag}
+            title={'All Tags'}
+            />
 
             <button onClick={addTag}>Add tag</button>
 
-            <button>Save this group</button>
+            <button onClick={() => finalData()}>Save this group</button>
         </>
     )
 }
