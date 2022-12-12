@@ -1,22 +1,14 @@
-import {useState} from 'react'
-import GroupOfExamples from './groupOfExamples';
-
-
-export interface IExamples {
-    example: string;
-    translation: string;
-    temId: number;
-    isDisplay: boolean
-}
-
+import {useState, useEffect} from 'react'
+import AbstarctGroup from '../AbstarctGroup';
+import { InputExamples } from '../../../../pages/types/word';
 
 const ExamplesConstructor = () => {
-    const entryExample: IExamples = {
+    const entryExample: InputExamples = {
         example: '',
         translation: '',
         temId: new Date().getTime(),
-        isDisplay: true
     }
+
     const [examples, setExamples] = useState([entryExample])
 
     function addTag(){
@@ -25,29 +17,46 @@ const ExamplesConstructor = () => {
                 example: '',
                 translation: '',
                 temId: new Date().getTime(),
-                isDisplay: true
             }
         ])
     }  
 
         // TODO: Write helpers functions to manipulate It
-        function deleteExample(example: IExamples){
-            const currentTagIdx = examples.indexOf(example)
-            const puereArr = [...examples]
-            puereArr[currentTagIdx] = {
+        function deleteExample(example: InputExamples){
+            const currentIdx = examples.indexOf(example)
+            const pureArr = [...examples]
+
+            pureArr.splice(currentIdx, 1)
+    
+            setExamples(pureArr)
+        }
+
+        function saveField(example: InputExamples, newExample: string, newTranslation: string){
+            const currentIdx = examples.indexOf(example)
+            const pureArr = [...examples]
+
+            pureArr[currentIdx] = {
                 ...example,
-                isDisplay: false
+                example: newExample,
+                translation: newTranslation
             }
+
+            setExamples(pureArr)
+        }
     
-            setExamples(puereArr)
-        }  
-    
+        useEffect(() => {
+            console.log('Ex Constr', examples)
+            
+
+        }, [examples])
 
     return (
         <>
-            <GroupOfExamples
-            allExamples={examples} 
-            deleteExample={deleteExample}
+            <AbstarctGroup 
+                fieldsObject={examples} 
+                typeOfField={'examples'}
+                deleteField={deleteExample}
+                saveField={saveField}
             />
 
             <button onClick={addTag}>Add new Example</button>

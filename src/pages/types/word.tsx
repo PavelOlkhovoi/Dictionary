@@ -8,3 +8,9 @@ export interface IExample {
     sentence: string;
     translation: string;
 }
+
+export interface InputExamples {
+    example: string;
+    translation: string;
+    temId: number;
+}
