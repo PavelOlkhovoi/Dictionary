@@ -1,10 +1,10 @@
-import GroupOfWords from "./GroupOfWords"
 import {useState, useEffect} from 'react'
 import { ISingleWord } from "../../../pages/types/word"
 import AbstarctGroup from "./AbstarctGroup"
 
 
 const TagsConstructor = () => {
+    
     const allTags: ISingleWord = {
         name: '',
         temId: new Date().getTime(),
@@ -63,6 +63,7 @@ const TagsConstructor = () => {
                 typeOfField={'single'}
                 deleteField={deleteTag}
                 saveField={saveTag}
+                place={'tag'}
             />
 
             <button onClick={addTag}>Add tag</button>

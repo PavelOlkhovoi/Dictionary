@@ -1,16 +1,18 @@
 import SingleExample from './examples/SingleExample'
-import { ISingleWord } from '../../../pages/types/word';
+import { ISingleWord, Meaning } from '../../../pages/types/word';
 import { InputExamples } from '../../../pages/types/word';
 import SingleWord from './SingleWord';
+import SingleMeaningConstructor from './meanings/SingleMeaningConstructor';
 
 interface Props {
-    typeOfField: 'examples' | 'single';
-    fieldsObject: InputExamples[] | ISingleWord[];
+    typeOfField: 'examples' | 'single' | 'meanings';
+    fieldsObject: InputExamples[] | ISingleWord[] | Meaning[];
     deleteField: Function;
-    saveField: Function
+    saveField?: Function;
+    place?: string
 }
 
-const AbstarctGroup = ({fieldsObject, typeOfField, deleteField, saveField}: Props) => {
+const AbstarctGroup = ({fieldsObject, typeOfField, deleteField, saveField, place}: Props) => {
     
     const rows: JSX.Element[] = []
 
@@ -20,7 +22,7 @@ const AbstarctGroup = ({fieldsObject, typeOfField, deleteField, saveField}: Prop
                 key={item.temId}
                 deleteField={deleteField}
                 fieldObject={item}
-                saveField={saveField}
+                saveField={(saveField as Function)}
             />)
         })
     }
@@ -31,8 +33,16 @@ const AbstarctGroup = ({fieldsObject, typeOfField, deleteField, saveField}: Prop
                 key={item.temId}
                 deleteField={deleteField}
                 wordData={item}
-                saveField={saveField}
-                place={'tag'}
+                saveField={(saveField as Function)}
+                place={(place as string)}
+            />)
+        })
+    }
+
+    if(typeOfField === 'meanings'){
+        (fieldsObject as Meaning[]).forEach((item, idx) => {
+            rows.push(<SingleMeaningConstructor
+                key={(idx)}
             />)
         })
     }
