@@ -13,8 +13,8 @@ const SingleExample: FC<Props> = ({deleteField, fieldObject, saveField}) => {
     const translation = useInput('')
     return (
         <div>
-            <input value={example.value} onChange={example.onChange} />
-            <input value={translation.value} onChange={translation.onChange} />
+            <input value={example.value} onChange={example.onChange} placeholder="example"/>
+            <input value={translation.value} onChange={translation.onChange} placeholder="translation"/>
             <button onClick={()=> saveField(fieldObject, example.value, translation.value)}>Save Example</button>
             <button onClick={()=> deleteField(fieldObject)}>Delete Example</button>
         </div>

@@ -1,12 +1,13 @@
-import GroupOfWords, { ISingleWord } from "./GroupOfWords"
+import GroupOfWords from "./GroupOfWords"
 import {useState, useEffect} from 'react'
+import { ISingleWord } from "../../../pages/types/word"
+import AbstarctGroup from "./AbstarctGroup"
 
 
 const TagsConstructor = () => {
     const allTags: ISingleWord = {
         name: '',
         temId: new Date().getTime(),
-        isDispaly: true
     }
 
     const [tags, setAllTags] = useState<ISingleWord[]>([allTags])
@@ -16,7 +17,6 @@ const TagsConstructor = () => {
             {
                 name: '',
                 temId: new Date().getTime(),
-                isDispaly: true
             }
         ])
     }  
@@ -24,13 +24,10 @@ const TagsConstructor = () => {
     // TODO: Write helpers functions to manipulate It
     function deleteTag(tag: ISingleWord){
         const currentTagIdx = tags.indexOf(tag)
-        const puereArr = [...tags]
-        puereArr[currentTagIdx] = {
-            ...tag,
-            isDispaly: false
-        }
+        const pureArr = [...tags]
+        pureArr.splice(currentTagIdx, 1)
 
-        setAllTags(puereArr)
+        setAllTags(pureArr)
     }  
 
     function saveTag(tag: ISingleWord, tagName: string) {
@@ -49,9 +46,7 @@ const TagsConstructor = () => {
         const tagsArr: string[] = []
 
         tags.forEach(tag => {
-            if(tag.isDispaly && tag.name.length !== 0){
-                tagsArr.push(tag.name)
-            }
+            tagsArr.push(tag.name)
         })
 
         console.log('Final object', tagsArr)
@@ -63,11 +58,11 @@ const TagsConstructor = () => {
 
     return (
         <>
-            <GroupOfWords 
-            allWords={tags} 
-            deleteTag={deleteTag} 
-            saveTag={saveTag}
-            title={'All Tags'}
+            <AbstarctGroup 
+                fieldsObject={tags}
+                typeOfField={'single'}
+                deleteField={deleteTag}
+                saveField={saveTag}
             />
 
             <button onClick={addTag}>Add tag</button>

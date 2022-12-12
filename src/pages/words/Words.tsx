@@ -1,4 +1,5 @@
 import ExamplesConstructor from "../../components/wordsForm/expiriment/examples/ExamplesConstructor";
+import TagsConstructor from "../../components/wordsForm/expiriment/TagsConstructor";
 
 
 const Words = () => {
@@ -8,7 +9,10 @@ const Words = () => {
             maxWidth: '600px',
             margin: '0 auto'
         }}>
-            {/* <TagsConstructor /> */}
+            <TagsConstructor />
+            <br />
+            <br />
+            <br />
             <ExamplesConstructor/>
         </div>
     );

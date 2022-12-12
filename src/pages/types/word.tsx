@@ -14,3 +14,8 @@ export interface InputExamples {
     translation: string;
     temId: number;
 }
+
+export interface ISingleWord {
+    name: string;
+    temId: number;
+}

@@ -1,9 +1,10 @@
 import SingleExample from './examples/SingleExample'
-import { ISingleWord } from './GroupOfWords';
+import { ISingleWord } from '../../../pages/types/word';
 import { InputExamples } from '../../../pages/types/word';
+import SingleWord from './SingleWord';
 
 interface Props {
-    typeOfField: 'examples' | 'simple';
+    typeOfField: 'examples' | 'single';
     fieldsObject: InputExamples[] | ISingleWord[];
     deleteField: Function;
     saveField: Function
@@ -20,6 +21,18 @@ const AbstarctGroup = ({fieldsObject, typeOfField, deleteField, saveField}: Prop
                 deleteField={deleteField}
                 fieldObject={item}
                 saveField={saveField}
+            />)
+        })
+    }
+
+    if(typeOfField === 'single'){
+        (fieldsObject as ISingleWord[]).forEach(item => {
+            rows.push(<SingleWord
+                key={item.temId}
+                deleteField={deleteField}
+                wordData={item}
+                saveField={saveField}
+                place={'tag'}
             />)
         })
     }

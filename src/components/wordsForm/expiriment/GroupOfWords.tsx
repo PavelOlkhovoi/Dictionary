@@ -1,11 +1,7 @@
 import SingleWord from "./SingleWord";
 import { FC } from "react";
+import { ISingleWord } from "../../../pages/types/word";
 
-export interface ISingleWord {
-    name: string;
-    temId: number;
-    isDispaly: boolean
-}
 
 interface Props {
     allWords: ISingleWord[],
@@ -19,8 +15,7 @@ const GroupOfWords: FC<Props> = ({allWords, deleteTag, saveTag, title}) => {
     const rows: JSX.Element[] = []
 
     allWords.forEach(tag => {
-        if(tag.isDispaly){
-            rows.push(
+        rows.push(
             <SingleWord 
             key={tag.temId} 
             wordData={tag} 
@@ -28,7 +23,6 @@ const GroupOfWords: FC<Props> = ({allWords, deleteTag, saveTag, title}) => {
             saveField={saveTag} 
             place={'tag'}
             />)
-        }
     })
 
     return (
