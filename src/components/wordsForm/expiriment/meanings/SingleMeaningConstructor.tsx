@@ -1,20 +1,25 @@
 import AbstarctGroup from "../AbstarctGroup";
-import { ISingleWord } from "../../../../pages/types/word";
-import {useState} from 'react'
+import { GruopedMeaning, ISingleWord, Meaning } from "../../../../pages/types/word";
+import {useState, useEffect} from 'react'
 import useInput from "../../../../hooks/useInput";
 
+interface Props {
+    deleteGroup: Function;
+    singleGroup: Meaning;
+    saveGroupedMeaning: Function;
+    groupId: number,
+}
 
-const SingleMeaningConstructor = () => {
+const SingleMeaningConstructor = ({deleteGroup, saveGroupedMeaning, singleGroup, groupId}: Props) => {
 
     const partOfSpeech = useInput('nothing')
 
-    // TODO: Rename this tag and check speling in other places
-    const allTags: ISingleWord = {
+    const allMeanings: ISingleWord = {
         name: '',
         temId: new Date().getTime(),
     }
 
-    const [meaningFields, setMeaningFields] = useState<ISingleWord[]>([allTags])
+    const [meaningFields, setMeaningFields] = useState<ISingleWord[]>([allMeanings])
 
     function addMeaning(){
         setMeaningFields(prev => [ ...prev,
@@ -25,7 +30,6 @@ const SingleMeaningConstructor = () => {
         ])
     }  
 
-        // TODO: Write helpers functions to manipulate It
         function deleteMeaning(meaning: ISingleWord){
             const currentTagIdx = meaningFields.indexOf(meaning)
             const pureArr = [...meaningFields]
@@ -37,23 +41,37 @@ const SingleMeaningConstructor = () => {
         function saveMeaning(meaning: ISingleWord, newName: string) {
             const currentTagIdx = meaningFields.indexOf(meaning)
             const puereArr = [...meaningFields]
-    
             puereArr[currentTagIdx] = {
                 ...meaning,
                 name: newName
             }
     
             setMeaningFields(puereArr)
+
         }
 
         function saveGroup(){
-            const mergedObj =  {
-                [partOfSpeech.value]: meaningFields
+            // const meaningsArr: string[] = []
+            // meaningFields.forEach(meaning => {
+            //     meaning.name.length !== 0 && meaningsArr.push(meaning.name)
+            // })
+
+            const testM: Meaning = {
+                tempId: singleGroup.tempId,
+                [partOfSpeech.value]: meaningFields.map(m => m.name)
             }
 
-            console.log('Meanig obg', mergedObj)
-            return mergedObj
+            // singleGroup[partOfSpeech.value] = meaningFields.map(m => m.name)
+
+
+
+            saveGroupedMeaning(testM)
+
         }
+
+        useEffect(()=> {
+                console.log('Single Meaning Group IDX', groupId)
+        }, [meaningFields])
 
 
     return (
@@ -70,6 +88,7 @@ const SingleMeaningConstructor = () => {
             />
 
             <button onClick={addMeaning}>Add field</button>
+            <button onClick={() => deleteGroup(singleGroup)}>Delete Gruop</button>
             <button onClick={saveGroup}>Save group</button>
             <br />
         </div>

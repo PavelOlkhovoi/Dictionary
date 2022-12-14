@@ -1,14 +1,25 @@
-import { Meaning } from "../../../../pages/types/word";
-import {useState} from 'react'
+import { GruopedMeaning, Meaning } from "../../../../pages/types/word";
+import {useState, useEffect} from 'react'
 import AbstarctGroup from "../AbstarctGroup";
 
+interface Props {
+    idx: number;
+}
 
-const MeaningsConstructor = () => {
+const MeaningsConstructor = ({idx}: Props) => {
     const singleMeaning: Meaning  = {
         tempId: new Date().getTime(),
     }
 
+    // const [teastMeanIdx, setTeastMeanIdx] = useState<Meaning[]>([{
+    //     tempId: new Date().getTime()
+    // }])
+
+
+
     const [meaningsFields, setMeaningsFields] = useState<Meaning[]>([singleMeaning])
+
+
 
     function addMeaning(){
         setMeaningsFields(prev => [ ...prev,
@@ -16,27 +27,36 @@ const MeaningsConstructor = () => {
                 tempId: new Date().getTime(),
             }
         ])
+
     }
 
-    function deleteMeaning(meaning: Meaning){
-        const currentTagIdx = meaningsFields.indexOf(meaning)
+    function deleteMeaningGroup(meaning: Meaning){
+        const deletedArr = meaningsFields.filter(m => m.tempId !== meaning.tempId)
+
+        console.log('Delete Group', deletedArr)
+
+        // const currentTagIdx = meaningsFields.indexOf(meaning)
+        // const pureArr = [...meaningsFields]
+        // pureArr.splice(currentTagIdx, 1)
+
+        setMeaningsFields(deletedArr)
+    }
+
+    function saveMeaningGroup(singleGroup: Meaning) {
+        // const idx = meaningsFields.indexOf(singleGroup)
+        const targetIndex = meaningsFields.filter(m => m.tempId === singleGroup.tempId)
+        const idx = meaningsFields.indexOf(targetIndex[0])
+        console.log('Meanings Group', idx)
         const pureArr = [...meaningsFields]
-        pureArr.splice(currentTagIdx, 1)
+        pureArr[idx] = singleGroup
 
         setMeaningsFields(pureArr)
+
     }
 
-    function saveMeaning(meaning: Meaning, newName: string) {
-        const currentTagIdx = meaningsFields.indexOf(meaning)
-        const puereArr = [...meaningsFields]
-
-        // puereArr[currentTagIdx] = {
-        //     ...meaning,
-        //     name: newName
-        // }
-
-        setMeaningsFields(puereArr)
-    }
+    useEffect(() => {
+        console.log("MeanigsFields", meaningsFields)
+    }, [meaningsFields])
 
 
     return (
@@ -47,7 +67,9 @@ const MeaningsConstructor = () => {
             <AbstarctGroup 
                 fieldsObject={meaningsFields}
                 typeOfField={'meanings'}
-                deleteField={deleteMeaning}
+                deleteField={deleteMeaningGroup}
+                saveField={saveMeaningGroup}
+                groupId={idx}
             />
 
             <button onClick={addMeaning}>Add new Meaning</button>

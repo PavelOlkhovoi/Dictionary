@@ -1,5 +1,10 @@
 export interface Meaning {
     tempId: number;
+    [index: string]: string[] | number ;
+}
+
+export interface GruopedMeaning {
+    tempId: number;
     [index: string]: string[] | number;
 }
 

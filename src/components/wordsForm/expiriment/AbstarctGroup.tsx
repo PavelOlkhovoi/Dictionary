@@ -10,9 +10,10 @@ interface Props {
     deleteField: Function;
     saveField?: Function;
     place?: string
+    groupId?: number,
 }
 
-const AbstarctGroup = ({fieldsObject, typeOfField, deleteField, saveField, place}: Props) => {
+const AbstarctGroup = ({fieldsObject, typeOfField, deleteField, saveField, place, groupId}: Props) => {
     
     const rows: JSX.Element[] = []
 
@@ -22,7 +23,7 @@ const AbstarctGroup = ({fieldsObject, typeOfField, deleteField, saveField, place
                 key={item.temId}
                 deleteField={deleteField}
                 fieldObject={item}
-                saveField={(saveField as Function)}
+                saveField={saveField as Function}
             />)
         })
     }
@@ -33,16 +34,20 @@ const AbstarctGroup = ({fieldsObject, typeOfField, deleteField, saveField, place
                 key={item.temId}
                 deleteField={deleteField}
                 wordData={item}
-                saveField={(saveField as Function)}
+                saveField={saveField as Function}
                 place={(place as string)}
             />)
         })
     }
 
     if(typeOfField === 'meanings'){
-        (fieldsObject as Meaning[]).forEach((item, idx) => {
+        (fieldsObject as Meaning[]).forEach(item => {
             rows.push(<SingleMeaningConstructor
-                key={(idx)}
+                key={(item.tempId)}
+                singleGroup={item}
+                deleteGroup={deleteField}
+                saveGroupedMeaning={saveField as Function}
+                groupId={groupId as number}
             />)
         })
     }
