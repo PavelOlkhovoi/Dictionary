@@ -1,7 +1,7 @@
 import AbstarctGroup from "../AbstarctGroup";
-import { GruopedMeaning, ISingleWord, Meaning } from "../../../../pages/types/word";
+import { GruopedMeaning, ISingleWord, Meaning } from "../../../pages/types/word";
 import {useState, useEffect} from 'react'
-import useInput from "../../../../hooks/useInput";
+import useInput from "../../../hooks/useInput";
 
 interface Props {
     deleteGroup: Function;

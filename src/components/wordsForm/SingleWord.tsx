@@ -1,6 +1,6 @@
 import {FC} from 'react'
-import useInput from '../../../hooks/useInput';
-import { ISingleWord } from '../../../pages/types/word';
+import useInput from '../../hooks/useInput';
+import { ISingleWord } from '../../pages/types/word';
 
 interface Props {
     wordData: ISingleWord,

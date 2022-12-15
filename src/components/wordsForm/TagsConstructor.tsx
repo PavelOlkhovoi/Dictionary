@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import { ISingleWord } from "../../../pages/types/word"
+import { ISingleWord } from "../../pages/types/word"
 import AbstarctGroup from "./AbstarctGroup"
 
 

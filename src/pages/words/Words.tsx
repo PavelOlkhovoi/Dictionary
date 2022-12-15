@@ -1,6 +1,6 @@
-import ExamplesConstructor from "../../components/wordsForm/expiriment/examples/ExamplesConstructor";
-import MeaningsConstructor from "../../components/wordsForm/expiriment/meanings/MeaningsConstructor";
-import TagsConstructor from "../../components/wordsForm/expiriment/TagsConstructor";
+import ExamplesConstructor from "../../components/wordsForm/examples/ExamplesConstructor";
+import MeaningsConstructor from "../../components/wordsForm/meanings/MeaningsConstructor";
+import TagsConstructor from "../../components/wordsForm/TagsConstructor";
 
 
 const Words = () => {

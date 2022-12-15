@@ -1,6 +1,6 @@
 import SingleExample from './examples/SingleExample'
-import { ISingleWord, Meaning } from '../../../pages/types/word';
-import { InputExamples } from '../../../pages/types/word';
+import { ISingleWord, Meaning } from '../../pages/types/word';
+import { InputExamples } from '../../pages/types/word';
 import SingleWord from './SingleWord';
 import SingleMeaningConstructor from './meanings/SingleMeaningConstructor';
 

@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import AbstarctGroup from '../AbstarctGroup';
-import { InputExamples } from '../../../../pages/types/word';
+import { InputExamples } from '../../../pages/types/word';
 
 const ExamplesConstructor = () => {
     const entryExample: InputExamples = {

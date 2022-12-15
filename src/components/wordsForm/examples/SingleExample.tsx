@@ -1,6 +1,6 @@
-import useInput from "../../../../hooks/useInput";
+import useInput from "../../../hooks/useInput";
 import {FC} from 'react'
-import { InputExamples } from "../../../../pages/types/word";
+import { InputExamples } from "../../../pages/types/word";
 
 interface Props {
     deleteField: Function;

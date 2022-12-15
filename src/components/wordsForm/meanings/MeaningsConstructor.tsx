@@ -1,4 +1,4 @@
-import { Meaning } from "../../../../pages/types/word";
+import { Meaning } from "../../../pages/types/word";
 import {useState, useEffect} from 'react'
 import AbstarctGroup from "../AbstarctGroup";
 
