@@ -1,9 +1,12 @@
 import { Meaning } from "../../../pages/types/word";
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import AbstarctGroup from "../AbstarctGroup";
 
+interface Props {
+    attachToForm: Function
+}
 
-const MeaningsConstructor = () => {
+const MeaningsConstructor = ({attachToForm}: Props) => {
     const singleMeaning: Meaning  = {
         tempId: new Date().getTime(),
     }
@@ -22,6 +25,8 @@ const MeaningsConstructor = () => {
     function deleteMeaningGroup(meaning: Meaning){
         const deletedArr = meaningsFields.filter(m => m.tempId !== meaning.tempId)
         setMeaningsFields(deletedArr)
+
+        attachToForm(deletedArr)
     }
 
     function saveMeaningGroup(singleGroup: Meaning) {
@@ -32,11 +37,10 @@ const MeaningsConstructor = () => {
 
         setMeaningsFields(pureArr)
 
+        attachToForm(pureArr)
+
     }
 
-    useEffect(() => {
-        console.log("MeanigsFields", meaningsFields)
-    }, [meaningsFields])
 
 
     return (

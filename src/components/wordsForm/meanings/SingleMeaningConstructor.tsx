@@ -1,12 +1,13 @@
 import AbstarctGroup from "../AbstarctGroup";
-import { GruopedMeaning, ISingleWord, Meaning } from "../../../pages/types/word";
-import {useState, useEffect} from 'react'
+import { ISingleWord, Meaning } from "../../../pages/types/word";
+import { useState } from 'react'
 import useInput from "../../../hooks/useInput";
 
 interface Props {
     deleteGroup: Function;
     singleGroup: Meaning;
     saveGroupedMeaning: Function;
+    // TODO: Delete IT
     groupId: number,
 }
 
@@ -51,7 +52,7 @@ const SingleMeaningConstructor = ({deleteGroup, saveGroupedMeaning, singleGroup,
 
         function saveGroup(){
             const addedSingleGroup: Meaning = {
-                tempId: singleGroup.tempId,
+                tempId: singleGroup.tempId as number,
                 [partOfSpeech.value]: meaningFields.map(m => m.name)
             }
 

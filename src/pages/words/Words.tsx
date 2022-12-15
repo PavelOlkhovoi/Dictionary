@@ -10,7 +10,7 @@ const Words = () => {
             maxWidth: '600px',
             margin: '0 auto'
         }}>
-            <MeaningsConstructor />
+            {/* <MeaningsConstructor /> */}
             <br />
             <br />
             <br />

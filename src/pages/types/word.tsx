@@ -3,9 +3,9 @@ export interface Meaning {
     [index: string]: string[] | number ;
 }
 
-export interface GruopedMeaning {
-    tempId: number;
-    [index: string]: string[] | number;
+export interface MeanigsForServer {
+    // tempId: number;
+    [index: string]: string[]
 }
 
 export interface IExample {

@@ -20,7 +20,7 @@ const AbstarctGroup = ({fieldsObject, typeOfField, deleteField, saveField, place
     if(typeOfField === 'examples'){
         (fieldsObject as InputExamples[]).forEach(item => {
             rows.push(<SingleExample 
-                key={item.temId}
+                key={item.temId as number}
                 deleteField={deleteField}
                 fieldObject={item}
                 saveField={saveField as Function}
@@ -31,7 +31,7 @@ const AbstarctGroup = ({fieldsObject, typeOfField, deleteField, saveField, place
     if(typeOfField === 'single'){
         (fieldsObject as ISingleWord[]).forEach(item => {
             rows.push(<SingleWord
-                key={item.temId}
+                key={item.temId as number}
                 deleteField={deleteField}
                 wordData={item}
                 saveField={saveField as Function}
@@ -43,7 +43,7 @@ const AbstarctGroup = ({fieldsObject, typeOfField, deleteField, saveField, place
     if(typeOfField === 'meanings'){
         (fieldsObject as Meaning[]).forEach(item => {
             rows.push(<SingleMeaningConstructor
-                key={(item.tempId)}
+                key={item.tempId as number}
                 singleGroup={item}
                 deleteGroup={deleteField}
                 saveGroupedMeaning={saveField as Function}
