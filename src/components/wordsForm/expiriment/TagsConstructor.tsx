@@ -53,7 +53,7 @@ const TagsConstructor = () => {
     }
 
     useEffect(()=>{
-        console.log('effect Tag', tags)
+        // console.log('effect Tag', tags)
     }, [tags])
 
     return (

@@ -47,31 +47,16 @@ const SingleMeaningConstructor = ({deleteGroup, saveGroupedMeaning, singleGroup,
             }
     
             setMeaningFields(puereArr)
-
         }
 
         function saveGroup(){
-            // const meaningsArr: string[] = []
-            // meaningFields.forEach(meaning => {
-            //     meaning.name.length !== 0 && meaningsArr.push(meaning.name)
-            // })
-
-            const testM: Meaning = {
+            const addedSingleGroup: Meaning = {
                 tempId: singleGroup.tempId,
                 [partOfSpeech.value]: meaningFields.map(m => m.name)
             }
 
-            // singleGroup[partOfSpeech.value] = meaningFields.map(m => m.name)
-
-
-
-            saveGroupedMeaning(testM)
-
+            saveGroupedMeaning(addedSingleGroup)
         }
-
-        useEffect(()=> {
-                console.log('Single Meaning Group IDX', groupId)
-        }, [meaningFields])
 
 
     return (

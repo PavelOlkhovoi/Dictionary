@@ -1,6 +1,5 @@
 import ExamplesConstructor from "../../components/wordsForm/expiriment/examples/ExamplesConstructor";
 import MeaningsConstructor from "../../components/wordsForm/expiriment/meanings/MeaningsConstructor";
-import MeaningsCover from "../../components/wordsForm/expiriment/meanings/MeaningsCover";
 import TagsConstructor from "../../components/wordsForm/expiriment/TagsConstructor";
 
 
@@ -11,7 +10,7 @@ const Words = () => {
             maxWidth: '600px',
             margin: '0 auto'
         }}>
-            <MeaningsCover />
+            <MeaningsConstructor />
             <br />
             <br />
             <br />

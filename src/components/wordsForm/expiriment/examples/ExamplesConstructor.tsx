@@ -45,9 +45,7 @@ const ExamplesConstructor = () => {
         }
     
         useEffect(() => {
-            console.log('Ex Constr', examples)
-            
-
+            // console.log('Ex Constr', examples)
         }, [examples])
 
     return (
