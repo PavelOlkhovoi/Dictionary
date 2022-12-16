@@ -14,11 +14,11 @@ const Words = () => {
             <br />
             <br />
             <br />
-            <TagsConstructor />
+            {/* <TagsConstructor /> */}
             <br />
             <br />
             <br />
-            <ExamplesConstructor/>
+            {/* <ExamplesConstructor/> */}
         </div>
     );
 }

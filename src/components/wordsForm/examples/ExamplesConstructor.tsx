@@ -2,7 +2,11 @@ import {useState, useEffect} from 'react'
 import AbstarctGroup from '../AbstarctGroup';
 import { InputExamples } from '../../../pages/types/word';
 
-const ExamplesConstructor = () => {
+interface Props {
+    attachExamples: Function
+}
+
+const ExamplesConstructor = ({attachExamples}: Props) => {
     const entryExample: InputExamples = {
         example: '',
         translation: '',
@@ -11,7 +15,7 @@ const ExamplesConstructor = () => {
 
     const [examples, setExamples] = useState([entryExample])
 
-    function addTag(){
+    function addExample(){
         setExamples(prev => [ ...prev,
             {
                 example: '',
@@ -29,6 +33,8 @@ const ExamplesConstructor = () => {
             pureArr.splice(currentIdx, 1)
     
             setExamples(pureArr)
+
+            attachExamples(pureArr)
         }
 
         function saveField(example: InputExamples, newExample: string, newTranslation: string){
@@ -42,11 +48,13 @@ const ExamplesConstructor = () => {
             }
 
             setExamples(pureArr)
+
+            attachExamples(pureArr)
         }
     
-        useEffect(() => {
-            // console.log('Ex Constr', examples)
-        }, [examples])
+        // useEffect(() => {
+        //     console.log('Ex Constr', examples)
+        // }, [examples])
 
     return (
         <>
@@ -57,7 +65,7 @@ const ExamplesConstructor = () => {
                 saveField={saveField}
             />
 
-            <button onClick={addTag}>Add new Example</button>
+            <button onClick={addExample}>Add new Example</button>
         </>
     )
 }

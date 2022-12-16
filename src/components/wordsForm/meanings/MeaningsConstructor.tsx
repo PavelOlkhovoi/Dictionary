@@ -45,8 +45,6 @@ const MeaningsConstructor = ({attachToForm}: Props) => {
 
     return (
         <div>
-            <br />
-            <br />
             <AbstarctGroup 
                 fieldsObject={meaningsFields}
                 typeOfField={'meanings'}

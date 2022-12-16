@@ -2,8 +2,11 @@ import {useState, useEffect} from 'react'
 import { ISingleWord } from "../../pages/types/word"
 import AbstarctGroup from "./AbstarctGroup"
 
+interface Props {
+    attachTag: Function
+}
 
-const TagsConstructor = () => {
+const TagsConstructor = ({attachTag}: Props) => {
     
     const allTags: ISingleWord = {
         name: '',
@@ -28,18 +31,22 @@ const TagsConstructor = () => {
         pureArr.splice(currentTagIdx, 1)
 
         setAllTags(pureArr)
+
+        attachTag(pureArr)
     }  
 
     function saveTag(tag: ISingleWord, tagName: string) {
         const currentTagIdx = tags.indexOf(tag)
-        const puereArr = [...tags]
+        const pureArr = [...tags]
 
-        puereArr[currentTagIdx] = {
+        pureArr[currentTagIdx] = {
             ...tag,
             name: tagName
         }
 
-        setAllTags(puereArr)
+        setAllTags(pureArr)
+
+        attachTag(pureArr)
     }
 
     function finalData(){
@@ -52,9 +59,9 @@ const TagsConstructor = () => {
         console.log('Final object', tagsArr)
     }
 
-    useEffect(()=>{
-        // console.log('effect Tag', tags)
-    }, [tags])
+    // useEffect(()=>{
+    //     console.log('effect Tag', tags)
+    // }, [tags])
 
     return (
         <>

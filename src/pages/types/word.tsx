@@ -4,13 +4,11 @@ export interface Meaning {
 }
 
 export interface MeanigsForServer {
-    // tempId: number;
     [index: string]: string[]
 }
 
-export interface IExample {
-    temId: number;
-    sentence: string;
+export interface ExampleForServer {
+    example: string;
     translation: string;
 }
 
@@ -24,3 +22,7 @@ export interface ISingleWord {
     name: string;
     temId: number;
 }
+
+// export type SingleWordForServer {
+//     name: string;
+// }
