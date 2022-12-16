@@ -1,9 +1,10 @@
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 import { useEffect, useState } from 'react';
+import { auth } from "..";
+
+const provider = new GoogleAuthProvider();
 
 const Home = () => {
-    const provider = new GoogleAuthProvider();
-const auth = getAuth();
 const user = auth.currentUser;
 
 const [activeUser, setActiveUser] = useState(user)

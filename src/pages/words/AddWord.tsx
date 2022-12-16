@@ -1,23 +1,27 @@
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc, serverTimestamp } from "firebase/firestore"; 
 import { useState, useEffect } from "react";
-import { db } from "../..";
+import { db, auth } from "../..";
 import ExamplesConstructor from "../../components/wordsForm/examples/ExamplesConstructor";
 import MeaningsConstructor from "../../components/wordsForm/meanings/MeaningsConstructor";
 import TagsConstructor from "../../components/wordsForm/TagsConstructor";
 import {ISingleWord, MeanigsForServer, Meaning, InputExamples, ExampleForServer } from '../types/word';
 import useInput from "../../hooks/useInput";
+import { NavLink } from "react-router-dom";
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 
 const AddWord = () => {
-    
     const word = useInput('')
     const [meanings, setMeanings] = useState<MeanigsForServer[]>([])
     const [examples, setExamples] = useState<ExampleForServer[]>([])
     const [tags, setTags] = useState<string[]>([])
+
+    const [user, loading, error] = useAuthState(auth);
     
     const addNewWord = async () => {
         try {
             const docRef = await addDoc(collection(db, "testWords"), {
+              uid: user?.uid ? user.uid : '12345',
               word: word.value,
               meaning: meanings,
               tags,
@@ -25,7 +29,8 @@ const AddWord = () => {
               level: 'low',
               points: 0,
               priority: 'low',
-              repeat: true
+              repeat: true,
+              createdAt: serverTimestamp()
             });
             console.log("Document written with ID: ", docRef.id);
           } catch (e) {
@@ -87,12 +92,11 @@ const AddWord = () => {
   }, [word])
 
     return (
-        <section>
-            <div style={{
-                maxWidth: '600px',
-                margin: '0 auto'
-                }}
-            >
+        <section style={{
+          maxWidth: '600px',
+          margin: '0 auto'
+          }}>
+            <div>
               <input value={word.value} onChange={word.onChange} placeholder={'Word'}/>
                 <MeaningsConstructor attachToForm={handleMeanings}/>
                 <br />
@@ -103,6 +107,8 @@ const AddWord = () => {
                 <ExamplesConstructor attachExamples={handleExamples}/>
                 <button onClick={addNewWord}>Save a new word </button>
             </div>
+            <br />
+            <NavLink to='/addwords'>Add a new word</NavLink>
         </section>
     );
 }
