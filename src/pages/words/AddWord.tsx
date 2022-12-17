@@ -38,6 +38,18 @@ const AddWord = () => {
           }
     }
 
+    const addTags = async (tag: string) => {
+      try {
+          const docRef = await addDoc(collection(db, "tags"), {
+            uid: user?.uid ? user.uid : '12345',
+            tag
+          });
+          console.log("Tag Document written with ID: ", docRef.id);
+        } catch (e) {
+          console.error("Error adding document: ", e);
+        }
+  }
+
     function handleMeanings(meaningsGroup: Meaning[]){
       const pure: MeanigsForServer[] = []
 
@@ -70,8 +82,10 @@ const AddWord = () => {
     }
 
     function handleTag(tagsArr: ISingleWord[]){
-        setTags([...tagsArr].map(t => t.name))
-
+        setTags([...tagsArr].map(t => {
+          addTags(t.name)
+        return t.name
+        }))
     }
 
 
