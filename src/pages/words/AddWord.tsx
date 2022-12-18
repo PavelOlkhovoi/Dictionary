@@ -1,6 +1,6 @@
-import { collection, addDoc, serverTimestamp } from "firebase/firestore"; 
+import { collection, addDoc, serverTimestamp, getFirestore, doc, getDocs } from "firebase/firestore"; 
 import { useState, useEffect } from "react";
-import { db, auth } from "../..";
+import { db, auth, app } from "../..";
 import ExamplesConstructor from "../../components/wordsForm/examples/ExamplesConstructor";
 import MeaningsConstructor from "../../components/wordsForm/meanings/MeaningsConstructor";
 import TagsConstructor from "../../components/wordsForm/TagsConstructor";
@@ -9,6 +9,8 @@ import useInput from "../../hooks/useInput";
 import { NavLink } from "react-router-dom";
 import { useAuthState } from 'react-firebase-hooks/auth';
 
+import { useCollectionData, useDocument } from 'react-firebase-hooks/firestore';
+
 
 const AddWord = () => {
     const word = useInput('')
@@ -16,7 +18,14 @@ const AddWord = () => {
     const [examples, setExamples] = useState<ExampleForServer[]>([])
     const [tags, setTags] = useState<string[]>([])
 
+    const [tagsId, setTagsId] = useState<string[]>([])
+
     const [user, loading, error] = useAuthState(auth);
+
+    const [oldTags, loadingTag, errorTag] = useCollectionData(
+        collection(db, "tags")
+    );
+
     
     const addNewWord = async () => {
         try {
@@ -39,15 +48,26 @@ const AddWord = () => {
     }
 
     const addTags = async (tag: string) => {
-      try {
+      let isOldTags = true
+
+      oldTags?.forEach(t => {
+        if(t.tag === tag){
+          isOldTags = false
+        }
+      })
+      
+      if(isOldTags){
+        try {
           const docRef = await addDoc(collection(db, "tags"), {
-            uid: user?.uid ? user.uid : '12345',
+            userid: user?.uid ? user.uid : '12345',
             tag
           });
           console.log("Tag Document written with ID: ", docRef.id);
+
         } catch (e) {
           console.error("Error adding document: ", e);
         }
+      }
   }
 
     function handleMeanings(meaningsGroup: Meaning[]){
@@ -81,7 +101,7 @@ const AddWord = () => {
       setExamples(pure)
     }
 
-    function handleTag(tagsArr: ISingleWord[]){
+    function handleTag(tagsArr: ISingleWord[]){ 
         setTags([...tagsArr].map(t => {
           addTags(t.name)
         return t.name
@@ -98,12 +118,26 @@ const AddWord = () => {
     }, [examples])
 
     useEffect(()=>{
-      console.log('Tags Form', tags)
-  }, [tags])
+      const tRef = collection(db, "tags");
+      async function tId() {
+        const querySnapshot = await getDocs(tRef)
+        const tagsDBData: object[] = []
+        querySnapshot.forEach((doc) => {
+          const rowData = doc.data()
+          rowData.docId = doc.id
+          tagsDBData.push(rowData);
+        });
+        console.log(tagsDBData)
+      }
+      tId()
+      // console.log('Tags Form', tRef)
+  }, [oldTags])
 
     useEffect(()=>{
       console.log('Word form', word.value)
   }, [word])
+
+
 
     return (
         <section style={{
