@@ -1,4 +1,5 @@
-import { collection, addDoc, serverTimestamp, collectionGroup, query, where, setDoc, getDocs, doc, getDoc} from "firebase/firestore"; 
+import { collection, addDoc, serverTimestamp, collectionGroup, query, where, setDoc, getDocs, doc, getDoc,
+  updateDoc, arrayUnion} from "firebase/firestore"; 
 import { useState, useEffect } from "react";
 import { db, auth, app } from "../..";
 import ExamplesConstructor from "../../components/wordsForm/examples/ExamplesConstructor";
@@ -8,8 +9,8 @@ import {ISingleWord, MeanigsForServer, Meaning, InputExamples, ExampleForServer 
 import useInput from "../../hooks/useInput";
 import { NavLink } from "react-router-dom";
 import { useAuthState } from 'react-firebase-hooks/auth';
-
-import { useCollectionData, useDocument } from 'react-firebase-hooks/firestore';
+import { useCollectionData} from 'react-firebase-hooks/firestore';
+import { createTag, addWordIdxToTag } from "../../backend/crudFunctions";
 
 
 const AddWord = () => {
@@ -17,8 +18,6 @@ const AddWord = () => {
     const [meanings, setMeanings] = useState<MeanigsForServer[]>([])
     const [examples, setExamples] = useState<ExampleForServer[]>([])
     const [tags, setTags] = useState<string[]>([])
-
-    const [tagsId, setTagsId] = useState<string[]>([])
 
     const [user, loading, error] = useAuthState(auth);
 
@@ -33,7 +32,7 @@ const AddWord = () => {
               uid: user?.uid ? user.uid : '12345',
               word: word.value,
               meaning: meanings,
-              tags,
+              // tags,
               examples,
               level: 'low',
               points: 0,
@@ -45,32 +44,33 @@ const AddWord = () => {
 
             setDoc(docRef, {wordId: docRef.id}, { merge: true })
 
+            addTags(docRef.id)
+
           } catch (e) {
             console.error("Error adding document: ", e);
           }
     }
 
-    const addTags = async (tag: string) => {
-      let isOldTags = true
+    const addTags = async (wordIdx: string) => {
 
-      oldTags?.forEach(t => {
-        if(t.tag === tag){
-          isOldTags = false
+
+
+      oldTags?.forEach(tag => {
+          tags.forEach(tagField => {
+            console.log('Inside TAG', tagField)
+            if(tag.name !== tagField){
+              createTag(user?.uid as string, tagField, wordIdx)
+            }else {
+              addWordIdxToTag(tag.tagId, wordIdx)
+            };
+          })
         }
-      })
+      )
+
+      // if tag.name = tag -> add the word Index to => word_id
+
+      // tag.name !== tag
       
-      if(isOldTags){
-        try {
-          const docRef = await addDoc(collection(db, "tags"), {
-            userid: user?.uid ? user.uid : '12345',
-            tag
-          });
-          console.log("Tag Document written with ID: ", docRef.id);
-
-        } catch (e) {
-          console.error("Error adding document: ", e);
-        }
-      }
   }
 
     function handleMeanings(meaningsGroup: Meaning[]){
@@ -106,7 +106,6 @@ const AddWord = () => {
 
     function handleTag(tagsArr: ISingleWord[]){ 
         setTags([...tagsArr].map(t => {
-          addTags(t.name)
         return t.name
         }))
     }
@@ -141,6 +140,9 @@ const AddWord = () => {
     useEffect(()=>{
       console.log('Word form', word.value)
   }, [word])
+    useEffect(()=>{
+      console.log('Tag form', tags)
+  }, [tags])
 
 
 

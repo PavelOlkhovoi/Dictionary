@@ -32,7 +32,7 @@ const TagsConstructor = ({attachTag}: Props) => {
 
         setAllTags(pureArr)
 
-        attachTag(pureArr)
+        // attachTag(pureArr)
     }  
 
     function saveTag(tag: ISingleWord, tagName: string) {
