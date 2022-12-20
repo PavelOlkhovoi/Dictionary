@@ -1,4 +1,4 @@
-import { collection, addDoc, serverTimestamp, getFirestore, doc, getDocs } from "firebase/firestore"; 
+import { collection, addDoc, serverTimestamp, collectionGroup, query, where, setDoc, getDocs} from "firebase/firestore"; 
 import { useState, useEffect } from "react";
 import { db, auth, app } from "../..";
 import ExamplesConstructor from "../../components/wordsForm/examples/ExamplesConstructor";
@@ -42,6 +42,9 @@ const AddWord = () => {
               createdAt: serverTimestamp()
             });
             console.log("Document written with ID: ", docRef.id);
+
+            setDoc(docRef, {wordId: docRef.id}, { merge: true })
+
           } catch (e) {
             console.error("Error adding document: ", e);
           }
@@ -117,21 +120,22 @@ const AddWord = () => {
         console.log('Example Form', examples)
     }, [examples])
 
-    useEffect(()=>{
-      const tRef = collection(db, "tags");
-      async function tId() {
-        const querySnapshot = await getDocs(tRef)
-        const tagsDBData: object[] = []
-        querySnapshot.forEach((doc) => {
-          const rowData = doc.data()
-          rowData.docId = doc.id
-          tagsDBData.push(rowData);
-        });
-        console.log(tagsDBData)
+
+    useEffect(()=> {
+
+      async function testTagGrab(){
+        const tags = collectionGroup(db, 'word_tag')
+        const querySnapshot = await getDocs(tags);
+
+
+          querySnapshot.forEach((doc) => {
+              console.log(doc.id, ' => ', doc.data());
+          })
+
       }
-      tId()
-      // console.log('Tags Form', tRef)
-  }, [oldTags])
+
+      testTagGrab()
+    }, [])
 
     useEffect(()=>{
       console.log('Word form', word.value)
