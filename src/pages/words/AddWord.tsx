@@ -1,4 +1,4 @@
-import { collection, addDoc, serverTimestamp, collectionGroup, query, where, setDoc, getDocs} from "firebase/firestore"; 
+import { collection, addDoc, serverTimestamp, collectionGroup, query, where, setDoc, getDocs, doc, getDoc} from "firebase/firestore"; 
 import { useState, useEffect } from "react";
 import { db, auth, app } from "../..";
 import ExamplesConstructor from "../../components/wordsForm/examples/ExamplesConstructor";
@@ -123,19 +123,20 @@ const AddWord = () => {
 
     useEffect(()=> {
 
-      async function testTagGrab(){
-        const tags = collectionGroup(db, 'word_tag')
-        const querySnapshot = await getDocs(tags);
-
-
-          querySnapshot.forEach((doc) => {
-              console.log(doc.id, ' => ', doc.data());
-          })
-
+      async function testTagGrab(wordid: string = ''){
+        const wordsRef = doc(db, 'testWords', wordid)
+        const docSnap = await getDoc(wordsRef);
+        console.log(docSnap.data())
       }
 
-      testTagGrab()
-    }, [])
+      console.log('OldTags', oldTags)
+
+      oldTags?.forEach(tag => {
+        (tag?.word_id as string[]).forEach(wid => {
+          testTagGrab(wid)
+        })
+      })
+    }, [oldTags])
 
     useEffect(()=>{
       console.log('Word form', word.value)
