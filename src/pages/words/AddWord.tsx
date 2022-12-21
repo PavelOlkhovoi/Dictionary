@@ -53,19 +53,42 @@ const AddWord = () => {
 
     const addTags = async (wordIdx: string) => {
 
+      
+      let isOldTag = false
 
 
-      oldTags?.forEach(tag => {
-          tags.forEach(tagField => {
-            console.log('Inside TAG', tagField)
-            if(tag.name !== tagField){
-              createTag(user?.uid as string, tagField, wordIdx)
-            }else {
-              addWordIdxToTag(tag.tagId, wordIdx)
-            };
-          })
-        }
-      )
+      tags?.forEach(tagField => {
+
+        oldTags?.forEach((tag, idx) => {
+
+          if(tagField === tag.name){
+            isOldTag = true
+            return addWordIdxToTag(tag.tagId, wordIdx)
+          }
+          
+          if(oldTags.length-1 === idx && !isOldTag){
+            createTag(user?.uid as string, tagField, wordIdx)
+          };
+
+          if(oldTags.length-1 === idx && isOldTag){
+            isOldTag = !isOldTag
+          };
+        })
+      }
+    )
+
+
+      // oldTags?.forEach(tag => {
+      //     tags.forEach(tagField => {
+      //       console.log('Inside TAG', tagField)
+      //       if(tag.name !== tagField){
+      //         createTag(user?.uid as string, tagField, wordIdx)
+      //       }else {
+      //         addWordIdxToTag(tag.tagId, wordIdx)
+      //       };
+      //     })
+      //   }
+      // )
 
       // if tag.name = tag -> add the word Index to => word_id
 
@@ -120,22 +143,22 @@ const AddWord = () => {
     }, [examples])
 
 
-    useEffect(()=> {
+    // useEffect(()=> {
 
-      async function testTagGrab(wordid: string = ''){
-        const wordsRef = doc(db, 'testWords', wordid)
-        const docSnap = await getDoc(wordsRef);
-        console.log(docSnap.data())
-      }
+    //   async function testTagGrab(wordid: string = ''){
+    //     const wordsRef = doc(db, 'testWords', wordid)
+    //     const docSnap = await getDoc(wordsRef);
+    //     console.log(docSnap.data())
+    //   }
 
-      console.log('OldTags', oldTags)
+    //   console.log('OldTags', oldTags)
 
-      oldTags?.forEach(tag => {
-        (tag?.word_id as string[]).forEach(wid => {
-          testTagGrab(wid)
-        })
-      })
-    }, [oldTags])
+    //   oldTags?.forEach(tag => {
+    //     (tag?.word_id as string[]).forEach(wid => {
+    //       testTagGrab(wid)
+    //     })
+    //   })
+    // }, [oldTags])
 
     useEffect(()=>{
       console.log('Word form', word.value)
