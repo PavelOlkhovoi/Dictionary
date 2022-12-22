@@ -23,6 +23,16 @@ export interface ISingleWord {
     temId: number;
 }
 
-// export type SingleWordForServer {
-//     name: string;
-// }
+export interface WordDb {
+    uid: string;
+    wordId: string;
+    word: string;
+    createdAt: Date;
+    repeat: boolean;
+    type: string[];
+    meaning: MeanigsForServer;
+    priority: string;
+    points: number;
+    level: string;
+    examples: ExampleForServer[]
+}

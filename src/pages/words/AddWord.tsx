@@ -76,23 +76,6 @@ const AddWord = () => {
         })
       }
     )
-
-
-      // oldTags?.forEach(tag => {
-      //     tags.forEach(tagField => {
-      //       console.log('Inside TAG', tagField)
-      //       if(tag.name !== tagField){
-      //         createTag(user?.uid as string, tagField, wordIdx)
-      //       }else {
-      //         addWordIdxToTag(tag.tagId, wordIdx)
-      //       };
-      //     })
-      //   }
-      // )
-
-      // if tag.name = tag -> add the word Index to => word_id
-
-      // tag.name !== tag
       
   }
 
