@@ -5,32 +5,26 @@ import { collection, DocumentData, query, where } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { WordDb } from '../types/word';
+import { firstCapitalLetter } from '../../helpers/display';
 
 const Word = () => {
-    const word = useParams()
-    const [wordDb, setWordDb] = useState<DocumentData[]>([])
-    const [wordDbTest, setWordDbTest] = useState<WordDb>({} as WordDb)
+    const wordId = useParams()
+    const [wordDb, setWordDb] = useState<WordDb>({} as WordDb)
+    // const [wordDbTest, setWordDbTest] = useState<WordDb>({} as WordDb)
     const collRef = collection(db, "testWords")
     const [words, loadingW, errorW] = useCollectionData(
-        query(collRef, where("wordId", "==", word.idword))
+        query(collRef, where("wordId", "==", wordId.idword))
     );
 
     useEffect(()=> {
-        console.log(words)
-        setWordDb(words ? words : [])
+        const oneWord = words && words[0] as WordDb
+        setWordDb(oneWord ? oneWord : {} as WordDb)
     }, [words])
     useEffect(()=> {
-        const testObj = wordDb[0] as WordDb
-        setWordDbTest(testObj)
-        console.log(testObj)
+        console.log(wordDb)
     }, [wordDb])
-    useEffect(()=> {
-        const testObj = wordDb[0] as WordDb
-        setWordDbTest(testObj)
-        console.log('Examples', wordDbTest)
-    }, [wordDbTest])
 
-    if(!wordDbTest){
+    if(!wordDb){
         return <h1>Loading</h1>
     }
 
@@ -39,10 +33,24 @@ const Word = () => {
             maxWidth: '600px',
             margin: '0 auto'
             }}>
-            One Word
-            <p>
+            <h1>{firstCapitalLetter(wordDb.word)}</h1>
+            <span>Level: {wordDb.level}</span>
+            <h2>Meanings</h2>
+            {
+                wordDb.meaning.map((m, idx) => {
+
+                    <div key={idx}>
+                        const keyOfMean = [];
+
+                        m.map((el) => {
+
+                        })
+                    </div>
+                })
+            }
+            <div>
                 {
-                    wordDbTest.examples.length && wordDbTest.examples.length !== 0 &&  wordDbTest.examples.map(ex => {
+                    wordDb.examples && wordDb.examples.length !== 0 &&  wordDb.examples.map(ex => {
                         return <div key={ex.example}>
                             <h4>Example</h4>
                             <p>
@@ -55,7 +63,7 @@ const Word = () => {
                         </div>
                     })
                 }
-            </p>
+            </div>
         </section>
     );
 }
