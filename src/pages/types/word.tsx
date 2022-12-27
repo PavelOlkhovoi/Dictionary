@@ -30,7 +30,7 @@ export interface WordDb {
     createdAt: Date;
     repeat: boolean;
     type: string[];
-    meaning: MeanigsForServer[];
+    meaning: MeanigsForServer;
     priority: string;
     points: number;
     level: string;

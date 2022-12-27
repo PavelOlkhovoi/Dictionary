@@ -1,5 +1,5 @@
 import { collection, addDoc, serverTimestamp, collectionGroup, query, where, setDoc, getDocs, doc, getDoc,
-  updateDoc, arrayUnion} from "firebase/firestore"; 
+  updateDoc, arrayUnion, DocumentData} from "firebase/firestore"; 
 import { useState, useEffect } from "react";
 import { db, auth, app } from "../..";
 import ExamplesConstructor from "../../components/wordsForm/examples/ExamplesConstructor";
@@ -15,12 +15,13 @@ import { createTag, addWordIdxToTag } from "../../backend/crudFunctions";
 
 const AddWord = () => {
     const word = useInput('')
-    const [meanings, setMeanings] = useState<MeanigsForServer[]>([])
+    const [meanings, setMeanings] = useState<MeanigsForServer>({})
     const [examples, setExamples] = useState<ExampleForServer[]>([])
     const [tags, setTags] = useState<string[]>([])
 
     const [user, loading, error] = useAuthState(auth);
 
+    // TODO: I need to search tags by user ID. If not the search process will be too long and incorrect
     const [oldTags, loadingTag, errorTag] = useCollectionData(
         collection(db, "tags")
     );
@@ -28,7 +29,7 @@ const AddWord = () => {
     
     const addNewWord = async () => {
         try {
-            const docRef = await addDoc(collection(db, "testWords"), {
+            const docRef = await addDoc(collection(db, "words"), {
               uid: user?.uid ? user.uid : '12345',
               word: word.value,
               meaning: meanings,
@@ -53,14 +54,14 @@ const AddWord = () => {
 
     const addTags = async (wordIdx: string) => {
 
-      
       let isOldTag = false
 
-
       tags?.forEach(tagField => {
-
+        if((oldTags as DocumentData).length === 0){
+          createTag(user?.uid as string, tagField, wordIdx)
+        }
         oldTags?.forEach((tag, idx) => {
-
+          console.log('Add Tag')
           if(tagField === tag.name){
             isOldTag = true
             return addWordIdxToTag(tag.tagId, wordIdx)
@@ -79,23 +80,38 @@ const AddWord = () => {
       
   }
 
-    function handleMeanings(meaningsGroup: Meaning[]){
-      const pure: MeanigsForServer[] = []
+  //   function handleMeanings(meaningsGroup: Meaning[]){
+  //     const pure: MeanigsForServer[] = []
 
-      meaningsGroup.forEach(m => {
-        const objTest: MeanigsForServer = {}
+  //     meaningsGroup.forEach(m => {
+  //       const objTest: MeanigsForServer = {}
 
-        const test = Object.keys(m).forEach(el => {
+  //       const test = Object.keys(m).forEach(el => {
+  //         if(el !== 'tempId') {
+  //           objTest[el] = m[el] as string[]
+  //         }
+  //       })
+
+  //       pure.push(objTest)
+  //     })
+
+  //   setMeanings(pure)
+  // }
+
+  function handleMeanings(meaningsGroup: Meaning[]){
+    const objMeanings: MeanigsForServer = {}
+
+    meaningsGroup.forEach(m => {
+      Object.keys(m).forEach(el => {
           if(el !== 'tempId') {
-            objTest[el] = m[el] as string[]
-          }
-        })
-
-        pure.push(objTest)
+            objMeanings[el] = m[el] as string[]
+        }
       })
+    })
 
-    setMeanings(pure)
-  }
+    console.log('TTTT', objMeanings)
+  setMeanings(objMeanings)
+}
 
     function handleExamples(examplesArr: InputExamples[]){
       const pure: ExampleForServer[] = []
@@ -125,23 +141,6 @@ const AddWord = () => {
         console.log('Example Form', examples)
     }, [examples])
 
-
-    // useEffect(()=> {
-
-    //   async function testTagGrab(wordid: string = ''){
-    //     const wordsRef = doc(db, 'testWords', wordid)
-    //     const docSnap = await getDoc(wordsRef);
-    //     console.log(docSnap.data())
-    //   }
-
-    //   console.log('OldTags', oldTags)
-
-    //   oldTags?.forEach(tag => {
-    //     (tag?.word_id as string[]).forEach(wid => {
-    //       testTagGrab(wid)
-    //     })
-    //   })
-    // }, [oldTags])
 
     useEffect(()=>{
       console.log('Word form', word.value)

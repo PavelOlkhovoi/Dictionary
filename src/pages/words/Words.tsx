@@ -8,13 +8,9 @@ import { Link } from 'react-router-dom';
 
 const Words = () => {
 
-    // const [words, loading, error] = useCollectionData(
-    //     collection(db, "testWords")
-    // );
-
     const [user, loading, error] = useAuthState(auth);
 
-    const collRef = collection(db, "testWords")
+    const collRef = collection(db, "words")
     const [words, loadingW, errorW] = useCollectionData(
         query(collRef, where("uid", "==", user?.uid))
     );

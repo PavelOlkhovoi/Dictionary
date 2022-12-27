@@ -6,12 +6,13 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { WordDb } from '../types/word';
 import { firstCapitalLetter } from '../../helpers/display';
+import ShowMeanings from '../../components/wordsForm/singleWord/ShowMeanings';
 
 const Word = () => {
     const wordId = useParams()
     const [wordDb, setWordDb] = useState<WordDb>({} as WordDb)
     // const [wordDbTest, setWordDbTest] = useState<WordDb>({} as WordDb)
-    const collRef = collection(db, "testWords")
+    const collRef = collection(db, "words")
     const [words, loadingW, errorW] = useCollectionData(
         query(collRef, where("wordId", "==", wordId.idword))
     );
@@ -24,7 +25,7 @@ const Word = () => {
         console.log(wordDb)
     }, [wordDb])
 
-    if(!wordDb){
+    if(!words || !wordDb){
         return <h1>Loading</h1>
     }
 
@@ -36,17 +37,17 @@ const Word = () => {
             <h1>{firstCapitalLetter(wordDb.word)}</h1>
             <span>Level: {wordDb.level}</span>
             <h2>Meanings</h2>
+            <ShowMeanings meanings={wordDb.meaning}/>
             {
-                wordDb.meaning.map((m, idx) => {
-
-                    <div key={idx}>
-                        const keyOfMean = [];
-
-                        m.map((el) => {
-
-                        })
-                    </div>
-                })
+                // Object.keys(wordDb.meaning).map((m, idx) => {
+                //     return wordDb.meaning[m].map(el => {
+                //         if(idx === 0){
+                //             return <li key={el}>{m} --- {el}</li>
+                //         }else {
+                //             return <li key={el}>{el}</li>
+                //         }
+                //     })
+                // })
             }
             <div>
                 {
