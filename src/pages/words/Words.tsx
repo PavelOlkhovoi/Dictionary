@@ -26,10 +26,8 @@ const Words = () => {
     }, [allWords])
         
     return (
-        <div style={{
-            maxWidth: '600px',
-            margin: '0 auto'
-        }}>
+        <div className='p-6 max-w-sm mx-auto'>
+            <h1 className="text-3xl font-bold underline">All words</h1>
             <ul>
                 {
                     allWords.map(w => 
