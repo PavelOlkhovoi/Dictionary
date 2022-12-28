@@ -11,10 +11,15 @@ import ShowMeanings from '../../components/wordsForm/singleWord/ShowMeanings';
 const Word = () => {
     const wordId = useParams()
     const [wordDb, setWordDb] = useState<WordDb>({} as WordDb)
-    // const [wordDbTest, setWordDbTest] = useState<WordDb>({} as WordDb)
+
     const collRef = collection(db, "words")
     const [words, loadingW, errorW] = useCollectionData(
         query(collRef, where("wordId", "==", wordId.idword))
+    );
+
+    const tagsRef = collection(db, "tags")
+    const [tags, tLoading, tError] = useCollectionData(
+        query(tagsRef, where("word_id", "array-contains", wordId.idword))
     );
 
     useEffect(()=> {
@@ -24,8 +29,11 @@ const Word = () => {
     useEffect(()=> {
         console.log(wordDb)
     }, [wordDb])
+    useEffect(()=> {
+        console.log('Tags', tags)
+    }, [tags, wordDb])
 
-    if(!words || !wordDb){
+    if(!words || !tags){
         return <h1>Loading</h1>
     }
 
@@ -38,17 +46,6 @@ const Word = () => {
             <span>Level: {wordDb.level}</span>
             <h2>Meanings</h2>
             <ShowMeanings meanings={wordDb.meaning}/>
-            {
-                // Object.keys(wordDb.meaning).map((m, idx) => {
-                //     return wordDb.meaning[m].map(el => {
-                //         if(idx === 0){
-                //             return <li key={el}>{m} --- {el}</li>
-                //         }else {
-                //             return <li key={el}>{el}</li>
-                //         }
-                //     })
-                // })
-            }
             <div>
                 {
                     wordDb.examples && wordDb.examples.length !== 0 &&  wordDb.examples.map(ex => {
@@ -63,6 +60,10 @@ const Word = () => {
                             </p>
                         </div>
                     })
+                }
+                <h2>Tags</h2>
+                {
+                    tags.map(t => <ul key={t.tagId}><li>{t.name}</li></ul>)
                 }
             </div>
         </section>
