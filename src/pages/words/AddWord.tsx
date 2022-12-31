@@ -11,6 +11,7 @@ import { NavLink } from "react-router-dom";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData} from 'react-firebase-hooks/firestore';
 import { createTag, addWordIdxToTag } from "../../backend/crudFunctions";
+import MyInput from "../../components/wordsForm/ui/MyInput";
 
 
 const AddWord = () => {
@@ -80,24 +81,6 @@ const AddWord = () => {
       
   }
 
-  //   function handleMeanings(meaningsGroup: Meaning[]){
-  //     const pure: MeanigsForServer[] = []
-
-  //     meaningsGroup.forEach(m => {
-  //       const objTest: MeanigsForServer = {}
-
-  //       const test = Object.keys(m).forEach(el => {
-  //         if(el !== 'tempId') {
-  //           objTest[el] = m[el] as string[]
-  //         }
-  //       })
-
-  //       pure.push(objTest)
-  //     })
-
-  //   setMeanings(pure)
-  // }
-
   function handleMeanings(meaningsGroup: Meaning[]){
     const objMeanings: MeanigsForServer = {}
 
@@ -157,7 +140,7 @@ const AddWord = () => {
           margin: '0 auto'
           }}>
             <div>
-              <input value={word.value} onChange={word.onChange} placeholder={'Word'}/>
+                <MyInput name="word" label="word" value={word.value} onChange={word.onChange}/>
                 <MeaningsConstructor attachToForm={handleMeanings}/>
                 <br />
                 <br />

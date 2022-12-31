@@ -18,6 +18,7 @@ const SingleWord: FC<Props> = ({wordData, deleteField, saveField, place}) => {
                 value={field.value} 
                 onChange={field.onChange} 
                 onBlur={() => saveField(wordData, field.value)}
+                className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             />
             <button onClick={() => deleteField(wordData)}>Delete</button>
         </div>
