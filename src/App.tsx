@@ -6,6 +6,7 @@ import Word from './pages/words/Word';
 import Words from './pages/words/Words';
 import NotFound from './pages/NotFound';
 import AddWord from './pages/words/AddWord';
+import Navbars from './components/css-blocks/Navbars';
 
 
 
@@ -13,12 +14,13 @@ function App() {
 
   return (
     <>
-    <nav className='flex justify-center space-x-4 my-6'>
+    {/* <nav className='flex justify-center space-x-4 my-6'>
       <Link to="/">Home</Link>
       <Link to="/words">Words</Link>
       <Link to="/addwords">Add words</Link>
       <Link to="/auth">Auth</Link>
-    </nav>
+    </nav> */}
+    <Navbars />
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="words" element={<Words />} />
