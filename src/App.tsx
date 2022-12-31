@@ -13,20 +13,18 @@ function App() {
 
   return (
     <>
-    <nav>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/auth">Auth</Link></li>
-          <li><Link to="/words">Words</Link></li>
-          <li><Link to="/addwords">Add words</Link></li>
-        </ul>
-      </nav>
+    <nav className='flex justify-center space-x-4 my-6'>
+      <Link to="/">Home</Link>
+      <Link to="/words">Words</Link>
+      <Link to="/addwords">Add words</Link>
+      <Link to="/auth">Auth</Link>
+    </nav>
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="auth" element={<SignUp />} />
       <Route path="words" element={<Words />} />
       <Route path="words/:idword" element={<Word />} />
       <Route path="addwords" element={<AddWord />}/>
+      <Route path="auth" element={<SignUp />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   </>

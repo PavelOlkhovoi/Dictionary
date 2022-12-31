@@ -11,10 +11,9 @@ const ShowMeanings = ({meanings}: Props) => {
     return <div>
         {
             name.map(m => {
-                const items = meanings[m].map(i => <li key={i}>{i}</li>)
+                const items = meanings[m].map(i => <li key={i} className="mt-0">{i}</li>)
                 const list = <div
                  key={m}
-                //  className=""
                  >
                     <h4 className="text-sky-400">{firstCapitalLetter(m)}</h4>
                     <ul

@@ -34,22 +34,28 @@ const Word = () => {
     }, [tags, wordDb])
 
     if(!words || !tags){
-        return <h1>Loading</h1>
+        return (
+            <div className='container mx-auto'>
+                <button type="button" className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md h-2 disabled">
+                    <svg className="motion-reduce:hidden animate-spin ..." viewBox="0 0 24 24">...</svg>
+                    Loading...
+                </button>
+            </div>
+        )
     }
 
     return (
-        <section style={{
-            maxWidth: '600px',
-            margin: '0 auto'
-            }}>
-            <h1>{firstCapitalLetter(wordDb.word)}</h1>
+        <section
+        className='bg-[#d1d1f7]'
+        >
+            <h1 className='my-2'>{firstCapitalLetter(wordDb.word)}</h1>
             <span>Level: {wordDb.level}</span>
-            <h2>Meanings</h2>
+            <h2 className='mt-2'>Meanings</h2>
             <ShowMeanings meanings={wordDb.meaning}/>
             <div>
                 {
                     wordDb.examples && wordDb.examples.length !== 0 &&  wordDb.examples.map(ex => {
-                        return <div key={ex.example}>
+                        return <div key={ex.example} className='mt-1'>
                             <h4>Example</h4>
                             <p>
                                 {ex.example}
