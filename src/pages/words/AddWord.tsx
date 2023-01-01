@@ -12,6 +12,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData} from 'react-firebase-hooks/firestore';
 import { createTag, addWordIdxToTag } from "../../backend/crudFunctions";
 import MyInput from "../../components/wordsForm/ui/MyInput";
+import MyButton from "../../components/wordsForm/ui/MyButton";
 
 
 const AddWord = () => {
@@ -148,10 +149,11 @@ const AddWord = () => {
                 <br />
                 <br />
                 <ExamplesConstructor attachExamples={handleExamples}/>
-                <button onClick={addNewWord}>Save a new word </button>
+                {/* <button onClick={addNewWord}>Save a new word </button> */}
+                <MyButton onClick={addNewWord}>Save a new word </MyButton>
             </div>
             <br />
-            <NavLink to='/addwords'>Add a new word</NavLink>
+            <MyButton onClick={()=> console.log('Test BTN')} color="bg-green-700">Test</MyButton>
         </section>
     );
 }
