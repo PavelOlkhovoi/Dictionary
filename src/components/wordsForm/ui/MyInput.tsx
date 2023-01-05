@@ -7,12 +7,12 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 }
 const MyInput: FC<Props> = ({name, label, ...rest}) => {
     return (
-        <div className="my-5">
+        <div>
         <label
         htmlFor={label}
           className="block mb-2 text-sm font-medium text-gray-700 undefined"
         >
-          Type word
+          Type {name}
         </label>
         <input
         name={name}

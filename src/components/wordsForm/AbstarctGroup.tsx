@@ -11,9 +11,20 @@ interface Props {
     saveField?: Function;
     place?: string
     groupId?: number,
+    name?: string,
+    label?: string
 }
 
-const AbstarctGroup = ({fieldsObject, typeOfField, deleteField, saveField, place, groupId}: Props) => {
+const AbstarctGroup = ({
+    fieldsObject, 
+    typeOfField, 
+    deleteField, 
+    saveField, 
+    place, 
+    groupId,
+    label,
+    name,
+}: Props) => {
     
     const rows: JSX.Element[] = []
 
@@ -36,6 +47,8 @@ const AbstarctGroup = ({fieldsObject, typeOfField, deleteField, saveField, place
                 wordData={item}
                 saveField={saveField as Function}
                 place={(place as string)}
+                label={(label as string)}
+                name={name as string}
             />)
         })
     }

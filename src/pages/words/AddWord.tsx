@@ -134,26 +134,23 @@ const AddWord = () => {
   }, [tags])
 
 
-
     return (
         <section style={{
           maxWidth: '600px',
           margin: '0 auto'
           }}>
-            <div>
-                <MyInput name="word" label="word" value={word.value} onChange={word.onChange}/>
+            <div className="[&>div]:my-8">
+                <MyInput name="word" label="word" value={word.value} onChange={word.onChange} placeholder="word"/>
                 <MeaningsConstructor attachToForm={handleMeanings}/>
-                <br />
-                <br />
                 <TagsConstructor attachTag={handleTag} />
-                <br />
-                <br />
                 <ExamplesConstructor attachExamples={handleExamples}/>
-                {/* <button onClick={addNewWord}>Save a new word </button> */}
-                <MyButton onClick={addNewWord}>Save a new word </MyButton>
+                <MyButton onClick={addNewWord} color="green">Save a new word </MyButton>
             </div>
             <br />
-            <MyButton onClick={()=> console.log('Test BTN')} color="bg-green-700">Test</MyButton>
+            {/* <MyButton onClick={()=> console.log('Test BTN')} color={'green'}>Test</MyButton> */}
+            {/* <button className="bg-red-500">Test Color</button>
+            <button className="bg-green-500">Test Color</button> */}
+            {/* <button className="bg-yellow-500">Yellow</button> */}
         </section>
     );
 }

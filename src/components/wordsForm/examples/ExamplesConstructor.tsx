@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
 import AbstarctGroup from '../AbstarctGroup';
 import { InputExamples } from '../../../pages/types/word';
+import MyButton from '../ui/MyButton';
 
 interface Props {
     attachExamples: Function
@@ -25,7 +26,6 @@ const ExamplesConstructor = ({attachExamples}: Props) => {
         ])
     }  
 
-        // TODO: Write helpers functions to manipulate It
         function deleteExample(example: InputExamples){
             const currentIdx = examples.indexOf(example)
             const pureArr = [...examples]
@@ -51,13 +51,9 @@ const ExamplesConstructor = ({attachExamples}: Props) => {
 
             attachExamples(pureArr)
         }
-    
-        // useEffect(() => {
-        //     console.log('Ex Constr', examples)
-        // }, [examples])
 
     return (
-        <>
+        <div>
             <AbstarctGroup 
                 fieldsObject={examples} 
                 typeOfField={'examples'}
@@ -65,8 +61,10 @@ const ExamplesConstructor = ({attachExamples}: Props) => {
                 saveField={saveField}
             />
 
-            <button onClick={addExample}>Add new Example</button>
-        </>
+            <div>
+                <MyButton onClick={addExample}>Add new Example</MyButton>
+            </div>
+        </div>
     )
 }
 

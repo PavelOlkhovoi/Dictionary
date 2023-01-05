@@ -1,6 +1,7 @@
 import { Meaning } from "../../../pages/types/word";
 import {useState} from 'react'
 import AbstarctGroup from "../AbstarctGroup";
+import MyButton from "../ui/MyButton";
 
 interface Props {
     attachToForm: Function
@@ -52,7 +53,7 @@ const MeaningsConstructor = ({attachToForm}: Props) => {
                 saveField={saveMeaningGroup}
             />
 
-            <button onClick={addMeaning}>Add new group meanings</button>
+            <MyButton onClick={addMeaning} color={'blue'}>Add new group meanings</MyButton>
         </div>
     );
 }

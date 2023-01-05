@@ -2,6 +2,8 @@ import AbstarctGroup from "../AbstarctGroup";
 import { ISingleWord, Meaning } from "../../../pages/types/word";
 import { useState } from 'react'
 import useInput from "../../../hooks/useInput";
+import MyInput from "../ui/MyInput";
+import MyButton from "../ui/MyButton";
 
 interface Props {
     deleteGroup: Function;
@@ -61,22 +63,27 @@ const SingleMeaningConstructor = ({deleteGroup, saveGroupedMeaning, singleGroup,
 
 
     return (
-        <div>
-            <br />
-            <br />
-            <input value={partOfSpeech.value} onChange={partOfSpeech.onChange}/>
+        <div className="[&>div]:my-5">
+            <MyInput 
+            value={partOfSpeech.value} 
+            onChange={partOfSpeech.onChange}
+            name={'part of speach'}
+            label={'part'}
+            />
             <AbstarctGroup
                 fieldsObject={meaningFields}
                 typeOfField="single"
                 saveField={saveMeaning}
                 deleteField={deleteMeaning}
                 place={'meaning'}
+                name={'meaning'}
+                label={'meaning'}
             />
-
-            <button onClick={addMeaning}>Add field</button>
-            <button onClick={() => deleteGroup(singleGroup)}>Delete Gruop</button>
-            <button onClick={saveGroup}>Save group</button>
-            <br />
+            <div className="grid grid-cols-3 gap-4">   
+                <MyButton onClick={addMeaning}>Add field</MyButton>
+                <MyButton onClick={() => deleteGroup(singleGroup)} color="red">Delete Gruop</MyButton>
+                <MyButton onClick={saveGroup} color="green">Save group</MyButton>
+            </div>
         </div>
 
     )

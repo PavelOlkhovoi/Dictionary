@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
 import { ISingleWord } from "../../pages/types/word"
 import AbstarctGroup from "./AbstarctGroup"
+import MyButton from './ui/MyButton'
 
 interface Props {
     attachTag: Function
@@ -64,19 +65,22 @@ const TagsConstructor = ({attachTag}: Props) => {
     // }, [tags])
 
     return (
-        <>
+        <div className='[&>div]:my-5'>
             <AbstarctGroup 
                 fieldsObject={tags}
                 typeOfField={'single'}
                 deleteField={deleteTag}
                 saveField={saveTag}
                 place={'tag'}
+                name={'tag'}
+                label={'tag'}
             />
 
-            <button onClick={addTag}>Add tag</button>
-
-            <button onClick={() => finalData()}>Save this group</button>
-        </>
+            <div className='grid grid-cols-2 gap-4'>
+                <MyButton onClick={addTag}>Add tag</MyButton>
+                <MyButton onClick={() => finalData()} color="green">Save this group</MyButton>
+            </div>
+        </div>
     )
 }
 

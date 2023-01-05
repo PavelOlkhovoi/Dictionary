@@ -1,6 +1,8 @@
 import useInput from "../../../hooks/useInput";
 import {FC} from 'react'
 import { InputExamples } from "../../../pages/types/word";
+import MyInput from "../ui/MyInput";
+import MyButton from "../ui/MyButton";
 
 interface Props {
     deleteField: Function;
@@ -12,11 +14,14 @@ const SingleExample: FC<Props> = ({deleteField, fieldObject, saveField}) => {
     const example = useInput('')
     const translation = useInput('')
     return (
-        <div>
-            <input value={example.value} onChange={example.onChange} placeholder="example"/>
-            <input value={translation.value} onChange={translation.onChange} placeholder="translation"/>
-            <button onClick={()=> saveField(fieldObject, example.value, translation.value)}>Save Example</button>
-            <button onClick={()=> deleteField(fieldObject)}>Delete Example</button>
+        <div className="[&>*]:my-5">
+            <MyInput value={example.value} onChange={example.onChange} placeholder="example" name="example" label="Example"/>
+            <MyInput value={translation.value} onChange={translation.onChange} placeholder="translation"
+            name="translation" label="Translation"/>
+            <div className="grid grid-cols-2 gap-4">
+                <MyButton onClick={()=> saveField(fieldObject, example.value, translation.value)} color='green'>Save Example</MyButton>
+                <MyButton onClick={()=> deleteField(fieldObject)} color={'red'}>Delete Example</MyButton>
+            </div>
         </div>
     );
 }

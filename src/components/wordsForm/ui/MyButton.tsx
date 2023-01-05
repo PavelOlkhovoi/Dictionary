@@ -4,10 +4,10 @@ export interface ButtonProps extends React.DetailedHTMLProps<React.ButtonHTMLAtt
     color?: string
 }
 
-const MyButton: FC<ButtonProps> = ({children, color = 'bg-blue-500', ...rest}) => {
+const MyButton: FC<ButtonProps> = ({children, color = 'blue', ...rest}) => {
     return (
         <button {...rest}
-        className={`${color} hover:bg-blue-700 text-white font-bold py-2 px-4 rounded`}
+        className={`bg-${color}-500 hover:bg-${color}-700 text-white font-bold py-2 px-4 rounded h-fit justify-self-auto`}
         >
             {children}
         </button>
