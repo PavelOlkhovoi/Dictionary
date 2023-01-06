@@ -146,11 +146,6 @@ const AddWord = () => {
                 <ExamplesConstructor attachExamples={handleExamples}/>
                 <MyButton onClick={addNewWord} color="green">Save a new word </MyButton>
             </div>
-            <br />
-            {/* <MyButton onClick={()=> console.log('Test BTN')} color={'green'}>Test</MyButton> */}
-            {/* <button className="bg-red-500">Test Color</button>
-            <button className="bg-green-500">Test Color</button> */}
-            {/* <button className="bg-yellow-500">Yellow</button> */}
         </section>
     );
 }

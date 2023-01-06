@@ -5,9 +5,22 @@ export interface ButtonProps extends React.DetailedHTMLProps<React.ButtonHTMLAtt
 }
 
 const MyButton: FC<ButtonProps> = ({children, color = 'blue', ...rest}) => {
+    let nameOfRegularColor = `bg-blue-500`
+    let nameOfHoverColor = `hover:bg-blue-700`
+
+    if(color === 'red'){
+        nameOfRegularColor = "bg-red-500"
+        nameOfHoverColor = "hover:bg-red-700"
+    }
+
+    if(color === 'green'){
+        nameOfRegularColor = "bg-green-500"
+        nameOfHoverColor = "hover:bg-green-700"
+    }
+
     return (
         <button {...rest}
-        className={`bg-${color}-500 hover:bg-${color}-700 text-white font-bold py-2 px-4 rounded h-fit justify-self-auto`}
+        className={`${nameOfRegularColor} ${nameOfHoverColor} text-white font-bold py-2 px-4 rounded h-fit justify-self-auto`}
         >
             {children}
         </button>
