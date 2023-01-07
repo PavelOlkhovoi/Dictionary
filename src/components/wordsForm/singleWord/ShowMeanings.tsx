@@ -1,5 +1,6 @@
 import { MeanigsForServer } from "../../../pages/types/word";
 import { firstCapitalLetter } from "../../../helpers/display";
+import { styleTW } from "../../../style";
 
 interface Props {
     meanings: MeanigsForServer
@@ -8,16 +9,16 @@ interface Props {
 const ShowMeanings = ({meanings}: Props) => {
     const name = meanings ? Object.keys(meanings) : []
    
-    return <div>
+    return <div className="my-4">
         {
             name.map(m => {
-                const items = meanings[m].map(i => <li key={i} className="mt-0">{i}</li>)
+                const items = meanings[m].map(i => <li key={i} className="mt-0">{firstCapitalLetter(i)}</li>)
                 const list = <div
                  key={m}
                  >
-                    <h4 className="text-sky-400">{firstCapitalLetter(m)}</h4>
+                    <h3 className={styleTW.title3}>{firstCapitalLetter(m)}</h3>
                     <ul
-                     role="list" className="marker:text-sky-400 mt-0 list-disc pl-5 space-y-3 text-slate-500"
+                     className="mt-0"
                      >
                     {items}
                     </ul>

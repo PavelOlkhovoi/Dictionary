@@ -7,6 +7,8 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { WordDb } from '../types/word';
 import { firstCapitalLetter } from '../../helpers/display';
 import ShowMeanings from '../../components/wordsForm/singleWord/ShowMeanings';
+import MyButton from '../../components/wordsForm/ui/MyButton';
+import { styleTW } from '../../style';
 
 const Word = () => {
     const wordId = useParams()
@@ -46,30 +48,39 @@ const Word = () => {
 
     return (
         <section
-        className='bg-[#d1d1f7]'
+        className="container max-w-screen-lg mx-auto px-4 mt-5"
         >
-            <h1 className='my-2'>{firstCapitalLetter(wordDb.word)}</h1>
-            <span>Level: {wordDb.level}</span>
-            <h2 className='mt-2'>Meanings</h2>
+            <div className='sm:flex gap-8 items-center'>
+                <h1 className='text-6xl font-normal leading-normal mt-0 mb-2'>{firstCapitalLetter(wordDb.word)}</h1>
+                <MyButton>Edit</MyButton>
+            </div>
+            <dl className={styleTW.gridDl}>
+                <dt>Level:</dt>
+                <dd>{wordDb.level}</dd>
+                </dl>
+            <h2 className={styleTW.title2}>Meanings</h2>
             <ShowMeanings meanings={wordDb.meaning}/>
             <div>
+            <h2 className={styleTW.title2}>Examples</h2>
                 {
                     wordDb.examples && wordDb.examples.length !== 0 &&  wordDb.examples.map(ex => {
-                        return <div key={ex.example} className='mt-1'>
-                            <h4>Example</h4>
+                        return <div key={ex.example} className='my-4'>
+                            <h3 className={styleTW.title3}>Example</h3>
                             <p>
                                 {ex.example}
                             </p>
-                            <h4>Translation</h4>
+                            <h3 className={`${styleTW.title3} mt-2`}>Translation</h3>
                             <p>
                                 {ex.translation}
                             </p>
                         </div>
                     })
                 }
-                <h2>Tags</h2>
+            </div>
+            <div className='flex items-center'>
+            <h2 className="my-4 text-4xl">Tags</h2>
                 {
-                    tags.map(t => <ul key={t.tagId}><li>{t.name}</li></ul>)
+                    tags.map(t => <div key={t.tagId}><span className={`${styleTW.bageBlue} mt-3 ml-5`}>{t.name}</span></div>)
                 }
             </div>
         </section>
