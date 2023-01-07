@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import { useParams } from "react-router-dom"
 import { db, auth } from '../..';
-import { collection, DocumentData, query, where } from 'firebase/firestore';
+import { collection, DocumentData, query, where, doc, updateDoc } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { WordDb } from '../types/word';
@@ -9,6 +9,7 @@ import { firstCapitalLetter } from '../../helpers/display';
 import ShowMeanings from '../../components/wordsForm/singleWord/ShowMeanings';
 import MyButton from '../../components/wordsForm/ui/MyButton';
 import { styleTW } from '../../style';
+import MyInput from '../../components/wordsForm/ui/MyInput';
 
 const Word = () => {
     const wordId = useParams()
@@ -24,6 +25,19 @@ const Word = () => {
         query(tagsRef, where("word_id", "array-contains", wordId.idword))
     );
 
+    const [isEdit, setIsEdit] = useState(false)
+
+    const [word, setWord] = useState('')
+
+    const wordUpdate = async () => {
+        const wordRef = doc(db, "words", wordId.idword as string);
+
+        // Set the "capital" field of the city 'DC'
+        await updateDoc(wordRef, {
+          word: word
+        });
+    }
+
     useEffect(()=> {
         const oneWord = words && words[0] as WordDb
         setWordDb(oneWord ? oneWord : {} as WordDb)
@@ -34,6 +48,9 @@ const Word = () => {
     useEffect(()=> {
         console.log('Tags', tags)
     }, [tags, wordDb])
+    useEffect(()=> {
+        console.log('isEdit', isEdit)
+    }, [isEdit])
 
     if(!words || !tags){
         return (
@@ -51,8 +68,19 @@ const Word = () => {
         className="container max-w-screen-lg mx-auto px-4 mt-5"
         >
             <div className='sm:flex gap-8 items-center'>
-                <h1 className='text-6xl font-normal leading-normal mt-0 mb-2'>{firstCapitalLetter(wordDb.word)}</h1>
-                <MyButton>Edit</MyButton>
+                {
+                    isEdit ? <h1 className='text-6xl font-normal leading-normal mt-0 mb-2'>{firstCapitalLetter(wordDb.word)}</h1>
+                    : <MyInput
+                        edit={true}  
+                        name='word' 
+                        label='Word' 
+                        placeholder={firstCapitalLetter(wordDb.word)} 
+                        onChange={(e)=> setWord( prev => e.target.value)}
+                        editFunct={wordUpdate}
+                        />
+                }
+                
+                <MyButton onClick={()=> setIsEdit(prev => !prev)}>Edit</MyButton>
             </div>
             <dl className={styleTW.gridDl}>
                 <dt>Level:</dt>
@@ -66,13 +94,27 @@ const Word = () => {
                     wordDb.examples && wordDb.examples.length !== 0 &&  wordDb.examples.map(ex => {
                         return <div key={ex.example} className='my-4'>
                             <h3 className={styleTW.title3}>Example</h3>
-                            <p>
-                                {ex.example}
-                            </p>
+                            {
+                                isEdit ? <p> {ex.example}</p>
+                                :
+                                <MyInput
+                                    name='example'
+                                    label='example'
+                                    edit={true}
+                                    placeholder={ex.example}
+                                />
+                            }
                             <h3 className={`${styleTW.title3} mt-2`}>Translation</h3>
-                            <p>
-                                {ex.translation}
-                            </p>
+                            {
+                                isEdit ? <p> {ex.translation}</p>
+                                :
+                                <MyInput
+                                    name='example'
+                                    label='example'
+                                    edit={true}
+                                    placeholder={ex.translation}
+                                />
+                            }
                         </div>
                     })
                 }

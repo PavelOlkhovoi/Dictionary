@@ -1,11 +1,14 @@
 import {FC, InputHTMLAttributes} from 'react'
+import MyButton from './MyButton';
 
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
     name: string,
-    label: string
+    label: string,
+    edit?: boolean,
+    editFunct?: Function
 }
-const MyInput: FC<Props> = ({name, label, ...rest}) => {
+const MyInput: FC<Props> = ({name, label, edit = false, editFunct = () => console.log('Click'), ...rest}) => {
     return (
         <div>
         <label
@@ -19,6 +22,9 @@ const MyInput: FC<Props> = ({name, label, ...rest}) => {
         {...rest}
         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
+        {
+          edit && <MyButton onClick={() => editFunct()}>Save</MyButton>
+        }
       </div>
     )
 }
