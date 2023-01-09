@@ -4,12 +4,13 @@ import { db, auth } from '../..';
 import { collection, DocumentData, query, where, doc, updateDoc } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { WordDb } from '../types/word';
+import { ExampleForServer, WordDb } from '../types/word';
 import { firstCapitalLetter } from '../../helpers/display';
 import ShowMeanings from '../../components/wordsForm/singleWord/ShowMeanings';
 import MyButton from '../../components/wordsForm/ui/MyButton';
 import { styleTW } from '../../style';
 import MyInput from '../../components/wordsForm/ui/MyInput';
+import EditExample from '../../components/edit/word/EditExample';
 
 const Word = () => {
     const wordId = useParams()
@@ -29,12 +30,17 @@ const Word = () => {
 
     const [word, setWord] = useState('')
 
+    const wordRef = doc(db, "words", wordId.idword as string);
+    
     const wordUpdate = async () => {
-        const wordRef = doc(db, "words", wordId.idword as string);
-
-        // Set the "capital" field of the city 'DC'
         await updateDoc(wordRef, {
           word: word
+        });
+    }
+    
+    const examplesUpdate = async (updatedExamples: ExampleForServer[]) => {
+        await updateDoc(wordRef, {
+          examples: updatedExamples
         });
     }
 
@@ -91,32 +97,18 @@ const Word = () => {
             <div>
             <h2 className={styleTW.title2}>Examples</h2>
                 {
-                    wordDb.examples && wordDb.examples.length !== 0 &&  wordDb.examples.map(ex => {
+                    wordDb.examples && wordDb.examples.length !== 0 && isEdit && wordDb.examples.map(ex => {
                         return <div key={ex.example} className='my-4'>
                             <h3 className={styleTW.title3}>Example</h3>
-                            {
-                                isEdit ? <p> {ex.example}</p>
-                                :
-                                <MyInput
-                                    name='example'
-                                    label='example'
-                                    edit={true}
-                                    placeholder={ex.example}
-                                />
-                            }
+                                <p> {ex.example}</p>
                             <h3 className={`${styleTW.title3} mt-2`}>Translation</h3>
-                            {
-                                isEdit ? <p> {ex.translation}</p>
-                                :
-                                <MyInput
-                                    name='example'
-                                    label='example'
-                                    edit={true}
-                                    placeholder={ex.translation}
-                                />
-                            }
+                            <p>{ex.translation}</p>
                         </div>
                     })
+                }
+                {
+                    wordDb.examples && wordDb.examples.length !== 0 &&  !isEdit && 
+                    <EditExample allExamples={wordDb.examples} exampleUpdate={examplesUpdate}/>
                 }
             </div>
             <div className='flex items-center'>
