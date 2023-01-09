@@ -1,16 +1,18 @@
 import { MeanigsForServer } from "../../../pages/types/word";
 import { firstCapitalLetter } from "../../../helpers/display";
 import { styleTW } from "../../../style";
+import EditMeanings from "../../edit/word/EditMeanings";
 
 interface Props {
-    meanings: MeanigsForServer
+    meanings: MeanigsForServer,
+    isEdit: boolean
 }
 
-const ShowMeanings = ({meanings}: Props) => {
+const ShowMeanings = ({meanings, isEdit}: Props) => {
     const name = meanings ? Object.keys(meanings) : []
    
     return <div className="my-4">
-        {
+        {   isEdit &&
             name.map(m => {
                 const items = meanings[m].map(i => <li key={i} className="mt-0">{firstCapitalLetter(i)}</li>)
                 const list = <div
@@ -26,6 +28,11 @@ const ShowMeanings = ({meanings}: Props) => {
 
                 return list
             })
+        }
+
+        {
+            !isEdit && meanings &&
+            <EditMeanings oldMeanings={meanings}/>
         }
     </div>;
 }

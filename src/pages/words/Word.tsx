@@ -93,7 +93,7 @@ const Word = () => {
                 <dd>{wordDb.level}</dd>
                 </dl>
             <h2 className={styleTW.title2}>Meanings</h2>
-            <ShowMeanings meanings={wordDb.meaning}/>
+            <ShowMeanings meanings={wordDb.meaning} isEdit={isEdit}/>
             <div>
             <h2 className={styleTW.title2}>Examples</h2>
                 {
