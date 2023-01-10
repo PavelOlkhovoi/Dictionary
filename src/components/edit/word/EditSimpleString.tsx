@@ -8,9 +8,10 @@ interface Props {
     text: string
     idx: number,
     updateLocalMeanings: Function
+    deleteLocalMeaning: Function
 }
 
-const EditSimpleString = ({text, idx, updateLocalMeanings}:Props) => {
+const EditSimpleString = ({text, idx, updateLocalMeanings, deleteLocalMeaning}:Props) => {
     const string = useInput(text)
     return (
         <div>
@@ -20,10 +21,18 @@ const EditSimpleString = ({text, idx, updateLocalMeanings}:Props) => {
             onChange={string.onChange}
             value={string.value}
         />
-        <MyButton 
+        <MyButton
+            color='green'
             onClick={() => updateLocalMeanings(idx, string.value)}
         >
             Save
+        </MyButton>
+
+        <MyButton
+            color='red'
+            onClick={() => deleteLocalMeaning(string.value)}
+        >
+            Delete
         </MyButton>
         </div>
     );

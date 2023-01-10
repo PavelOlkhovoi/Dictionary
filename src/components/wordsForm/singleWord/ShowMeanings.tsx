@@ -5,10 +5,11 @@ import EditMeanings from "../../edit/word/EditMeanings";
 
 interface Props {
     meanings: MeanigsForServer,
-    isEdit: boolean
+    isEdit: boolean,
+    wordId: string
 }
 
-const ShowMeanings = ({meanings, isEdit}: Props) => {
+const ShowMeanings = ({meanings, isEdit, wordId}: Props) => {
     const name = meanings ? Object.keys(meanings) : []
    
     return <div className="my-4">
@@ -32,7 +33,7 @@ const ShowMeanings = ({meanings, isEdit}: Props) => {
 
         {
             !isEdit && meanings &&
-            <EditMeanings oldMeanings={meanings}/>
+            <EditMeanings wordId={wordId} oldMeanings={meanings}/>
         }
     </div>;
 }
