@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import { useParams } from "react-router-dom"
 import { db, auth } from '../..';
-import { collection, DocumentData, query, where, doc, updateDoc } from 'firebase/firestore';
+import { collection, query, where, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { ExampleForServer, WordDb } from '../types/word';
@@ -42,6 +42,10 @@ const Word = () => {
         await updateDoc(wordRef, {
           examples: updatedExamples
         });
+    }
+    
+    const deleteWord = async () => {
+        await deleteDoc(wordRef);
     }
 
     useEffect(()=> {
@@ -87,6 +91,7 @@ const Word = () => {
                 }
                 
                 <MyButton onClick={()=> setIsEdit(prev => !prev)}>Edit</MyButton>
+                <MyButton onClick={deleteWord} color="red">Delete word</MyButton>
             </div>
             <dl className={styleTW.gridDl}>
                 <dt>Level:</dt>
