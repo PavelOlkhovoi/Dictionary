@@ -36,3 +36,10 @@ export interface WordDb {
     level: string;
     examples: ExampleForServer[]
 }
+
+export interface Tag {
+    name: string
+    tagId: string
+    userId: string
+    user_id: [string]
+}

@@ -46,7 +46,7 @@ const EditMeanings = ({oldMeanings, wordId}: Props) => {
            >
             Add new group
            </MyButton>
-           
+
            <MyButton
             color="green"
             onClick={()=> meaningsUpdate()}

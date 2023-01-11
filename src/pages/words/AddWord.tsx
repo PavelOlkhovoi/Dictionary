@@ -1,5 +1,4 @@
-import { collection, addDoc, serverTimestamp, collectionGroup, query, where, setDoc, getDocs, doc, getDoc,
-  updateDoc, arrayUnion, DocumentData} from "firebase/firestore"; 
+import { collection, addDoc, serverTimestamp, query, where, updateDoc, DocumentData, setDoc} from "firebase/firestore"; 
 import { useState, useEffect } from "react";
 import { db, auth, app } from "../..";
 import ExamplesConstructor from "../../components/wordsForm/examples/ExamplesConstructor";

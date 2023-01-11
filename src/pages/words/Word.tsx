@@ -11,10 +11,15 @@ import MyButton from '../../components/wordsForm/ui/MyButton';
 import { styleTW } from '../../style';
 import MyInput from '../../components/wordsForm/ui/MyInput';
 import EditExample from '../../components/edit/word/EditExample';
+import EditTag from '../../components/edit/word/EditTag';
+import { Tag } from '../types/word';
+import EditAllTags from '../../components/edit/word/EditAllTags';
+import AddNewTag from '../../components/edit/word/AddNewTag';
 
 const Word = () => {
     const wordId = useParams()
     const [wordDb, setWordDb] = useState<WordDb>({} as WordDb)
+
 
     const collRef = collection(db, "words")
     const [words, loadingW, errorW] = useCollectionData(
@@ -57,7 +62,7 @@ const Word = () => {
     }, [wordDb])
     useEffect(()=> {
         console.log('Tags', tags)
-    }, [tags, wordDb])
+    }, [tags])
     useEffect(()=> {
         console.log('isEdit', isEdit)
     }, [isEdit])
@@ -119,9 +124,21 @@ const Word = () => {
             <div className='flex items-center'>
             <h2 className="my-4 text-4xl">Tags</h2>
                 {
-                    tags.map(t => <div key={t.tagId}><span className={`${styleTW.bageBlue} mt-3 ml-5`}>{t.name}</span></div>)
+                    isEdit && tags.map(t => <div key={t.tagId}><span className={`${styleTW.bageBlue} mt-3 ml-5`}>{t.name} X</span></div>)
+                }
+                {
+                    !isEdit && <EditAllTags wordId={wordId.idword as string} oldTags={tags as Tag[]}/>
                 }
             </div>
+            {
+                !isEdit && <AddNewTag wordIdx={wordId.idword as string} />
+            }
+                <MyButton
+                    onClick={()=> console.log('Save')}
+                    color='green'
+                >
+                    Save changes
+                </MyButton>
         </section>
     );
 }
