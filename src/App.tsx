@@ -14,12 +14,6 @@ function App() {
 
   return (
     <>
-    {/* <nav className='flex justify-center space-x-4 my-6'>
-      <Link to="/">Home</Link>
-      <Link to="/words">Words</Link>
-      <Link to="/addwords">Add words</Link>
-      <Link to="/auth">Auth</Link>
-    </nav> */}
     <Navbars />
     <Routes>
       <Route path="/" element={<Home />} />
