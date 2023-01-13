@@ -15,9 +15,11 @@ import EditTag from '../../components/edit/word/EditTag';
 import { Tag } from '../types/word';
 import EditAllTags from '../../components/edit/word/EditAllTags';
 import AddNewTag from '../../components/edit/word/AddNewTag';
+import { useAppSelector } from '../../hooks/redux-hooks';
 
 const Word = () => {
     const wordId = useParams()
+    // const wordRedux = useAppSelector(state => state.word.words.find(w => w.wordId === wordId.idword))
     const [wordDb, setWordDb] = useState<WordDb>({} as WordDb)
 
 

@@ -11,17 +11,12 @@ const initialState: WordsState = {
 }
 
 const wordSlice = createSlice({
-    name: "word",
+    name: "words",
     initialState,
     reducers: {
         setWords(state, action: PayloadAction<WordDb[]>){
             state.words = action.payload
         },
-        // removeUser(state){
-        //     state.email = null;
-        //     state.uid = null;
-        //     state.token = null
-        // },
     }
 })
 

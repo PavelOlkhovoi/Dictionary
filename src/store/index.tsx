@@ -7,9 +7,9 @@ export const store = configureStore({
     user: userReduser,
     word: wordReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    serializableCheck: false,
-  }),
+  // middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+  //   serializableCheck: false,
+  // }),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

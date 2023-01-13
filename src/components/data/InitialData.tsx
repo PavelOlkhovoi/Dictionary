@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import { useAppDispatch } from '../../hooks/redux-hooks';
-import { collection, DocumentData, query, where } from 'firebase/firestore';
+import { collection, DocumentData, query, Timestamp, where } from 'firebase/firestore';
 import {onAuthStateChanged} from "firebase/auth";
 import { db, auth } from '../..';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
@@ -9,6 +9,8 @@ import Home from '../../pages/Home';
 import { getDocs } from "firebase/firestore";
 import { WordDb } from '../../pages/types/word';
 import { setWords } from '../../store/slices/wordSlice';
+import { parseISO, formatDistanceToNow } from 'date-fns'
+
 
 const InitialData = () => {
     const [currentUser, setCurrentUser] = useState(auth.currentUser)
@@ -38,12 +40,19 @@ const InitialData = () => {
             const allWords = [] as WordDb[]
             querySnapshot.forEach((doc) => {
               allWords.push(doc.data() as WordDb)
-              
             });
 
-            console.log(allWords)
+            const test = allWords.map(el => {
+              const date = parseISO((el.createdAt as Timestamp).toDate().toISOString())
+              const timePeriod = formatDistanceToNow(date)
+              return{
+                ...el,
+                createdAt: timePeriod
+              }
 
-            dispatch(setWords(allWords))
+            })
+            // console.log("TTTTTT", test)
+            dispatch(setWords(test))
     }
 
       

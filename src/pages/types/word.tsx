@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface Meaning {
     tempId: number;
     [index: string]: string[] | number ;
@@ -27,7 +29,7 @@ export interface WordDb {
     uid: string;
     wordId: string;
     word: string;
-    createdAt: Date;
+    createdAt: Timestamp | string;
     repeat: boolean;
     type: string[];
     meaning: MeanigsForServer;
