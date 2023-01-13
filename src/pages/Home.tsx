@@ -1,37 +1,21 @@
 import { signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from 'react';
 import { auth } from "..";
+import { useAppSelector } from "../hooks/redux-hooks";
 import { useMyAuth } from "../hooks/useMyAuth";
+
 
 const provider = new GoogleAuthProvider();
 
 const Home = () => {
-const user1 = auth.currentUser;
-const reduxUser = useMyAuth()
 
-const authMonitor = async () => {
-  onAuthStateChanged(auth, user => {
-    if(user){
-      console.log('IFFF', user)
-      setActiveUser(user)
-    }
-    else {
-      console.log('Else', user)
-    }
-  })
-}
-
-authMonitor()
-
-const [activeUser, setActiveUser] = useState(user1)
+const activeUser = useMyAuth()
+const words = useAppSelector(state => state.word)
 
 useEffect(()=> {
-  console.log("User Effects", activeUser)
+  console.log("User Effects", words)
+
 }, [activeUser])
-
-useEffect(()=> {
-  console.log("Reduxuser", reduxUser)
-}, [reduxUser])
 
 
 const handleAuth = () => {
@@ -73,8 +57,8 @@ const logout = () => {
       {
         activeUser && 
         <div>
-          Username: {activeUser.displayName}
-          <img src={activeUser.photoURL ? activeUser.photoURL : 'no foto'} alt="" />
+          Username: {activeUser.email}
+          {/* <img src={activeUser.photoURL ? activeUser.photoURL : 'no foto'} alt="" /> */}
         </div>
       }
 
