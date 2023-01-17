@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import { useAppDispatch } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { collection, DocumentData, query, Timestamp, where } from 'firebase/firestore';
 import {onAuthStateChanged} from "firebase/auth";
 import { db, auth } from '../..';
@@ -10,11 +10,13 @@ import { getDocs } from "firebase/firestore";
 import { WordDb } from '../../pages/types/word';
 import { setWords } from '../../store/slices/wordSlice';
 import { parseISO, formatDistanceToNow } from 'date-fns'
+import { fetchTags } from '../../store/slices/tagSlice';
 
 
 const InitialData = () => {
     const [currentUser, setCurrentUser] = useState(auth.currentUser)
     const dispatch = useAppDispatch()
+    const tags = useAppSelector(state => state.tag)
 
     const authMonitor = async () => {
         onAuthStateChanged(auth, user => {
@@ -24,7 +26,11 @@ const InitialData = () => {
               email: user.email,
               id: user.uid,
               token: user.refreshToken
-            }))
+          }))
+
+          dispatch(fetchTags(user.uid))
+
+           
           }
           else {
             console.log('Else', user)
@@ -51,7 +57,6 @@ const InitialData = () => {
               }
 
             })
-            // console.log("TTTTTT", test)
             dispatch(setWords(test))
     }
 
@@ -62,6 +67,10 @@ const InitialData = () => {
             getUserWords()
         }
     },[currentUser])
+
+    useEffect(()=> {
+       console.log('Tags', tags)
+    },[tags])
 
 
     if(!currentUser){

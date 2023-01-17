@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit"
+import {createSlice, PayloadAction, createAsyncThunk} from "@reduxjs/toolkit"
 import { WordDb } from "../../pages/types/word";
 
 
@@ -19,6 +19,12 @@ const wordSlice = createSlice({
         },
     }
 })
+
+// export const fetchWprds = createAsyncThunk('words/fetchWords', async (uid: string) => {
+//     const response = await ....
+//     return Response.data
+// })
+
 
 export const {setWords } = wordSlice.actions
 export default wordSlice.reducer
