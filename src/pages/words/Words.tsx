@@ -1,16 +1,22 @@
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux-hooks';
+import {useEffect} from 'react'
+
 
 
 const Words = () => {
-    const words = useAppSelector(state => state.word)
+    const words = useAppSelector(state => state.word.words)
+
+    useEffect(() => {
+    console.log('Words All', words)
+    }, [words])
         
     return (
         <div className='p-6 max-w-sm mx-auto'>
             <h1 className="text-3xl font-bold underline">All words</h1>
             <ul>
                 {
-                    words.words.map(w => 
+                    words.map(w => 
                     <li 
                         key={w.wordId}
                         >

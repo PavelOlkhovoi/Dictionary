@@ -19,7 +19,7 @@ import { useAppSelector } from '../../hooks/redux-hooks';
 
 const Word = () => {
     const wordId = useParams()
-    // const wordRedux = useAppSelector(state => state.word.words.find(w => w.wordId === wordId.idword))
+    const wordRedux = useAppSelector(state => state.word.words.find(w => w.wordId === wordId.idword))
     const [wordDb, setWordDb] = useState<WordDb>({} as WordDb)
 
 

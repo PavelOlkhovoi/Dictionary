@@ -2,20 +2,20 @@ import { signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from
 import { useEffect, useState } from 'react';
 import { auth } from "..";
 import { useAppSelector } from "../hooks/redux-hooks";
-import { useMyAuth } from "../hooks/useMyAuth";
+// import { useMyAuth } from "../hooks/useMyAuth";
 
 
 const provider = new GoogleAuthProvider();
 
 const Home = () => {
 
-const activeUser = useMyAuth()
+// const activeUser = useMyAuth()
 const words = useAppSelector(state => state.word)
 
-useEffect(()=> {
-  console.log("User Effects", words)
+// useEffect(()=> {
+//   console.log("User Effects", activeUser)
 
-}, [activeUser])
+// }, [activeUser])
 
 
 const handleAuth = () => {
@@ -55,9 +55,9 @@ const logout = () => {
     <section>
       <h1>User Data</h1>
       {
-        activeUser && 
+        // activeUser && 
         <div>
-          Username: {activeUser.email}
+          {/* Username: {activeUser.email} */}
           {/* <img src={activeUser.photoURL ? activeUser.photoURL : 'no foto'} alt="" /> */}
         </div>
       }

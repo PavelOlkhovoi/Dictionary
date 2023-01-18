@@ -4,7 +4,7 @@ import { collection, DocumentData, query, Timestamp, where } from 'firebase/fire
 import {onAuthStateChanged} from "firebase/auth";
 import { db, auth } from '../..';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { setUser } from '../../store/slices/userSlice';
+// import { setUser } from '../../store/slices/userSlice';
 import Home from '../../pages/Home';
 import { getDocs } from "firebase/firestore";
 import { WordDb } from '../../pages/types/word';
@@ -18,25 +18,25 @@ const InitialData = () => {
     const dispatch = useAppDispatch()
     const tags = useAppSelector(state => state.tag)
 
-    const authMonitor = async () => {
-        onAuthStateChanged(auth, user => {
-          if(user){
-            setCurrentUser(user)
-            dispatch(setUser({
-              email: user.email,
-              id: user.uid,
-              token: user.refreshToken
-          }))
+    // const authMonitor = async () => {
+    //     onAuthStateChanged(auth, user => {
+    //       if(user){
+    //       //   setCurrentUser(user)
+    //       //   dispatch(setUser({
+    //       //     email: user.email,
+    //       //     id: user.uid,
+    //       //     token: user.refreshToken
+    //       // }))
 
-          dispatch(fetchTags(user.uid))
+    //       // dispatch(fetchTags(user.uid))
 
-           
-          }
-          else {
-            console.log('Else', user)
-          }
-        })
-      }
+    //       console.log('Else', user)
+    //       }
+    //       else {
+    //         console.log('Else', user)
+    //       }
+    //     })
+    //   }
 
 
     const getUserWords = async () => {
@@ -61,21 +61,21 @@ const InitialData = () => {
     }
 
       
-    useEffect(()=> {
-        authMonitor()
-        if(currentUser){
-            getUserWords()
-        }
-    },[currentUser])
+    // useEffect(()=> {
+    //     authMonitor()
+    //     if(currentUser){
+    //         getUserWords()
+    //     }
+    // },[currentUser])
 
-    useEffect(()=> {
-       console.log('Tags', tags)
-    },[tags])
+    // useEffect(()=> {
+    //    console.log('Tags', tags)
+    // },[tags])
 
 
-    if(!currentUser){
-        return <h1>You need to auth</h1>
-    }
+    // if(!currentUser){
+    //     return <h1>You need to auth</h1>
+    // }
 
     return <Home />
 }
