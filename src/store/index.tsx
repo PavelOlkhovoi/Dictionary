@@ -1,7 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, MiddlewareArray } from '@reduxjs/toolkit'
 import userReduser from "./slices/userSlice"
 import wordReducer from "./slices/wordSlice"
 import tagSlice from './slices/tagSlice'
+
 
 export const store = configureStore({
   reducer: {
@@ -9,10 +10,9 @@ export const store = configureStore({
     word: wordReducer,
     tag: tagSlice,
   },
-  // middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-  //   serializableCheck: false,
-  // }),
+  // middleware: new MiddlewareArray()
 })
+
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>

@@ -3,10 +3,11 @@ import { db } from "../..";
 import { collection, query, where } from "firebase/firestore";
 import { getDocs } from "firebase/firestore";
 import { Tag } from "../../pages/types/word"
+import { fetchUserTags } from "../../backend/crudFunctions/words";
 
 interface IState {
   tags: Tag[],
-  status: string
+  status: 'idle' | 'pending' | 'succeeded' | 'failed'
   error: string | null
 }
 
@@ -25,12 +26,11 @@ const initialState: IState = {
     extraReducers(builder){
       builder
       .addCase(fetchTags.pending, (state, action) => {
-        state.status = 'loading'
+        state.status = 'pending'
       })
       .addCase(fetchTags.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        // Add any fetched posts to the array
-        state.tags = state.tags.concat(action.payload)
+        state.tags = state.tags.concat(action.payload as [])
       })
       .addCase(fetchTags.rejected, (state, action) => {
         state.status = 'failed'
@@ -39,19 +39,9 @@ const initialState: IState = {
     }
   })
 
-  export const fetchTags = createAsyncThunk('posts/fetchPosts', async (uid: string) => {
-    const tagsId = collection(db, 'tags')
-    const query_ = query(tagsId, where("userId", "==", uid))
-    const querySnapshot= await getDocs(query_)
-    
-    const allTags = [] as Tag[]
-    
-    querySnapshot.forEach((doc) => {
-      allTags.push(doc.data() as Tag)
-    });
-
-    console.log('KKKKKKKKKK', allTags)
-    return allTags
+  export const fetchTags = createAsyncThunk('posts/fetchTags', async (uid: string) => {
+    const response = await fetchUserTags(uid)
+    return response
   })
 
   export default tagSlice.reducer

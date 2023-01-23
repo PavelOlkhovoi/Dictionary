@@ -17,6 +17,7 @@ const InitialData = () => {
     const [currentUser, setCurrentUser] = useState(auth.currentUser)
     const dispatch = useAppDispatch()
     const tags = useAppSelector(state => state.tag)
+    const user = useAppSelector(state => state.user.userFake)
 
     // const authMonitor = async () => {
     //     onAuthStateChanged(auth, user => {
@@ -38,27 +39,31 @@ const InitialData = () => {
     //     })
     //   }
 
+    useEffect(() => {
+      console.log("Initial Date", user)
+    }, [user])
 
-    const getUserWords = async () => {
-      const wordRef = collection(db, "words");
-            const query_ = query(wordRef, where("uid", "==", currentUser?.uid));
-            const querySnapshot = await getDocs(query_);
-            const allWords = [] as WordDb[]
-            querySnapshot.forEach((doc) => {
-              allWords.push(doc.data() as WordDb)
-            });
 
-            const test = allWords.map(el => {
-              const date = parseISO((el.createdAt as Timestamp).toDate().toISOString())
-              const timePeriod = formatDistanceToNow(date)
-              return{
-                ...el,
-                createdAt: timePeriod
-              }
+    // const getUserWords = async () => {
+    //   const wordRef = collection(db, "words");
+    //         const query_ = query(wordRef, where("uid", "==", currentUser?.uid));
+    //         const querySnapshot = await getDocs(query_);
+    //         const allWords = [] as WordDb[]
+    //         querySnapshot.forEach((doc) => {
+    //           allWords.push(doc.data() as WordDb)
+    //         });
 
-            })
-            dispatch(setWords(test))
-    }
+    //         const test = allWords.map(el => {
+    //           const date = parseISO((el.createdAt as Timestamp).toDate().toISOString())
+    //           const timePeriod = formatDistanceToNow(date)
+    //           return{
+    //             ...el,
+    //             createdAt: timePeriod
+    //           }
+
+    //         })
+    //         dispatch(setWords(test))
+    // }
 
       
     // useEffect(()=> {
