@@ -40,18 +40,18 @@ export const getUserWords = async (userid: string) => {
 
   export const fetchUserTags = async (uid: string) => {
     try {
-      const tagsId = collection(db, 'ts')
+      const tagsId = collection(db, 'tags')
       const query_ = query(tagsId, where("userId", "==", uid))
       const querySnapshot= await getDocs(query_)
 
       if(querySnapshot.empty) { throw 'The empty array of tags returned' }
-      
+
       const allTags = [] as Tag[]
       querySnapshot.forEach((doc) => {
-      allTags.push(doc.data() as Tag)
+        allTags.push(doc.data() as Tag)
+      });
 
       return allTags
-    });
     } catch (error) {
       return new Promise((resolve, rejects) => {
         rejects(error)

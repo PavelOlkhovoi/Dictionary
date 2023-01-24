@@ -22,5 +22,4 @@ export const addWordIdxToTag = async (tagId: string, wordIdx: string) => {
     await updateDoc(tagRef, {
         word_id: arrayUnion(wordIdx)
     })
-          
 }

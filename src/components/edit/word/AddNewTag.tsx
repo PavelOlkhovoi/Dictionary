@@ -2,18 +2,17 @@ import useInput from "../../../hooks/useInput";
 import MyButton from "../../wordsForm/ui/MyButton";
 import MyInput from "../../wordsForm/ui/MyInput";
 import { createTag } from "../../../backend/crudFunctions";
-import { db, auth } from "../../..";
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useAppSelector } from "../../../hooks/redux-hooks";
 
 interface Props {
     wordIdx: string
 }
 
-const AddNewTag = ({wordIdx}: Props) => {
+const AddNewTag = ({ wordIdx }: Props) => {
     const newTag = useInput('')
-    const [user, loading, error] = useAuthState(auth);
+    const uid = useAppSelector(state => state.user.userFake?.uid)
     const addNewTag = async () => {
-         createTag(user?.uid ? user.uid : '12345', newTag.value, wordIdx)
+         createTag(uid as string, newTag.value, wordIdx)
     }
     return (
         <div>

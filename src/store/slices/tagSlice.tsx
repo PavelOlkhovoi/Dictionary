@@ -1,7 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { db } from "../..";
-import { collection, query, where } from "firebase/firestore";
-import { getDocs } from "firebase/firestore";
 import { Tag } from "../../pages/types/word"
 import { fetchUserTags } from "../../backend/crudFunctions/words";
 
@@ -29,6 +26,7 @@ const initialState: IState = {
         state.status = 'pending'
       })
       .addCase(fetchTags.fulfilled, (state, action) => {
+        console.log(action.payload)
         state.status = 'succeeded'
         state.tags = state.tags.concat(action.payload as [])
       })

@@ -42,4 +42,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 ## Space to improvement
 
 1. Rewright word and add add a separate Edit component
+2. Add dispatch when a delete or add new words
+3. Check meaning, examples whether it update redux state
+    
 

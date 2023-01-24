@@ -13,7 +13,7 @@ const ShowMeanings = ({meanings, isEdit, wordId}: Props) => {
     const name = meanings ? Object.keys(meanings) : []
    
     return <div className="my-4">
-        {   isEdit &&
+        {   !isEdit &&
             name.map(m => {
                 const items = meanings[m].map(i => <li key={i} className="mt-0">{firstCapitalLetter(i)}</li>)
                 const list = <div
@@ -32,7 +32,7 @@ const ShowMeanings = ({meanings, isEdit, wordId}: Props) => {
         }
 
         {
-            !isEdit && meanings &&
+            isEdit && meanings &&
             <EditMeanings wordId={wordId} oldMeanings={meanings}/>
         }
     </div>;
