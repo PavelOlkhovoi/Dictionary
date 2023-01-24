@@ -19,8 +19,9 @@ const wordSlice = createSlice({
     name: "words",
     initialState,
     reducers: {
-        setWords(state, action: PayloadAction<WordDb[]>){
-            state.words = action.payload
+        updateWord(state, action: PayloadAction<{id: string, newWord: string}>){
+            const word = state.words.find(word => word.wordId === action.payload.id)
+            if(word){ word.word = action.payload.newWord }
         },
     },
     extraReducers: builder => {
@@ -45,5 +46,5 @@ export const fetchWords = createAsyncThunk('words/fetchWords', async (uid: strin
 })
 
 
-export const {setWords } = wordSlice.actions
+export const { updateWord } = wordSlice.actions
 export default wordSlice.reducer

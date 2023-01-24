@@ -7,7 +7,7 @@ import Words from './pages/words/Words';
 import NotFound from './pages/NotFound';
 import AddWord from './pages/words/AddWord';
 import Navbars from './components/css-blocks/Navbars';
-import InitialData from './components/data/InitialData';
+import WordEdit from './pages/words/WordEdit';
 
 
 
@@ -17,9 +17,10 @@ function App() {
     <>
     <Navbars />
     <Routes>
-      <Route path="/" element={<InitialData />} />
+      <Route path="/" element={<Home />} />
       <Route path="words" element={<Words />} />
       <Route path="words/:idword" element={<Word />} />
+      <Route path="words/edit/:idword" element={<WordEdit />} />
       <Route path="addwords" element={<AddWord />}/>
       <Route path="auth" element={<SignUp />} />
       <Route path="*" element={<NotFound />} />

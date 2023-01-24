@@ -1,5 +1,4 @@
-import { collection, addDoc, serverTimestamp, collectionGroup, query, where, setDoc, getDocs, doc, getDoc,
-    updateDoc, arrayUnion} from "firebase/firestore";
+import { collection, addDoc, setDoc, doc, updateDoc, arrayUnion} from "firebase/firestore";
 import { db } from "../..";
 
 export const createTag = async (uid: string, tagField: string, wordIdx: string) => {
@@ -10,7 +9,7 @@ export const createTag = async (uid: string, tagField: string, wordIdx: string) 
           word_id: [wordIdx]
         });
         console.log("Tag Document written with ID: ", docRef.id);
-      setDoc(docRef, {tagId: docRef.id}, {merge: true})
+        setDoc(docRef, {tagId: docRef.id}, {merge: true})
 
       } catch (e) {
         console.error("Error adding document: ", e);
