@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction, createAsyncThunk, current} from "@reduxjs/toolkit"
 import { getUserWords } from "../../backend/crudFunctions/words";
-import { ExampleForServer, WordDb } from "../../pages/types/word";
+import { ExampleForServer, MeanigsForServer, WordDb } from "../../pages/types/word";
 
 
 interface WordsState {
@@ -27,6 +27,10 @@ const wordSlice = createSlice({
             const word = state.words.find(word => word.wordId === action.payload.id)
             if(word){ word.examples = action.payload.examples }
         },
+        updateMeanings(state, action: PayloadAction<{id: string, meanings: MeanigsForServer}>){
+            const word = state.words.find(word => word.wordId === action.payload.id)
+            if(word){ word.meaning = action.payload.meanings }
+        }
     },
     extraReducers: builder => {
         builder
@@ -50,5 +54,5 @@ export const fetchWords = createAsyncThunk('words/fetchWords', async (uid: strin
 })
 
 
-export const { updateWord, updateExamplex } = wordSlice.actions
+export const { updateWord, updateExamplex, updateMeanings } = wordSlice.actions
 export default wordSlice.reducer

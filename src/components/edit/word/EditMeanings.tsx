@@ -2,8 +2,10 @@ import { MeanigsForServer } from "../../../pages/types/word";
 import EditSingleMeaning from "./EditSingleMeaning";
 import {useState, useEffect} from 'react'
 import MyButton from "../../wordsForm/ui/MyButton";
-import { collection, DocumentData, query, where, doc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import { db } from "../../..";
+import { useAppDispatch } from "../../../hooks/redux-hooks";
+import { updateMeanings } from "../../../store/slices/wordSlice";
 
 
 interface Props {
@@ -13,12 +15,18 @@ interface Props {
 
 const EditMeanings = ({oldMeanings, wordId}: Props) => {
     const [newMeanings, setNewMeanings] = useState<MeanigsForServer>(oldMeanings)
-
+    const dispatch = useAppDispatch()
     const meaningsUpdate = async () => {
+       try {
         const wordRef = doc(db, "words", wordId);
         await updateDoc(wordRef, {
             meaning: newMeanings
         });
+
+        dispatch(updateMeanings({id: wordId as string, meanings: newMeanings}))
+       } catch (error) {
+        console.error(error)
+       }
     }
 
     useEffect(() => {

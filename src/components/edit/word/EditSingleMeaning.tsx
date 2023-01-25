@@ -60,12 +60,12 @@ const EditSingleMeaning = ({meanings, meaningKeyName, meaningsUpdate}: Props) =>
             </div>
             {
                 newMeanings.map((m, idx) => {
-                    return <div key={m}>
+                    return <div key={idx}>
                         <EditSimpleString
-                            text={m}
-                            idx={idx}
-                            updateLocalMeanings={updateLocalMeanings}
-                            deleteLocalMeaning={deleteLocalMeanings}
+                        text={m}
+                        idx={idx}
+                        updateLocalMeanings={updateLocalMeanings}
+                        deleteLocalMeaning={deleteLocalMeanings}
                         />
                     </div>
                 })
