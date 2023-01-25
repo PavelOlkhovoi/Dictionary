@@ -14,6 +14,7 @@ import EditAllTags from '../../components/edit/word/EditAllTags'
 import EditExample from '../../components/edit/word/EditExample'
 import AddNewTag from '../../components/edit/word/AddNewTag'
 import { updateWord } from '../../store/slices/wordSlice'
+import { updateExamplex } from '../../store/slices/wordSlice'
 
 const WordEdit = () => {
     const { idword } = useParams()
@@ -42,9 +43,14 @@ const WordEdit = () => {
     }
     
     const examplesUpdate = async (updatedExamples: ExampleForServer[]) => {
-        await updateDoc(wordRef, {
-          examples: updatedExamples
-        });
+        try {
+            await updateDoc(wordRef, {
+                examples: updatedExamples
+              });
+              idword && dispatch(updateExamplex({id: idword, examples: updatedExamples}))
+        } catch (error) {
+            console.error("Error examples document: ", error);
+        }
     }
     
     const deleteWord = async () => {
@@ -60,15 +66,14 @@ const WordEdit = () => {
     >
         <div className='sm:flex gap-8 items-center'>
         <MyInput
-                    edit={true}  
-                    name='word' 
-                    label='Word' 
-                    placeholder={firstCapitalLetter(currentWord.word)} 
-                    onChange={(e)=> setWord( prev => e.target.value)}
-                    editFunct={wordUpdate}
-                    />
-
-            <MyButton onClick={deleteWord} color="red">Delete word</MyButton>
+            edit={true}  
+            name='word' 
+            label='Word' 
+            placeholder={firstCapitalLetter(currentWord.word)} 
+            onChange={(e)=> setWord( prev => e.target.value)}
+            editFunct={wordUpdate}
+            />
+        <MyButton onClick={deleteWord} color="red">Delete word</MyButton>
         </div>
         <dl className={styleTW.gridDl}>
             <dt>Level:</dt>
@@ -89,7 +94,7 @@ const WordEdit = () => {
         <div className='flex items-center'>
         <h2 className="my-4 text-4xl">Tags</h2>
             {
-                <EditAllTags wordId={idword as string} oldTags={tags}/>
+                <EditAllTags wordId={idword as string} />
             }
         </div>
         {

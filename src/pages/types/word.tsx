@@ -43,5 +43,5 @@ export interface Tag {
     name: string
     tagId: string
     userId: string
-    word_id: [string]
+    word_id: string[]
 }

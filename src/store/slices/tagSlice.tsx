@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { Tag } from "../../pages/types/word"
 import { fetchUserTags } from "../../backend/crudFunctions/words";
 
@@ -18,7 +18,16 @@ const initialState: IState = {
     name: 'tags',
     initialState,
     reducers: {
-
+      deleteWordFromTag(state, action: PayloadAction<{tagId: string, wordId: string}>){
+        const tag = state.tags.find(tag => tag.tagId === action.payload.tagId)
+        if(tag){ 
+          const wordId = tag.word_id.filter(wordId => wordId !== action.payload.wordId )
+          tag.word_id = wordId
+        }
+      },
+      addTag(state, action: PayloadAction<Tag>){
+        state.tags.push(action.payload)
+      }
     },
     extraReducers(builder){
       builder
@@ -41,5 +50,7 @@ const initialState: IState = {
     const response = await fetchUserTags(uid)
     return response
   })
+
+  export const { addTag, deleteWordFromTag } = tagSlice.actions
 
   export default tagSlice.reducer

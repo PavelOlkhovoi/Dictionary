@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction, createAsyncThunk, current} from "@reduxjs/toolkit"
 import { getUserWords } from "../../backend/crudFunctions/words";
-import { WordDb } from "../../pages/types/word";
+import { ExampleForServer, WordDb } from "../../pages/types/word";
 
 
 interface WordsState {
@@ -22,6 +22,10 @@ const wordSlice = createSlice({
         updateWord(state, action: PayloadAction<{id: string, newWord: string}>){
             const word = state.words.find(word => word.wordId === action.payload.id)
             if(word){ word.word = action.payload.newWord }
+        },
+        updateExamplex(state, action: PayloadAction<{id: string, examples: ExampleForServer[]}>){
+            const word = state.words.find(word => word.wordId === action.payload.id)
+            if(word){ word.examples = action.payload.examples }
         },
     },
     extraReducers: builder => {
@@ -46,5 +50,5 @@ export const fetchWords = createAsyncThunk('words/fetchWords', async (uid: strin
 })
 
 
-export const { updateWord } = wordSlice.actions
+export const { updateWord, updateExamplex } = wordSlice.actions
 export default wordSlice.reducer

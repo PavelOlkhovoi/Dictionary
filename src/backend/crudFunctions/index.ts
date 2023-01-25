@@ -8,9 +8,11 @@ export const createTag = async (uid: string, tagField: string, wordIdx: string) 
           name: tagField,
           word_id: [wordIdx]
         });
-        console.log("Tag Document written with ID: ", docRef.id);
         setDoc(docRef, {tagId: docRef.id}, {merge: true})
 
+        console.log("Tag Document written with ID: ", docRef.id)
+
+        return docRef.id
       } catch (e) {
         console.error("Error adding document: ", e);
       }

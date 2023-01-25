@@ -10,26 +10,26 @@ interface Props {
 }
 
 const EditExample = ({allExamples, exampleUpdate}:Props) => {
-    const [newExample, setNewExample] = useState<ExampleForServer[]>(allExamples)
+    const [newExamples, setNewExample] = useState<ExampleForServer[]>(allExamples)
     const changeExample = (idx: number, example: ExampleForServer) => {
-        const copyArr = [...newExample]
+        const copyArr = [...newExamples]
         copyArr[idx] = example
         setNewExample(copyArr)
     }
 
     const deleteExample = (idx: number) => {
-        const deletedArr = newExample.filter((ex, id) => idx !== id)
+        const deletedArr = newExamples.filter((ex, id) => idx !== id)
         setNewExample(deletedArr)
     }
 
     useEffect(()=> {
-        console.log('Edit New Exampl', newExample)
-        exampleUpdate(newExample)
-    }, [newExample])
+        console.log('Edit New Exampl', newExamples)
+        exampleUpdate(newExamples)
+    }, [newExamples])
     return (
         <div>
             {
-            newExample.map((ex, idx) => {
+            newExamples.map((ex, idx) => {
                 return <div key={ex.example} className="my-4">
                     <EditSingleExample 
                         oldExample={ex.example} 
