@@ -34,7 +34,6 @@ const AddWord = () => {
               uid: user?.uid ? user.uid : '12345',
               word: word.value,
               meaning: meanings,
-              // tags,
               examples,
               level: 'low',
               points: 0,

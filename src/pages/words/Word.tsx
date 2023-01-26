@@ -59,9 +59,6 @@ const Word = () => {
                 {
                     tags.map(t => <div key={t.tagId}><span className={`${styleTW.bageBlue} mt-3 ml-5`}>{t.name}</span></div>)
                 }
-                {
-                    // isEdit && <EditAllTags wordId={idword as string} oldTags={tags}/>
-                }
             </div>
         </section>
     );

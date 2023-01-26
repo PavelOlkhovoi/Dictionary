@@ -9,14 +9,7 @@ const provider = new GoogleAuthProvider();
 
 const Home = () => {
 
-// const activeUser = useMyAuth()
 const words = useAppSelector(state => state.word)
-
-// useEffect(()=> {
-//   console.log("User Effects", activeUser)
-
-// }, [activeUser])
-
 
 const handleAuth = () => {
   signInWithPopup(auth, provider)
