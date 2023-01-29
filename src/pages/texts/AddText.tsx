@@ -5,7 +5,7 @@ import { styleTW } from '../../style';
 import MyButton from '../../components/wordsForm/ui/MyButton';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import Loading from '../../components/Loading';
-import { ifCompoundWords } from '../../backend/crudFunctions/text';
+import { ifCompoundWords, ifSimpleWords } from '../../backend/crudFunctions/text';
 
 
 const AddText = () => {
@@ -16,6 +16,7 @@ const AddText = () => {
     const wordStatus = useAppSelector(state => state.word.status)
     const name = useInput('')
     const [text, setText] = useState('')
+
     const arrSimpleWords: string[] = []
     const arrСompoundWords: string[] = []
 
@@ -27,11 +28,59 @@ const AddText = () => {
         }
     })
 
+    const [testRes, setTestRes] = useState<any[]>([])
+
     const testWatcher = (button: string) => {
         if(button === ' '){
             setText(text.replace('dog', 'cat'))
         }
     }
+
+    useEffect(()=> {
+        const resBlue: string[] = [];
+        const resYellow: string[] = [];
+
+        text.split(" ").forEach((w) => {          
+            arrСompoundWords.forEach((word) => {
+                if (text.includes(word)) {
+                resBlue.push(word);
+                }
+            });
+            
+            arrSimpleWords.forEach((word) => {
+                if (text.includes(word)) {
+                resYellow.push(word);
+                }
+            });
+
+            return w
+        })
+
+        const res = text.split(" ").map(w => {
+            const ifBlue: string[] = []
+
+            resBlue.forEach(b => {
+                if(b.split(" ").includes(w.replace('.', '').trim())){
+                    ifBlue.push(`${w}+blue`)
+                }
+            })
+
+            if(ifBlue.length > 0){
+                return <span className='bg-blue-400'>{w} </span>
+            }
+
+            if(resYellow.includes(w)){
+                return <span className='bg-yellow-400'>{w} </span>
+            }
+
+            return <>{w} </>
+
+
+        })
+        
+        setTestRes(res) 
+        console.log('Resss', testRes)
+    }, [text])
 
     if( tagsStatus === 'pending'  || wordStatus  === 'pending'){
         return <Loading />
@@ -53,37 +102,13 @@ const AddText = () => {
                     Type you text
                 </label>
                 <div>
-                    <p>
-                    {/* {
-                        text.split(' ').map((w, idx) => {
-                            if(arrWord.includes(w)){
-                                return <span className='bg-yellow-400' key={idx}>{w} </span>
-                            }
-                            else {
-                                return <>{w} </>
-                            }
-                        })
-                    } */}
+                    <div>
+
                     {
-                        text.split(' ').map((w, idx) => {
-                            if(arrSimpleWords.includes(w)){
-                                return <span className='bg-yellow-400' key={idx}>{w} </span>
-                            }else {
-                                return <>{w} </>
-                            }
-                        }).map((w, idx) => {
-                            const tesOne = ifCompoundWords(text, arrСompoundWords);
-                            console.log('first', tesOne, idx)
-                                if(tesOne.length > 1){
-                                    if(tesOne[0] === idx || tesOne[1] === idx){
-                                        return <span className='bg-yellow-400' key={idx}>{w} </span>
-                                    }else {
-                                        return <>{w} </>
-                                    }
-                                }
-                            })
+                        testRes.map((res, idx) => <span key={idx}>{res}</span>)
                     }
-                    </p>
+                    </div>
+                    
                 </div>
                 <textarea className={`${styleTW.shadow} mb-8`} name="text" 
                 value={text}

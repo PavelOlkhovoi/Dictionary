@@ -24,3 +24,18 @@ export const ifCompoundWords = (text: string, words: string[]) => {
 
     return position
 }
+
+
+export const ifSimpleWords = (text: string, words: string[]) => {
+    const arrText = text.split(' ')
+    const color: string[] = []
+
+    arrText.forEach(w => {
+        if(words.includes(w)){
+            color.push(w)
+            return color
+        }
+    })
+
+    return color.length > 0 ? color : null
+}
