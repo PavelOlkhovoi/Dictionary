@@ -46,6 +46,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
     - Text watcher: press KEYDOWN --> check if text contain any words
     - If text contain a word: --> change color (color depends on status), --> add this word + 2 when it is added
     - Add save text + dispatch
-    - show words when tag is clicked
-    
+    ---- NEXT TASK --- show words when tag is clicked
+    ------------------ Refactor wards whatcher
+
 

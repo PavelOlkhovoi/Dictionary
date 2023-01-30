@@ -6,6 +6,8 @@ import MyButton from '../../components/wordsForm/ui/MyButton';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import Loading from '../../components/Loading';
 import { ifCompoundWords, ifSimpleWords } from '../../backend/crudFunctions/text';
+import { getWordsById } from '../../helpers/getDataRedux';
+import { WordDb } from '../types/word';
 
 
 const AddText = () => {
@@ -16,6 +18,10 @@ const AddText = () => {
     const wordStatus = useAppSelector(state => state.word.status)
     const name = useInput('')
     const [text, setText] = useState('')
+    const [wordsByTag, setWordsByTag] = useState<{show: boolean, words: WordDb[]}>({
+        show: false,
+        words: []
+    })
 
     const arrSimpleWords: string[] = []
     const arrСompoundWords: string[] = []
@@ -28,12 +34,20 @@ const AddText = () => {
         }
     })
 
-    const [testRes, setTestRes] = useState<any[]>([])
+    const [textRes, setTextRes] = useState<any[]>([])
 
     const testWatcher = (button: string) => {
         if(button === ' '){
             setText(text.replace('dog', 'cat'))
         }
+    }
+
+    const getWordsByTag = (ids: string[]) => {
+        const foundWordsByTag = getWordsById(words, ids)
+        setWordsByTag({
+            show: !wordsByTag.show,
+            words:foundWordsByTag
+        })
     }
 
     useEffect(()=> {
@@ -69,7 +83,7 @@ const AddText = () => {
                 return <span className='bg-blue-400'>{w} </span>
             }
 
-            if(resYellow.includes(w)){
+            if(resYellow.includes(w.replace('.', '').trim())){
                 return <span className='bg-yellow-400'>{w} </span>
             }
 
@@ -78,8 +92,8 @@ const AddText = () => {
 
         })
         
-        setTestRes(res) 
-        console.log('Resss', testRes)
+        setTextRes(res) 
+        console.log('Resss', textRes)
     }, [text])
 
     if( tagsStatus === 'pending'  || wordStatus  === 'pending'){
@@ -95,7 +109,21 @@ const AddText = () => {
                         Hints
                     </h3>
                 {
-                    tags.map(tag => <div key={tag.tagId} className={`${styleTW.bageBlue} mt-3`}>{tag.name}</div>)
+                    tags.map(tag => 
+                        <div 
+                        key={tag.tagId} 
+                        className={`${styleTW.bageBlue} my-3 mr-3 cursor-pointer`}
+                        onClick={()=> console.log(getWordsByTag(tag.word_id))}
+                        >
+                            {tag.name}
+                        </div>)
+                }   
+                 {
+                    wordsByTag.show && <ul>
+                        {
+                            wordsByTag.words.map(w => <li key={w.wordId}>{w.word}</li>)
+                        }
+                    </ul>
                 }
                 </div>
                 <label htmlFor=""className="block mb-2 mt-8 text-sm font-medium text-gray-700 undefined">
@@ -105,7 +133,7 @@ const AddText = () => {
                     <div>
 
                     {
-                        testRes.map((res, idx) => <span key={idx}>{res}</span>)
+                        textRes.map((res, idx) => <span key={idx}>{res}</span>)
                     }
                     </div>
                     
@@ -117,10 +145,6 @@ const AddText = () => {
                 onKeyUp={(e)=> testWatcher(e.key)}
                 />
 
-                {/* <div contentEditable={true}>
-                    Ahdjk jsclks
-                    <span className='bg-yellow-400'>Trrrr</span>
-                </div> */}
                 <MyButton color='green'>Add text</MyButton>
         </div>
         </section>
