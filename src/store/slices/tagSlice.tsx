@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { Tag } from "../../pages/types/word"
 import { fetchUserTags } from "../../backend/crudFunctions/words";
+import { RootState } from "..";
+import { WordDb } from "../../pages/types/word";
 
 interface IState {
   tags: Tag[],
@@ -27,7 +29,13 @@ const initialState: IState = {
       },
       addTag(state, action: PayloadAction<Tag>){
         state.tags.push(action.payload)
-      }
+      },
+      addWordToTag(state, action: PayloadAction<{tagId: string, wordId: string}>){
+        const tag = state.tags.find(tag => tag.tagId === action.payload.tagId)
+        if(tag && !tag.word_id.includes(action.payload.wordId)){ 
+          tag.word_id.push(action.payload.wordId)
+        }
+      },
     },
     extraReducers(builder){
       builder
@@ -51,6 +59,18 @@ const initialState: IState = {
     return response
   })
 
-  export const { addTag, deleteWordFromTag } = tagSlice.actions
+  export const selectWordsByTag = (state: RootState, ids?: string[]) => {
+    const rangeWords: WordDb[] = []
+    ids?.forEach(id => {
+        const foundWord = state.word.words.find((w) => w.wordId === id)
+        
+        foundWord && rangeWords.push(foundWord)
+    })
+
+    return rangeWords
+
+}
+
+  export const { addTag, deleteWordFromTag, addWordToTag } = tagSlice.actions
 
   export default tagSlice.reducer

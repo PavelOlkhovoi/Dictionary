@@ -100,12 +100,6 @@ const WordEdit = () => {
         {
             <AddNewTag wordIdx={idword as string} />
         }
-            {/* <MyButton
-                onClick={()=> console.log('Save')}
-                color='green'
-            >
-                Save changes
-            </MyButton> */}
     </section>
 }
 

@@ -1,7 +1,7 @@
 import useInput from "../../../hooks/useInput";
 import MyButton from "../../wordsForm/ui/MyButton";
 import MyInput from "../../wordsForm/ui/MyInput";
-import { createTag } from "../../../backend/crudFunctions";
+import { createOrUpdateTag, createTag } from "../../../backend/crudFunctions";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux-hooks";
 import { Tag } from "../../../pages/types/word";
 import { addTag } from "../../../store/slices/tagSlice";
@@ -14,22 +14,34 @@ const AddNewTag = ({ wordIdx }: Props) => {
     const newTag = useInput('')
     const dispatch = useAppDispatch()
     const uid = useAppSelector(state => state.user.userFake?.uid)
+    const tags = useAppSelector(state => state.tag.tags)
+    // const addNewTag = async () => {
+    //      try {
+    //         const newTagId = await createTag(uid as string, newTag.value, wordIdx)
+    //         const tagForRedux: Tag = {
+    //             tagId: newTagId as string,
+    //             name: newTag.value,
+    //             userId: uid as string,
+    //             word_id: [wordIdx]
+    //         }
+
+    //         dispatch(addTag(tagForRedux))
+
+    //      } catch (error) {
+    //         console.error(error)
+    //      }
+    // }
     const addNewTag = async () => {
-         try {
-            const newTagId = await createTag(uid as string, newTag.value, wordIdx)
-            const tagForRedux: Tag = {
-                tagId: newTagId as string,
-                name: newTag.value,
-                userId: uid as string,
-                word_id: [wordIdx]
-            }
+        try {
+          const res = createOrUpdateTag(newTag.value, wordIdx, tags, uid as string)
+          console.log(res)
+          
+        //    dispatch(addTag(tagForRedux))
 
-            dispatch(addTag(tagForRedux))
-
-         } catch (error) {
-            console.error(error)
-         }
-    }
+        } catch (error) {
+           console.error(error)
+        }
+   }
     return (
         <div>
             <MyInput

@@ -8,6 +8,7 @@ import Loading from '../../components/Loading';
 import { ifCompoundWords, ifSimpleWords } from '../../backend/crudFunctions/text';
 import { getWordsById } from '../../helpers/getDataRedux';
 import { WordDb } from '../types/word';
+import ShowTagWithWords from '../../components/tags/ShowTagWithWords';
 
 
 const AddText = () => {
@@ -42,13 +43,6 @@ const AddText = () => {
         }
     }
 
-    const getWordsByTag = (ids: string[]) => {
-        const foundWordsByTag = getWordsById(words, ids)
-        setWordsByTag({
-            show: !wordsByTag.show,
-            words:foundWordsByTag
-        })
-    }
 
     useEffect(()=> {
         const resBlue: string[] = [];
@@ -108,23 +102,11 @@ const AddText = () => {
                     <h3 className="block mb-2 mt-8 text-sm font-medium text-gray-700 undefined">
                         Hints
                     </h3>
+                <div className='flex'>
                 {
-                    tags.map(tag => 
-                        <div 
-                        key={tag.tagId} 
-                        className={`${styleTW.bageBlue} my-3 mr-3 cursor-pointer`}
-                        onClick={()=> console.log(getWordsByTag(tag.word_id))}
-                        >
-                            {tag.name}
-                        </div>)
+                    tags.map(tag => <ShowTagWithWords tag={tag} key={tag.tagId}/> )
                 }   
-                 {
-                    wordsByTag.show && <ul>
-                        {
-                            wordsByTag.words.map(w => <li key={w.wordId}>{w.word}</li>)
-                        }
-                    </ul>
-                }
+                </div>
                 </div>
                 <label htmlFor=""className="block mb-2 mt-8 text-sm font-medium text-gray-700 undefined">
                     Type you text

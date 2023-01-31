@@ -48,5 +48,8 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
     - Add save text + dispatch
     ---- NEXT TASK --- show words when tag is clicked
     ------------------ Refactor wards whatcher
+    ------------------ Unsinc words by tag
+    4. Add a new created wordx to REDUX and Tags as well
+    6. https://libretranslate.com/ 
 
 

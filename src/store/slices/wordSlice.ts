@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction, createAsyncThunk, current} from "@reduxjs/toolkit"
+import { RootState } from "..";
 import { getUserWords } from "../../backend/crudFunctions/words";
 import { ExampleForServer, MeanigsForServer, WordDb } from "../../pages/types/word";
 
@@ -52,6 +53,8 @@ export const fetchWords = createAsyncThunk('words/fetchWords', async (uid: strin
     const response = await getUserWords(uid)
     return response
 })
+
+
 
 
 export const { updateWord, updateExamplex, updateMeanings } = wordSlice.actions
