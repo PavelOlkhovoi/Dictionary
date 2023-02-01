@@ -109,9 +109,9 @@ const AddText = () => {
         return <Loading />
     }
     return (
-        <section className='container mx-auto lg:max-w-[800px]'>
+        <section className={styleTW.container}>
             <div className='p-8'>
-                <h1 className='text-center text-2xl md:text-3xl lg:text-4xl mb-8'>Add your text</h1>
+                <h1 className={styleTW.title1}>Add your text</h1>
                 <MyInput value={title.value} onChange={title.onChange} label='title' name="title"/>
                 <div className='my-8'>
                     <h3 className="block mb-2 mt-8 text-sm font-medium text-gray-700 undefined">

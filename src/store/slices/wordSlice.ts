@@ -59,6 +59,18 @@ export const selectWordsArrByName = (state: RootState, words: string[]) => {
     return test
 }
 
+export const selectWordsArrById = (state: RootState, ids: string[]) => {
+    console.log("Selector",ids)
+    if(ids){
+        return state.word.words.filter(w => ids.includes(w.word))
+    }
+
+}
+export const selectWordById = (state: RootState, id: string) => {
+    console.log("Selector",id)
+    return state.word.words.find(w => w.wordId === id)
+}
+
 
 export const { updateWord, updateExamplex, updateMeanings } = wordSlice.actions
 export default wordSlice.reducer

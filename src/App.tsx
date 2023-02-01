@@ -9,6 +9,8 @@ import AddWord from './pages/words/AddWord';
 import Navbars from './components/ui-elements/Navbars';
 import WordEdit from './pages/words/WordEdit';
 import AddText from './pages/texts/AddText';
+import ListTexts from './pages/texts/ListTexts';
+import SingleText from './pages/texts/SingleText';
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
       <Route path="words/edit/:idword" element={<WordEdit />} />
       <Route path="addwords" element={<AddWord />}/>
       <Route path="auth" element={<SignUp />} />
+      <Route path="texts" element={<ListTexts />} />
+      <Route path="texts/:idtext" element={<SingleText />} />
       <Route path="addtext" element={<AddText />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

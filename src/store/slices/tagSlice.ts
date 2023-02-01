@@ -43,7 +43,6 @@ const initialState: IState = {
         state.status = 'pending'
       })
       .addCase(fetchTags.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.status = 'succeeded'
         state.tags = state.tags.concat(action.payload as [])
       })
