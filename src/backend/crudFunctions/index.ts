@@ -42,10 +42,7 @@ export const createOrUpdateTag = (name: string, wordId: string, tags: Tag[], uid
 
   if(isTagExist){
     addWordIdxToTag(isTagExist?.tagId, wordId)
-    return 'update'
   }{
     createTag(uid, name, wordId)
-    return 'create'
-
   }
 }

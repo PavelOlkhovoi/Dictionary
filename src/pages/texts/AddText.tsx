@@ -5,24 +5,20 @@ import { styleTW } from '../../style';
 import MyButton from '../../components/wordsForm/ui/MyButton';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import Loading from '../../components/Loading';
-import { ifCompoundWords, ifSimpleWords } from '../../backend/crudFunctions/text';
-import { getWordsById } from '../../helpers/getDataRedux';
-import { WordDb } from '../types/word';
 import ShowTagWithWords from '../../components/tags/ShowTagWithWords';
+import { createText } from '../../backend/crudFunctions/text';
 
 
 const AddText = () => {
     const tags = useAppSelector(state => state.tag.tags)
     const words = useAppSelector(state => state.word.words)
+    const uid = useAppSelector(state => state.user.userFake?.uid)
     const dispatch = useAppDispatch()
     const tagsStatus = useAppSelector(state => state.tag.status)
     const wordStatus = useAppSelector(state => state.word.status)
-    const name = useInput('')
+    const title = useInput('')
     const [text, setText] = useState('')
-    const [wordsByTag, setWordsByTag] = useState<{show: boolean, words: WordDb[]}>({
-        show: false,
-        words: []
-    })
+
 
     const arrSimpleWords: string[] = []
     const arrСompoundWords: string[] = []
@@ -37,10 +33,29 @@ const AddText = () => {
 
     const [textRes, setTextRes] = useState<any[]>([])
 
-    const testWatcher = (button: string) => {
-        if(button === ' '){
-            setText(text.replace('dog', 'cat'))
-        }
+    const addTextHandler = async () => {
+        const simpleWords: string[] = []
+        const compoundWords: string[] = []
+        const sentences = text.split('.')
+
+        sentences.forEach(s => {
+            arrSimpleWords.forEach(w => {
+                s.includes(w) && simpleWords.push(w)
+            })
+        })
+
+        sentences.forEach(s => {
+            arrСompoundWords.forEach(w => {
+                s.includes(w) && compoundWords.push(w)
+            })
+        })
+
+        const arrIds = words.filter(w => [...simpleWords, ...compoundWords].includes(w.word)).map(w => w.wordId)
+
+
+        
+        const response = await createText(title.value, text, arrIds, uid as string)
+        console.log(response)
     }
 
 
@@ -97,7 +112,7 @@ const AddText = () => {
         <section className='container mx-auto lg:max-w-[800px]'>
             <div className='p-8'>
                 <h1 className='text-center text-2xl md:text-3xl lg:text-4xl mb-8'>Add your text</h1>
-                <MyInput value={name.value} onChange={name.onChange} label='name' name="text name"/>
+                <MyInput value={title.value} onChange={title.onChange} label='title' name="title"/>
                 <div className='my-8'>
                     <h3 className="block mb-2 mt-8 text-sm font-medium text-gray-700 undefined">
                         Hints
@@ -109,7 +124,7 @@ const AddText = () => {
                 </div>
                 </div>
                 <label htmlFor=""className="block mb-2 mt-8 text-sm font-medium text-gray-700 undefined">
-                    Type you text
+                    Type text
                 </label>
                 <div>
                     <div>
@@ -124,10 +139,9 @@ const AddText = () => {
                 value={text}
                 onChange={(e)=> setText(e.target.value)}
                 rows={10}
-                onKeyUp={(e)=> testWatcher(e.key)}
                 />
 
-                <MyButton color='green'>Add text</MyButton>
+                <MyButton color='green' onClick={()=> addTextHandler()}>Add text</MyButton>
         </div>
         </section>
     );

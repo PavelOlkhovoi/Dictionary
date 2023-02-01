@@ -2,6 +2,7 @@ import { configureStore, MiddlewareArray } from '@reduxjs/toolkit'
 import userReduser from "./slices/userSlice"
 import wordReducer from "./slices/wordSlice"
 import tagSlice from './slices/tagSlice'
+import textSlice from './slices/textSlice'
 
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
     user: userReduser,
     word: wordReducer,
     tag: tagSlice,
+    text: textSlice
   },
   // middleware: new MiddlewareArray()
 })

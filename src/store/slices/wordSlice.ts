@@ -54,7 +54,10 @@ export const fetchWords = createAsyncThunk('words/fetchWords', async (uid: strin
     return response
 })
 
-
+export const selectWordsArrByName = (state: RootState, words: string[]) => {
+    const test = state.word.words.filter(w => words.includes(w.word)).map(w => w.wordId)
+    return test
+}
 
 
 export const { updateWord, updateExamplex, updateMeanings } = wordSlice.actions

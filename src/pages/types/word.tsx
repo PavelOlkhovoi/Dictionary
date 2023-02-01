@@ -45,3 +45,11 @@ export interface Tag {
     userId: string
     word_id: string[]
 }
+
+export interface Text {
+    title: string
+    text: string
+    textId: string
+    wordsIds: string[]
+    uid: string
+}
