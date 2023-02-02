@@ -4,6 +4,8 @@ import { useAppSelector } from '../../hooks/redux-hooks';
 import { selectWordsArrById } from '../../store/slices/wordSlice';
 import { styleTW } from '../../style';
 import MyButton from '../../components/wordsForm/ui/MyButton';
+import TextHighlighter from '../../components/text/TextHighlighter';
+import { WordDb } from '../types/word';
 
 
 const SingleText = () => {
@@ -28,22 +30,7 @@ const SingleText = () => {
             words?.map(w => <div key={w.wordId}>{w.word}</div>)
         }
         <div className='my-8'>
-            {
-                text?.text.split(' ').map((tw, idx) => {
-                    const compaundWords: string[] = []
-                    const simpleWorlds: string[] = []
-                    words?.forEach(w => w.word.split(' ').length > 1 ? compaundWords.push(w.word) : simpleWorlds.push(w.word))
-   
-
-                    if(compaundWords.some(w => w.split(' ').includes(tw.replace('.', '')))){
-                        return <span key={tw + idx} className="bg-blue-400">{tw} </span>
-                    }
-                    if(simpleWorlds.some(w => w.includes(tw.replace('.', '')))){
-                        return <span key={tw + idx} className="bg-yellow-400">{tw} </span>
-                    }
-                        return <span key={tw + idx}>{tw} </span>
-                   })
-            }
+            <TextHighlighter words={words as WordDb[]} text={text?.text as string}/>
         </div>
     </div>;
 }
