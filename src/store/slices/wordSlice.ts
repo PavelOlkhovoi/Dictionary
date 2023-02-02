@@ -60,9 +60,9 @@ export const selectWordsArrByName = (state: RootState, words: string[]) => {
 }
 
 export const selectWordsArrById = (state: RootState, ids: string[]) => {
-    console.log("Selector",ids)
     if(ids){
-        return state.word.words.filter(w => ids.includes(w.word))
+        const words = state.word.words.filter(w => ids.includes(w.wordId))
+        return words
     }
 
 }

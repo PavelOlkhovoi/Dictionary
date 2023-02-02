@@ -17,7 +17,7 @@ const ShowTagWithWords = ({tag}:Props) => {
     return (
         <div>
             <div
-            className={`${styleTW.bageBlue} my-3 mr-3 cursor-pointer`}
+            className={`${styleTW.bageBlue} my-1.5 mr-3 cursor-pointer`}
             onClick={()=> setShowWOrds(show => !show)}
             >
                 {tag.name}

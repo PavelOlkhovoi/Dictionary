@@ -117,7 +117,7 @@ const AddText = () => {
                     <h3 className="block mb-2 mt-8 text-sm font-medium text-gray-700 undefined">
                         Hints
                     </h3>
-                <div className='flex'>
+                <div className='flex flex-wrap'>
                 {
                     tags.map(tag => <ShowTagWithWords tag={tag} key={tag.tagId}/> )
                 }   

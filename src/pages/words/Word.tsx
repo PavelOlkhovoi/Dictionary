@@ -24,7 +24,6 @@ const Word = () => {
         >
             <div className='sm:flex gap-8 items-center'>
             <h1 className='text-6xl font-normal leading-normal mt-0 mb-2'>{firstCapitalLetter(currentWord.word)}</h1>
-
                 
                 <MyButton>
                     <Link to={{pathname: `/words/edit/${idword}`}}>Edit</Link>

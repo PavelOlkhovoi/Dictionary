@@ -11,6 +11,7 @@ import WordEdit from './pages/words/WordEdit';
 import AddText from './pages/texts/AddText';
 import ListTexts from './pages/texts/ListTexts';
 import SingleText from './pages/texts/SingleText';
+import EditText from './pages/texts/EditText';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <Route path="auth" element={<SignUp />} />
       <Route path="texts" element={<ListTexts />} />
       <Route path="texts/:idtext" element={<SingleText />} />
+      <Route path="texts/edit/:idtext" element={<EditText />} />
       <Route path="addtext" element={<AddText />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

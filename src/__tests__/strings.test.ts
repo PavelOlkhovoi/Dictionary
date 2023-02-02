@@ -1,29 +1,21 @@
-import { checkString } from "../backend/crudFunctions/text";
-import { ifCompoundWords } from "../backend/crudFunctions/text";
+import { compoundWordsPosition, builtArrForDisplay } from '../helpers/wordMatcher'
 
 describe('Words matcher', ()=> {
-    test('Dog in in the text', () => {
-        const word = ['cat', 'dog', 'cow']
-        const text = 'I see a dog'
-        const res = checkString(word, text)
-        console.log(res)
-        expect(res[0]).toBe('dog');
-    });
-
-    test('Dog and cat are in the text', () => {
-        const word = ['cat', 'dog', 'cow']
-        const text = 'I see a dog and cow'
-        const res = checkString(word, text)
-
+    test('Too bold', () => {
+        const words = ['too bold','put off', 'set about']
+        // const text = 'I think he is too bold'
+        const text = 'You need to put you hat off'
+        const res = compoundWordsPosition(words, text)
         expect(res.length).toBe(2);
     });
 
-    test('Test props', () => {
-        const word = ['too bold']
-        const text = 'I see a dog it is too bold'
-        const res = ifCompoundWords(text, word)
-        console.log('Batenelbb', res)
-        expect(res.length).toBe(2);
-    });
+    // test('See arr', () => {
+    //     const words = ['too bold','put off', 'set about']
+    //     const simple = ['cat', 'dog']
+    //     const text = 'You need to put you hat off and dog'
+    //     const res = builtArrForDisplay(words, simple, text)
+    //     expect(res.length).toBe(2);
+    // });
+
 })
 
