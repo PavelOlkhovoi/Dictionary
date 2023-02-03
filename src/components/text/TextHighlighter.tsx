@@ -1,45 +1,48 @@
-import {useState, useEffect} from 'react'
+import {FC} from 'react'
+import { sortSimpleAndCompoundWordsFromWordDb } from '../../helpers/wordMatcher'
 import { WordDb } from '../../pages/types/word'
+import { AllWordsSorted } from '../../pages/types/word'
+import MyButton from '../wordsForm/ui/MyButton'
 
 interface Props {
     words: WordDb[]
     text: string
+    wordsBack: Function
+    children?: React.ReactNode
 }
 
-const TextHighlighter = ({words, text}:Props) => {
-    const [compoundWords, setCompoundsWords] = useState<string[]>([])
-    const [simpleWords, setSimpleWords] = useState<string[]>([])
-    const usedWords: string[] = []
+const TextHighlighter: FC<Props> = ({words, text, wordsBack, children}) => {
+    const res: AllWordsSorted[] = sortSimpleAndCompoundWordsFromWordDb(words, text)
 
-    useEffect(()=> {
-        words.forEach(word => {
-            if(word.word.split(' ').length > 1 ){
-                setCompoundsWords(prev => [...prev, word.word])
-            }else {
-                setSimpleWords(prev => [...prev, word.word])
-            }
-        })
-    }, [words])
-
-    useEffect(()=> {
-        console.log(usedWords)
-    }, [text])
-
+   
     return (
         <div>
-            {
+             {
                 text.split(' ').map((tw, idx) => {
-                    if(compoundWords.some(w => w.split(' ').includes(tw.replace('.', '')))){
-                        usedWords.push(tw.trim())
-                        return <span key={tw + idx} className="bg-blue-400">{tw} </span>
-                    }
-                    if(simpleWords.some(w => w.includes(tw.replace('.', '')))){
-                        usedWords.push(tw.trim())
-                        return <span key={tw + idx} className="bg-yellow-400">{tw} </span>
-                    }
+                    let pos: number = 0
+                    let color: string = ''
+                   
+                    res.forEach(usedW => {
+                        if(usedW.position.some(pos => pos === idx)){
+                            pos = idx
+                            color = `bg-${usedW.color}-400`
+                        }
+                    })
+
+                    if(idx === pos){
+                        return <span key={tw + idx} className={color}>{tw} </span>
+                    }else {
                         return <span key={tw + idx}>{tw} </span>
-                   })
+                    }
+
+                })
             }
+
+            {children}
+
+            
+            <MyButton color='green' onClick={()=>  wordsBack(res)}>Add text</MyButton>
+
         </div>
     );
 }

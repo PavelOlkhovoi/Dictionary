@@ -1,7 +1,10 @@
-export const compoundWordsPosition = (words: string[], text: string) => {
+import { WordDb } from "../pages/types/word"
+import { AllWordsSorted } from "../pages/types/word"
+
+export const compoundWordsPosition = (words: string, text: string) => {
     const mapIds: number[] = []
 
-    text.split(' ').forEach((tw, idx) => words.some(w => w.split(' ').includes(tw) && mapIds.push(idx)))
+    text.split(' ').forEach((tw, idx) => words.split(' ').some(w => w.split(' ').includes(tw.replace('.','')) && mapIds.push(idx)))
 
     return mapIds
 }
@@ -104,6 +107,44 @@ export const sortSimpleAndCompoundWords = (words: string[], text: string) => {
     })
 
     console.log(res)
+
+    return res
+}
+
+export const sortSimpleAndCompoundWordsFromWordDb = (words: WordDb[], text: string) => {
+    const res: AllWordsSorted[] = []
+
+    words.forEach(w => {
+
+        if(w.word.split(' ').length > 1 && w.word.split(' ').every(word =>text.includes(word.replace('.','')))){
+            const pos = compoundWordsPosition(w.word, text)
+            res.push({
+                show: true,
+                word: w.word,
+                color: 'blue',
+                wordId: w.wordId,
+                position: pos
+            })
+
+            return false
+        }
+
+        else if(text.includes(w.word)){
+            const pos = text.split(' ').map(t => t.replace('.','')).indexOf(w.word)
+            res.push({
+                show: true,
+                word: w.word,
+                color: 'yellow',
+                wordId: w.wordId,
+                position: [pos]
+
+            })
+        }else {
+           
+        }
+        
+    })
+
 
     return res
 }

@@ -6,7 +6,7 @@ import MyButton from '../../components/wordsForm/ui/MyButton';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import Loading from '../../components/Loading';
 import ShowTagWithWords from '../../components/tags/ShowTagWithWords';
-import { createText } from '../../backend/crudFunctions/text';
+import { AllWordsSorted } from '../types/word';
 import TextHighlighter from '../../components/text/TextHighlighter';
 
 
@@ -18,20 +18,13 @@ const AddText = () => {
     const wordStatus = useAppSelector(state => state.word.status)
     const title = useInput('')
     const [text, setText] = useState('')
+    const [usedWords, setUsedWords] = useState<AllWordsSorted[]>([])
+
+    const wordsBack = (words: AllWordsSorted[]) => {
+        setUsedWords(words)
+    }
 
 
-    // const arrSimpleWords: string[] = []
-    // const arrСompoundWords: string[] = []
-
-    // words && words.forEach(word => {
-    //     if(word.word.split(' ').length > 1 ){
-    //         arrСompoundWords.push(word.word)
-    //     }else {
-    //         arrSimpleWords.push(word.word)
-    //     }
-    // })
-
-    const [textRes, setTextRes] = useState<any[]>([])
 
     const addTextHandler = async () => {
         const simpleWords: string[] = []
@@ -58,10 +51,17 @@ const AddText = () => {
         // console.log(response)
     }
 
+    
+    useEffect(()=> {
+        console.log('dddd', usedWords)
+    }, [usedWords])
+
 
     if( tagsStatus === 'pending'  || wordStatus  === 'pending'){
         return <Loading />
     }
+
+
     return (
         <section className={styleTW.container}>
             <div className='p-8'>
@@ -80,14 +80,13 @@ const AddText = () => {
                 <label htmlFor=""className="block mb-2 mt-8 text-sm font-medium text-gray-700 undefined">
                     Type text
                 </label>
-                <TextHighlighter text={text} words={words} />
-                <textarea className={`${styleTW.shadow} mb-8`} name="text" 
-                value={text}
-                onChange={(e)=> setText(e.target.value)}
-                rows={10}
-                />
-
-                <MyButton color='green' onClick={()=> addTextHandler()}>Add text</MyButton>
+                <TextHighlighter text={text} words={words} wordsBack={wordsBack}>
+                    <textarea className={`${styleTW.shadow} mb-8`} name="text" 
+                    value={text}
+                    onChange={(e)=> setText(e.target.value)}
+                    rows={10}
+                    />
+                </TextHighlighter>
         </div>
         </section>
     );

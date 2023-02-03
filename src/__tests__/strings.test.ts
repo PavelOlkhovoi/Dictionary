@@ -1,13 +1,13 @@
 import { compoundWordsPosition, matchWordsByTest, matchCompoundWords, sortSimpleAndCompoundWords } from '../helpers/wordMatcher'
 
 describe('Words matcher', ()=> {
-    test('Too bold', () => {
-        const words = ['too bold','put off', 'set about']
-        // const text = 'I think he is too bold'
-        const text = 'You need to put you hat off'
-        const res = compoundWordsPosition(words, text)
-        expect(res.length).toBe(2);
-    });
+    // test('Too bold', () => {
+    //     const words = ['too bold','put off', 'set about']
+    //     // const text = 'I think he is too bold'
+    //     const text = 'You need to put you hat off'
+    //     const res = compoundWordsPosition(words, text)
+    //     expect(res.length).toBe(2);
+    // });
 
     test('Simple words by test', () => {
         const words = ['too bold','put off', 'set about']

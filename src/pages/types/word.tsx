@@ -53,3 +53,11 @@ export interface Text {
     wordsIds: string[]
     uid: string
 }
+
+export interface AllWordsSorted {
+    word: string
+    wordId: string
+    color: string
+    show: Boolean,
+    position: number[]
+}
