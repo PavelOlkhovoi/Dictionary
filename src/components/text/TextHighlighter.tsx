@@ -1,4 +1,4 @@
-import {FC} from 'react'
+import {FC, useEffect} from 'react'
 import { sortSimpleAndCompoundWordsFromWordDb } from '../../helpers/wordMatcher'
 import { WordDb } from '../../pages/types/word'
 import { AllWordsSorted } from '../../pages/types/word'
@@ -9,26 +9,34 @@ interface Props {
     text: string
     wordsBack: Function
     children?: React.ReactNode
+    textButton?: string
 }
 
-const TextHighlighter: FC<Props> = ({words, text, wordsBack, children}) => {
+const TextHighlighter: FC<Props> = ({words, text, wordsBack, children, textButton}) => {
     const res: AllWordsSorted[] = sortSimpleAndCompoundWordsFromWordDb(words, text)
 
-   
+    // useEffect(()=> {
+    //     console.log('res',text)
+    // }, [text])
+
     return (
         <div>
              {
                 text.split(' ').map((tw, idx) => {
                     let pos: number = 0
                     let color: string = ''
-                   
+
                     res.forEach(usedW => {
-                        if(usedW.position.some(pos => pos === idx)){
+                        if(usedW.position.length > 1 && usedW.position.some(pos => pos === idx)){
                             pos = idx
-                            color = `bg-${usedW.color}-400`
+                            color = `bg-blue-400`
+                        }else if(usedW.position.length === 1 && usedW.position.some(pos => pos === idx)){
+                            pos = idx
+                            color = `bg-yellow-400`
                         }
                     })
 
+                   
                     if(idx === pos){
                         return <span key={tw + idx} className={color}>{tw} </span>
                     }else {
@@ -39,10 +47,9 @@ const TextHighlighter: FC<Props> = ({words, text, wordsBack, children}) => {
             }
 
             {children}
-
-            
-            <MyButton color='green' onClick={()=>  wordsBack(res)}>Add text</MyButton>
-
+            {
+                textButton && <MyButton color='green' onClick={()=>  wordsBack(res)}>{textButton}</MyButton>
+            }
         </div>
     );
 }

@@ -67,7 +67,6 @@ export const selectWordsArrById = (state: RootState, ids: string[]) => {
 
 }
 export const selectWordById = (state: RootState, id: string) => {
-    console.log("Selector",id)
     return state.word.words.find(w => w.wordId === id)
 }
 

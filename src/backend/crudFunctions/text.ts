@@ -1,8 +1,8 @@
-import { collection, addDoc, setDoc, query, where, getDocs} from "firebase/firestore";
+import { collection, addDoc, setDoc, query, where, getDocs, updateDoc, doc, arrayUnion} from "firebase/firestore";
 import { db } from "../..";
 import { store } from "../../store";
 import { Text } from "../../pages/types/word";
-import { addText } from "../../store/slices/textSlice";
+import { addText, updateText } from "../../store/slices/textSlice";
 
 export const createText = async (title: string, text: string, wordsIds: string[], uid: string) => {
     try {
@@ -45,3 +45,27 @@ export const fetchUserTexts = async (uid: string) => {
       }
 }
 
+export const updateUserText = async (textId: string, wordsIds: string[], text: string, title: string, uid: string) => {
+  try {
+    console.log("Start updateRespond")
+    const textRef = doc(db, "text", textId);
+    const res = await updateDoc(textRef, {
+      wordsIds: wordsIds,
+      title,
+      text
+    })
+
+    console.log("Respond", res)
+
+    store.dispatch(updateText({
+      title,
+      text,
+      wordsIds,
+      uid,
+      textId
+    }))
+
+    } catch (error) {
+      console.log("Error Fail", error)
+  }
+}

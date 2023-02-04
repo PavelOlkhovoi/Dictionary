@@ -106,8 +106,6 @@ export const sortSimpleAndCompoundWords = (words: string[], text: string) => {
         
     })
 
-    console.log(res)
-
     return res
 }
 

@@ -1,13 +1,13 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import useInput from '../../hooks/useInput';
 import MyInput from '../../components/wordsForm/ui/MyInput';
 import { styleTW } from '../../style';
-import MyButton from '../../components/wordsForm/ui/MyButton';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { useAppSelector } from '../../hooks/redux-hooks';
 import Loading from '../../components/Loading';
 import ShowTagWithWords from '../../components/tags/ShowTagWithWords';
 import { AllWordsSorted } from '../types/word';
 import TextHighlighter from '../../components/text/TextHighlighter';
+import { createText } from '../../backend/crudFunctions/text';
 
 
 const AddText = () => {
@@ -20,41 +20,15 @@ const AddText = () => {
     const [text, setText] = useState('')
     const [usedWords, setUsedWords] = useState<AllWordsSorted[]>([])
 
+    const addTextHandler = async (words: AllWordsSorted[]) => {
+        const ids: string[] = words.map(w => w.wordId)
+        const response = await createText(title.value, text, ids, uid as string)
+    }
+
     const wordsBack = (words: AllWordsSorted[]) => {
         setUsedWords(words)
+        addTextHandler(words)
     }
-
-
-
-    const addTextHandler = async () => {
-        const simpleWords: string[] = []
-        const compoundWords: string[] = []
-        const sentences = text.split('.')
-
-        sentences.forEach(s => {
-            // arrSimpleWords.forEach(w => {
-            //     s.includes(w) && simpleWords.push(w)
-            // })
-        })
-
-        sentences.forEach(s => {
-            // arrСompoundWords.forEach(w => {
-            //     s.includes(w) && compoundWords.push(w)
-            // })
-        })
-
-        // const arrIds = words.filter(w => [...simpleWords, ...compoundWords].includes(w.word)).map(w => w.wordId)
-
-
-        
-        // const response = await createText(title.value, text, arrIds, uid as string)
-        // console.log(response)
-    }
-
-    
-    useEffect(()=> {
-        console.log('dddd', usedWords)
-    }, [usedWords])
 
 
     if( tagsStatus === 'pending'  || wordStatus  === 'pending'){
@@ -71,16 +45,16 @@ const AddText = () => {
                     <h3 className="block mb-2 mt-8 text-sm font-medium text-gray-700 undefined">
                         Hints
                     </h3>
-                <div className='flex flex-wrap'>
-                {
-                    tags.map(tag => <ShowTagWithWords tag={tag} key={tag.tagId}/> )
-                }   
-                </div>
+                    <div className='flex flex-wrap'>
+                    {
+                        tags.map(tag => <ShowTagWithWords tag={tag} key={tag.tagId}/> )
+                    }   
+                    </div>
                 </div>
                 <label htmlFor=""className="block mb-2 mt-8 text-sm font-medium text-gray-700 undefined">
                     Type text
                 </label>
-                <TextHighlighter text={text} words={words} wordsBack={wordsBack}>
+                <TextHighlighter text={text} words={words} wordsBack={wordsBack} textButton='Add text'>
                     <textarea className={`${styleTW.shadow} mb-8`} name="text" 
                     value={text}
                     onChange={(e)=> setText(e.target.value)}

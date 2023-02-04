@@ -21,6 +21,14 @@ const textsSlice = createSlice({
     reducers: {
         addText(state, action: PayloadAction<Text>){
             state.texts.push(action.payload)
+        },
+        updateText(state, action: PayloadAction<Text>){
+            const text = state.texts.find(t => t.textId === action.payload.textId)
+            if(text){
+                text.title = action.payload.title
+                text.text = action.payload.text
+                text.wordsIds = action.payload.wordsIds
+            }
         }
     },
     extraReducers: builder => {
@@ -40,9 +48,13 @@ const textsSlice = createSlice({
 
 export const fetchTexts = createAsyncThunk('text/fetchTexts', async (uid: string)=> {
     const res = fetchUserTexts(uid)
-
     return res
 })
 
-export const {addText} = textsSlice.actions
+export const selectTextById = (state: RootState, id: string) => {
+    const text = state.text.texts.find(text => text.textId === id)
+    return text
+}
+
+export const {addText, updateText} = textsSlice.actions
 export default textsSlice.reducer
