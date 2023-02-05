@@ -36,8 +36,7 @@ const EditText = () => {
     }
 
 
-    if(textsStatus === 'pending' || wordsStatus === 'pending' || tagsStatus === 'pending' 
-    || !title || !words){
+    if(textsStatus === 'pending' || wordsStatus === 'pending' || tagsStatus === 'pending'){
         <Loading />
     }
 
