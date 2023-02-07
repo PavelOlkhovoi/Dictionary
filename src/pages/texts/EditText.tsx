@@ -35,7 +35,6 @@ const EditText = () => {
         updateText(words)
     }
 
-
     if(textsStatus === 'pending' || wordsStatus === 'pending' || tagsStatus === 'pending'){
         <Loading />
     }
@@ -45,30 +44,29 @@ const EditText = () => {
         setOldText(text.text)
         title.setInput(text.title)
        }
-        console.log(title)
     }, [text])
 
     
     return (
-        <section className={styleTW.container}  >
-            <h1 className={styleTW.title1}>{text?.title}</h1>
+        <section className={`${styleTW.container} p-4`}  >
+            <h1 className={`${styleTW.title1} mt-4 mb-10`}>{text?.title}</h1>
             <input 
                 type='text'
                 name='text'
                 value={title.value} 
                 onChange={title.onChange}
-                className={`${styleTW.shadow} mb-8`} 
+                className={`${styleTW.shadow}`} 
             />
             <div className='my-8'>
-                    <h3 className="block mb-2 mt-8 text-sm font-medium text-gray-700 undefined">
-                        Hints
-                    </h3>
-                    <div className='flex flex-wrap'>
-                    {
-                        tags.map(tag => <ShowTagWithWords tag={tag} key={tag.tagId}/> )
-                    }   
-                    </div>
+                <h3 className="block mb-2 mt-8 text-sm font-medium text-gray-700">
+                    Hints
+                </h3>
+                <div className='flex flex-wrap'>
+                {
+                    tags.map(tag => <ShowTagWithWords tag={tag} key={tag.tagId}/> )
+                }   
                 </div>
+            </div>
             {
                 words && oldText && <TextHighlighter 
                 words={words} 

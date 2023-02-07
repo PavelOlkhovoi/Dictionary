@@ -29,17 +29,25 @@ const SingleText = () => {
     }, [usedWords])
 
     return <div className={`${styleTW.container} p-8`}>
-        <div className='flex gap-3'>
-            <h1 className={`${styleTW.title1}`}>{text?.title}</h1>
+        <div className='flex gap-3 md:gap-12 leading-tight items-center mb-12'>
+            <h1 className={`${styleTW.title1} `}>{text?.title}</h1>
             <MyButton>
                 <Link to={{pathname: `/texts/edit/${idtext}`}}>Edit</Link>
             </MyButton>
         </div>
-        {
-            words?.map(w => <div key={w.wordId}>{w.word}</div>)
-        }
+       <div className='md:flex gap-10'>
+        <h2 className={styleTW.title3}>Used words</h2>
+            <ul className='list-disc'>
+            {
+                words?.map(w => <li key={w.wordId}>{w.word}</li>)
+            }
+            </ul>
+       </div>
         <div className='my-8'>
-            <TextHighlighter words={words as WordDb[]} text={text?.text as string} wordsBack={wordsBack}/>
+        <h2 className={`${styleTW.title3} md:mb-4`}>Text</h2>
+            {
+                words && <TextHighlighter words={words as WordDb[]} text={text?.text as string} wordsBack={wordsBack}/>
+            }
         </div>
     </div>;
 }

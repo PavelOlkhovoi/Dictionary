@@ -1,6 +1,6 @@
 export const styleTW = {
     gridDl: "grid grid-cols-[3em_1fr] text-2xl",
-    title1: "text-center mt-8 text-4xl",
+    title1: "text-center text-2xl font-semibold",
     title2: "text-2xl md:text-3xl lg:text-4xl mb-8",
     title3: "text-1xl font-bold",
     bageBlue: "text-xs inline-block py-2 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded",

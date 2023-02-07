@@ -62,8 +62,7 @@ const WordEdit = () => {
     }
 
     return <section
-        className="container max-w-screen-lg mx-auto px-4 mt-5"
-    >
+        className="container max-w-screen-lg mx-auto px-4 mt-5">
         <div className='sm:flex gap-8 items-center'>
         <MyInput
             edit={true}  

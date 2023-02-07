@@ -15,12 +15,9 @@ interface Props {
 const TextHighlighter: FC<Props> = ({words, text, wordsBack, children, textButton}) => {
     const res: AllWordsSorted[] = sortSimpleAndCompoundWordsFromWordDb(words, text)
 
-    // useEffect(()=> {
-    //     console.log('res',text)
-    // }, [text])
-
     return (
         <div>
+             <div className='my-8 md:my-4'>
              {
                 text.split(' ').map((tw, idx) => {
                     let pos: number = 0
@@ -36,7 +33,6 @@ const TextHighlighter: FC<Props> = ({words, text, wordsBack, children, textButto
                         }
                     })
 
-                   
                     if(idx === pos){
                         return <span key={tw + idx} className={color}>{tw} </span>
                     }else {
@@ -45,6 +41,7 @@ const TextHighlighter: FC<Props> = ({words, text, wordsBack, children, textButto
 
                 })
             }
+             </div>
 
             {children}
             {

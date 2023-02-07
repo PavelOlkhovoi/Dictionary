@@ -11,8 +11,8 @@ const ListTexts = () => {
         return <Loading />
     }
     return (
-        <section className={styleTW.container}>
-            <h1 className={styleTW.title1}>Your texts</h1>
+        <section className={`${styleTW.container}`}>
+            <h1 className={`${styleTW.title1} mt-8 mb-8`}>Your texts</h1>
             {
                 texts.map(t => <PreviewText text={t} key={t.textId}/>)
             }
