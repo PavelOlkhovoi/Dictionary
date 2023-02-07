@@ -12,6 +12,7 @@ import AddText from './pages/texts/AddText';
 import ListTexts from './pages/texts/ListTexts';
 import SingleText from './pages/texts/SingleText';
 import EditText from './pages/texts/EditText';
+import AddSet from './pages/sets/AddSet';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
       <Route path="texts/:idtext" element={<SingleText />} />
       <Route path="texts/edit/:idtext" element={<EditText />} />
       <Route path="addtext" element={<AddText />} />
+      <Route path="addSet" element={<AddSet />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   </>

@@ -61,3 +61,13 @@ export interface AllWordsSorted {
     show: Boolean,
     position: number[]
 }
+
+export interface Set {
+    setId: string,
+    wordsIds: string[],
+    name: string,
+    uid: string,
+    createdAt: Timestamp | string
+    textsIds?: string[] | null
+    sourse?: string | null
+}

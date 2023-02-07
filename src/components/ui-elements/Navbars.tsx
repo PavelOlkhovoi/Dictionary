@@ -8,7 +8,8 @@ const navigation = [
     { name: 'Words', href: '/words', current: false },
     { name: 'Add word', href: '/addwords', current: false },
     { name: 'Auth', href: '/auth', current: false },
-    { name: 'Texts', href: '/texts', current: false }
+    { name: 'Texts', href: '/texts', current: false },
+    { name: 'Sets', href: '/addSet', current: false }
   ]
 
   function classNames(...classes: string[]) {
