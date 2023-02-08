@@ -120,7 +120,7 @@ export const sortSimpleAndCompoundWordsFromWordDb = (words: WordDb[], text: stri
                 show: true,
                 word: w.word,
                 color: 'blue',
-                wordId: w.wordId,
+                wordId: w.wordId as string,
                 position: pos
             })
 
@@ -133,7 +133,7 @@ export const sortSimpleAndCompoundWordsFromWordDb = (words: WordDb[], text: stri
                 show: true,
                 word: w.word,
                 color: 'yellow',
-                wordId: w.wordId,
+                wordId: w.wordId as string,
                 position: [pos]
 
             })

@@ -1,9 +1,12 @@
-import FastAddWord from "../../components/fastWords/FastAddWord";
+import FastAddWord, { WordsBasicWithId } from "../../components/fastWords/FastAddWord";
 import Loading from "../../components/Loading";
-import MyInput from "../../components/wordsForm/ui/MyInput";
 import { useAppSelector } from "../../hooks/redux-hooks";
 import useInput from "../../hooks/useInput";
 import { styleTW } from "../../style";
+import { serverTimestamp, Timestamp} from "firebase/firestore"; 
+import { WordDb } from "../types/word";
+import { addManyWords } from "../../backend/crudFunctions/words";
+
 
 
 const AddSet = () => {
@@ -11,21 +14,58 @@ const AddSet = () => {
     const wordsStatus = useAppSelector(state => state.word.status)
     const texts = useAppSelector(state => state.text.texts)
     const textsStatus = useAppSelector(state => state.text.status)
-    const uid = useAppSelector(state => state.user.userFake)
+    const user = useAppSelector(state => state.user.userFake)
     const uidStatus = useAppSelector(state => state.user.status)
 
     const name = useInput('')
+    const source = useInput('')
+
+    const getWords = async (words: WordsBasicWithId)=> {
+        const idsArr = Object.keys(words)
+        const wordsArr: WordDb[] = idsArr.filter(id => words[id as keyof WordsBasicWithId].show && words[id as keyof WordsBasicWithId].name !== '' &&
+        words[id as keyof WordsBasicWithId].translation !== '').map(id => ({
+            uid: user?.uid as string,
+            word: words[id as keyof WordsBasicWithId].name,
+            meaning: {
+                nothing: [words[id as keyof WordsBasicWithId].translation]
+            },
+            examples: [{
+                example: '',
+                translation: ''
+            }],
+            level: 'low',
+            points: 0,
+            priority: 'low',
+            repeat: true,
+            createdAt: serverTimestamp() as Timestamp
+        }))
+
+        const res = await addManyWords(wordsArr)
+
+        console.log(res)
+    }
 
     if(wordsStatus === 'pending' || textsStatus === 'pending' || uidStatus === 'pending'){
         return <Loading />
     }
 
-
     return (
         <section className={styleTW.container}>
             <h1 className={`${styleTW.title1} mt-8`}>Add new set</h1>
             <div className="p-8">
-                <FastAddWord />
+                <div className={styleTW.card}>
+                    <label className="block mb-2 text-sm font-medium text-gray-700">
+                        Name
+                        <input className={`${styleTW.shadow} w-full my-2`} type="text" value={name.value} onChange={name.onChange}/>
+                    </label>
+                </div>
+                <div className={styleTW.card}>
+                    <label className="block mb-2 text-sm font-medium text-gray-700">
+                        Source
+                        <input className={`${styleTW.shadow} w-full my-2`} type="text" value={source.value} onChange={source.onChange}/>
+                    </label>
+                </div>
+                <FastAddWord getWords={getWords}/>
             </div>
         </section>
     )

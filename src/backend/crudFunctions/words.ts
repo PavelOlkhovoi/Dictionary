@@ -1,9 +1,32 @@
 import { db } from '../..';
-import { collection, query, Timestamp, where, getDocs } from 'firebase/firestore';
+import { collection, query, Timestamp, where, getDocs, addDoc, setDoc } from 'firebase/firestore';
 import { parseISO, formatDistanceToNow } from 'date-fns'
 import { WordDb } from '../../pages/types/word';
 import { Tag } from '../../pages/types/word';
 
+export const createFastWord = async(word: WordDb) => {
+    try {
+      const docRef = await addDoc(collection(db, "words"), word)
+
+      console.log("Document written with ID: ", docRef.id);
+
+      setDoc(docRef, {wordId: docRef.id}, { merge: true })
+
+      return docRef.id
+    } catch (error) {
+      console.log('Many words', error)
+    }
+}
+
+export const addManyWords = async(words: WordDb[]) => {
+  const idsResArr: string[] = []
+   for(const word of words ){
+      const res = await createFastWord(word)
+      idsResArr.push(res as string)
+   }
+
+   return idsResArr
+}
 
 export const getUserWords = async (userid: string) => {
     try {

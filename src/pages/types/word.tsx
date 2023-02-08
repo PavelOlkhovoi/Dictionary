@@ -27,11 +27,11 @@ export interface ISingleWord {
 
 export interface WordDb {
     uid: string;
-    wordId: string;
+    wordId?: string;
     word: string;
     createdAt: Timestamp | string;
     repeat: boolean;
-    type: string[];
+    // type?: string[];
     meaning: MeanigsForServer;
     priority: string;
     points: number;

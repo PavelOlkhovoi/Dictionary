@@ -1,24 +1,26 @@
 import {useState, useEffect} from 'react'
 import { nanoid } from '@reduxjs/toolkit'
 import MyButton from '../wordsForm/ui/MyButton'
-import MyInput from '../wordsForm/ui/MyInput'
 import { styleTW } from '../../style'
 
-interface TestObj {
-    [index: string]: TestT
+export interface WordsBasicWithId {
+    [index: string]: WordsBasic
 }
 
-interface TestT {
+interface WordsBasic {
     name: string
     translation: string
     show: Boolean
-
 }
 
-const FastAddWord = () => {
-const id = () => nanoid()
-const [words, setWords] = useState<TestObj>({
-    [id()]: {
+interface Props {
+    getWords: Function
+}
+
+const FastAddWord = ({getWords}: Props) => {
+
+const [words, setWords] = useState<WordsBasicWithId>({
+    [nanoid()]: {
         name: '',
         translation: '',
         show: true
@@ -33,15 +35,16 @@ const idsArr = Object.keys(words)
     
     return (
         <div>
+                <div className='[&>:last-child]:my-8'>
             {
-                idsArr.map(w => words[w as keyof TestObj].show && <div key={w} className="mt-4 mb-8 p-12 shadow bg-white rounded-md">
+                idsArr.map(w => words[w as keyof WordsBasicWithId].show && <div key={w} className={`${styleTW.card} mt-6`}>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
-                    Name
-                    <input className={`${styleTW.shadow} w-full my-2`} value={words[w as keyof TestObj].name}
+                    Word
+                    <input className={`${styleTW.shadow} w-full my-2`} value={words[w as keyof WordsBasicWithId].name}
                     onChange={(e) => setWords(prev => ({
                         ...prev,
-                        [w as keyof TestObj]: {
-                            ...prev[w as keyof TestObj],
+                        [w as keyof WordsBasicWithId]: {
+                            ...prev[w as keyof WordsBasicWithId],
                             name: e.target.value
                         }
                     }))}
@@ -49,11 +52,11 @@ const idsArr = Object.keys(words)
                     </label>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
                     Translation
-                    <input className={`${styleTW.shadow} w-full my-2`} value={words[w as keyof TestObj].translation}
+                    <input className={`${styleTW.shadow} w-full my-2`} value={words[w as keyof WordsBasicWithId].translation}
                     onChange={(e) => setWords(prev => ({
                         ...prev,
-                        [w as keyof TestObj]: {
-                            ...prev[w as keyof TestObj],
+                        [w as keyof WordsBasicWithId]: {
+                            ...prev[w as keyof WordsBasicWithId],
                             translation: e.target.value
                         }
                     }))}
@@ -63,8 +66,8 @@ const idsArr = Object.keys(words)
                     onClick={()=> setWords(prev => {
                         return ({
                             ...prev,
-                            [w as keyof TestObj]: {
-                                ...prev[w as keyof TestObj],
+                            [w as keyof WordsBasicWithId]: {
+                                ...prev[w as keyof WordsBasicWithId],
                                 show: false
                             }
                         })
@@ -91,6 +94,8 @@ const idsArr = Object.keys(words)
                 Add Word
             </MyButton>
         </div>
+        <MyButton onClick={()=> getWords(words)} color='green'>Add Set</MyButton>
+    </div>
     );
 }
 

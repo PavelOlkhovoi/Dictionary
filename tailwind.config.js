@@ -8,7 +8,7 @@ module.exports = {
       colors: {
         'bg-main': '#d1d1f7'
       }
-    },
+    }
   },
   plugins: [],
 }

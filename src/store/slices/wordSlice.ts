@@ -61,7 +61,7 @@ export const selectWordsArrByName = (state: RootState, words: string[]) => {
 
 export const selectWordsArrById = (state: RootState, ids: string[]) => {
     if(ids){
-        const words = state.word.words.filter(w => ids.includes(w.wordId))
+        const words = state.word.words.filter(w => ids.includes(w.wordId as string))
         return words
     }
 
