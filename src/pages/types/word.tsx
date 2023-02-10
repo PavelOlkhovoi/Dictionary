@@ -31,7 +31,6 @@ export interface WordDb {
     word: string;
     createdAt: Timestamp | string;
     repeat: boolean;
-    // type?: string[];
     meaning: MeanigsForServer;
     priority: string;
     points: number;
@@ -63,10 +62,10 @@ export interface AllWordsSorted {
 }
 
 export interface Set {
-    setId: string,
-    wordsIds: string[],
-    name: string,
-    uid: string,
+    setId?: string
+    wordsIds: string[]
+    name: string
+    uid: string
     createdAt: Timestamp | string
     textsIds?: string[] | null
     sourse?: string | null

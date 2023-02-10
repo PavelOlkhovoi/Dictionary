@@ -40,7 +40,7 @@ const idsArr = Object.keys(words)
                 idsArr.map(w => words[w as keyof WordsBasicWithId].show && <div key={w} className={`${styleTW.card} mt-6`}>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
                     Word
-                    <input className={`${styleTW.shadow} w-full my-2`} value={words[w as keyof WordsBasicWithId].name}
+                    <input className={`${styleTW.shadow} w-full`} value={words[w as keyof WordsBasicWithId].name}
                     onChange={(e) => setWords(prev => ({
                         ...prev,
                         [w as keyof WordsBasicWithId]: {
@@ -52,7 +52,7 @@ const idsArr = Object.keys(words)
                     </label>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
                     Translation
-                    <input className={`${styleTW.shadow} w-full my-2`} value={words[w as keyof WordsBasicWithId].translation}
+                    <input className={`${styleTW.shadow} w-full`} value={words[w as keyof WordsBasicWithId].translation}
                     onChange={(e) => setWords(prev => ({
                         ...prev,
                         [w as keyof WordsBasicWithId]: {

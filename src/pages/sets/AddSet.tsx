@@ -4,10 +4,9 @@ import { useAppSelector } from "../../hooks/redux-hooks";
 import useInput from "../../hooks/useInput";
 import { styleTW } from "../../style";
 import { serverTimestamp, Timestamp} from "firebase/firestore"; 
-import { WordDb } from "../types/word";
+import { Set, WordDb } from "../types/word";
 import { addManyWords } from "../../backend/crudFunctions/words";
-
-
+import { createUserSet } from "../../backend/crudFunctions/set";
 
 const AddSet = () => {
     const words = useAppSelector(state => state.word.words)
@@ -29,10 +28,7 @@ const AddSet = () => {
             meaning: {
                 nothing: [words[id as keyof WordsBasicWithId].translation]
             },
-            examples: [{
-                example: '',
-                translation: ''
-            }],
+            examples: [{example: '', translation: ''}],
             level: 'low',
             points: 0,
             priority: 'low',
@@ -42,7 +38,25 @@ const AddSet = () => {
 
         const res = await addManyWords(wordsArr)
 
-        console.log(res)
+        res.length > 0 && saveSet(res)
+    }
+
+    const saveSet = async (wordsIds: string[]) => {
+        if(user){
+            const newSet: Set = {
+                wordsIds, 
+                name: name.value,
+                uid: user.uid ,
+                createdAt: serverTimestamp() as Timestamp,
+                sourse: source.value === '' ? null : source.value
+            }
+
+            const res = await createUserSet(newSet)
+
+            return res
+        }
+       
+        console.log("Lack of data to create new set")
     }
 
     if(wordsStatus === 'pending' || textsStatus === 'pending' || uidStatus === 'pending'){
@@ -54,13 +68,13 @@ const AddSet = () => {
             <h1 className={`${styleTW.title1} mt-8`}>Add new set</h1>
             <div className="p-8">
                 <div className={styleTW.card}>
-                    <label className="block mb-2 text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-gray-700">
                         Name
                         <input className={`${styleTW.shadow} w-full my-2`} type="text" value={name.value} onChange={name.onChange}/>
                     </label>
                 </div>
                 <div className={styleTW.card}>
-                    <label className="block mb-2 text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-gray-700">
                         Source
                         <input className={`${styleTW.shadow} w-full my-2`} type="text" value={source.value} onChange={source.onChange}/>
                     </label>

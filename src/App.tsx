@@ -13,6 +13,9 @@ import ListTexts from './pages/texts/ListTexts';
 import SingleText from './pages/texts/SingleText';
 import EditText from './pages/texts/EditText';
 import AddSet from './pages/sets/AddSet';
+import ListSets from './pages/sets/ListSets';
+import SingleSet from './pages/sets/SingleSet';
+import EditSet from './pages/sets/EditSet';
 
 
 function App() {
@@ -32,6 +35,9 @@ function App() {
       <Route path="texts/edit/:idtext" element={<EditText />} />
       <Route path="addtext" element={<AddText />} />
       <Route path="addSet" element={<AddSet />} />
+      <Route path="sets/list" element={<ListSets />} />
+      <Route path="sets/:idtext" element={<SingleSet />} />
+      <Route path="sets/edit/:idtext" element={<EditSet />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   </>

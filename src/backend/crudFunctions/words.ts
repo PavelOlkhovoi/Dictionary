@@ -14,7 +14,7 @@ export const createFastWord = async(word: WordDb) => {
 
       return docRef.id
     } catch (error) {
-      console.log('Many words', error)
+      console.log(`The word ${word.word} has not been`, error)
     }
 }
 
@@ -34,7 +34,7 @@ export const getUserWords = async (userid: string) => {
       const query_ = query(wordRef, where("uid", "==", userid));
       const querySnapshot = await getDocs(query_);
 
-      if(querySnapshot.empty){throw "The empty array of words returned"} 
+      if(querySnapshot.empty){throw "The empty array of words has been returned"} 
 
       const allWords = [] as WordDb[]
       querySnapshot.forEach((doc) => {

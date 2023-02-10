@@ -15,6 +15,7 @@ import { getUserWords } from './backend/crudFunctions/words';
 import { fetchWords } from './store/slices/wordSlice';
 import { fetchTags } from './store/slices/tagSlice';
 import { fetchTexts } from './store/slices/textSlice';
+import { fetchSets } from './store/slices/setSlice';
 
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
@@ -37,6 +38,7 @@ const testUser = () => {
           store.dispatch(fetchWords(newUser.uid))
           store.dispatch(fetchTags(newUser.uid))
           store.dispatch(fetchTexts(newUser.uid))
+          store.dispatch(fetchSets(newUser.uid))
           
           return user
         }

@@ -59,7 +59,8 @@ export const selectWordsArrByName = (state: RootState, words: string[]) => {
     return test
 }
 
-export const selectWordsArrById = (state: RootState, ids: string[]) => {
+export const selectWordsArrById = (state: RootState, ids: string[] | null | undefined) => {
+    console.log("selector", ids)
     if(ids){
         const words = state.word.words.filter(w => ids.includes(w.wordId as string))
         return words

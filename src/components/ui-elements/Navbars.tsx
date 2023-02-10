@@ -9,7 +9,7 @@ const navigation = [
     { name: 'Add word', href: '/addwords', current: false },
     { name: 'Auth', href: '/auth', current: false },
     { name: 'Texts', href: '/texts', current: false },
-    { name: 'Sets', href: '/addSet', current: false }
+    { name: 'Sets', href: '/sets/list', current: false }
   ]
 
   function classNames(...classes: string[]) {
