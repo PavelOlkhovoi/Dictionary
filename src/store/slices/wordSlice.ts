@@ -20,9 +20,19 @@ const wordSlice = createSlice({
     name: "words",
     initialState,
     reducers: {
+        addWord(state, action: PayloadAction<WordDb>){
+            state.words.push(action.payload)
+        },
         updateWord(state, action: PayloadAction<{id: string, newWord: string}>){
             const word = state.words.find(word => word.wordId === action.payload.id)
             if(word){ word.word = action.payload.newWord }
+        },
+        updateFastMeaning(state, action: PayloadAction<{id: string, name: string, translation: string}>){
+            const word = state.words.find(word => word.wordId === action.payload.id)
+            if(word){ 
+                word.word = action.payload.name
+                word.fastMeaning = action.payload.translation
+            }
         },
         updateExamplex(state, action: PayloadAction<{id: string, examples: ExampleForServer[]}>){
             const word = state.words.find(word => word.wordId === action.payload.id)
@@ -60,17 +70,17 @@ export const selectWordsArrByName = (state: RootState, words: string[]) => {
 }
 
 export const selectWordsArrById = (state: RootState, ids: string[] | null | undefined) => {
-    console.log("selector", ids)
     if(ids){
         const words = state.word.words.filter(w => ids.includes(w.wordId as string))
         return words
     }
-
 }
 export const selectWordById = (state: RootState, id: string) => {
     return state.word.words.find(w => w.wordId === id)
 }
 
+export const selectAllWordsIdsInArr = (state: RootState) => state.word.words.map(w => w.wordId)
 
-export const { updateWord, updateExamplex, updateMeanings } = wordSlice.actions
+
+export const { addWord, updateWord, updateExamplex, updateMeanings, updateFastMeaning } = wordSlice.actions
 export default wordSlice.reducer

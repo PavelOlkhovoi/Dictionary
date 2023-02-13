@@ -1,9 +1,9 @@
 import { db } from '../..';
-import { collection, query, Timestamp, serverTimestamp, where, getDocs, addDoc, setDoc } from 'firebase/firestore';
+import { collection, query, Timestamp, serverTimestamp, where, getDocs, addDoc, setDoc, doc, updateDoc} from 'firebase/firestore';
 import { parseISO, formatDistanceToNow } from 'date-fns'
 import { Set } from '../../pages/types/word';
 import { store } from '../../store';
-import { addSet } from '../../store/slices/setSlice';
+import { addSet, updateSet } from '../../store/slices/setSlice';
 
 export const createUserSet = async (set: Set) => {
     try {
@@ -19,7 +19,7 @@ export const createUserSet = async (set: Set) => {
 
         store.dispatch(addSet({
           setId: docRef.id,
-          wordsIds: set.textsIds as string[],
+          wordsIds: set.wordsIds,
           name: set.name,
           uid: set.uid,
           createdAt: 'today',
@@ -33,6 +33,27 @@ export const createUserSet = async (set: Set) => {
 
       }
 }
+
+export const updateUserSet = async (setId: string, name: string, suorce: string | null = null, wordsIds: string[]) => {
+  try {
+    const setRef = doc(db, "sets", setId);
+    const res = await updateDoc(setRef, {
+      wordsIds: wordsIds,
+      suorce
+    })
+
+    store.dispatch(updateSet({
+      id: setId,
+      wordIdx: wordsIds,
+      title: name,
+      source: suorce
+    }))
+
+    } catch (error) {
+      console.log("Error Fail", error)
+  }
+}
+
 
 export const getUserSets = async (uid: string) => {
   try {

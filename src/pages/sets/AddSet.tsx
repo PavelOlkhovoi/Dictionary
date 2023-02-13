@@ -26,8 +26,9 @@ const AddSet = () => {
             uid: user?.uid as string,
             word: words[id as keyof WordsBasicWithId].name,
             meaning: {
-                nothing: [words[id as keyof WordsBasicWithId].translation]
+                nothing: ['']
             },
+            fastMeaning: words[id as keyof WordsBasicWithId].translation,
             examples: [{example: '', translation: ''}],
             level: 'low',
             points: 0,

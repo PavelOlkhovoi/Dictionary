@@ -2,6 +2,8 @@ import {useState, useEffect} from 'react'
 import { nanoid } from '@reduxjs/toolkit'
 import MyButton from '../wordsForm/ui/MyButton'
 import { styleTW } from '../../style'
+import { WordDb } from '../../pages/types/word'
+import { makeObjForFastAdding } from '../../helpers/manipulateArr'
 
 export interface WordsBasicWithId {
     [index: string]: WordsBasic
@@ -15,31 +17,34 @@ interface WordsBasic {
 
 interface Props {
     getWords: Function
+    oldWords?: WordDb[]
 }
 
-const FastAddWord = ({getWords}: Props) => {
+const FastAddWord = ({getWords, oldWords}: Props) => {
+ 
+const [words, setWords] = useState<WordsBasicWithId>(oldWords ? makeObjForFastAdding(oldWords) : {
+        [nanoid()]: {
+            name: '',
+            translation: '',
+            show: true
+        } 
+    })
 
-const [words, setWords] = useState<WordsBasicWithId>({
-    [nanoid()]: {
-        name: '',
-        translation: '',
-        show: true
-    } 
-})
+
 
 useEffect(()=> {
-    console.log('Wwww', words)
-}, [words])
+    console.log('Old words changed', oldWords)
+    setWords(makeObjForFastAdding(oldWords as WordDb[]))
+}, [oldWords])
 
-const idsArr = Object.keys(words)
     
     return (
         <div>
                 <div className='[&>:last-child]:my-8'>
             {
-                idsArr.map(w => words[w as keyof WordsBasicWithId].show && <div key={w} className={`${styleTW.card} mt-6`}>
+                 Object.keys(words).map(w => words[w as keyof WordsBasicWithId].show && <div key={w} className={`${styleTW.card} mt-6`}>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
-                    Word
+                    Word: {w}
                     <input className={`${styleTW.shadow} w-full`} value={words[w as keyof WordsBasicWithId].name}
                     onChange={(e) => setWords(prev => ({
                         ...prev,
@@ -51,7 +56,7 @@ const idsArr = Object.keys(words)
                     />
                     </label>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
-                    Translation
+                    {oldWords ? 'Last Translation' : 'translation'}
                     <input className={`${styleTW.shadow} w-full`} value={words[w as keyof WordsBasicWithId].translation}
                     onChange={(e) => setWords(prev => ({
                         ...prev,

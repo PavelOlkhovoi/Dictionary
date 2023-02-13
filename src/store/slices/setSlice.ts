@@ -18,9 +18,23 @@ const setSlice = createSlice({
     initialState,
     reducers: {
         addSet(state, action: PayloadAction<Set>){
+            
+        console.log('Papazogla Redux', action.payload)
             if(action.payload){
                 state.sets.push(action.payload)
             }
+        },
+        updateSet(state, action: PayloadAction<{id:string, wordIdx: string[], title: string, source?: string | null}>){
+            const set = state.sets.find(s => s.setId === action.payload.id)
+
+            if(set){
+                set.name = action.payload.title
+                set.wordsIds = action.payload.wordIdx
+                set.sourse = action.payload.source
+            }
+        },
+        deleteSet(state, action: PayloadAction<{id: string}>){
+            state.sets.filter(s => s.setId !== action.payload.id)
         }
     },
     extraReducers: builder => {
@@ -45,5 +59,5 @@ export const fetchSets = createAsyncThunk('sets/fetchSets', async (uid: string)=
     return res
 })
 
-export const {addSet} = setSlice.actions
+export const {addSet, updateSet, deleteSet} = setSlice.actions
 export default setSlice.reducer

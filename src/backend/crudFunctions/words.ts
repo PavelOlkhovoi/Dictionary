@@ -1,8 +1,11 @@
 import { db } from '../..';
-import { collection, query, Timestamp, where, getDocs, addDoc, setDoc } from 'firebase/firestore';
+import { collection, query, Timestamp, where, getDocs, addDoc, setDoc, doc, updateDoc } from 'firebase/firestore';
 import { parseISO, formatDistanceToNow } from 'date-fns'
 import { WordDb } from '../../pages/types/word';
 import { Tag } from '../../pages/types/word';
+import { WordsBasicWithId } from '../../components/fastWords/FastAddWord';
+import { store } from '../../store';
+import { addWord, updateFastMeaning } from '../../store/slices/wordSlice';
 
 export const createFastWord = async(word: WordDb) => {
     try {
@@ -12,10 +15,35 @@ export const createFastWord = async(word: WordDb) => {
 
       setDoc(docRef, {wordId: docRef.id}, { merge: true })
 
+      store.dispatch(addWord({...word, wordId: docRef.id}))
+
       return docRef.id
     } catch (error) {
       console.log(`The word ${word.word} has not been`, error)
     }
+}
+
+export const updateUserFastMeaning = async(wordid: string, name: string, translation: string) => {
+  try {
+    console.log("Start updateRespond")
+    const wordRef = doc(db, "words", wordid);
+    const res = await updateDoc(wordRef, {
+      word: name,
+      fastMeaning: translation
+    })
+
+    console.log("Respond", res)
+
+    store.dispatch(updateFastMeaning({
+      id: wordid,
+      name,
+      translation
+    }))
+
+
+    } catch (error) {
+      console.log("Error Fail", error)
+  }
 }
 
 export const addManyWords = async(words: WordDb[]) => {

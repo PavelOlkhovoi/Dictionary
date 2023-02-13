@@ -26,15 +26,16 @@ export interface ISingleWord {
 }
 
 export interface WordDb {
-    uid: string;
-    wordId?: string;
-    word: string;
-    createdAt: Timestamp | string;
+    uid: string
+    wordId?: string
+    word: string
+    createdAt: Timestamp | string
     repeat: boolean;
-    meaning: MeanigsForServer;
-    priority: string;
-    points: number;
-    level: string;
+    meaning: MeanigsForServer
+    fastMeaning?: string
+    priority: string
+    points: number
+    level: string
     examples: ExampleForServer[]
 }
 

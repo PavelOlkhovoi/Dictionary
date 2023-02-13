@@ -11,12 +11,9 @@ const SingleSet = () => {
     const {idtext} = useParams()
     const set = useAppSelector(state => state.set.sets.find(w => w.setId === idtext))
     const setStatus = useAppSelector(state => state.set.status)
-    const words = useAppSelector(state => selectWordsArrById(state, set?.textsIds))
-    useEffect(()=> {
-        console.log('Wwwwww', words)
-    }, [words])
-    if(setStatus === 'pending'){return <Loading />}
-    
+    const words = useAppSelector(state => selectWordsArrById(state, set?.wordsIds))
+    const allWords = useAppSelector(state => state.word.words)
+
 
     return (
         <section className={`${styleTW.container}`}>

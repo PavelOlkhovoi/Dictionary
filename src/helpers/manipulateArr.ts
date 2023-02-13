@@ -1,3 +1,6 @@
+import { WordDb } from "../pages/types/word"
+import { WordsBasicWithId } from "../components/fastWords/FastAddWord"
+
 type tempInd = number
 export function isElementInArr<A extends {temId: number}>(arr: A[], key: number): tempInd {
         let ind = -1
@@ -22,4 +25,19 @@ export function makeArrayWithUniqueWords(array: string[]){
     array.forEach(word => !uniqueArray.includes(word) && uniqueArray.push(word))
 
     return uniqueArray
+}
+
+
+export function makeObjForFastAdding(words: WordDb[]){
+    const oldObj: WordsBasicWithId = {}
+
+    words.forEach(w => {
+        Object.assign(oldObj, { [w.wordId as string]: { name: w.word, 
+            translation: w.fastMeaning,
+            show: true
+        } 
+    })
+    })
+
+    return oldObj
 }
