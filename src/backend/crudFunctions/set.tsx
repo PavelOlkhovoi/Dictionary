@@ -1,9 +1,9 @@
 import { db } from '../..';
-import { collection, query, Timestamp, serverTimestamp, where, getDocs, addDoc, setDoc, doc, updateDoc} from 'firebase/firestore';
+import { collection, query, Timestamp, serverTimestamp, where, getDocs, addDoc, setDoc, doc, updateDoc, arrayRemove} from 'firebase/firestore';
 import { parseISO, formatDistanceToNow } from 'date-fns'
 import { Set } from '../../pages/types/word';
 import { store } from '../../store';
-import { addSet, updateSet } from '../../store/slices/setSlice';
+import { addSet, deleteWordFromSet, updateSet } from '../../store/slices/setSlice';
 
 export const createUserSet = async (set: Set) => {
     try {
@@ -23,7 +23,7 @@ export const createUserSet = async (set: Set) => {
           name: set.name,
           uid: set.uid,
           createdAt: 'today',
-          sourse: set.sourse,
+          source: set.source,
         }))
 
 
@@ -39,7 +39,8 @@ export const updateUserSet = async (setId: string, name: string, suorce: string 
     const setRef = doc(db, "sets", setId);
     const res = await updateDoc(setRef, {
       wordsIds: wordsIds,
-      suorce
+      suorce: suorce,
+      name: name,
     })
 
     store.dispatch(updateSet({
@@ -83,5 +84,19 @@ export const getUserSets = async (uid: string) => {
     return new Promise((resolve, rejects) => {
       rejects(error)
     })
+  }
+}
+
+
+export const deleteWordInsiteSet = async (setId: string, wordId: string) => {
+  try {
+    const setRef = doc(db, "sets", setId);
+      await updateDoc(setRef, {
+      word_id: arrayRemove(wordId)
+    })
+
+    store.dispatch(deleteWordFromSet({setId, wordId}))
+  } catch (error) {
+    console.log('Word id has not been removed from set', error)
   }
 }

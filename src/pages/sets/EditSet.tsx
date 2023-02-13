@@ -8,7 +8,7 @@ import { selectAllWordsIdsInArr, selectWordsArrById } from "../../store/slices/w
 import FastAddWord, { WordsBasicWithId } from "../../components/fastWords/FastAddWord";
 import { createFastWord, updateUserFastMeaning } from "../../backend/crudFunctions/words";
 import { serverTimestamp, Timestamp} from "firebase/firestore";
-import { updateUserSet } from "../../backend/crudFunctions/set";
+import { deleteWordInsiteSet, updateUserSet } from "../../backend/crudFunctions/set";
 
 const EditSet = () => {
     const {idtext} = useParams()
@@ -23,17 +23,25 @@ const EditSet = () => {
     const source = useInput('')
 
     const getWords = async (words: WordsBasicWithId) => {
-        console.log('Zogla word', words)
-        const existingordsArr = Object.keys(words).filter(id => wordsIdsArr.includes(id))
-        const finalWordsIdsArr = [...existingordsArr]
+        const allIds = Object.keys(words)
+        const allToShow = allIds.filter(id => words[id].show)
+        const deleteWords = allIds.filter(id => !words[id].show)
 
-        const wordsArrIds = Object.keys(words)
-        for(const id of wordsArrIds){
-            if(existingordsArr.includes(id)){
+        if(set && deleteWords.length > 0){
+            for(const wordId in deleteWords){
+                if(set?.wordsIds.includes(deleteWords[wordId])){
+                    await deleteWordInsiteSet(set?.setId as string, deleteWords[wordId])
+                }
+            }
+        }
+
+        const existingWordsArr = allToShow.filter(id => wordsIdsArr.includes(id))
+        const finalWordsIdsArr = [...existingWordsArr]
+
+        for(const id of  allToShow){
+            if(existingWordsArr.includes(id)){
                 updateUserFastMeaning(id, words[id].name, words[id].translation)
             }else{
-               // 2 get New arr
-                console.log('Test Create Fast', words[id as keyof WordsBasicWithId].name)
                 const newWordId= await createFastWord({
                     uid: user?.uid as string,
                     word: words[id as keyof WordsBasicWithId].name,
@@ -49,32 +57,20 @@ const EditSet = () => {
                     createdAt: serverTimestamp() as Timestamp
                 })
 
-                const newObj = {
-                    ...words,
-                    [newWordId as string]: {
-
-                    }
-                }
-
-                // words[id as keyof WordsBasicWithId] = newWordId as string
-
                 finalWordsIdsArr.push(newWordId as string)
 
             }
         }
 
-        console.log('final res', finalWordsIdsArr)
-
-        updateUserSet(set?.setId as string, title.value, null, finalWordsIdsArr)
+        finalWordsIdsArr.length > 0 && updateUserSet(set?.setId as string, title.value, null, finalWordsIdsArr)
 
     }
 
 
     useEffect(()=> {
-        // console.log('Set changed', set, words)
         if(set){
             title.setInput(set.name) 
-            source.setInput(set.sourse ? set.sourse : '')
+            source.setInput(set.source ? set.source : '')
         }
     }, [set])
 

@@ -69,5 +69,5 @@ export interface Set {
     uid: string
     createdAt: Timestamp | string
     textsIds?: string[] | null
-    sourse?: string | null
+    source?: string | null
 }

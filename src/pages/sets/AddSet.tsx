@@ -49,7 +49,7 @@ const AddSet = () => {
                 name: name.value,
                 uid: user.uid ,
                 createdAt: serverTimestamp() as Timestamp,
-                sourse: source.value === '' ? null : source.value
+                source: source.value === '' ? null : source.value
             }
 
             const res = await createUserSet(newSet)

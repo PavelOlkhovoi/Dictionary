@@ -17,24 +17,25 @@ interface WordsBasic {
 
 interface Props {
     getWords: Function
-    oldWords?: WordDb[]
+    oldWords?: WordDb[] | null
 }
 
-const FastAddWord = ({getWords, oldWords}: Props) => {
+const FastAddWord = ({getWords, oldWords = null}: Props) => {
  
 const [words, setWords] = useState<WordsBasicWithId>(oldWords ? makeObjForFastAdding(oldWords) : {
-        [nanoid()]: {
-            name: '',
-            translation: '',
-            show: true
-        } 
-    })
+    [nanoid()]: {
+        name: '',
+        translation: '',
+        show: true
+    } 
+})
 
 
 
 useEffect(()=> {
-    console.log('Old words changed', oldWords)
-    setWords(makeObjForFastAdding(oldWords as WordDb[]))
+    if(oldWords){
+        setWords(makeObjForFastAdding(oldWords as WordDb[]))
+    }
 }, [oldWords])
 
     
