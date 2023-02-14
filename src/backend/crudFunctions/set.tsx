@@ -1,9 +1,9 @@
 import { db } from '../..';
-import { collection, query, Timestamp, serverTimestamp, where, getDocs, addDoc, setDoc, doc, updateDoc, arrayRemove} from 'firebase/firestore';
+import { collection, query, Timestamp, serverTimestamp, where, getDocs, addDoc, setDoc, doc, updateDoc, arrayRemove, deleteDoc} from 'firebase/firestore';
 import { parseISO, formatDistanceToNow } from 'date-fns'
 import { Set } from '../../pages/types/word';
 import { store } from '../../store';
-import { addSet, deleteWordFromSet, updateSet } from '../../store/slices/setSlice';
+import { addSet, deleteSet, deleteWordFromSet, updateSet } from '../../store/slices/setSlice';
 
 export const createUserSet = async (set: Set) => {
     try {
@@ -98,5 +98,15 @@ export const deleteWordInsiteSet = async (setId: string, wordId: string) => {
     store.dispatch(deleteWordFromSet({setId, wordId}))
   } catch (error) {
     console.log('Word id has not been removed from set', error)
+  }
+}
+
+
+export const deleteUserSet = async (setId: string) => {
+  try {
+    await deleteDoc(doc(db, "sets", setId));
+    store.dispatch(deleteSet({id:setId}))
+  } catch (error) {
+    console.log("Set has not been deleted", error)
   }
 }

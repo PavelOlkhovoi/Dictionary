@@ -8,7 +8,8 @@ import { selectAllWordsIdsInArr, selectWordsArrById } from "../../store/slices/w
 import FastAddWord, { WordsBasicWithId } from "../../components/fastWords/FastAddWord";
 import { createFastWord, updateUserFastMeaning } from "../../backend/crudFunctions/words";
 import { serverTimestamp, Timestamp} from "firebase/firestore";
-import { deleteWordInsiteSet, updateUserSet } from "../../backend/crudFunctions/set";
+import { deleteUserSet, deleteWordInsiteSet, updateUserSet } from "../../backend/crudFunctions/set";
+import MyButton from "../../components/wordsForm/ui/MyButton";
 
 const EditSet = () => {
     const {idtext} = useParams()
@@ -22,7 +23,7 @@ const EditSet = () => {
     const title = useInput('')
     const source = useInput('')
 
-    const getWords = async (words: WordsBasicWithId) => {
+    const updateWords = async (words: WordsBasicWithId) => {
         const allIds = Object.keys(words)
         const allToShow = allIds.filter(id => words[id].show)
         const deleteWords = allIds.filter(id => !words[id].show)
@@ -66,6 +67,10 @@ const EditSet = () => {
 
     }
 
+    const deleteSet = async (setId: string) => {
+        await deleteUserSet(setId)
+    }
+
 
     useEffect(()=> {
         if(set){
@@ -92,7 +97,9 @@ const EditSet = () => {
                         <input className={`${styleTW.shadow} w-full my-2`} type="text" value={source.value} onChange={source.onChange}/>
                     </label>
                 </div>
-                <FastAddWord getWords={getWords} oldWords={words}/>
+                <FastAddWord getWords={updateWords} oldWords={words}/>
+
+                <div className="mt-4"><MyButton color='red' onClick={()=> deleteSet(set?.setId as string)}>Delete set</MyButton></div>
             </div>
         </section>
 

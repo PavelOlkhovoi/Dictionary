@@ -40,7 +40,8 @@ const setSlice = createSlice({
         }
         },
         deleteSet(state, action: PayloadAction<{id: string}>){
-            state.sets.filter(s => s.setId !== action.payload.id)
+            debugger
+            state.sets.splice(state.sets.findIndex((s) => s.setId === action.payload.id), 1);
         }
     },
     extraReducers: builder => {
