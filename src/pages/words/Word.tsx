@@ -48,10 +48,6 @@ const Word = () => {
                         </div>
                     })
                 }
-                {/* {
-                    currentWord.examples && currentWord.examples.length !== 0 && isEdit && 
-                    <EditExample allExamples={currentWord.examples} exampleUpdate={examplesUpdate}/>
-                } */}
             </div>
             <div className='flex items-center'>
             <h2 className="my-4 text-4xl">Tags</h2>

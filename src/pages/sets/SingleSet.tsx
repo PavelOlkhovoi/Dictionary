@@ -6,6 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
 import MyButton from "../../components/wordsForm/ui/MyButton";
 import { useEffect } from "react";
+import { daysDifferent } from "../../helpers/time";
 
 const SingleSet = () => {
     const {idtext} = useParams()
@@ -14,6 +15,13 @@ const SingleSet = () => {
     const words = useAppSelector(state => selectWordsArrById(state, set?.wordsIds))
     const allWords = useAppSelector(state => state.word.words)
 
+
+    useEffect(()=>{
+        if(set){
+          console.log('Test day distance', daysDifferent(set?.createdAt as string))
+        }
+        
+    }, [])
 
     return (
         <section className={`${styleTW.container}`}>

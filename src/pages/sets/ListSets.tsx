@@ -3,6 +3,7 @@ import Loading from "../../components/Loading";
 import MyButton from "../../components/wordsForm/ui/MyButton";
 import { useAppSelector } from "../../hooks/redux-hooks";
 import { styleTW } from "../../style";
+import { formatDistanceToNow, parseISO } from "date-fns";
 
 const ListSets = () => {
     const sets = useAppSelector(state => state.set.sets)
@@ -11,6 +12,8 @@ const ListSets = () => {
     if(setsStatus === "pending") {return <Loading/>}
 
     if(!sets){return <h1>Data have not been loaded</h1>}
+
+
 
     return (
     <section className={`${styleTW.container}`}>
@@ -27,7 +30,8 @@ const ListSets = () => {
                 <Link
                     to={{pathname:`/sets/${s.setId}`}}
                 >
-                    {s.name}
+                    {s.name} 
+                    <p>{formatDistanceToNow(parseISO(s.createdAt as string), {addSuffix: true})}</p>
                 </Link>
             </li>)
         }

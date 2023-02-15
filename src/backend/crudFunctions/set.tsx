@@ -11,18 +11,17 @@ export const createUserSet = async (set: Set) => {
   
         console.log("Document written with ID: ", docRef.id);
   
-        console.log('Data', set)
         setDoc(docRef, {setId: docRef.id}, { merge: true })
 
-        // const date = parseISO((set.createdAt as Timestamp).toDate().toISOString())
-        // const timePeriod = formatDistanceToNow(date)
+        const testToday = new Date().toDateString()
+        console.log("Testt today", testToday)
 
         store.dispatch(addSet({
           setId: docRef.id,
           wordsIds: set.wordsIds,
           name: set.name,
           uid: set.uid,
-          createdAt: 'today',
+          createdAt: testToday,
           source: set.source,
         }))
 
@@ -66,19 +65,13 @@ export const getUserSets = async (uid: string) => {
 
     const allSets: Set[] = []
     querySnapshot.forEach((doc) => {
-      allSets.push(doc.data() as Set)
+      const set = doc.data()
+      const changedData = parseISO((set.createdAt as Timestamp).toDate().toISOString())
+      set.createdAt = changedData.toISOString()
+      allSets.push(set as Set)
     });
 
-    const result = allSets.map(el => {
-      const date = parseISO((el.createdAt as Timestamp).toDate().toISOString())
-      const timePeriod = formatDistanceToNow(date)
-      return{
-        ...el,
-        createdAt: timePeriod
-      }
-    })
-
-  return result as Set[]
+  return allSets as Set[]
     
   } catch (error) {
     return new Promise((resolve, rejects) => {
