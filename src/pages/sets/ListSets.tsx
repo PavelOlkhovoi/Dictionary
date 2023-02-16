@@ -4,6 +4,7 @@ import MyButton from "../../components/wordsForm/ui/MyButton";
 import { useAppSelector } from "../../hooks/redux-hooks";
 import { styleTW } from "../../style";
 import { formatDistanceToNow, parseISO } from "date-fns";
+import SetWordsToLern from "./SetWordsToLern";
 
 const ListSets = () => {
     const sets = useAppSelector(state => state.set.sets)
@@ -36,6 +37,8 @@ const ListSets = () => {
             </li>)
         }
         </ul>
+
+        <SetWordsToLern />
         </div>
     </section>
 )

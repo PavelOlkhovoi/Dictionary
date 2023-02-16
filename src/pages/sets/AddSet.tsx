@@ -34,7 +34,16 @@ const AddSet = () => {
             points: 0,
             priority: 'low',
             repeat: true,
-            createdAt: serverTimestamp() as Timestamp
+            createdAt: serverTimestamp() as Timestamp,
+            repetition: {
+                firstRepetition: false,
+                secondRepetition: false,
+                thirdRepetition: false,
+                fourthRepetition: false,
+                fifthRepetition: false,
+                sixthRepetition: false,
+                seventhRepetition: false
+            }
         }))
 
         const res = await addManyWords(wordsArr)

@@ -3,7 +3,6 @@ import { collection, query, Timestamp, where, getDocs, addDoc, setDoc, doc, upda
 import { parseISO, formatDistanceToNow } from 'date-fns'
 import { WordDb } from '../../pages/types/word';
 import { Tag } from '../../pages/types/word';
-import { WordsBasicWithId } from '../../components/fastWords/FastAddWord';
 import { store } from '../../store';
 import { addWord, updateFastMeaning } from '../../store/slices/wordSlice';
 
@@ -66,19 +65,14 @@ export const getUserWords = async (userid: string) => {
 
       const allWords = [] as WordDb[]
       querySnapshot.forEach((doc) => {
-        allWords.push(doc.data() as WordDb)
+        const word = doc.data()
+        const changedData = parseISO((word.createdAt as Timestamp).toDate().toISOString())
+        word.createdAt = changedData.toISOString()
+        console.log('Test change time', changedData)
+        allWords.push(word as WordDb)
       });
 
-      const result = allWords.map(el => {
-        const date = parseISO((el.createdAt as Timestamp).toDate().toISOString())
-        const timePeriod = formatDistanceToNow(date)
-        return{
-          ...el,
-          createdAt: timePeriod
-        }
-      })
-
-    return result
+    return allWords
       
     } catch (error) {
       return new Promise((resolve, rejects) => {

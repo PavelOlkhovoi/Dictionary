@@ -2,6 +2,7 @@ import {createSlice, PayloadAction, createAsyncThunk, current} from "@reduxjs/to
 import { RootState } from "..";
 import { getUserWords } from "../../backend/crudFunctions/words";
 import { ExampleForServer, MeanigsForServer, WordDb } from "../../pages/types/word";
+import { parseISO } from "date-fns";
 
 
 interface WordsState {
@@ -80,6 +81,21 @@ export const selectWordById = (state: RootState, id: string) => {
 }
 
 export const selectAllWordsIdsInArr = (state: RootState) => state.word.words.map(w => w.wordId)
+
+export const selectSortedByTimeWords = (state: RootState) => {
+    if(state.word.words.length > 0){
+        const sortedArr = [...state.word.words].sort((a, b)=> {
+            return parseISO(a.createdAt as string).getTime() - parseISO(b.createdAt as string).getTime()
+        })
+
+        return sortedArr
+    }
+}
+
+export const selectWordsForFirstExercise = (state: RootState) => {
+    const getSortedWords = selectSortedByTimeWords(state)
+    const newLearnedWords = getSortedWords?.filter(w => !w.repetition?.fifthRepetition)
+}
 
 
 export const { addWord, updateWord, updateExamplex, updateMeanings, updateFastMeaning } = wordSlice.actions

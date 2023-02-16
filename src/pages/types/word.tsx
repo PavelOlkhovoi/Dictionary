@@ -36,7 +36,8 @@ export interface WordDb {
     priority: string
     points: number
     level: string
-    examples: ExampleForServer[]
+    examples: ExampleForServer[],
+    repetition?: Repetition
 }
 
 export interface Tag {
@@ -70,4 +71,14 @@ export interface Set {
     createdAt: Timestamp | string
     textsIds?: string[] | null
     source?: string | null
+}
+
+interface Repetition {
+    firstRepetition: boolean,
+    secondRepetition: boolean,
+    thirdRepetition: boolean,
+    fourthRepetition: boolean,
+    fifthRepetition: boolean,
+    sixthRepetition: boolean,
+    seventhRepetition: boolean
 }
