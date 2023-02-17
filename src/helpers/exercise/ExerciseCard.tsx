@@ -1,9 +1,9 @@
 import MyButton from "../../components/wordsForm/ui/MyButton";
-import { WordDb } from "../../pages/types/word";
+import { MeanigsForServer, WordDb } from "../../pages/types/word";
 import { styleTW } from "../../style";
 import { formatDistanceToNow, parseISO } from "date-fns";
-import { useState } from "react";
-import MyInput from "../../components/wordsForm/ui/MyInput";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion"
 import useInput from "../../hooks/useInput";
 
 interface Props {
@@ -11,44 +11,86 @@ interface Props {
 }
 const ExerciseCard = ({word}:Props) => {
     const readableTime = formatDistanceToNow(parseISO(word.createdAt as string))
+    const [wrongAnswer, setWrongAnswer] = useState(false)
     const [stages, setStages] = useState({
+        showCard: true,
         wordKnown: true,
+        repeat: false,
         spelling: false
     })
 
-    const meaning = useInput('')
+    const [meaning, setMeaning] = useState('')
+
+    const translation = word.fastMeaning ? word.fastMeaning : Object.keys(word.meaning).map(m => word.meaning[m as keyof MeanigsForServer][0])
+
+    const checkWord = () => {
+        const isCorrect = word.word.includes(meaning)
+        !isCorrect && setWrongAnswer(last => !last)
+    }
+
+
+    useEffect(()=> {
+        console.log('Translation', translation)
+    },[])
     return (
-        <div className="flex gap-4">
+        <div>
+        {
+            stages.showCard && 
+            <div className="flex gap-4">
             {
                 stages.wordKnown ? 
-                <div className={`${styleTW.card} flex flex-col justify-items-center items-center relative`}>
-                <div className="absolute top-0 right-1 text-xs p-1">
+                <motion.div 
+                animate={{ x: 100 }} 
+                className={`${styleTW.card} flex flex-col justify-items-center items-center`}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                >
+                <div className="translate-x-[-8] text-xs p-1">
                     {readableTime }
                 </div>
                 <span className="my-6">{word.word}</span>
                 <div className="flex gap-4 justify-items-stretch mt-auto">
-                    <MyButton>Yes</MyButton>
+                    <MyButton onClick={()=> setStages(prev => ({...prev, spelling: true, wordKnown: false}))}>Yes</MyButton>
                     <MyButton color="red" onClick={()=> setStages(prev => ({...prev, wordKnown: false}))}>No</MyButton>
                 </div>
-            </div>
+            </motion.div>
             : 
-            <div className={`${styleTW.card} flex flex-col justify-items-center items-center`}>
-                <span className="my-6">{word.fastMeaning ? word.fastMeaning : 'Get meanings'}</span>
+            <motion.div 
+            animate={{ x: 100 }}
+            whileTap={{ scale: 0.9 }}
+            className={`${styleTW.card} flex flex-col justify-items-center items-center w-full`}
+            >
+                <span className="my-6">{translation}</span>
                 <div className="flex gap-4 justify-items-stretch mt-auto">
-                    <MyButton onClick={()=> setStages(prev => ({...prev, spelling: true}))}>Try to spell</MyButton>
+                    <MyButton onClick={()=> setStages(prev => ({...prev, showCard: false}))}>Hide</MyButton>
                 </div>
-            </div>
+            </motion.div>
             }
             {
-                stages.spelling && 
-                <div className={`${styleTW.card} flex flex-col justify-items-center items-center`}>
-                <input value={meaning.value} onChange={(e) => meaning.onChange(e)} className="my-6" />
+            stages.spelling && 
+            <motion.div animate={{ x: 100 }} className={`${styleTW.card} flex flex-col justify-items-center items-center w-full`}>
+                
+                {
+                    wrongAnswer ? <span className="text-xs my-3 w-full">
+                    Type the meaning
+                </span>
+                :
+                    <span className="text-xs my-3 w-full">{word.word}</span>
+                }
+
+                <textarea 
+                value={meaning} 
+                onChange={(e) => setMeaning(e.target.value)} 
+                className={`${styleTW.shadow} my-4`} 
+                />
                 <div className="flex gap-4 justify-items-stretch mt-auto">
-                    <MyButton>Check</MyButton>
+                    <MyButton color="green" onClick={checkWord}>Check</MyButton>
                 </div>
-            </div>
+            </motion.div>
             }
-           
+            
+            </div>
+        }
         </div>
     );
 }
