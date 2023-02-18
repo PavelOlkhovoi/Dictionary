@@ -6,21 +6,18 @@ import { styleTW } from "../../style";
 
 
 const SetWordsToLern = () => {
-    // Get Words 
     const wordsStatus = useAppSelector(state => state.word.status)
     const sortedWords = useAppSelector(state => selectSortedByTimeWords(state))
-    // const wordsfForFirstExercise = useAppSelector(state => selectWordsForFirstExercise(state))
+
     useEffect(()=> {
-        console.log("Sorted wprds", sortedWords?.filter(w => !w.repetition?.fifthRepetition))
-    }, [sortedWords])
+    }, [])
     return (
         <section className={styleTW.container}>
-            <h1 className={`${styleTW.title1}`}>Words to learn</h1>
-            <div className="">
+            <h1 className={`${styleTW.title1} m-4`}>Words to learn</h1>
+            <div className="ml-[-185px]">
                 {
-                    sortedWords?.filter(w => !w.repetition?.fifthRepetition).map(w => <ExerciseCard word={w}/>)
+                    sortedWords?.filter(w => !w.repetition?.firstRepetition).map(w => <ExerciseCard word={w} key={w.wordId}/>)
                 }
-
             </div>
         </section>
     );

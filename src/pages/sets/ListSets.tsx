@@ -24,6 +24,9 @@ const ListSets = () => {
                 <MyButton className="m-auto" color="green">
                     <Link to="/addSet">Add new set</Link>
                 </MyButton>
+                <MyButton className="m-auto">
+                    <Link to="/exercises">Learn words</Link>
+                </MyButton>
             </div>
         <ul>
         {
@@ -37,8 +40,6 @@ const ListSets = () => {
             </li>)
         }
         </ul>
-
-        <SetWordsToLern />
         </div>
     </section>
 )

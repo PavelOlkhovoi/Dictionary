@@ -73,7 +73,7 @@ export interface Set {
     source?: string | null
 }
 
-interface Repetition {
+export interface Repetition {
     firstRepetition: boolean,
     secondRepetition: boolean,
     thirdRepetition: boolean,

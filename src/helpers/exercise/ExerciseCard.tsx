@@ -1,10 +1,10 @@
 import MyButton from "../../components/wordsForm/ui/MyButton";
-import { MeanigsForServer, WordDb } from "../../pages/types/word";
+import { MeanigsForServer, Repetition, WordDb } from "../../pages/types/word";
 import { styleTW } from "../../style";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion"
-import useInput from "../../hooks/useInput";
+import { addPointsToWord } from "../../backend/crudFunctions/words";
 
 interface Props {
     word: WordDb
@@ -16,7 +16,8 @@ const ExerciseCard = ({word}:Props) => {
         showCard: true,
         wordKnown: true,
         repeat: false,
-        spelling: false
+        spelling: false,
+        repeted: false
     })
 
     const [meaning, setMeaning] = useState('')
@@ -25,26 +26,33 @@ const ExerciseCard = ({word}:Props) => {
 
     const checkWord = () => {
         const isCorrect = word.word.includes(meaning)
-        !isCorrect && setWrongAnswer(last => !last)
+        !isCorrect ? setWrongAnswer(last => true) : setStages(prev => ({
+            ...prev,
+            showCard: false,
+            repeted: true
+        }))
     }
 
 
     useEffect(()=> {
-        console.log('Translation', translation)
-    },[])
+        console.log('Hi')
+        stages.repeted &&
+        addPointsToWord(word?.wordId as string, word.points, {
+            ...word.repetition as Repetition,
+            firstRepetition: true
+        })
+    },[stages.repeted])
     return (
-        <div>
+        <div className="m-4">
         {
             stages.showCard && 
             <div className="flex gap-4">
             {
                 stages.wordKnown ? 
-                <motion.div 
-                animate={{ x: 100 }} 
-                className={`${styleTW.card} flex flex-col justify-items-center items-center`}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                >
+            <motion.div 
+            animate={{ x: 100 }} 
+            className={`${styleTW.card} flex flex-col justify-items-center items-center m-auto`}
+            >
                 <div className="translate-x-[-8] text-xs p-1">
                     {readableTime }
                 </div>
@@ -69,12 +77,12 @@ const ExerciseCard = ({word}:Props) => {
             {
             stages.spelling && 
             <motion.div animate={{ x: 100 }} className={`${styleTW.card} flex flex-col justify-items-center items-center w-full`}>
-                
                 {
-                    wrongAnswer ? <span className="text-xs my-3 w-full">
-                    Type the meaning
-                </span>
-                :
+                    !wrongAnswer ? 
+                    <span className="text-xs my-3 w-full">
+                        Type the meaning
+                    </span>
+                    :
                     <span className="text-xs my-3 w-full">{word.word}</span>
                 }
 

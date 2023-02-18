@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction, createAsyncThunk, current} from "@reduxjs/toolkit"
 import { RootState } from "..";
 import { getUserWords } from "../../backend/crudFunctions/words";
-import { ExampleForServer, MeanigsForServer, WordDb } from "../../pages/types/word";
+import { ExampleForServer, MeanigsForServer, Repetition, WordDb } from "../../pages/types/word";
 import { parseISO } from "date-fns";
 
 
@@ -42,6 +42,13 @@ const wordSlice = createSlice({
         updateMeanings(state, action: PayloadAction<{id: string, meanings: MeanigsForServer}>){
             const word = state.words.find(word => word.wordId === action.payload.id)
             if(word){ word.meaning = action.payload.meanings }
+        },
+        addPointsAndChangeRepetition(state, action: PayloadAction<{id: string, points: number, repetition: Repetition}>){
+            const word = state.words.find(word => word.wordId === action.payload.id)
+            if(word){
+                word.points = word.points + action.payload.points
+                word.repetition = action.payload.repetition
+            }
         }
     },
     extraReducers: builder => {
@@ -98,5 +105,5 @@ export const selectWordsForFirstExercise = (state: RootState) => {
 }
 
 
-export const { addWord, updateWord, updateExamplex, updateMeanings, updateFastMeaning } = wordSlice.actions
+export const { addWord, updateWord, updateExamplex, updateMeanings, updateFastMeaning, addPointsAndChangeRepetition } = wordSlice.actions
 export default wordSlice.reducer

@@ -1,10 +1,10 @@
 import { db } from '../..';
 import { collection, query, Timestamp, where, getDocs, addDoc, setDoc, doc, updateDoc } from 'firebase/firestore';
 import { parseISO, formatDistanceToNow } from 'date-fns'
-import { WordDb } from '../../pages/types/word';
+import { Repetition, WordDb } from '../../pages/types/word';
 import { Tag } from '../../pages/types/word';
 import { store } from '../../store';
-import { addWord, updateFastMeaning } from '../../store/slices/wordSlice';
+import { addPointsAndChangeRepetition, addWord, updateFastMeaning } from '../../store/slices/wordSlice';
 
 export const createFastWord = async(word: WordDb) => {
     try {
@@ -24,14 +24,11 @@ export const createFastWord = async(word: WordDb) => {
 
 export const updateUserFastMeaning = async(wordid: string, name: string, translation: string) => {
   try {
-    console.log("Start updateRespond")
     const wordRef = doc(db, "words", wordid);
     const res = await updateDoc(wordRef, {
       word: name,
       fastMeaning: translation
     })
-
-    console.log("Respond", res)
 
     store.dispatch(updateFastMeaning({
       id: wordid,
@@ -39,9 +36,8 @@ export const updateUserFastMeaning = async(wordid: string, name: string, transla
       translation
     }))
 
-
     } catch (error) {
-      console.log("Error Fail", error)
+      console.log("Word has not updated yet", error)
   }
 }
 
@@ -51,7 +47,6 @@ export const addManyWords = async(words: WordDb[]) => {
       const res = await createFastWord(word)
       idsResArr.push(res as string)
    }
-
    return idsResArr
 }
 
@@ -68,7 +63,6 @@ export const getUserWords = async (userid: string) => {
         const word = doc.data()
         const changedData = parseISO((word.createdAt as Timestamp).toDate().toISOString())
         word.createdAt = changedData.toISOString()
-        console.log('Test change time', changedData)
         allWords.push(word as WordDb)
       });
 
@@ -101,5 +95,24 @@ export const getUserWords = async (userid: string) => {
       return new Promise((resolve, rejects) => {
         rejects(error)
       })
+    }
+  }
+
+  export const addPointsToWord = async (wordid: string, currentPoints: number, repetition: Repetition) => {
+    try {
+      const wordRef = doc(db, "words", wordid);
+      const res = await updateDoc(wordRef, {
+        points: currentPoints + 3,
+        repetition
+      })
+  
+      store.dispatch(addPointsAndChangeRepetition({
+        id: wordid,
+        points: 3,
+        repetition
+      }))
+  
+      } catch (error) {
+        console.log("Word has not updated yet", error)
     }
   }
