@@ -15,16 +15,20 @@ interface Exersice {
 
 const SetWordsToLern = () => {
     const wordsStatus = useAppSelector(state => state.word.status)
-    const sortedWords = useAppSelector(state => selectSortedByTimeWords(state))
+    const sortedWords = useAppSelector(state => selectWordsForFirstExercise(state))
     
     const [wordForPractice, setWordForPractice] = useState<Exersice[]>([])
     const [wordStage, setWordStage] = useState<number>(0)
     
-    const changeShowOrder = () => {
-        const testQuantity = sortedWords?.filter(w => !w.repetition?.firstRepetition)
+    const changeShowOrder = (removeWord: Boolean = false) => {
+        debugger
+        // if(removeWord && sortedWords?.length == wordStage + 1 ){
+        //     return setWordStage(prev => prev)
+        // }
 
-        if(testQuantity?.length === wordStage + 1){
-            console.log('debugger', testQuantity?.length, wordStage)
+
+        if(sortedWords?.length as number <= wordStage + 1){
+            console.log('debugger', sortedWords?.length, wordStage)
             setWordStage(prev => prev - prev)
         }else {
             setWordStage(prev => prev + 1)
@@ -32,10 +36,24 @@ const SetWordsToLern = () => {
        
     }
 
+
+    // useEffect(()=> {
+    //     console.log('Sorted Words', sortedWords)
+    //     if(sortedWords){
+    //         sortedWords.forEach((w, idx) => {
+    //             setWordForPractice(prev => ([...prev, {
+    //                 id: nanoid(),
+    //                 display: idx === wordStage ? true : false,
+    //                 word: w
+    //             }]))
+    //         })
+    //     }
+    // }, [])
+
     useEffect(()=> {
+        console.log('Sorted Words', sortedWords)
         if(sortedWords){
-            const needForFirstStage = sortedWords.filter(w => !w.repetition?.firstRepetition)
-            needForFirstStage.forEach((w, idx) => {
+            sortedWords.forEach((w, idx) => {
                 setWordForPractice(prev => ([...prev, {
                     id: nanoid(),
                     display: idx === wordStage ? true : false,
@@ -44,6 +62,10 @@ const SetWordsToLern = () => {
             })
         }
     }, [wordStage])
+
+    // useEffect(()=> {
+    //     console.log('Sorted Words', sortedWords)
+    // }, [sortedWords])
     return (
         <section className={styleTW.container}>
             <h1 className={`${styleTW.title1} m-4`}>Words to learn</h1>

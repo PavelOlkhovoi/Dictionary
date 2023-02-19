@@ -36,6 +36,8 @@ const ExerciseCard = ({word, changeShowOrder}:Props) => {
             showCard: false,
             repeted: true
         }))
+
+        isCorrect && changeShowOrder(true)
     }
 
     const setHidden = () => {

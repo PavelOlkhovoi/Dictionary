@@ -101,7 +101,9 @@ export const selectSortedByTimeWords = (state: RootState) => {
 
 export const selectWordsForFirstExercise = (state: RootState) => {
     const getSortedWords = selectSortedByTimeWords(state)
-    const newLearnedWords = getSortedWords?.filter(w => !w.repetition?.fifthRepetition)
+    const newLearnedWords = getSortedWords?.filter(w => !w.repetition?.firstRepetition)
+
+    return newLearnedWords
 }
 
 
