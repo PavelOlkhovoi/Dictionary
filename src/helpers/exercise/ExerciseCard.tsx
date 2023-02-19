@@ -7,9 +7,10 @@ import { motion } from "framer-motion"
 import { addPointsToWord } from "../../backend/crudFunctions/words";
 
 interface Props {
-    word: WordDb
+    word: WordDb,
+    changeShowOrder: Function
 }
-const ExerciseCard = ({word}:Props) => {
+const ExerciseCard = ({word, changeShowOrder}:Props) => {
     const readableTime = formatDistanceToNow(parseISO(word.createdAt as string))
     const [wrongAnswer, setWrongAnswer] = useState(false)
     const [stages, setStages] = useState({
@@ -24,6 +25,10 @@ const ExerciseCard = ({word}:Props) => {
 
     const translation = word.fastMeaning ? word.fastMeaning : Object.keys(word.meaning).map(m => word.meaning[m as keyof MeanigsForServer][0])
 
+    const cardAnimation = {
+        hidden: { x: -100, opacity: 0 },
+        visible: { x: 0, opacity: 1 }
+    }
     const checkWord = () => {
         const isCorrect = word.word.includes(meaning)
         !isCorrect ? setWrongAnswer(last => true) : setStages(prev => ({
@@ -33,15 +38,20 @@ const ExerciseCard = ({word}:Props) => {
         }))
     }
 
+    const setHidden = () => {
+        setStages(prev => ({...prev, showCard: false}))
+        changeShowOrder()
+    }
+
 
     useEffect(()=> {
-        console.log('Hi')
         stages.repeted &&
         addPointsToWord(word?.wordId as string, word.points, {
             ...word.repetition as Repetition,
             firstRepetition: true
         })
     },[stages.repeted])
+    
     return (
         <div className="m-4">
         {
@@ -50,7 +60,9 @@ const ExerciseCard = ({word}:Props) => {
             {
                 stages.wordKnown ? 
             <motion.div 
-            animate={{ x: 100 }} 
+            initial={'hidden'}
+            animate={'visible'}
+            variants={cardAnimation}
             className={`${styleTW.card} flex flex-col justify-items-center items-center m-auto`}
             >
                 <div className="translate-x-[-8] text-xs p-1">
@@ -64,27 +76,28 @@ const ExerciseCard = ({word}:Props) => {
             </motion.div>
             : 
             <motion.div 
-            animate={{ x: 100 }}
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
             whileTap={{ scale: 0.9 }}
             className={`${styleTW.card} flex flex-col justify-items-center items-center w-full`}
             >
                 <span className="my-6">{translation}</span>
                 <div className="flex gap-4 justify-items-stretch mt-auto">
-                    <MyButton onClick={()=> setStages(prev => ({...prev, showCard: false}))}>Hide</MyButton>
+                    <MyButton onClick={()=> setHidden()}>Hide</MyButton>
                 </div>
             </motion.div>
             }
             {
             stages.spelling && 
-            <motion.div animate={{ x: 100 }} className={`${styleTW.card} flex flex-col justify-items-center items-center w-full`}>
-                {
-                    !wrongAnswer ? 
-                    <span className="text-xs my-3 w-full">
-                        Type the meaning
-                    </span>
-                    :
-                    <span className="text-xs my-3 w-full">{word.word}</span>
-                }
+            <motion.div 
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }} 
+            className={`${styleTW.card} flex flex-col justify-items-center items-center w-full`}
+            >
+
+                <span className="text-xs my-3 w-full">
+                    {!wrongAnswer ? 'Type the meaning' + ' ✔' : word.word}
+                </span>
 
                 <textarea 
                 value={meaning} 
