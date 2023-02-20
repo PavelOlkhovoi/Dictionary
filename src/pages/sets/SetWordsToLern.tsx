@@ -36,16 +36,13 @@ const SetWordsToLern = () => {
         <section className={styleTW.container}>
             <h1 className={`${styleTW.title1} m-4`}>Words to learn</h1>
             {
-                sortedWords?.filter((w, idx) => wordStage === idx ).map((w, idx) =>{
+              sortedWords?.length as number > 0 ?  sortedWords?.filter((w, idx) => wordStage === idx ).map((w, idx) =>{
                     if(sortedWords[sortedWords.length - 1].word === w.word){
                         return <ExerciseCard key={w.wordId} word={w} changeShowOrder={changeShowOrder} last={true}/>
                     }else {
                         return <ExerciseCard key={w.wordId} word={w} changeShowOrder={changeShowOrder} last={false}/>
                     }
-                   
-                }
-                    
-                )
+                }) : <div className={`${styleTW.card} text-center py-40`}>It is finished. Congratulation &#127881;</div>
             }
         </section>
     );

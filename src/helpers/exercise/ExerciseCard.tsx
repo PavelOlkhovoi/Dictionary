@@ -31,8 +31,10 @@ const ExerciseCard = ({word, changeShowOrder, last}:Props) => {
         visible: { x: 0, opacity: 1 }
     }
     const checkWord = () => {
-        const isCorrect = word.word.includes(meaning)
-        !isCorrect ? setWrongAnswer(last => true) : setStages(prev => ({
+        debugger
+        const isCorrect = meaning === word.word
+        !isCorrect ? setWrongAnswer(last => {
+            return true}) : setStages(prev => ({
             ...prev,
             showCard: false,
             repeted: true
@@ -43,8 +45,7 @@ const ExerciseCard = ({word, changeShowOrder, last}:Props) => {
             ...word.repetition as Repetition,
             firstRepetition: true
         })
-
-        changeShowOrder(true, last)
+            changeShowOrder(true, last)
         }
     }
 
@@ -60,7 +61,7 @@ const ExerciseCard = ({word, changeShowOrder, last}:Props) => {
             stages.showCard && 
             <div className="flex gap-4">
             {
-                stages.wordKnown ? 
+            stages.wordKnown ? 
             <motion.div 
             initial={'hidden'}
             animate={'visible'}
