@@ -8,9 +8,10 @@ import { addPointsToWord } from "../../backend/crudFunctions/words";
 
 interface Props {
     word: WordDb,
-    changeShowOrder: Function
+    changeShowOrder: Function,
+    last: Boolean
 }
-const ExerciseCard = ({word, changeShowOrder}:Props) => {
+const ExerciseCard = ({word, changeShowOrder, last}:Props) => {
     const readableTime = formatDistanceToNow(parseISO(word.createdAt as string))
     const [wrongAnswer, setWrongAnswer] = useState(false)
     const [stages, setStages] = useState({
@@ -37,7 +38,14 @@ const ExerciseCard = ({word, changeShowOrder}:Props) => {
             repeted: true
         }))
 
-        isCorrect && changeShowOrder(true)
+        if(isCorrect){
+            addPointsToWord(word?.wordId as string, word.points, {
+            ...word.repetition as Repetition,
+            firstRepetition: true
+        })
+
+        changeShowOrder(true, last)
+        }
     }
 
     const setHidden = () => {
@@ -45,14 +53,6 @@ const ExerciseCard = ({word, changeShowOrder}:Props) => {
         changeShowOrder()
     }
 
-
-    useEffect(()=> {
-        stages.repeted &&
-        addPointsToWord(word?.wordId as string, word.points, {
-            ...word.repetition as Repetition,
-            firstRepetition: true
-        })
-    },[stages.repeted])
     
     return (
         <div className="m-4">

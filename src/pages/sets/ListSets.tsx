@@ -5,10 +5,12 @@ import { useAppSelector } from "../../hooks/redux-hooks";
 import { styleTW } from "../../style";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import SetWordsToLern from "./SetWordsToLern";
+import { selectWordsForFirstExercise } from "../../store/slices/wordSlice";
 
 const ListSets = () => {
     const sets = useAppSelector(state => state.set.sets)
     const setsStatus = useAppSelector(state => state.set.status)
+    const wordsForFierstRepetition = useAppSelector(state => selectWordsForFirstExercise(state))
 
     if(setsStatus === "pending") {return <Loading/>}
 
@@ -24,9 +26,6 @@ const ListSets = () => {
                 <MyButton className="m-auto" color="green">
                     <Link to="/addSet">Add new set</Link>
                 </MyButton>
-                <MyButton className="m-auto">
-                    <Link to="/exercises">Learn words</Link>
-                </MyButton>
             </div>
         <ul>
         {
@@ -40,6 +39,14 @@ const ListSets = () => {
             </li>)
         }
         </ul>
+        <div>
+            <h2 className={`${styleTW.title2}`}>Fierst repetition</h2>
+            <MyButton className="m-auto">
+                <Link to="/exercises">Repeat for the first time</Link>
+            </MyButton>
+
+        </div>
+
         </div>
     </section>
 )

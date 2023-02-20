@@ -3,6 +3,8 @@ import { RootState } from "..";
 import { getUserWords } from "../../backend/crudFunctions/words";
 import { ExampleForServer, MeanigsForServer, Repetition, WordDb } from "../../pages/types/word";
 import { parseISO } from "date-fns";
+import { createSelector } from "@reduxjs/toolkit";
+import ro from "date-fns/esm/locale/ro";
 
 
 interface WordsState {
@@ -72,9 +74,14 @@ export const fetchWords = createAsyncThunk('words/fetchWords', async (uid: strin
     return response
 })
 
+export const selectAllWords = (state: RootState) => {
+    console.log('Get all words with selector')
+    return state.word.words
+}
+
 export const selectWordsArrByName = (state: RootState, words: string[]) => {
-    const test = state.word.words.filter(w => words.includes(w.word)).map(w => w.wordId)
-    return test
+    const res = state.word.words.filter(w => words.includes(w.word)).map(w => w.wordId)
+    return res
 }
 
 export const selectWordsArrById = (state: RootState, ids: string[] | null | undefined) => {
@@ -89,23 +96,21 @@ export const selectWordById = (state: RootState, id: string) => {
 
 export const selectAllWordsIdsInArr = (state: RootState) => state.word.words.map(w => w.wordId)
 
-export const selectSortedByTimeWords = (state: RootState) => {
-    if(state.word.words.length > 0){
-        const sortedArr = [...state.word.words].sort((a, b)=> {
+export const selectSortedByTimeWords = createSelector([selectAllWords], (words) => {
+    if(words.length > 0){
+        const sortedArr =  [...words].sort((a, b)=> {
             return parseISO(a.createdAt as string).getTime() - parseISO(b.createdAt as string).getTime()
         })
 
         return sortedArr
     }
-}
+})
 
-export const selectWordsForFirstExercise = (state: RootState) => {
-    const getSortedWords = selectSortedByTimeWords(state)
-    const newLearnedWords = getSortedWords?.filter(w => !w.repetition?.firstRepetition)
 
-    return newLearnedWords
-}
-
+export const selectWordsForFirstExercise = createSelector([selectSortedByTimeWords], (sortedWords) => {
+    console.log('Select words for the first exercise')
+    return sortedWords?.filter(w => !w.repetition?.firstRepetition)
+})
 
 export const { addWord, updateWord, updateExamplex, updateMeanings, updateFastMeaning, addPointsAndChangeRepetition } = wordSlice.actions
 export default wordSlice.reducer
