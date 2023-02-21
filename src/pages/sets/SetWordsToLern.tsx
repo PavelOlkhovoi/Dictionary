@@ -27,21 +27,27 @@ const SetWordsToLern = () => {
        
     }
 
+    const [lastWord, setLastWord] = useState(sortedWords ? sortedWords[0] : [])
+
     useEffect(()=> {
-       console.log('Sorted words', sortedWords)
-    }, [sortedWords])
+        if(wordStage === 0 && sortedWords?.length === 1) {}
+    }, [wordStage])
 
     return (
         <section className={styleTW.container}>
             <h1 className={`${styleTW.title1} m-4`}>Words to learn</h1>
             {
-                sortedWords?.filter((w, idx) => wordStage === idx ).map((w, idx) =>{
+                sortedWords?.length !== 1 && sortedWords?.filter((w, idx) => wordStage === idx ).map((w, idx) =>{
                     if(sortedWords[sortedWords.length - 1].word === w.word){
                         return <ExerciseCard key={w.wordId} word={w} changeShowOrder={changeShowOrder} last={true}/>
                     }else {
                         return <ExerciseCard key={w.wordId} word={w} changeShowOrder={changeShowOrder} last={false}/>
                     }
                 })
+            }
+
+            {
+                sortedWords?.length === 1 && wordStage === 0 && <ExerciseCard word={sortedWords[0]} changeShowOrder={changeShowOrder} last={true} isSingle={true}/>
             }
 
             {

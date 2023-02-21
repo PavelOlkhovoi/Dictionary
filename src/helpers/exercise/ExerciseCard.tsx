@@ -9,9 +9,10 @@ import { addPointsToWord } from "../../backend/crudFunctions/words";
 interface Props {
     word: WordDb,
     changeShowOrder: Function,
-    last: Boolean
+    last: boolean,
+    isSingle?: boolean
 }
-const ExerciseCard = ({word, changeShowOrder, last}:Props) => {
+const ExerciseCard = ({word, changeShowOrder, last, isSingle = false}:Props) => {
     const readableTime = formatDistanceToNow(parseISO(word.createdAt as string))
     const [wrongAnswer, setWrongAnswer] = useState(false)
     const [stages, setStages] = useState({
@@ -30,6 +31,7 @@ const ExerciseCard = ({word, changeShowOrder, last}:Props) => {
         hidden: { x: -100, opacity: 0 },
         visible: { x: 0, opacity: 1 }
     }
+
     const checkWord = () => {
         const isCorrect = meaning === word.word
         !isCorrect ? setWrongAnswer(last => {
@@ -49,7 +51,7 @@ const ExerciseCard = ({word, changeShowOrder, last}:Props) => {
     }
 
     const setHidden = () => {
-        setStages(prev => ({...prev, showCard: false}))
+        setStages(prev => ({...prev, showCard: isSingle, wordKnown: isSingle}))
         changeShowOrder(false, last)
     }
 
