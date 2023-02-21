@@ -4,7 +4,7 @@ import MyButton from "../../components/wordsForm/ui/MyButton";
 import { useAppSelector } from "../../hooks/redux-hooks";
 import { styleTW } from "../../style";
 import { formatDistanceToNow, parseISO } from "date-fns";
-import SetWordsToLern from "./SetWordsToLern";
+import { firstCapitalLetter } from "../../helpers/display";
 import { selectWordsForFirstExercise } from "../../store/slices/wordSlice";
 
 const ListSets = () => {
@@ -19,7 +19,7 @@ const ListSets = () => {
 
 
     return (
-    <section className={`${styleTW.container}`}>
+    <section className={`${styleTW.container} my-8`}>
         <div className="m-auto max-w-lg">
             <div className="flex flex-col items-center gap-3">
                 <h1 className={`${styleTW.title1}`}>Your sets</h1>
@@ -27,24 +27,35 @@ const ListSets = () => {
                     <Link to="/addSet">Add new set</Link>
                 </MyButton>
             </div>
-        <ul>
-        {
-            sets.map(s => <li key={s.setId}>
-                <Link
-                    to={{pathname:`/sets/${s.setId}`}}
-                >
-                    {s.name} 
-                    <p>{formatDistanceToNow(parseISO(s.createdAt as string), {addSuffix: true})}</p>
-                </Link>
-            </li>)
-        }
-        </ul>
-        <div>
-            <h2 className={`${styleTW.title2}`}>Fierst repetition</h2>
-            <MyButton className="m-auto">
-                <Link to="/exercises">Repeat for the first time</Link>
-            </MyButton>
 
+
+        <div className="flex gap-8 my-8">
+            <div>
+                <h2 className={`${styleTW.title2}`}>Last seven sets</h2>
+            {
+                sets.map(s => <li key={s.setId}>
+                    <Link
+                        to={{pathname:`/sets/${s.setId}`}}
+                    >
+                        {firstCapitalLetter(s.name)} - {formatDistanceToNow(parseISO(s.createdAt as string), {addSuffix: true})}
+                    </Link>
+                </li>)
+            }
+            </div>
+
+
+
+            <div>
+                <h2 className={`${styleTW.title2}`}>Repetition</h2>
+                <ul>
+                    <li><Link to="/exercises">Repeat for the first time</Link></li>
+                    <li>Second repetition</li>
+                    <li>Third repetition</li>
+                    <li>Fourth repetition</li>
+                    <li>Sixth repetition</li>
+                    <li>Seventh repetition</li>
+                </ul>
+            </div>
         </div>
 
         </div>

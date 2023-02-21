@@ -98,11 +98,10 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false}:Props) => 
             animate={{ x: 0, opacity: 1 }} 
             className={`${styleTW.card} flex flex-col justify-items-center items-center w-full`}
             >
-
                 <span className="text-xs my-3 w-full">
                     {!wrongAnswer ? 'Type the meaning' + ' ✔' : word.word}
                 </span>
-
+                
                 <textarea 
                 value={meaning} 
                 onChange={(e) => setMeaning(e.target.value)} 
@@ -113,7 +112,6 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false}:Props) => 
                 </div>
             </motion.div>
             }
-            
             </div>
         }
         </div>
