@@ -31,7 +31,6 @@ const ExerciseCard = ({word, changeShowOrder, last}:Props) => {
         visible: { x: 0, opacity: 1 }
     }
     const checkWord = () => {
-        debugger
         const isCorrect = meaning === word.word
         !isCorrect ? setWrongAnswer(last => {
             return true}) : setStages(prev => ({
@@ -51,7 +50,7 @@ const ExerciseCard = ({word, changeShowOrder, last}:Props) => {
 
     const setHidden = () => {
         setStages(prev => ({...prev, showCard: false}))
-        changeShowOrder()
+        changeShowOrder(false, last)
     }
 
     
@@ -86,7 +85,7 @@ const ExerciseCard = ({word, changeShowOrder, last}:Props) => {
             >
                 <span className="my-6">{translation}</span>
                 <div className="flex gap-4 justify-items-stretch mt-auto">
-                    <MyButton onClick={()=> setHidden()}>Hide</MyButton>
+                    <MyButton onClick={setHidden}>Hide</MyButton>
                 </div>
             </motion.div>
             }
