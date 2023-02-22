@@ -82,3 +82,6 @@ export interface Repetition {
     sixthRepetition: boolean,
     seventhRepetition: boolean
 }
+
+export type TypeOfExercise = 'firstRepetition' | 'secondRepetition' | 'thirdRepetition' | 'thirdRepetition' | 
+'fourthRepetition' | 'fifthRepetition' | 'sixthRepetition' | 'seventhRepetition'

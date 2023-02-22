@@ -29,8 +29,8 @@ function App() {
       <Route path="words" element={<Words />} />
       <Route path="words/:idword" element={<Word />} />
       <Route path="words/edit/:idword" element={<WordEdit />} />
-      <Route path="exercises" element={<SetWordsToLern />}/>
-      {/* <Route path="exercises/:idset" element={<SetWordsToLern />}/> */}
+      {/* <Route path="exercises" element={<SetWordsToLern />}/> */}
+      <Route path="exercises/:idset" element={<SetWordsToLern />}/>
       <Route path="addwords" element={<AddWord />}/>
       <Route path="auth" element={<SignUp />} />
       <Route path="texts" element={<ListTexts />} />

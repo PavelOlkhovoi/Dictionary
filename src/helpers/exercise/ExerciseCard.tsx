@@ -1,5 +1,5 @@
 import MyButton from "../../components/wordsForm/ui/MyButton";
-import { MeanigsForServer, Repetition, WordDb } from "../../pages/types/word";
+import { MeanigsForServer, Repetition, TypeOfExercise, WordDb } from "../../pages/types/word";
 import { styleTW } from "../../style";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { useEffect, useState } from "react";
@@ -10,9 +10,10 @@ interface Props {
     word: WordDb,
     changeShowOrder: Function,
     last: boolean,
-    isSingle?: boolean
+    isSingle?: boolean,
+    typeOfExercise?: TypeOfExercise
 }
-const ExerciseCard = ({word, changeShowOrder, last, isSingle = false}:Props) => {
+const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExercise = "firstRepetition"}:Props) => {
     const readableTime = formatDistanceToNow(parseISO(word.createdAt as string))
     const [wrongAnswer, setWrongAnswer] = useState(false)
     const [stages, setStages] = useState({
@@ -44,7 +45,7 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false}:Props) => 
         if(isCorrect){
             addPointsToWord(word?.wordId as string, word.points, {
             ...word.repetition as Repetition,
-            firstRepetition: true
+            [typeOfExercise]: true
         })
             changeShowOrder(true, last)
         }

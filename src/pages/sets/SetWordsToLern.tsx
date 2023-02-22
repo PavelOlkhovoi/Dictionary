@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { defineTypeOfExercise } from "../../helpers/exercise";
 import ExerciseCard from "../../helpers/exercise/ExerciseCard";
 import { useAppSelector } from "../../hooks/redux-hooks";
 import { selectWordsForFirstExercise } from "../../store/slices/wordSlice";
@@ -12,8 +14,11 @@ interface Exersice {
 }
 
 const SetWordsToLern = () => {
-    const sortedWords = useAppSelector(state => selectWordsForFirstExercise(state))
+    const idOfexercise = useParams()
+    const typeOfExercise = defineTypeOfExercise(idOfexercise?.idset as string)
+    const sortedWords = useAppSelector(state => selectWordsForFirstExercise(state, idOfexercise.idset as string))
     const [wordStage, setWordStage] = useState<number>(0)
+    const [lastWord, setLastWord] = useState(sortedWords ? sortedWords[0] : [])
     
     const changeShowOrder = (rightAnswer: Boolean = false, last: Boolean = false) => {
         if(last){
@@ -27,11 +32,9 @@ const SetWordsToLern = () => {
        
     }
 
-    const [lastWord, setLastWord] = useState(sortedWords ? sortedWords[0] : [])
-
     useEffect(()=> {
-        if(wordStage === 0 && sortedWords?.length === 1) {}
-    }, [wordStage])
+        console.log('Stage has been changed', typeOfExercise)
+    }, [typeOfExercise])
 
     return (
         <section className={styleTW.container}>
@@ -39,15 +42,18 @@ const SetWordsToLern = () => {
             {
                 sortedWords?.length !== 1 && sortedWords?.filter((w, idx) => wordStage === idx ).map((w, idx) =>{
                     if(sortedWords[sortedWords.length - 1].word === w.word){
-                        return <ExerciseCard key={w.wordId} word={w} changeShowOrder={changeShowOrder} last={true}/>
+                        return <ExerciseCard key={w.wordId} word={w} 
+                        changeShowOrder={changeShowOrder} typeOfExercise={typeOfExercise} last={true}/>
                     }else {
-                        return <ExerciseCard key={w.wordId} word={w} changeShowOrder={changeShowOrder} last={false}/>
+                        return <ExerciseCard key={w.wordId} word={w} typeOfExercise={typeOfExercise}
+                        changeShowOrder={changeShowOrder} last={false}/>
                     }
                 })
             }
 
             {
-                sortedWords?.length === 1 && wordStage === 0 && <ExerciseCard word={sortedWords[0]} changeShowOrder={changeShowOrder} last={true} isSingle={true}/>
+                sortedWords?.length === 1 && wordStage === 0 && <ExerciseCard word={sortedWords[0]} changeShowOrder={changeShowOrder}
+                typeOfExercise={typeOfExercise} last={true} isSingle={true}/>
             }
 
             {
