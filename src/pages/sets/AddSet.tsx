@@ -54,7 +54,8 @@ const AddSet = () => {
     const saveSet = async (wordsIds: string[]) => {
         if(user){
             const newSet: Set = {
-                wordsIds, 
+                wordsIds,
+                repetaIds: wordsIds,
                 name: name.value,
                 uid: user.uid ,
                 createdAt: serverTimestamp() as Timestamp,

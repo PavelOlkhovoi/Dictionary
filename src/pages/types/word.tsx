@@ -66,6 +66,7 @@ export interface AllWordsSorted {
 export interface Set {
     setId?: string
     wordsIds: string[]
+    repetaIds: string[]
     name: string
     uid: string
     createdAt: Timestamp | string

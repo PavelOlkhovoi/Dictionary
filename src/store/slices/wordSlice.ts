@@ -4,8 +4,8 @@ import { getUserWords } from "../../backend/crudFunctions/words";
 import { ExampleForServer, MeanigsForServer, Repetition, WordDb } from "../../pages/types/word";
 import { parseISO } from "date-fns";
 import { createSelector } from "@reduxjs/toolkit";
-import ro from "date-fns/esm/locale/ro";
 import { daysDifferent } from "../../helpers/time";
+import { selectAllSets} from "./setSlice";
 
 
 interface WordsState {
@@ -97,15 +97,7 @@ export const selectWordById = (state: RootState, id: string) => {
 
 export const selectAllWordsIdsInArr = (state: RootState) => state.word.words.map(w => w.wordId)
 
-// export const selectSortedByTimeWords = createSelector([selectAllWords], (words) => {
-//     if(words.length > 0){
-//         const sortedArr =  [...words].sort((a, b)=> {
-//             return parseISO(a.createdAt as string).getTime() - parseISO(b.createdAt as string).getTime()
-//         })
 
-//         return sortedArr
-//     }
-// })
 export const selectSortedByTimeWords = (state: RootState) => {
     const words = state.word.words
     if(words.length > 0){
@@ -118,8 +110,10 @@ export const selectSortedByTimeWords = (state: RootState) => {
 }
 
 
-export const selectWordsForFirstExercise = createSelector([selectSortedByTimeWords, 
-    (state: RootState, exercise: string) => exercise], (sortedWords, exercise) => {
+export const selectWordsForFirstExercise = createSelector([selectSortedByTimeWords, selectAllSets,
+    (state: RootState, exercise: string) => exercise], 
+    (sortedWords, setWords, exercise) => {
+        
         if(exercise === '1'){
             return sortedWords?.filter(w => !w.repetition?.firstRepetition)
         }else if(exercise === '2'){
@@ -135,15 +129,23 @@ export const selectWordsForFirstExercise = createSelector([selectSortedByTimeWor
             return sortedWords?.filter(w => !w.repetition?.fifthRepetition && w.repetition?.firstRepetition
                 && w.repetition?.secondRepetition && w.repetition?.thirdRepetition && w.repetition?.fourthRepetition
                  && daysDifferent(w.createdAt as string) >= 30)
+
         }else if(exercise === '6'){
             return sortedWords?.filter(w => !w.repetition?.sixthRepetition && w.repetition?.firstRepetition
                 && w.repetition?.secondRepetition && w.repetition?.thirdRepetition && w.repetition?.fourthRepetition
                 && w.repetition?.fifthRepetition && daysDifferent(w.createdAt as string) >= 45)
+
         }else if(exercise === '7'){
             return sortedWords?.filter(w => !w.repetition?.seventhRepetition && w.repetition?.firstRepetition
                 && w.repetition?.secondRepetition && w.repetition?.thirdRepetition && w.repetition?.fourthRepetition
                 && w.repetition?.fifthRepetition && w.repetition?.sixthRepetition && daysDifferent(w.createdAt as string) >= 60)
+
+        }else {
+            const wordsIds = setWords.find(set => set.setId === exercise)?.wordsIds
+            return sortedWords?.filter(w => wordsIds?.includes(w.wordId as string))
         }
+
+
 })
 
 export const { addWord, updateWord, updateExamplex, updateMeanings, updateFastMeaning, addPointsAndChangeRepetition } = wordSlice.actions

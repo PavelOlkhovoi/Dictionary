@@ -12,8 +12,9 @@ interface Props {
     last: boolean,
     isSingle?: boolean,
     typeOfExercise?: TypeOfExercise
+    isSet?: boolean
 }
-const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExercise = "firstRepetition"}:Props) => {
+const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExercise = "firstRepetition", isSet = false}:Props) => {
     const readableTime = formatDistanceToNow(parseISO(word.createdAt as string))
     const [wrongAnswer, setWrongAnswer] = useState(false)
     const [stages, setStages] = useState({
@@ -43,12 +44,17 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExer
         }))
 
         if(isCorrect){
-            addPointsToWord(word?.wordId as string, word.points, {
-            ...word.repetition as Repetition,
-            [typeOfExercise]: true
-        })
-            changeShowOrder(true, last)
-        }
+            if(!isSet){
+                addPointsToWord(word?.wordId as string, word.points, {
+                    ...word.repetition as Repetition,
+                    [typeOfExercise]: true
+                })
+                    changeShowOrder(true, last)
+                }
+            }else {
+                changeShowOrder(true, last)
+            }
+           
     }
 
     const setHidden = () => {

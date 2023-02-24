@@ -13,14 +13,9 @@ const SingleSet = () => {
     const set = useAppSelector(state => state.set.sets.find(w => w.setId === idtext))
     const setStatus = useAppSelector(state => state.set.status)
     const words = useAppSelector(state => selectWordsArrById(state, set?.wordsIds))
-    const allWords = useAppSelector(state => state.word.words)
-
 
     useEffect(()=>{
-        if(set){
-          console.log('Test day distance', daysDifferent(set?.createdAt as string))
-        }
-        
+
     }, [])
 
     return (
@@ -31,6 +26,13 @@ const SingleSet = () => {
                 to={{pathname: `/sets/edit/${idtext}`}}
                 >
                     Edit set
+                </Link>
+            </MyButton>
+            <MyButton>
+                <Link
+                to={{pathname: `/exercises/${idtext}`}}
+                >
+                    Work Out
                 </Link>
             </MyButton>
             <div>

@@ -63,7 +63,8 @@ const EditSet = () => {
             }
         }
 
-        finalWordsIdsArr.length > 0 && updateUserSet(set?.setId as string, title.value, null, finalWordsIdsArr)
+        finalWordsIdsArr.length > 0 && updateUserSet(set?.setId as string, title.value, source.value !== '' ?
+        source.value : null , finalWordsIdsArr)
 
     }
 

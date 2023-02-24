@@ -45,7 +45,6 @@ useEffect(()=> {
             {
                  Object.keys(words).map(w => words[w as keyof WordsBasicWithId].show && <div key={w} className={`${styleTW.card} mt-6`}>
                     <label className="block mb-2 text-sm font-medium text-gray-700">
-                    Word: {w}
                     <input className={`${styleTW.shadow} w-full`} value={words[w as keyof WordsBasicWithId].name}
                     onChange={(e) => setWords(prev => ({
                         ...prev,

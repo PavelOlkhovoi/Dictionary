@@ -13,8 +13,8 @@ export const createFastWord = async(word: WordDb) => {
       console.log("Document written with ID: ", docRef.id);
 
       setDoc(docRef, {wordId: docRef.id}, { merge: true })
-
-      store.dispatch(addWord({...word, wordId: docRef.id}))
+      const today = new Date().toDateString()
+      store.dispatch(addWord({...word, wordId: docRef.id, createdAt: today}))
 
       return docRef.id
     } catch (error) {

@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "..";
 import { getUserSets } from "../../backend/crudFunctions/set";
 import { Set } from "../../pages/types/word";
 
@@ -40,7 +41,6 @@ const setSlice = createSlice({
         }
         },
         deleteSet(state, action: PayloadAction<{id: string}>){
-            debugger
             state.sets.splice(state.sets.findIndex((s) => s.setId === action.payload.id), 1);
         }
     },
@@ -65,6 +65,8 @@ export const fetchSets = createAsyncThunk('sets/fetchSets', async (uid: string)=
 
     return res
 })
+
+export const selectAllSets = (state: RootState) => state.set.sets
 
 export const {addSet, updateSet, deleteSet, deleteWordFromSet} = setSlice.actions
 export default setSlice.reducer

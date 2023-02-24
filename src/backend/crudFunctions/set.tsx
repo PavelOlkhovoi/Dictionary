@@ -13,32 +13,31 @@ export const createUserSet = async (set: Set) => {
   
         setDoc(docRef, {setId: docRef.id}, { merge: true })
 
-        const testToday = new Date().toDateString()
-        console.log("Testt today", testToday)
+        const today = new Date().toISOString()
+        console.log("Testt today", today)
 
         store.dispatch(addSet({
           setId: docRef.id,
           wordsIds: set.wordsIds,
+          repetaIds: set.wordsIds,
           name: set.name,
           uid: set.uid,
-          createdAt: testToday,
-          source: set.source,
+          createdAt: today,
+          source: set.source
         }))
 
-
-  
       } catch (error) {
         console.log('Set has not been added', error)
 
       }
 }
 
-export const updateUserSet = async (setId: string, name: string, suorce: string | null = null, wordsIds: string[]) => {
+export const updateUserSet = async (setId: string, name: string, source: string | null = null, wordsIds: string[]) => {
   try {
     const setRef = doc(db, "sets", setId);
     const res = await updateDoc(setRef, {
-      wordsIds: wordsIds,
-      suorce: suorce,
+      wordsIds,
+      source,
       name: name,
     })
 
@@ -46,7 +45,7 @@ export const updateUserSet = async (setId: string, name: string, suorce: string 
       id: setId,
       wordIdx: wordsIds,
       title: name,
-      source: suorce
+      source
     }))
 
     } catch (error) {

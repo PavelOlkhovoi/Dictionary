@@ -15,26 +15,24 @@ interface Exersice {
 
 const SetWordsToLern = () => {
     const idOfexercise = useParams()
+    const isSpaceRepetition = typeof parseInt(idOfexercise.idset as string) === 'number'
     const typeOfExercise = defineTypeOfExercise(idOfexercise?.idset as string)
     const sortedWords = useAppSelector(state => selectWordsForFirstExercise(state, idOfexercise.idset as string))
     const [wordStage, setWordStage] = useState<number>(0)
-    const [lastWord, setLastWord] = useState(sortedWords ? sortedWords[0] : [])
     
     const changeShowOrder = (rightAnswer: Boolean = false, last: Boolean = false) => {
         if(last){
             return setWordStage(prev => 0)
         }else if(rightAnswer) {
-            setWordStage(prev => prev)
-            return setWordStage(prev => prev - prev)
+            return setWordStage(prev => prev)
         }else {
             setWordStage(prev => prev + 1)
         }
-       
     }
 
     useEffect(()=> {
-        console.log('Stage has been changed', typeOfExercise)
-    }, [typeOfExercise])
+        console.log('Check sorted words', sortedWords)
+    }, [sortedWords])
 
     return (
         <section className={styleTW.container}>
