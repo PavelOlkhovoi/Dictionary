@@ -55,7 +55,7 @@ const AddSet = () => {
         if(user){
             const newSet: Set = {
                 wordsIds,
-                repetaIds: wordsIds,
+                repeatIds: wordsIds,
                 name: name.value,
                 uid: user.uid ,
                 createdAt: serverTimestamp() as Timestamp,

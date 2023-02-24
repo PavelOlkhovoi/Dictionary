@@ -35,10 +35,21 @@ const setSlice = createSlice({
         },
         deleteWordFromSet(state, action: PayloadAction<{setId: string, wordId: string}>){
         const set = state.sets.find(s=> s.setId === action.payload.setId)
-        console.log('Redux set delete word', set)
-        if(set){ 
-            set.wordsIds = set.wordsIds.filter(wId => wId !== action.payload.wordId)
-        }
+            if(set){ 
+                set.wordsIds = set.wordsIds.filter(wId => wId !== action.payload.wordId)
+            }
+        },
+        deleteWordIdFromRepeatArr(state, action: PayloadAction<{setId: string, wordId: string}>){
+        const set = state.sets.find(s=> s.setId === action.payload.setId)
+            if(set){ 
+                set.repeatIds = set.repeatIds.filter(wId => wId !== action.payload.wordId)
+            }
+        },
+        restartRepeatReduxSet(state, action: PayloadAction<{setId: string, repeatIds: string[]}>){
+        const set = state.sets.find(s=> s.setId === action.payload.setId)
+            if(set){ 
+                set.repeatIds = action.payload.repeatIds
+            }
         },
         deleteSet(state, action: PayloadAction<{id: string}>){
             state.sets.splice(state.sets.findIndex((s) => s.setId === action.payload.id), 1);
@@ -68,5 +79,5 @@ export const fetchSets = createAsyncThunk('sets/fetchSets', async (uid: string)=
 
 export const selectAllSets = (state: RootState) => state.set.sets
 
-export const {addSet, updateSet, deleteSet, deleteWordFromSet} = setSlice.actions
+export const {addSet, updateSet, deleteSet, deleteWordFromSet, deleteWordIdFromRepeatArr, restartRepeatReduxSet} = setSlice.actions
 export default setSlice.reducer

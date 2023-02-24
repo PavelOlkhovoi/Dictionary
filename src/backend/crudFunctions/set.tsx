@@ -3,7 +3,9 @@ import { collection, query, Timestamp, serverTimestamp, where, getDocs, addDoc, 
 import { parseISO, formatDistanceToNow } from 'date-fns'
 import { Set } from '../../pages/types/word';
 import { store } from '../../store';
-import { addSet, deleteSet, deleteWordFromSet, updateSet } from '../../store/slices/setSlice';
+import { addSet, deleteSet, deleteWordFromSet, deleteWordIdFromRepeatArr, updateSet,
+  restartRepeatReduxSet
+} from '../../store/slices/setSlice';
 
 export const createUserSet = async (set: Set) => {
     try {
@@ -19,7 +21,7 @@ export const createUserSet = async (set: Set) => {
         store.dispatch(addSet({
           setId: docRef.id,
           wordsIds: set.wordsIds,
-          repetaIds: set.wordsIds,
+          repeatIds: set.wordsIds,
           name: set.name,
           uid: set.uid,
           createdAt: today,
@@ -79,6 +81,22 @@ export const getUserSets = async (uid: string) => {
   }
 }
 
+export const restartRepeatArrInSet = async (setId: string,  wordsIds: string[]) => {
+  try {
+    const setRef = doc(db, "sets", setId);
+    const res = await updateDoc(setRef, {
+      repeatIds: wordsIds
+    })
+
+    store.dispatch(restartRepeatReduxSet({
+      setId,
+      repeatIds: wordsIds
+    }))
+
+    } catch (error) {
+      console.log("Error Fail", error)
+  }
+}
 
 export const deleteWordInsiteSet = async (setId: string, wordId: string) => {
   try {
@@ -88,6 +106,19 @@ export const deleteWordInsiteSet = async (setId: string, wordId: string) => {
     })
 
     store.dispatch(deleteWordFromSet({setId, wordId}))
+  } catch (error) {
+    console.log('Word id has not been removed from set', error)
+  }
+}
+
+export const deleteIdInRepeatArr = async (setId: string, wordId: string) => {
+  try {
+    const setRef = doc(db, "sets", setId);
+      await updateDoc(setRef, {
+        repeatIds: arrayRemove(wordId)
+    })
+
+    store.dispatch(deleteWordIdFromRepeatArr({setId, wordId}))
   } catch (error) {
     console.log('Word id has not been removed from set', error)
   }

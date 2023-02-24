@@ -141,7 +141,7 @@ export const selectWordsForFirstExercise = createSelector([selectSortedByTimeWor
                 && w.repetition?.fifthRepetition && w.repetition?.sixthRepetition && daysDifferent(w.createdAt as string) >= 60)
 
         }else {
-            const wordsIds = setWords.find(set => set.setId === exercise)?.wordsIds
+            const wordsIds = setWords.find(set => set.setId === exercise)?.repeatIds
             return sortedWords?.filter(w => wordsIds?.includes(w.wordId as string))
         }
 

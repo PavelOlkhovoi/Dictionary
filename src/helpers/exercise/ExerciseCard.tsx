@@ -5,6 +5,7 @@ import { formatDistanceToNow, parseISO } from "date-fns";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion"
 import { addPointsToWord } from "../../backend/crudFunctions/words";
+import { deleteIdInRepeatArr } from "../../backend/crudFunctions/set";
 
 interface Props {
     word: WordDb,
@@ -12,9 +13,9 @@ interface Props {
     last: boolean,
     isSingle?: boolean,
     typeOfExercise?: TypeOfExercise
-    isSet?: boolean
+    isSet: string
 }
-const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExercise = "firstRepetition", isSet = false}:Props) => {
+const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExercise = "firstRepetition", isSet}:Props) => {
     const readableTime = formatDistanceToNow(parseISO(word.createdAt as string))
     const [wrongAnswer, setWrongAnswer] = useState(false)
     const [stages, setStages] = useState({
@@ -44,15 +45,17 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExer
         }))
 
         if(isCorrect){
-            if(!isSet){
+            const checkIfSet = isSet.length > 1
+            if(!checkIfSet){
                 addPointsToWord(word?.wordId as string, word.points, {
                     ...word.repetition as Repetition,
                     [typeOfExercise]: true
-                })
+                    })
+                    changeShowOrder(true, last)
+                }else {
+                    deleteIdInRepeatArr(isSet, word.wordId as string)
                     changeShowOrder(true, last)
                 }
-            }else {
-                changeShowOrder(true, last)
             }
            
     }
