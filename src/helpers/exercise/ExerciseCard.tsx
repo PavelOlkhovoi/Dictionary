@@ -56,8 +56,7 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExer
                     deleteIdInRepeatArr(isSet, word.wordId as string)
                     changeShowOrder(true, last)
                 }
-            }
-           
+            }      
     }
 
     const setHidden = () => {

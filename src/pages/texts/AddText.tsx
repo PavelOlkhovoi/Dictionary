@@ -8,9 +8,13 @@ import ShowTagWithWords from '../../components/tags/ShowTagWithWords';
 import { AllWordsSorted } from '../types/word';
 import TextHighlighter from '../../components/text/TextHighlighter';
 import { createText } from '../../backend/crudFunctions/text';
+import { addTextIdToTextArr } from '../../backend/crudFunctions/set';
 
+interface Props {
+    setId?: string | null
+}
 
-const AddText = () => {
+const AddText = ({setId = null}:Props) => {
     const tags = useAppSelector(state => state.tag.tags)
     const words = useAppSelector(state => state.word.words)
     const uid = useAppSelector(state => state.user.userFake?.uid)
@@ -21,8 +25,9 @@ const AddText = () => {
     const [usedWords, setUsedWords] = useState<AllWordsSorted[]>([])
 
     const addTextHandler = async (words: AllWordsSorted[]) => {
+        debugger
         const ids: string[] = words.map(w => w.wordId)
-        const response = await createText(title.value, text, ids, uid as string)
+        const response = await createText(title.value, text, ids, uid as string, setId)
     }
 
     const wordsBack = (words: AllWordsSorted[]) => {

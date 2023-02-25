@@ -3,8 +3,10 @@ import { db } from "../..";
 import { store } from "../../store";
 import { Text } from "../../pages/types/word";
 import { addText, updateText } from "../../store/slices/textSlice";
+import { addTextIdToTextArr } from "./set";
 
-export const createText = async (title: string, text: string, wordsIds: string[], uid: string) => {
+export const createText = async (title: string, text: string, wordsIds: string[], uid: string, setId: string | null = null) => {
+  debugger
     try {
         const docRef = await addDoc(collection(db, "text"), {
           title,
@@ -12,6 +14,7 @@ export const createText = async (title: string, text: string, wordsIds: string[]
           wordsIds,
           uid,
         });
+
         setDoc(docRef, {textId: docRef.id}, {merge: true})
         store.dispatch(addText({
             title,
@@ -22,6 +25,7 @@ export const createText = async (title: string, text: string, wordsIds: string[]
         }))
 
         console.log("Text Document written with ID: ", docRef.id)
+        setId && addTextIdToTextArr(setId, docRef.id)
         return docRef.id
       } catch (e) {
         console.error("Error adding document: ", e);

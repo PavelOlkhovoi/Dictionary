@@ -70,7 +70,7 @@ export interface Set {
     name: string
     uid: string
     createdAt: Timestamp | string
-    textsIds?: string[] | null
+    textIds: string[] | null
     source?: string | null
 }
 

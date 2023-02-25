@@ -56,5 +56,9 @@ export const selectTextById = (state: RootState, id: string) => {
     return text
 }
 
+export const selectTextsByIds = (state: RootState, ids: string[]) => {
+    return state.text.texts.filter(t => ids.includes(t.textId))
+}
+
 export const {addText, updateText} = textsSlice.actions
 export default textsSlice.reducer

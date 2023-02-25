@@ -1,10 +1,10 @@
 import { db } from '../..';
-import { collection, query, Timestamp, serverTimestamp, where, getDocs, addDoc, setDoc, doc, updateDoc, arrayRemove, deleteDoc} from 'firebase/firestore';
+import { collection, query, Timestamp, arrayUnion, where, getDocs, addDoc, setDoc, doc, updateDoc, arrayRemove, deleteDoc} from 'firebase/firestore';
 import { parseISO, formatDistanceToNow } from 'date-fns'
 import { Set } from '../../pages/types/word';
 import { store } from '../../store';
 import { addSet, deleteSet, deleteWordFromSet, deleteWordIdFromRepeatArr, updateSet,
-  restartRepeatReduxSet
+  restartRepeatReduxSet, addTextIdToTextArrRedux, deleteTextIdFromTextArrRedux
 } from '../../store/slices/setSlice';
 
 export const createUserSet = async (set: Set) => {
@@ -25,6 +25,7 @@ export const createUserSet = async (set: Set) => {
           name: set.name,
           uid: set.uid,
           createdAt: today,
+          textIds: [],
           source: set.source
         }))
 
@@ -106,6 +107,33 @@ export const deleteWordInsiteSet = async (setId: string, wordId: string) => {
     })
 
     store.dispatch(deleteWordFromSet({setId, wordId}))
+  } catch (error) {
+    console.log('Word id has not been removed from set', error)
+  }
+}
+
+
+export const addTextIdToTextArr = async (setId: string, textId: string) => {
+  try {
+    const setRef = doc(db, "sets", setId);
+      await updateDoc(setRef, {
+        textIds: arrayUnion(textId)
+    })
+
+    store.dispatch(addTextIdToTextArrRedux({setId, textId}))
+  } catch (error) {
+    console.log('Word id has not been removed from set', error)
+  }
+}
+
+export const deleteTextIdFromTextArr = async (setId: string, textId: string) => {
+  try {
+    const setRef = doc(db, "sets", setId);
+      await updateDoc(setRef, {
+        textIds: arrayRemove(textId)
+    })
+
+    store.dispatch(deleteTextIdFromTextArrRedux({setId, textId}))
   } catch (error) {
     console.log('Word id has not been removed from set', error)
   }

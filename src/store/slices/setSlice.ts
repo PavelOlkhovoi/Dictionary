@@ -53,7 +53,19 @@ const setSlice = createSlice({
         },
         deleteSet(state, action: PayloadAction<{id: string}>){
             state.sets.splice(state.sets.findIndex((s) => s.setId === action.payload.id), 1);
-        }
+        },
+        addTextIdToTextArrRedux(state, action: PayloadAction<{setId: string, textId: string}>){
+        const set = state.sets.find(s=> s.setId === action.payload.setId)
+            if(set){ 
+                set.textIds?.push(action.payload.textId)
+            }
+        },
+        deleteTextIdFromTextArrRedux(state, action: PayloadAction<{setId: string, textId: string}>){
+            const set = state.sets.find(s=> s.setId === action.payload.setId)
+                if(set && set.textIds){ 
+                    set.textIds = set.textIds?.filter(id => id !== action.payload.textId)
+                }
+            }
     },
     extraReducers: builder => {
         builder
@@ -73,11 +85,11 @@ const setSlice = createSlice({
 
 export const fetchSets = createAsyncThunk('sets/fetchSets', async (uid: string)=>{
     const res = await getUserSets(uid)
-
     return res
 })
 
 export const selectAllSets = (state: RootState) => state.set.sets
 
-export const {addSet, updateSet, deleteSet, deleteWordFromSet, deleteWordIdFromRepeatArr, restartRepeatReduxSet} = setSlice.actions
+export const {addSet, updateSet, deleteSet, deleteWordFromSet, deleteWordIdFromRepeatArr, restartRepeatReduxSet,
+    addTextIdToTextArrRedux, deleteTextIdFromTextArrRedux} = setSlice.actions
 export default setSlice.reducer

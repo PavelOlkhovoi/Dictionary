@@ -55,6 +55,7 @@ const AddSet = () => {
         if(user){
             const newSet: Set = {
                 wordsIds,
+                textIds: [],
                 repeatIds: wordsIds,
                 name: name.value,
                 uid: user.uid ,
