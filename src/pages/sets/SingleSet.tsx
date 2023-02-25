@@ -18,15 +18,12 @@ const SingleSet = () => {
     const setStatus = useAppSelector(state => state.set.status)
     const words = useAppSelector(state => selectWordsArrById(state, set?.wordsIds))
 
-    useEffect(()=>{
-
-    }, [])
 
     return (
         <section className={`${styleTW.container}`}>
-            <h1 className={`${styleTW.title1}`}>{set && set.name}</h1>
+            <h1 className={`${styleTW.title1} my-6`}>{set && set.name}</h1>
             <div className="flex gap-4 justify-center my-4">
-            <MyButton>
+            <MyButton color="green">
                 <Link
                 to={{pathname: `/sets/edit/${idtext}`}}
                 >
@@ -40,7 +37,7 @@ const SingleSet = () => {
                     Work Out
                 </Link>
             </MyButton>
-            <MyButton>
+            <MyButton color="green">
                 <Link
                 to={{pathname: `/addText`}}
                 >
@@ -49,17 +46,25 @@ const SingleSet = () => {
             </MyButton>
             </div>
             <div>
-                <h2 className={`${styleTW.title2}`}>Words</h2>
+                <h2 className={`${styleTW.title2} text-center mt-4`}>Words</h2>
+                <ul className="p-8">
                 {
                     words && words.map(w => <li key={w.wordId}>{w.word}</li>)
                 }
+                </ul>
                 {
-                    texts.length > 0 && <div>
-                    <h2 className={`${styleTW.title2}`}>Related Texts</h2>
+                    texts.length > 0 && <div className="p-8">
+                    <h2 className={`${styleTW.title2} text-center`}>Related Texts</h2>
                     {
-                        texts.map(t => <div key={t.textId}>{t.title} <MyButton color="red" onClick={
-                            ()=> deleteTextIdFromTextArr(set?.setId as string, t.textId)
-                        }>Delete</MyButton></div>)
+                        texts.map(t => <Link 
+                        to={{pathname: `/texts/${idtext}`}} key={t.textId}>{t.title} 
+                        <div
+                        className={`${styleTW.bageRed} m-2`} 
+                        onClick={()=> deleteTextIdFromTextArr(set?.setId as string, t.textId)}
+                        >
+                            x
+                        </div>
+                        </Link>)
                     }
                     </div>
                     

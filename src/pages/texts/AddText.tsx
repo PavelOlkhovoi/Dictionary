@@ -8,7 +8,6 @@ import ShowTagWithWords from '../../components/tags/ShowTagWithWords';
 import { AllWordsSorted } from '../types/word';
 import TextHighlighter from '../../components/text/TextHighlighter';
 import { createText } from '../../backend/crudFunctions/text';
-import { addTextIdToTextArr } from '../../backend/crudFunctions/set';
 
 interface Props {
     setId?: string | null
@@ -25,7 +24,6 @@ const AddText = ({setId = null}:Props) => {
     const [usedWords, setUsedWords] = useState<AllWordsSorted[]>([])
 
     const addTextHandler = async (words: AllWordsSorted[]) => {
-        debugger
         const ids: string[] = words.map(w => w.wordId)
         const response = await createText(title.value, text, ids, uid as string, setId)
     }

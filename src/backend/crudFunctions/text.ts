@@ -6,7 +6,6 @@ import { addText, updateText } from "../../store/slices/textSlice";
 import { addTextIdToTextArr } from "./set";
 
 export const createText = async (title: string, text: string, wordsIds: string[], uid: string, setId: string | null = null) => {
-  debugger
     try {
         const docRef = await addDoc(collection(db, "text"), {
           title,

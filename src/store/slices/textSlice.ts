@@ -57,7 +57,11 @@ export const selectTextById = (state: RootState, id: string) => {
 }
 
 export const selectTextsByIds = (state: RootState, ids: string[]) => {
-    return state.text.texts.filter(t => ids.includes(t.textId))
+    if(ids){
+        return state.text.texts.filter(t => ids.includes(t.textId))
+    }else {
+        return []
+    }
 }
 
 export const {addText, updateText} = textsSlice.actions
