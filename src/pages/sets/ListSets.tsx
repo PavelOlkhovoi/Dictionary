@@ -20,11 +20,9 @@ const ListSets = () => {
             <div className="flex flex-col items-center gap-3">
                 <h1 className={`${styleTW.title1}`}>Your sets</h1>
                 <MyButton className="m-auto" color="green">
-                    <Link to="/addSet">Add new set</Link>
+                    <Link to="/sets/add">Add new set</Link>
                 </MyButton>
             </div>
-
-
         <div className="flex gap-8 my-8">
             <div>
                 <h2 className={`${styleTW.title2}`}>Last seven sets</h2>

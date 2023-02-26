@@ -29,18 +29,21 @@ function App() {
       <Route path="words" element={<Words />} />
       <Route path="words/:idword" element={<Word />} />
       <Route path="words/edit/:idword" element={<WordEdit />} />
-      {/* <Route path="exercises" element={<SetWordsToLern />}/> */}
       <Route path="exercises/:idset" element={<SetWordsToLern />}/>
       <Route path="addwords" element={<AddWord />}/>
       <Route path="auth" element={<SignUp />} />
-      <Route path="texts" element={<ListTexts />} />
-      <Route path="texts/:idtext" element={<SingleText />} />
-      <Route path="texts/edit/:idtext" element={<EditText />} />
-      <Route path="addtext" element={<AddText />} />
-      <Route path="addSet" element={<AddSet />} />
-      <Route path="sets/list" element={<ListSets />} />
-      <Route path="sets/:idtext" element={<SingleSet />} />
-      <Route path="sets/edit/:idtext" element={<EditSet />} />
+      <Route path='/texts'>
+        <Route index element={<ListTexts />} />
+        <Route path=":idtext" element={<SingleText />} />
+        <Route path="edit/:idtext" element={<EditText />} />
+        <Route path="add" element={<AddText />} />
+      </Route>
+      <Route path="/sets">
+        <Route index element={<ListSets />} />
+        <Route path="add" element={<AddSet />} />
+        <Route path=":idtext" element={<SingleSet />} />
+        <Route path="edit/:idtext" element={<EditSet />} />
+      </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
   </>
@@ -48,3 +51,23 @@ function App() {
 }
 
 export default App;
+
+// <Routes>
+// <Route path="/" element={<Home />} />
+// <Route path="words" element={<Words />} />
+// <Route path="words/:idword" element={<Word />} />
+// <Route path="words/edit/:idword" element={<WordEdit />} />
+// <Route path="exercises/:idset" element={<SetWordsToLern />}/>
+// <Route path="addwords" element={<AddWord />}/>
+// <Route path="auth" element={<SignUp />} />
+// <Route path="texts" element={<ListTexts />} />
+// <Route path="texts/:idtext" element={<SingleText />} />
+// <Route path="texts/edit/:idtext" element={<EditText />} />
+// <Route path="addtext" element={<AddText />} />
+// <Route path="sets/add" element={<AddSet />} />
+// <Route path="sets/list" element={<ListSets />} />
+// <Route path="sets/:idtext" element={<SingleSet />} />
+// <Route path="sets/edit/:idtext" element={<EditSet />} />
+// <Route path="*" element={<NotFound />} />
+// </Routes>
+// </>
