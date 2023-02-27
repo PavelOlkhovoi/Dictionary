@@ -18,7 +18,6 @@ const SingleSet = () => {
     const setStatus = useAppSelector(state => state.set.status)
     const words = useAppSelector(state => selectWordsArrById(state, set?.wordsIds))
 
-
     return (
         <section className={`${styleTW.container}`}>
             <h1 className={`${styleTW.title1} my-6`}>{set && set.name}</h1>
