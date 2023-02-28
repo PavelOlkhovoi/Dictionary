@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react'
 
-interface Validations {
-    minLength: number
-    isEmpty: boolean
+export interface Validations {
+    minLength?: number
+    isEmpty?: boolean
 } 
 
 const useValidation = (value: string, validations: Validations) => {
@@ -13,7 +13,7 @@ const useValidation = (value: string, validations: Validations) => {
         for (const validation in validations){
             switch(validation){
                 case 'minLength': 
-                value.length < validations.minLength ? setMinLengthError(false) : setMinLengthError(true)
+                value.length < (validations.minLength as number) ? setMinLengthError(false) : setMinLengthError(true)
                 break;
                 case 'isEmpty':
                 value ? setIsEmpty(false) : setIsEmpty(true)
