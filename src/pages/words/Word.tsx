@@ -5,6 +5,7 @@ import MyButton from '../../components/wordsForm/ui/MyButton';
 import { styleTW } from '../../style';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import Loading from '../../components/Loading';
+import LineButton from "../../components/ui-elements/buttons'/LineButton";
 
 const Word = () => {
     const { idword } = useParams()
@@ -19,40 +20,70 @@ const Word = () => {
     }
 
     return (
-        <section
-        className="container max-w-screen-lg mx-auto px-4 mt-5"
-        >
-            <div className='sm:flex gap-8 items-center'>
-            <h1 className='text-6xl font-normal leading-normal mt-0 mb-2'>{firstCapitalLetter(currentWord.word)}</h1>
-                
-                <MyButton>
+        <section className="container max-w-screen-lg mx-auto p-8 mt-5">
+            <div className='sm:flex gap-8 items-center border-b-2 py-4'>
+            <h1 className='text-6xl font-normal mb-2 w-3/5'>{firstCapitalLetter(currentWord.word)}</h1>
+               <div className="w-2/5 flex gap-4">
+               <LineButton>
                     <Link to={{pathname: `/words/edit/${idword}`}}>Edit</Link>
-                </MyButton>
-
+                </LineButton>
+                <LineButton color="red">
+                    Delete
+                </LineButton>
+               </div>
             </div>
-            <dl className={styleTW.gridDl}>
+            {/* <dl className={styleTW.gridDl}>
                 <dt>Level:</dt>
                 <dd>{currentWord.level}</dd>
-                </dl>
-            <h2 className={styleTW.title2}>Meanings</h2>
+            </dl> */}
+            <div className="sm:flex gap-8 items-center border-b-2 py-4 mt-8">
+                <h2 className={`text-3xl w-3/5`}>Translation</h2>
+                <div className="w-2/5">
+                    <LineButton color="green">
+                        <Link to={{pathname: `/words/edit/${idword}`}}>Add new</Link>
+                    </LineButton>
+                </div>
+            </div>
             <ShowMeanings meanings={currentWord.meaning} wordId={idword as string}/>
+            <div className="flex gap-8 items-center border-b-2 mt-10 pb-2">
+                <div className="w-3/5 flex items-center">
+                    <h2 className="text-3xl">Tags</h2>
+                    {
+                        tags.map(t => <div key={t.tagId} className={`ml-5 ${styleTW.bageBlue}`}>{t.name}</div>)
+                    }
+                </div>
+                <div className="w-2/5">
+                    <LineButton color="green">
+                        <Link to={{pathname: `/words/edit/${idword}`}}>Add new</Link>
+                    </LineButton>
+                </div>
+            </div>
             <div>
-            <h2 className={styleTW.title2}>Examples</h2>
+                <div className="flex gap-8 items-center border-b-2 mt-10 pb-2">
+                    <h2 className="text-3xl w-3/5">Examples</h2>
+                    <div className="w-2/5">
+                        <LineButton color="green">
+                            <Link to={{pathname: `/words/edit/${idword}`}}>Add new</Link>
+                        </LineButton>
+                    </div>
+                </div>
                 {
                     currentWord.examples && currentWord.examples.length !== 0 && currentWord.examples.map(ex => {
-                        return <div key={ex.example} className='my-4'>
-                            <h3 className={styleTW.title3}>Example</h3>
-                                <p> {ex.example}</p>
-                            <h3 className={`${styleTW.title3} mt-2`}>Translation</h3>
-                            <p>{ex.translation}</p>
+                        return <div key={ex.example} className='my-4 border-b-2 pb-3 flex items-center gap-8'>
+                            <div className="w-3/5">
+                                <p className="text-lg font-medium">{firstCapitalLetter(ex.example)}</p>
+                                <p className="font-base">{firstCapitalLetter(ex.translation)}</p>
+                            </div>
+                            <div className="w-2/5 flex gap-4">
+                            <LineButton>
+                                <Link to={{pathname: `/words/edit/${idword}`}}>Edit</Link>
+                            </LineButton>
+                            <LineButton color="red">
+                                Delete
+                            </LineButton>
+                            </div>
                         </div>
                     })
-                }
-            </div>
-            <div className='flex items-center'>
-            <h2 className="my-4 text-4xl">Tags</h2>
-                {
-                    tags.map(t => <div key={t.tagId}><span className={`${styleTW.bageBlue} mt-3 ml-5`}>{t.name}</span></div>)
                 }
             </div>
         </section>
