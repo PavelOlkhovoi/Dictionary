@@ -5,11 +5,11 @@ export interface ButtonProps extends React.DetailedHTMLProps<React.ButtonHTMLAtt
 }
 
 const LineButton: FC<ButtonProps> = ({children, color}) => {
-    let normalColor = `border-yellow-400`
+    let normalColor = `border-yellow-500`
     let hoverColor = `hover:border-yellow-700`
 
     if(color === 'red'){
-        normalColor = "border-red-400"
+        normalColor = "border-red-500"
         hoverColor = "hover:border-red-700"
     }
 

@@ -2,14 +2,8 @@ import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import {useEffect} from 'react'
 
-
-
 const Words = () => {
     const words = useAppSelector(state => state.word.words)
-
-    useEffect(() => {
-    console.log('Words All', words)
-    }, [words])
         
     return (
         <div className='p-6 max-w-sm mx-auto'>

@@ -40,11 +40,11 @@ const Word = () => {
                 <h2 className={`text-3xl w-3/5`}>Translation</h2>
                 <div className="w-2/5">
                     <LineButton color="green">
-                        <Link to={{pathname: `/words/edit/${idword}`}}>Add new</Link>
+                        <Link to={{pathname: `/words/edit/${idword}`}}><span className="text-green-500">+</span> Add new</Link>
                     </LineButton>
                 </div>
             </div>
-            <ShowMeanings meanings={currentWord.meaning} wordId={idword as string}/>
+            <ShowMeanings meanings={currentWord.meaning} wordId={idword as string} fastMeaning={currentWord.fastMeaning}/>
             <div className="flex gap-8 items-center border-b-2 mt-10 pb-2">
                 <div className="w-3/5 flex items-center">
                     <h2 className="text-3xl">Tags</h2>
@@ -54,7 +54,7 @@ const Word = () => {
                 </div>
                 <div className="w-2/5">
                     <LineButton color="green">
-                        <Link to={{pathname: `/words/edit/${idword}`}}>Add new</Link>
+                        <Link to={{pathname: `/words/edit/${idword}`}}><span className="text-green-500">+</span> Add new</Link>
                     </LineButton>
                 </div>
             </div>
@@ -63,13 +63,13 @@ const Word = () => {
                     <h2 className="text-3xl w-3/5">Examples</h2>
                     <div className="w-2/5">
                         <LineButton color="green">
-                            <Link to={{pathname: `/words/edit/${idword}`}}>Add new</Link>
+                            <Link to={{pathname: `/words/edit/${idword}`}}><span className="text-green-500">+</span> Add new</Link>
                         </LineButton>
                     </div>
                 </div>
                 {
                     currentWord.examples && currentWord.examples.length !== 0 && currentWord.examples.map(ex => {
-                        return <div key={ex.example} className='my-4 border-b-2 pb-3 flex items-center gap-8'>
+                        const row = (ex.example.length > 0) && <div key={ex.example} className='my-4 border-b-2 pb-3 flex items-center gap-8'>
                             <div className="w-3/5">
                                 <p className="text-lg font-medium">{firstCapitalLetter(ex.example)}</p>
                                 <p className="font-base">{firstCapitalLetter(ex.translation)}</p>
@@ -83,6 +83,8 @@ const Word = () => {
                             </LineButton>
                             </div>
                         </div>
+
+                        return row
                     })
                 }
             </div>

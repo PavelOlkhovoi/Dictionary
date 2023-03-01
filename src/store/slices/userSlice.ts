@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk, PayloadAction, current, createAction} from "@reduxjs/toolkit"
-import { auth } from "../.."
-import {onAuthStateChanged} from "firebase/auth";
+// import { auth } from "../.."
+// import {onAuthStateChanged} from "firebase/auth";
 
 
 interface StateUser {
