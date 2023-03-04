@@ -1,21 +1,29 @@
 import { Link } from 'react-router-dom';
 import { Text } from '../../pages/types/word';
 import { styleTW } from '../../style';
+import LineButton from '../ui-elements/buttons\'/LineButton';
 
 interface Props {
     text: Text
 }
 const PreviewText = ({text}:Props) => {
     const preview = text.text.split(' ').filter((t, ids) => ids < 30)
+    const wordsQuantity = text.wordsIds.length
     return (
-        <div className='my-8 max-w-sm bg-gray-50 shadow p-6 rounded cursor-pointer mx-auto relative'>
-            <Link to={{pathname: `/texts/${text.textId}`}}>
-            <h3 className={`${styleTW.title3} mb-2`}>{text.title}</h3>
+        <div className='bg-white shadow px-8 py-6 cursor-pointer border-b-2 pb-2'>
+            <Link to={{pathname: `/texts/${text.textId}`}} className="flex flex-col h-full">
+            <h3 className={`${styleTW.title3} mb-2 border-b-2 pb-2 border-black-200`}>{text.title}</h3>
+            <div className='text-sm font-medium mt-1'>Used words {wordsQuantity}</div>
+            <div className='my-10'>
             {
                 preview.map((t, ids) => <span key={ids}>{t} </span>)
             }...
-            <div className='absolute top-0 right-2 p-2 text-xs text-blue-600 font-medium'>
-                12 day ago
+            </div>
+            <div className='font-medium mt-auto flex justify-between items-baseline mt-auto mb-4'>
+                <div className='text-sm'>12 day ago</div>
+                <div>
+                    <LineButton>Read</LineButton>
+                </div>
             </div>
             </Link>
         </div>

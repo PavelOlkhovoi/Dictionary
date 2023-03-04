@@ -38,7 +38,6 @@ const ShowMeanings = ({meanings, wordId, fastMeaning}: Props) => {
         {
             fastMeaning && <div className="border-b-2 pb-1 flex gap-8 items-center">
             <div className="w-3/5">
-                    {/* <b>Nothing</b> */}
                     {firstCapitalLetter(fastMeaning)}
                 </div>
                 <div className="w-2/5 flex gap-4 p-1">
