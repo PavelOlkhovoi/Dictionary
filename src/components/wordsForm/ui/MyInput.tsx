@@ -20,8 +20,8 @@ const MyInput: FC<Props> = ({name, label, edit = false, editFunct = () => consol
         </label>
         <input
         name={name}
-        {...rest}
-        className={styleTW.shadow}
+        {...rest} 
+        className="border-b-2 border-gray-800 w-full py-2 px-3 text-gray-700 bg-transparent leading-tight focus:outline-none focus:shadow-outline"
         />
         {
           edit && <MyButton onClick={() => editFunct()}>Save</MyButton>

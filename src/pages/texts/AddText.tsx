@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useRef} from 'react';
 import useInput from '../../hooks/useInput';
 import MyInput from '../../components/wordsForm/ui/MyInput';
 import { styleTW } from '../../style';
@@ -26,6 +26,13 @@ const AddText = ({setId = null}:Props) => {
     const title = useInput('')
     const [text, setText] = useState('')
     const [usedWords, setUsedWords] = useState<AllWordsSorted[]>([])
+    const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
+    const resizeTextArea = () => {
+        (textAreaRef.current as HTMLTextAreaElement).style.height = "auto";
+        (textAreaRef.current as HTMLTextAreaElement).style.height = (textAreaRef.current as HTMLTextAreaElement).scrollHeight + "px";
+      };
+
+      useEffect(resizeTextArea, [text]);
 
     const [validated , setValidated ] = useState({
         isValid: false,
@@ -53,6 +60,7 @@ const AddText = ({setId = null}:Props) => {
 
 
 
+
     if( tagsStatus === 'pending'  || wordStatus  === 'pending'){
         return <Loading />
     }
@@ -61,7 +69,7 @@ const AddText = ({setId = null}:Props) => {
     return (
         <section className={styleTW.containerWide}>
             <div>
-                <div className={`${styleTW.title1} ${styleTW.bottomBorder} pb-4 mb-8`}>
+                <div className={`${styleTW.title1} mb-8`}>
                     <h1 className={`${styleTW.title1}`}>Add text</h1>
                     <div></div>
                 </div>
@@ -91,7 +99,8 @@ const AddText = ({setId = null}:Props) => {
                 </label>
                 <Validate value={text} pattern={{minLength: 20, isEmpty: true}} show={validated.showTextError}/>
                 <TextHighlighter text={text} words={words} wordsBack={wordsBack} textButton='Add text'>
-                    <textarea className={`${styleTW.shadow} mb-8`} name="text" 
+                    <textarea 
+                    className="border-b-2 border-gray-800 bg-gray-50 w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="text" 
                     value={text}
                     onChange={(e)=> setText(e.target.value)}
                     onBlur={()=> setValidated(prev => ({
@@ -99,7 +108,8 @@ const AddText = ({setId = null}:Props) => {
                         isValid: false,
                         showTextError: true
                     }))}
-                    rows={10}
+                    rows={1}
+                    ref={textAreaRef}
                     />
                 </TextHighlighter>
         </div>
