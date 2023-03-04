@@ -2,6 +2,7 @@ import {FC, useEffect} from 'react'
 import { sortSimpleAndCompoundWordsFromWordDb } from '../../helpers/wordMatcher'
 import { WordDb } from '../../pages/types/word'
 import { AllWordsSorted } from '../../pages/types/word'
+import LineButton from '../ui-elements/buttons\'/LineButton'
 import MyButton from '../wordsForm/ui/MyButton'
 
 interface Props {
@@ -17,7 +18,7 @@ const TextHighlighter: FC<Props> = ({words, text, wordsBack, children, textButto
 
     return (
         <div>
-             <div className='my-8 md:my-4'>
+             <div className='my-8 md:my-4 text-lg'>
              {
                 text.split(' ').map((tw, idx) => {
                     let pos: number = 0
@@ -26,10 +27,10 @@ const TextHighlighter: FC<Props> = ({words, text, wordsBack, children, textButto
                     res.forEach(usedW => {
                         if(usedW.position.length > 1 && usedW.position.some(pos => pos === idx)){
                             pos = idx
-                            color = `bg-blue-400`
+                            color = `text-blue-800 font-medium`
                         }else if(usedW.position.length === 1 && usedW.position.some(pos => pos === idx)){
                             pos = idx
-                            color = `bg-yellow-400`
+                            color = `text-yellow-600 font-medium`
                         }
                     })
 
@@ -45,7 +46,7 @@ const TextHighlighter: FC<Props> = ({words, text, wordsBack, children, textButto
 
             {children}
             {
-                textButton && <MyButton color='green' onClick={()=> wordsBack(res)}>{textButton}</MyButton>
+                textButton && <LineButton color='green' onClick={()=> wordsBack(res)}>{textButton}</LineButton>
             }
         </div>
     );

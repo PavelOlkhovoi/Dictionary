@@ -59,9 +59,12 @@ const AddText = ({setId = null}:Props) => {
 
 
     return (
-        <section className={styleTW.container}>
-            <div className='p-8'>
-                <h1 className={styleTW.title1}>Add your text</h1>
+        <section className={styleTW.containerWide}>
+            <div>
+                <div className={`${styleTW.title1} ${styleTW.bottomBorder} pb-4 mb-8`}>
+                    <h1 className={`${styleTW.title1}`}>Add text</h1>
+                    <div></div>
+                </div>
                 <MyInput
                 label='title' 
                 name="title"

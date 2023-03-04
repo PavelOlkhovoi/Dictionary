@@ -7,6 +7,8 @@ import MyButton from '../../components/wordsForm/ui/MyButton';
 import TextHighlighter from '../../components/text/TextHighlighter';
 import { AllWordsSorted, WordDb } from '../types/word';
 import { useState, useEffect } from 'react';
+import LineButton from '../../components/ui-elements/buttons\'/LineButton';
+import { firstCapitalLetter } from '../../helpers/display';
 
 
 const SingleText = () => {
@@ -24,27 +26,24 @@ const SingleText = () => {
         <Loading />
     }
 
-    useEffect(()=> {
-        console.log('dddd', usedWords)
-    }, [usedWords])
 
-    return <div className={`${styleTW.container} p-8`}>
-        <div className='flex gap-3 md:gap-12 leading-tight items-center mb-12'>
-            <h1 className={`${styleTW.title1} `}>{text?.title}</h1>
-            <MyButton>
+    return <div className={`${styleTW.containerWide} p-8`}>
+        <div className= {`${styleTW.bottomBorder} flex gap-3 md:gap-12 leading-tight items-center mb-12 pb-8`}>
+            <h1 className={`${styleTW.title1}`}>{text?.title}</h1>
+            <LineButton>
                 <Link to={{pathname: `/texts/edit/${idtext}`}}>Edit</Link>
-            </MyButton>
+            </LineButton>
         </div>
-       <div className='md:flex gap-10'>
-        <h2 className={styleTW.title3}>Used words</h2>
+       <div>
+        <h2 className={`${styleTW.title2} ${styleTW.bottomBorder} pb-2 mb-2`}>Used words</h2>
             <ul className='list-disc'>
             {
-                words?.map(w => <li key={w.wordId}>{w.word}</li>)
+                words?.map(w => <li key={w.wordId}>{firstCapitalLetter(w.word)}</li>)
             }
             </ul>
        </div>
         <div className='my-8'>
-        <h2 className={`${styleTW.title3} md:mb-4`}>Text</h2>
+        <h2 className={`${styleTW.title2} ${styleTW.bottomBorder} pb-4 md:mb-4`}>Text</h2>
             {
                 words && <TextHighlighter words={words as WordDb[]} text={text?.text as string} wordsBack={wordsBack}/>
             }
