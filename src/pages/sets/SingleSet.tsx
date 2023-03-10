@@ -1,12 +1,8 @@
 import { useAppSelector } from "../../hooks/redux-hooks";
 import { styleTW } from "../../style";
-import { Set } from "../types/word";
 import { selectWordsArrById } from "../../store/slices/wordSlice";
 import { Link, useParams } from "react-router-dom";
-import Loading from "../../components/Loading";
 import MyButton from "../../components/wordsForm/ui/MyButton";
-import { useEffect } from "react";
-import { daysDifferent } from "../../helpers/time";
 import AddText from "../texts/AddText";
 import { selectTextsByIds } from "../../store/slices/textSlice";
 import { deleteTextIdFromTextArr } from "../../backend/crudFunctions/set";
