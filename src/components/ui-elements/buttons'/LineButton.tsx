@@ -4,7 +4,7 @@ export interface ButtonProps extends React.DetailedHTMLProps<React.ButtonHTMLAtt
     color?: string
 }
 
-const LineButton: FC<ButtonProps> = ({children, color}) => {
+const LineButton: FC<ButtonProps> = ({children, color, ...rest}) => {
     let normalColor = `border-yellow-500`
     let hoverColor = `hover:border-yellow-700`
 
@@ -17,7 +17,7 @@ const LineButton: FC<ButtonProps> = ({children, color}) => {
         normalColor = "border-green-500"
         hoverColor = "hover:border-green-700"
     }
-    return <button className={`${normalColor} ${hoverColor} border-b-2 text-sm font-medium`}>{children}</button>;
+    return <button className={`${normalColor} ${hoverColor} border-b-2 text-sm font-medium`} {...rest}>{children}</button>;
 }
 
 export default LineButton;

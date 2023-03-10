@@ -46,7 +46,7 @@ const TextHighlighter: FC<Props> = ({words, text, wordsBack, children, textButto
 
             {children}
             {
-                textButton && <MyButton color='green' onClick={()=> wordsBack(res)}>{textButton}</MyButton>
+                textButton && <LineButton color='green' onClick={()=> wordsBack(res)}>{textButton}</LineButton>
             }
         </div>
     );
