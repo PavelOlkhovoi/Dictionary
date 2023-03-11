@@ -15,9 +15,10 @@ import { isEmpty } from 'react-redux-firebase';
 
 interface Props {
     setId?: string | null
+    titleMode?: 'h2'
 }
 
-const AddText = ({setId = null}:Props) => {
+const AddText = ({setId = null, titleMode}:Props) => {
     const tags = useAppSelector(state => state.tag.tags)
     const words = useAppSelector(state => state.word.words)
     const uid = useAppSelector(state => state.user.userFake?.uid)
@@ -30,9 +31,11 @@ const AddText = ({setId = null}:Props) => {
     const resizeTextArea = () => {
         (textAreaRef.current as HTMLTextAreaElement).style.height = "auto";
         (textAreaRef.current as HTMLTextAreaElement).style.height = (textAreaRef.current as HTMLTextAreaElement).scrollHeight + "px";
-      };
+    };
 
-      useEffect(resizeTextArea, [text]);
+    const titleStyle = titleMode === 'h2' ? styleTW.title2 : styleTW.title1
+
+    useEffect(resizeTextArea, [text]);
 
     const [validated , setValidated ] = useState({
         isValid: false,
@@ -60,8 +63,6 @@ const AddText = ({setId = null}:Props) => {
     }
 
 
-
-
     if( tagsStatus === 'pending'  || wordStatus  === 'pending'){
         return <Loading />
     }
@@ -71,7 +72,7 @@ const AddText = ({setId = null}:Props) => {
         <section className={styleTW.containerWide}>
             <div>
                 <div className={`${styleTW.title1} mb-8`}>
-                    <h1 className={`${styleTW.title1}`}>Add text</h1>
+                    <h1 className={`${titleStyle}`}>Add text</h1>
                     <div></div>
                 </div>
                 <MyInput
@@ -95,13 +96,15 @@ const AddText = ({setId = null}:Props) => {
                     }   
                     </div>
                 </div>
-                <label htmlFor=""className="block mb-2 mt-8 text-sm font-medium text-gray-700 undefined">
+                <label htmlFor=""className="block mb-1 mt-8 text-sm font-medium text-gray-700">
                     Type text
                 </label>
                 <Validate value={text} pattern={{minLength: 20, isEmpty: true}} show={validated.showTextError}/>
                 <TextHighlighter text={text} words={words} wordsBack={wordsBack} textButton='Add text'>
                     <textarea 
-                    className="border-b-2 border-gray-800 bg-gray-50 w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="text" 
+                    className="border-b-2 w-full py-1 bg-transparent text-gray-700 leading-tight focus:outline-none 
+                    focus:shadow-outline overflow-hidden" 
+                    name="text" 
                     value={text}
                     onChange={(e)=> setText(e.target.value)}
                     onBlur={()=> setValidated(prev => ({
