@@ -12,8 +12,8 @@ const Words = () => {
     return (
         <div className={styleTW.containerWide}>
             <h1 className={`${styleTW.title1}`}>Words</h1>
-            <div className='flex gap-20 mt-12'>
-                <div className='w-5/12'>
+            <div className='md:flex gap-20 mt-12'>
+                <div className='sm:w-full md:w-5/12'>
                     <h2 className={`${styleTW.title2}`}>Space repetition</h2>
                     <div className='mt-4'>
                         <div className={`${styleTW.bottomBorder} py-2`}>
@@ -32,7 +32,7 @@ const Words = () => {
                     </div>
                 </div>
 
-                <div className='w-6/12'>
+                <div className='sm:w-full md:w-6/12 mt-12 md:mt-0'>
                     <h2 className={`${styleTW.title2}`}>20 last added words</h2>
                     <div className='mt-4'>
                     {
