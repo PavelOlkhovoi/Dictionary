@@ -18,7 +18,7 @@ const TextHighlighter: FC<Props> = ({words, text, wordsBack, children, textButto
 
     return (
         <div>
-             <div className='my-8 md:my-4 text-lg'>
+             <div className='my-3 md:my-4 text-lg'>
              {
                 text.split(' ').map((tw, idx) => {
                     let pos: number = 0

@@ -14,15 +14,13 @@ const SingleText = () => {
     const text = useAppSelector(state => state.text.texts.find(text => text.textId === idtext))
     const words = useAppSelector(state => selectWordsArrById(state, text?.wordsIds as string[]))
     const [usedWords, setUsedWords] = useState<AllWordsSorted[]>([])
-
     const wordsBack = (words: AllWordsSorted[]) => {
         setUsedWords(words)
     }
 
-
     return <div className={`${styleTW.containerWide} p-8`}>
-        <div className= {`${styleTW.bottomBorder} flex gap-3 md:gap-12 leading-tight items-center mb-12 pb-8`}>
-            <h1 className={`${styleTW.title1}`}>{text?.title}</h1>
+        <div className= {`${styleTW.bottomBorder} md:flex md:items-center md:gap-12 mb-12 pb-6 md:pb-8`}>
+            <h1 className={`${styleTW.title1} mb-4`}>{text?.title}</h1>
             <LineButton>
                 <Link to={{pathname: `/texts/edit/${idtext}`}}>Edit</Link>
             </LineButton>

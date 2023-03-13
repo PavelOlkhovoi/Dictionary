@@ -10,14 +10,14 @@ const ListSets = () => {
     return (
         <section className={`${styleTW.containerWide}`}>
             <div className="flex gap-8 items-center">
-                <h1 className={`${styleTW.title1} my-8`}>Your sets</h1>
+                <h1 className={`${styleTW.title1} ${styleTW.title1Gap}`}>Your sets</h1>
             <div>
                 <LineButton>
                     <Link to="/sets/add">Add set</Link>
                 </LineButton>
             </div>
             </div>
-            <div className="grid grid-cols-2 gap-8 mt-12">
+            <div className={`${styleTW.cardsTwoRows}`}>
             {
                 sets.map(s => {
                     return <GetSetsData set={s} key={s.setId}/>

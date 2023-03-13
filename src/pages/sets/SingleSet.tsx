@@ -16,9 +16,9 @@ const SingleSet = () => {
     return (
     <>
         <section className={`${styleTW.containerWide}`}>
-            <div className={`${styleTW.bottomBorder} flex items-center gap-12 mb-12 pb-8`}>
+            <div className={`${styleTW.bottomBorder} md:flex md:items-center md:gap-12 mb-10 md:mb-12 pb-6`}>
                 <h1 className={`${styleTW.title1}`}>{set && set.name}</h1>
-                <div className="flex gap-6 justify-center">
+                <div className="flex mt-2 gap-6 md:justify-center">
                     <LineButton color="green">
                         <Link
                         to={{pathname: `/sets/edit/${idtext}`}}
@@ -45,7 +45,7 @@ const SingleSet = () => {
                 <div className="mt-8">
                 {
                     texts.length > 0 && <div>
-                    <h2 className={`${styleTW.title2} ${styleTW.bottomBorder}`}>Related Texts</h2>
+                    <h2 className={`${styleTW.title2} ${styleTW.bottomBorder} pb-2`}>Related Texts</h2>
                     {
                         texts.map(t => <Link 
                         to={{pathname: `/texts/${idtext}`}} key={t.textId}>{t.title} 

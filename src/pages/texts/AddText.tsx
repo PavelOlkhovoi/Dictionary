@@ -27,6 +27,7 @@ const AddText = ({setId = null, titleMode}:Props) => {
     const title = useInput('')
     const [text, setText] = useState('')
     const [usedWords, setUsedWords] = useState<AllWordsSorted[]>([])
+    
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
     const resizeTextArea = () => {
         (textAreaRef.current as HTMLTextAreaElement).style.height = "auto";
@@ -34,6 +35,7 @@ const AddText = ({setId = null, titleMode}:Props) => {
     };
 
     const titleStyle = titleMode === 'h2' ? styleTW.title2 : styleTW.title1
+    const adjustMargin = titleMode === 'h2' ? styleTW.title2 : styleTW.title1
 
     useEffect(resizeTextArea, [text]);
 
@@ -56,8 +58,6 @@ const AddText = ({setId = null, titleMode}:Props) => {
         addTextHandler(words)
         setValidated(prev => ({...prev, isValid: true}))
 
-        // console.log('Test validation', titleValidation)
-
         title.setInput('')
         setText('')
     }
@@ -70,10 +70,9 @@ const AddText = ({setId = null, titleMode}:Props) => {
 
     return (
         <section className={styleTW.containerWide}>
-            <div>
+            <div className={titleMode === 'h2' ? '-mt-8' : ''}>
                 <div className={`${styleTW.title1} mb-8`}>
                     <h1 className={`${titleStyle}`}>Add text</h1>
-                    <div></div>
                 </div>
                 <MyInput
                 label='title' 

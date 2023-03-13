@@ -15,7 +15,7 @@ const ListTexts = () => {
     return (
         <section className={`${styleTW.containerWide}`}>
             <div className="flex gap-8 items-center">
-                <h1 className={`${styleTW.title1} md:my-8`}>Texts</h1>
+                <h1 className={`${styleTW.title1} ${styleTW.title1Gap}`}>Texts</h1>
                 <div>
                     <LineButton>
                         <Link to="/texts/add">Add text</Link>
@@ -23,7 +23,7 @@ const ListTexts = () => {
                 </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mt-6 md:mt-12">
+            <div className={`${styleTW.cardsTwoRows}`}>
             {
                 texts.map(t => <PreviewText text={t} key={t.textId}/>)
             }
