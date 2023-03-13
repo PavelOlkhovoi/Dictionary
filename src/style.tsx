@@ -11,5 +11,6 @@ export const styleTW = {
     card: "mt-4 mb-2 p-6 md:p-8 shadow bg-white rounded-md",
     bottomBorder: "border-b-2",
     title1Gap: "md:my-4 lg:my-8",
-    cardsTwoRows: "grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mt-6 md:mt-8 lg:mt-10"
+    cardsTwoRows: "grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mt-6 md:mt-8 lg:mt-10",
+    exerciseWordCenter: "my-6 flex-1 flex items-center" 
 }

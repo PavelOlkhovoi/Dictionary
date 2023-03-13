@@ -71,46 +71,50 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExer
             stages.showCard && 
             <div className="flex gap-4">
             {
-            stages.wordKnown ? 
+            stages.wordKnown && 
             <motion.div 
             initial={'hidden'}
             animate={'visible'}
             variants={cardAnimation}
-            className={`${styleTW.card} flex flex-col justify-items-center items-center m-auto`}
+            className={`${styleTW.card} flex flex-col justify-items-center items-center m-auto w-full aspect-square`}
             >
                 <div className="translate-x-[-8] text-xs p-1">
                     {readableTime }
                 </div>
-                <span className="my-6">{word.word}</span>
+                <span className={`${styleTW.exerciseWordCenter}`}>{word.word}</span>
                 <div className="flex gap-4 justify-items-stretch mt-auto">
                     <MyButton onClick={()=> setStages(prev => ({...prev, spelling: true, wordKnown: false}))}>Yes</MyButton>
-                    <MyButton color="red" onClick={()=> setStages(prev => ({...prev, wordKnown: false}))}>No</MyButton>
+                    <MyButton color="red" onClick={()=> setStages(prev => ({...prev, wordKnown: false, repeat: true}))}>No</MyButton>
                 </div>
             </motion.div>
-            : 
-            <motion.div 
-            initial={{ x: -100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            whileTap={{ scale: 0.9 }}
-            className={`${styleTW.card} flex flex-col justify-items-center items-center w-full`}
-            >
-                <span className="my-6">{translation}</span>
-                <div className="flex gap-4 justify-items-stretch mt-auto">
-                    <MyButton onClick={setHidden}>Hide</MyButton>
-                </div>
-            </motion.div>
+            }
+            {
+                stages.repeat &&
+                <motion.div 
+                initial={{ x: -100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                whileTap={{ scale: 0.9 }}
+                className={`${styleTW.card} flex flex-col justify-items-center items-center w-full aspect-square`}
+                >
+                    <span className={`${styleTW.exerciseWordCenter}`}>{translation}</span>
+                    <div className="flex gap-4 justify-items-stretch mt-auto items-center">
+                        <MyButton onClick={setHidden}>Hide</MyButton>
+                    </div>
+                </motion.div>
             }
             {
             stages.spelling && 
             <motion.div 
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }} 
-            className={`${styleTW.card} flex flex-col justify-items-center items-center w-full`}
+            className={`${styleTW.card} flex flex-col items-center w-full aspect-square`}
             >
                 <span className="text-xs my-3 w-full">
                     {!wrongAnswer ? 'Type the meaning' + ' ✔' : word.word}
                 </span>
-                
+                <div>
+                    {translation}
+                </div>
                 <textarea 
                 value={meaning} 
                 onChange={(e) => setMeaning(e.target.value)} 
