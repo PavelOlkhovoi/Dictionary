@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion"
 import { addPointsToWord } from "../../backend/crudFunctions/words";
 import { deleteIdInRepeatArr } from "../../backend/crudFunctions/set";
+import LineButton from "../../components/ui-elements/buttons'/LineButton";
 
 interface Props {
     word: WordDb,
@@ -76,15 +77,15 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExer
             initial={'hidden'}
             animate={'visible'}
             variants={cardAnimation}
-            className={`${styleTW.card} flex flex-col justify-items-center items-center m-auto w-full aspect-square`}
+            className={`${styleTW.card} ${styleTW.exerciseCardSkeleton}`}
             >
                 <div className="translate-x-[-8] text-xs p-1">
-                    {readableTime }
+                    {readableTime}
                 </div>
-                <span className={`${styleTW.exerciseWordCenter}`}>{word.word}</span>
-                <div className="flex gap-4 justify-items-stretch mt-auto">
-                    <MyButton onClick={()=> setStages(prev => ({...prev, spelling: true, wordKnown: false}))}>Yes</MyButton>
-                    <MyButton color="red" onClick={()=> setStages(prev => ({...prev, wordKnown: false, repeat: true}))}>No</MyButton>
+                <span className={`${styleTW.exerciseWordCenter} text-xl`}>{word.word}</span>
+                <div className="flex gap-4 justify-between mt-auto w-full">
+                    <LineButton onClick={()=> setStages(prev => ({...prev, spelling: true, wordKnown: false}))}>Confirm</LineButton>
+                    <LineButton color="red" onClick={()=> setStages(prev => ({...prev, wordKnown: false, repeat: true}))}>Repeat</LineButton>
                 </div>
             </motion.div>
             }
@@ -94,11 +95,11 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExer
                 initial={{ x: -100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 whileTap={{ scale: 0.9 }}
-                className={`${styleTW.card} flex flex-col justify-items-center items-center w-full aspect-square`}
+                className={`${styleTW.card} ${styleTW.exerciseCardSkeleton}`}
                 >
-                    <span className={`${styleTW.exerciseWordCenter}`}>{translation}</span>
+                    <span className={`${styleTW.exerciseWordCenter} text-xl`}>{translation}</span>
                     <div className="flex gap-4 justify-items-stretch mt-auto items-center">
-                        <MyButton onClick={setHidden}>Hide</MyButton>
+                        <LineButton onClick={setHidden} color='red'>Hide</LineButton>
                     </div>
                 </motion.div>
             }
@@ -107,7 +108,7 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExer
             <motion.div 
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }} 
-            className={`${styleTW.card} flex flex-col items-center w-full aspect-square`}
+            className={`${styleTW.card} ${styleTW.exerciseCardSkeleton}`}
             >
                 <span className="text-xs my-3 w-full">
                     {!wrongAnswer ? 'Type the meaning' + ' ✔' : word.word}
@@ -121,7 +122,7 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExer
                 className={`${styleTW.shadow} my-4`} 
                 />
                 <div className="flex gap-4 justify-items-stretch mt-auto">
-                    <MyButton color="green" onClick={checkWord}>Check</MyButton>
+                    <LineButton color="green" onClick={checkWord}>Check</LineButton>
                 </div>
             </motion.div>
             }

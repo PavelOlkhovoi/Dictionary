@@ -37,7 +37,7 @@ const SetWordsToLern = () => {
 
     return (
         <section className={styleTW.containerWide}>
-            <h1 className={`${styleTW.title1} text-center m-4`}>Words to learn</h1>
+            <h1 className={`${styleTW.title1} text-center mb-8`}>Words to learn</h1>
             {
                 sortedWords?.length !== 1 && sortedWords?.filter((w, idx) => wordStage === idx ).map((w, idx) =>{
                     if(sortedWords[sortedWords.length - 1].word === w.word){
