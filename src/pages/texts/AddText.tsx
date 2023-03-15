@@ -101,8 +101,7 @@ const AddText = ({setId = null, titleMode}:Props) => {
                 <Validate value={text} pattern={{minLength: 20, isEmpty: true}} show={validated.showTextError}/>
                 <TextHighlighter text={text} words={words} wordsBack={wordsBack} textButton='Add text'>
                     <textarea 
-                    className="border-b-2 w-full py-1 bg-transparent text-gray-700 leading-tight focus:outline-none 
-                    focus:shadow-outline overflow-hidden" 
+                    className={`${styleTW.inputLine} overflow-hidden`} 
                     name="text" 
                     value={text}
                     onChange={(e)=> setText(e.target.value)}

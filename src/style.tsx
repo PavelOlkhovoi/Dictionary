@@ -13,5 +13,11 @@ export const styleTW = {
     title1Gap: "md:my-4 lg:my-8",
     cardsTwoRows: "grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mt-6 md:mt-8 lg:mt-10",
     exerciseWordCenter: "my-6 flex-1 flex items-center",
-    exerciseCardSkeleton: "flex flex-col items-center m-auto max-w-xs w-full aspect-square" 
+    exerciseCardSkeleton: "flex flex-col items-center m-auto max-w-xs w-full aspect-square",
+    inputLine: 'border-b-2 w-full py-1 bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+    wordsMarker: {
+        blue: 'text-blue-800 font-medium',
+        yellow: 'text-yellow-800 font-medium',
+        green: 'text-green-800 font-medium',
+    }
 }

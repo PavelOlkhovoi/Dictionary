@@ -61,7 +61,7 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExer
     }
 
     const setHidden = () => {
-        setStages(prev => ({...prev, showCard: isSingle, wordKnown: isSingle}))
+        setStages(prev => ({...prev, showCard: isSingle, wordKnown: isSingle, repeat: false}))
         changeShowOrder(false, last)
     }
 
@@ -110,17 +110,20 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExer
             animate={{ x: 0, opacity: 1 }} 
             className={`${styleTW.card} ${styleTW.exerciseCardSkeleton}`}
             >
-                <span className="text-xs my-3 w-full">
-                    {!wrongAnswer ? 'Type the meaning' + ' ✔' : word.word}
-                </span>
-                <div>
-                    {translation}
+                <div className="mb-3 w-full">
+                    Translation: <span className={styleTW.wordsMarker.blue}>{translation}</span>
                 </div>
+                <label className="my-auto">
+                <span className="w-full">
+                    {!wrongAnswer ? 'Type the word' + ' ✔' : <>Word: <span className={styleTW.wordsMarker.green}>{word.word}</span></>}
+                </span>
                 <textarea 
-                value={meaning} 
+                value={meaning}
+                rows={1}
                 onChange={(e) => setMeaning(e.target.value)} 
-                className={`${styleTW.shadow} my-4`} 
+                className={`${styleTW.inputLine} mt-2`} 
                 />
+                </label>
                 <div className="flex gap-4 justify-items-stretch mt-auto">
                     <LineButton color="green" onClick={checkWord}>Check</LineButton>
                 </div>
