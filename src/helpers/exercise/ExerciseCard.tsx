@@ -1,8 +1,7 @@
-import MyButton from "../../components/wordsForm/ui/MyButton";
 import { MeanigsForServer, Repetition, TypeOfExercise, WordDb } from "../../pages/types/word";
 import { styleTW } from "../../style";
 import { formatDistanceToNow, parseISO } from "date-fns";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion"
 import { addPointsToWord } from "../../backend/crudFunctions/words";
 import { deleteIdInRepeatArr } from "../../backend/crudFunctions/set";

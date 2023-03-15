@@ -16,7 +16,7 @@ import AddSet from './pages/sets/AddSet';
 import ListSets from './pages/sets/ListSets';
 import SingleSet from './pages/sets/SingleSet';
 import EditSet from './pages/sets/EditSet';
-import SetWordsToLern from './pages/sets/SetWordsToLern';
+import SetWordsToLern from './pages/exercise/SetWordsToLern';
 
 
 function App() {

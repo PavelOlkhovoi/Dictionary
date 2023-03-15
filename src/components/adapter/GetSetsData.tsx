@@ -1,4 +1,4 @@
-import useGetDataForSet from "../../hooks/useGetDataForSet";
+import useGetDataForSet from "../../hooks/useExerciseSpaceWords";
 import { Set, WordDb } from "../../pages/types/word";
 import CardPreview from "../ui-elements/cards/CardPreview";
 

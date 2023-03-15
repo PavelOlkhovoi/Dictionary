@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux-hooks';
-import {useEffect} from 'react'
 import { styleTW } from '../../style';
 import { firstCapitalLetter } from '../../helpers/display';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import LineButton from '../../components/ui-elements/buttons\'/LineButton';
+import useExerciseSpaceWords from '../../hooks/useExerciseWords';
 
 const Words = () => {
     const words = useAppSelector(state => state.word.words)
-        
+    const spaceRepetition = useExerciseSpaceWords()
     return (
         <div className={styleTW.containerWide}>
             <h1 className={`${styleTW.title1}`}>Words</h1>
@@ -19,16 +19,16 @@ const Words = () => {
                         <div className={`${styleTW.bottomBorder} py-2`}>
                         <Link to="/exercises/1" className='flex gap-8 items-center'>
                             <div className='w-3/5'>Repeat for the first time</div>
-                            <div className='text-sm w-1/5'>20 words</div>
+                            <div className='text-sm w-1/5'>{spaceRepetition.first}</div>
                             <div className='w-1/5 flex justify-end'><LineButton>Start</LineButton></div>
                         </Link>
                         </div>
-                        <li className={`${styleTW.bottomBorder} py-2`}><Link to="/exercises/2">Second repetition</Link></li>
-                        <li className={`${styleTW.bottomBorder} py-2`}><Link to="/exercises/3">Third repetition</Link></li>
-                        <li className={`${styleTW.bottomBorder} py-2`}><Link to="/exercises/4">Fourth repetition</Link></li>
-                        <li className={`${styleTW.bottomBorder} py-2`}><Link to="/exercises/5">Repeat for the first time</Link></li>
-                        <li className={`${styleTW.bottomBorder} py-2`}><Link to="/exercises/6">Sixth repetition</Link></li>
-                        <li className={`${styleTW.bottomBorder} py-2`}><Link to="/exercises/7">Seventh repetition</Link></li>
+                        <li className={`${styleTW.bottomBorder} py-2`}><Link to="/exercises/2">Second repetition {spaceRepetition.second}</Link></li>
+                        <li className={`${styleTW.bottomBorder} py-2`}><Link to="/exercises/3">Third repetition {spaceRepetition.third}</Link></li>
+                        <li className={`${styleTW.bottomBorder} py-2`}><Link to="/exercises/4">Fourth repetition {spaceRepetition.forth}</Link></li>
+                        <li className={`${styleTW.bottomBorder} py-2`}><Link to="/exercises/5">Repeat for the first time {spaceRepetition.fifth}</Link></li>
+                        <li className={`${styleTW.bottomBorder} py-2`}><Link to="/exercises/6">Sixth repetition {spaceRepetition.sixth}</Link></li>
+                        <li className={`${styleTW.bottomBorder} py-2`}><Link to="/exercises/7">Seventh repetition {spaceRepetition.seventh}</Link></li>
                     </div>
                 </div>
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { restartRepeatArrInSet } from "../../backend/crudFunctions/set";
 import { defineTypeOfExercise } from "../../helpers/exercise";
@@ -30,10 +30,6 @@ const SetWordsToLern = () => {
             setWordStage(prev => prev + 1)
         }
     }
-
-    useEffect(()=> {
-        console.log('Check sorted words', sortedWords)
-    }, [sortedWords])
 
     return (
         <section className={styleTW.containerWide}>
