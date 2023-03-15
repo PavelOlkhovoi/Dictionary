@@ -4,7 +4,7 @@ import ShowMeanings from '../../components/wordsForm/singleWord/ShowMeanings';
 import { styleTW } from '../../style';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import Loading from '../../components/Loading';
-import LineButton from "../../components/ui-elements/buttons'/LineButton";
+import LineButton from "../../components/ui-elements/buttons/LineButton";
 
 const Word = () => {
     const { idword } = useParams()

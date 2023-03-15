@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../hooks/redux-hooks";
 import { styleTW } from "../../style";
-import LineButton from "../../components/ui-elements/buttons'/LineButton";
+import LineButton from "../../components/ui-elements/buttons/LineButton";
 import GetSetsData from "../../components/adapter/GetSetsData";
 
 const ListSets = () => {

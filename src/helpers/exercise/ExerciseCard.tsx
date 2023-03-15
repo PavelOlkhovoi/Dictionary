@@ -5,7 +5,7 @@ import { useState } from "react";
 import { motion } from "framer-motion"
 import { addPointsToWord } from "../../backend/crudFunctions/words";
 import { deleteIdInRepeatArr } from "../../backend/crudFunctions/set";
-import LineButton from "../../components/ui-elements/buttons'/LineButton";
+import LineButton from "../../components/ui-elements/buttons/LineButton";
 
 interface Props {
     word: WordDb,

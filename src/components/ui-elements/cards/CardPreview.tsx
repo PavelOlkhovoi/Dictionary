@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { styleTW } from "../../../style"
-import LineButton from "../buttons'/LineButton"
+import LineButton from "../buttons/LineButton"
 import { useAppSelector } from "../../../hooks/redux-hooks"
 import { selectAllWordsIdsInArr, selectWordsArrById } from "../../../store/slices/wordSlice"
 import { useEffect } from "react"

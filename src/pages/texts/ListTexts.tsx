@@ -2,7 +2,7 @@ import { useAppSelector } from "../../hooks/redux-hooks";
 import Loading from "../../components/Loading"
 import { styleTW } from "../../style";
 import PreviewText from "../../components/text/PreviewText";
-import LineButton from "../../components/ui-elements/buttons'/LineButton";
+import LineButton from "../../components/ui-elements/buttons/LineButton";
 import { Link } from "react-router-dom";
 
 const ListTexts = () => {

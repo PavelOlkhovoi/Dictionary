@@ -1,7 +1,7 @@
 import { MeanigsForServer } from "../../../pages/types/word";
 import { firstCapitalLetter } from "../../../helpers/display";
 import { styleTW } from "../../../style";
-import LineButton from "../../ui-elements/buttons'/LineButton";
+import LineButton from "../../ui-elements/buttons/LineButton";
 import { useAppSelector } from "../../../hooks/redux-hooks";
 import { selectWordById } from "../../../store/slices/wordSlice";
 

@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import AddText from "../texts/AddText";
 import { selectTextsByIds } from "../../store/slices/textSlice";
 import { deleteTextIdFromTextArr } from "../../backend/crudFunctions/set";
-import LineButton from "../../components/ui-elements/buttons'/LineButton";
+import LineButton from "../../components/ui-elements/buttons/LineButton";
 
 const SingleSet = () => {
     const {idtext} = useParams()

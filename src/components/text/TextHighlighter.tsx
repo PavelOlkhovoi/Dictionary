@@ -2,7 +2,7 @@ import {FC, useEffect} from 'react'
 import { sortSimpleAndCompoundWordsFromWordDb } from '../../helpers/wordMatcher'
 import { WordDb } from '../../pages/types/word'
 import { AllWordsSorted } from '../../pages/types/word'
-import LineButton from '../ui-elements/buttons\'/LineButton'
+import LineButton from '../ui-elements/buttons/LineButton'
 import MyButton from '../wordsForm/ui/MyButton'
 
 interface Props {

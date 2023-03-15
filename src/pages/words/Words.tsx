@@ -3,7 +3,7 @@ import { useAppSelector } from '../../hooks/redux-hooks';
 import { styleTW } from '../../style';
 import { firstCapitalLetter } from '../../helpers/display';
 import { formatDistanceToNow, parseISO } from 'date-fns';
-import LineButton from '../../components/ui-elements/buttons\'/LineButton';
+import LineButton from '../../components/ui-elements/buttons/LineButton';
 import useExerciseSpaceWords from '../../hooks/useExerciseWords';
 import SpaceRepetitionPreview from '../../components/exercise/SpaceRepetitionPreview';
 

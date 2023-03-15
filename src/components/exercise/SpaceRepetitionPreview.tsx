@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import { styleTW } from '../../style';
-import LineButton from '../ui-elements/buttons\'/LineButton';
+import LineButton from '../ui-elements/buttons/LineButton';
 
 interface Props {
     step: number,
