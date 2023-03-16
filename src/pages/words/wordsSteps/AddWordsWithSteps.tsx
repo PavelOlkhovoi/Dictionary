@@ -9,13 +9,13 @@ interface Props {
     
 }
 const AddWordsWithSteps = ({ }: Props) => {
-    const [step, setStep] = useState(1)
+    const [step, setStep] = useState(4)
     return (
         <div>
-            <FastMeaning step={step} />
-            <AddTranslation />
-            <AddExamples />
-            <AddTagsStep />
+            <FastMeaning step={step} changeStep={setStep} />
+            <AddTranslation step={step} changeStep={setStep} />
+            <AddExamples step={step} changeStep={setStep} />
+            <AddTagsStep step={step} changeStep={setStep} />
         </div>
     )
 }
