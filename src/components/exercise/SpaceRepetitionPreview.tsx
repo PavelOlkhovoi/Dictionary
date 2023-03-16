@@ -6,7 +6,6 @@ interface Props {
     step: number,
     title: string,
     numberOfWords: number
-
 }
 const SpaceRepetitionPreview = ({step, title, numberOfWords}:Props) => {
     return (

@@ -30,8 +30,6 @@ const [words, setWords] = useState<WordsBasicWithId>(oldWords ? makeObjForFastAd
     } 
 })
 
-
-
 useEffect(()=> {
     if(oldWords){
         setWords(makeObjForFastAdding(oldWords as WordDb[]))

@@ -17,6 +17,7 @@ import ListSets from './pages/sets/ListSets';
 import SingleSet from './pages/sets/SingleSet';
 import EditSet from './pages/sets/EditSet';
 import SetWordsToLern from './pages/exercise/SetWordsToLern';
+import AddWordsWithSteps from './pages/words/wordsSteps/AddWordsWithSteps';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
       <Route path="words/edit/:idword" element={<WordEdit />} />
       <Route path="exercises/:idset" element={<SetWordsToLern />}/>
       <Route path="addwords" element={<AddWord />}/>
+      <Route path="addwordsSteps" element={<AddWordsWithSteps />}/>
       <Route path="auth" element={<SignUp />} />
       <Route path='/texts'>
         <Route index element={<ListTexts />} />
