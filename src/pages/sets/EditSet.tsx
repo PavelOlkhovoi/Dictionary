@@ -39,29 +39,31 @@ const EditSet = () => {
         const existingWordsArr = allToShow.filter(id => wordsIdsArr.includes(id))
         const finalWordsIdsArr = [...existingWordsArr]
 
-        for(const id of  allToShow){
-            if(existingWordsArr.includes(id)){
-                updateUserFastMeaning(id, words[id].name, words[id].translation)
-            }else{
-                const newWordId= await createFastWord({
-                    uid: user?.uid as string,
-                    word: words[id as keyof WordsBasicWithId].name,
-                    meaning: {
-                        nothing: ['']
-                    },
-                    fastMeaning: words[id as keyof WordsBasicWithId].translation,
-                    examples: [{example: '', translation: ''}],
-                    level: 'low',
-                    points: 0,
-                    priority: 'low',
-                    repeat: true,
-                    createdAt: serverTimestamp() as Timestamp
-                })
+        // for(const id of  allToShow){
+        //     if(existingWordsArr.includes(id)){
+        //         updateUserFastMeaning(id, words[id].name, words[id].translation)
+        //     }else{
+        //         const newWordId= await createFastWord({
+        //             uid: user?.uid as string,
+        //             word: words[id as keyof WordsBasicWithId].name,
+        //             meaning: {
+        //                 "noun": {
+        //                     part
+        //                 }
+        //             },
+        //             fastMeaning: words[id as keyof WordsBasicWithId].translation,
+        //             examples: [{example: '', translation: ''}],
+        //             level: 'low',
+        //             points: 0,
+        //             priority: 'low',
+        //             repeat: true,
+        //             createdAt: serverTimestamp() as Timestamp
+        //         })
 
-                finalWordsIdsArr.push(newWordId as string)
+        //         finalWordsIdsArr.push(newWordId as string)
 
-            }
-        }
+        //     }
+        // }
 
         finalWordsIdsArr.length > 0 && updateUserSet(set?.setId as string, title.value, source.value !== '' ?
         source.value : null , finalWordsIdsArr)

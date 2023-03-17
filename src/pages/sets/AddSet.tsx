@@ -21,34 +21,34 @@ const AddSet = () => {
 
     const getWords = async (words: WordsBasicWithId)=> {
         const idsArr = Object.keys(words)
-        const wordsArr: WordDb[] = idsArr.filter(id => words[id as keyof WordsBasicWithId].show && words[id as keyof WordsBasicWithId].name !== '' &&
-        words[id as keyof WordsBasicWithId].translation !== '').map(id => ({
-            uid: user?.uid as string,
-            word: words[id as keyof WordsBasicWithId].name,
-            meaning: {
-                nothing: ['']
-            },
-            fastMeaning: words[id as keyof WordsBasicWithId].translation,
-            examples: [{example: '', translation: ''}],
-            level: 'low',
-            points: 0,
-            priority: 'low',
-            repeat: true,
-            createdAt: serverTimestamp() as Timestamp,
-            repetition: {
-                firstRepetition: false,
-                secondRepetition: false,
-                thirdRepetition: false,
-                fourthRepetition: false,
-                fifthRepetition: false,
-                sixthRepetition: false,
-                seventhRepetition: false
-            }
-        }))
+        // const wordsArr: WordDb[] = idsArr.filter(id => words[id as keyof WordsBasicWithId].show && words[id as keyof WordsBasicWithId].name !== '' &&
+        // words[id as keyof WordsBasicWithId].translation !== '').map(id => ({
+        //     uid: user?.uid as string,
+        //     word: words[id as keyof WordsBasicWithId].name,
+        //     meaning: {
+        //         nothing: ['']
+        //     },
+        //     fastMeaning: words[id as keyof WordsBasicWithId].translation,
+        //     examples: [{example: '', translation: ''}],
+        //     level: 'low',
+        //     points: 0,
+        //     priority: 'low',
+        //     repeat: true,
+        //     createdAt: serverTimestamp() as Timestamp,
+        //     repetition: {
+        //         firstRepetition: false,
+        //         secondRepetition: false,
+        //         thirdRepetition: false,
+        //         fourthRepetition: false,
+        //         fifthRepetition: false,
+        //         sixthRepetition: false,
+        //         seventhRepetition: false
+        //     }
+        // }))
 
-        const res = await addManyWords(wordsArr)
+        // const res = await addManyWords(wordsArr)
 
-        res.length > 0 && saveSet(res)
+        // res.length > 0 && saveSet(res)
     }
 
     const saveSet = async (wordsIds: string[]) => {

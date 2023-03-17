@@ -6,7 +6,10 @@ export interface Meaning {
 }
 
 export interface MeanigsForServer {
-    [index: string]: string[]
+    PartOfSpeechSelect: {
+        partOfSpeech: PartOfSpeechSelect,
+        translation: string[]
+    }
 }
 
 export interface ExampleForServer {
@@ -86,3 +89,5 @@ export interface Repetition {
 
 export type TypeOfExercise = 'firstRepetition' | 'secondRepetition' | 'thirdRepetition' | 'thirdRepetition' | 
 'fourthRepetition' | 'fifthRepetition' | 'sixthRepetition' | 'seventhRepetition'
+
+export type PartOfSpeechSelect = 'none' | 'adjective' | 'verb' | 'noun' | 'phrasal verb' | 'preposition' | 'conjunctions' | 'adverb'

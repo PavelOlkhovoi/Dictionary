@@ -16,7 +16,7 @@ import MyButton from "../../components/wordsForm/ui/MyButton";
 
 const AddWord = () => {
     const word = useInput('')
-    const [meanings, setMeanings] = useState<MeanigsForServer>({})
+    const [meanings, setMeanings] = useState<MeanigsForServer>()
     const [examples, setExamples] = useState<ExampleForServer[]>([])
     const [tags, setTags] = useState<string[]>([])
 
@@ -81,18 +81,18 @@ const AddWord = () => {
   }
 
   function handleMeanings(meaningsGroup: Meaning[]){
-    const objMeanings: MeanigsForServer = {}
+    // const objMeanings: MeanigsForServer = {}
 
-    meaningsGroup.forEach(m => {
-      Object.keys(m).forEach(el => {
-          if(el !== 'tempId') {
-            objMeanings[el] = m[el] as string[]
-        }
-      })
-    })
+    // meaningsGroup.forEach(m => {
+    //   Object.keys(m).forEach(el => {
+    //       if(el !== 'tempId') {
+    //         objMeanings[el] = m[el] as string[]
+    //     }
+    //   })
+    // })
 
-    console.log('TTTT', objMeanings)
-  setMeanings(objMeanings)
+  //   console.log('TTTT', objMeanings)
+  // setMeanings(objMeanings)
 }
 
     function handleExamples(examplesArr: InputExamples[]){

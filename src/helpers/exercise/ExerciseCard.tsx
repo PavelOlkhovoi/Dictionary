@@ -28,7 +28,7 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExer
 
     const [meaning, setMeaning] = useState('')
 
-    const translation = word.fastMeaning ? word.fastMeaning : Object.keys(word.meaning).map(m => word.meaning[m as keyof MeanigsForServer][0])
+    // const translation = word.fastMeaning ? word.fastMeaning : Object.keys(word.meaning).map(m => word.meaning[m as keyof MeanigsForServer][0])
 
     const cardAnimation = {
         hidden: { x: -100, opacity: 0 },
@@ -96,7 +96,7 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExer
                 whileTap={{ scale: 0.9 }}
                 className={`${styleTW.card} ${styleTW.exerciseCardSkeleton}`}
                 >
-                    <span className={`${styleTW.exerciseWordCenter} text-xl`}>{translation}</span>
+                    {/* <span className={`${styleTW.exerciseWordCenter} text-xl`}>{translation}</span> */}
                     <div className="flex gap-4 justify-items-stretch mt-auto items-center">
                         <LineButton onClick={setHidden} color='red'>Hide</LineButton>
                     </div>
@@ -110,7 +110,7 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExer
             className={`${styleTW.card} ${styleTW.exerciseCardSkeleton}`}
             >
                 <div className="mb-3 w-full">
-                    Translation: <span className={styleTW.wordsMarker.blue}>{translation}</span>
+                    {/* Translation: <span className={styleTW.wordsMarker.blue}>{translation}</span> */}
                 </div>
                 <label className="my-auto">
                 <span className="w-full">
