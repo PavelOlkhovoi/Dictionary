@@ -1,6 +1,7 @@
 import {ReactNode} from 'react'
 import LineButton from '../../../components/ui-elements/buttons/LineButton';
 import { styleTW } from '../../../style';
+import WordStepPagination from './WordStepPagination';
 
 interface Props {
     step: number
@@ -14,17 +15,12 @@ const CardStepsWords = ({fieldSet, step, changeStep}: Props) => {
             <div className='border-2 flex-col'>
                 <div className='flex justify-between items-center'>
                     <h1 className={`${styleTW.title1}`}>Add Words</h1>
-                    <span className=''>Step {step} of 4</span>
+                    <span>Step <span className='text-blue-600 font-medium'>{step}</span> of 4</span>
                 </div>
                 {fieldSet}
                 <div className='flex gap-6 mt-6'>
                     <LineButton>Save</LineButton>
-                    <div className='flex gap-4'>
-                        <div onClick={()=> changeStep(1)}>1 <span>Add word</span></div>
-                        <div onClick={()=> changeStep(2)}>2 <span>Add translation</span></div>
-                        <div onClick={()=> changeStep(3)}>3 <span>Add example</span></div>
-                        <div onClick={()=> changeStep(4)}>4 <span>Add example</span></div>
-                    </div>
+                    <WordStepPagination currentStep={step} changeStep={changeStep}/>
                 </div>
             </div>
         </div>
