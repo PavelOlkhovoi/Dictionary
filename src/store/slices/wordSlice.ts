@@ -44,7 +44,7 @@ const wordSlice = createSlice({
         },
         updateMeanings(state, action: PayloadAction<{id: string, meanings: MeanigsForServer}>){
             const word = state.words.find(word => word.wordId === action.payload.id)
-            if(word){ word.meaning = action.payload.meanings }
+            // if(word){ word.meaning as WordDb = action.payload.meanings }
         },
         addPointsAndChangeRepetition(state, action: PayloadAction<{id: string, points: number, repetition: Repetition}>){
             const word = state.words.find(word => word.wordId === action.payload.id)

@@ -1,4 +1,5 @@
 import { Timestamp } from "firebase/firestore";
+import { type } from "os";
 
 export interface Meaning {
     tempId: number;
@@ -6,10 +7,8 @@ export interface Meaning {
 }
 
 export interface MeanigsForServer {
-    PartOfSpeechSelect: {
-        partOfSpeech: PartOfSpeechSelect,
-        translation: string[]
-    }
+    partOfSpeech: PartOfSpeechSelect,
+    translation: string[]
 }
 
 export interface ExampleForServer {
@@ -34,7 +33,7 @@ export interface WordDb {
     word: string
     createdAt: Timestamp | string
     repeat: boolean;
-    meaning: MeanigsForServer
+    meaning: AdvanceMeanings
     fastMeaning?: string
     priority: string
     points: number
@@ -91,3 +90,10 @@ export type TypeOfExercise = 'firstRepetition' | 'secondRepetition' | 'thirdRepe
 'fourthRepetition' | 'fifthRepetition' | 'sixthRepetition' | 'seventhRepetition'
 
 export type PartOfSpeechSelect = 'none' | 'adjective' | 'verb' | 'noun' | 'phrasal verb' | 'preposition' | 'conjunctions' | 'adverb'
+
+export type AdvanceMeaningsBack = Record<PartOfSpeechSelect, {partOfSpeech: PartOfSpeechSelect, translation: string[]}>
+export type AdvanceMeaningsForm = Record<PartOfSpeechSelect, {id: string, partOfSpeech: PartOfSpeechSelect, translation: string[], show: boolean}>
+
+export type AdvanceMeanings =  Partial<AdvanceMeaningsBack>
+
+export type MeaningForm = Partial<AdvanceMeaningsForm>
