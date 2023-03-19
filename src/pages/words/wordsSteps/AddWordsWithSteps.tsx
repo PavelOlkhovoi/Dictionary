@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useEffect } from "react";
 import { styleTW } from "../../../style";
 import { MeaningForm } from "../../types/word";
 import AddExamples from "./AddExamples";
@@ -10,7 +10,7 @@ import { nanoid } from '@reduxjs/toolkit'
 export interface WordForm {
     word: string,
     fastMeaning: string,
-    translation: MeaningForm | null
+    translation: MeaningForm
 }
 
 const AddWordsWithSteps = ({ }) => {
@@ -19,18 +19,16 @@ const AddWordsWithSteps = ({ }) => {
         word: '',
         fastMeaning: '',
         translation: {
-            none: {
-                id: nanoid(),
-                partOfSpeech: 'none',
-                translation: [''],
-                show: true
-            }
         }
     })
+
+    useEffect(() => {
+        console.log('Translation changed', word.translation)
+    }, [word.translation])
     return (
         <div>
             <FastMeaning step={step} changeStep={setStep} wordState={word} changeWordState={setWords}/>
-            <AddTranslation step={step} changeStep={setStep} />
+            <AddTranslation step={step} changeStep={setStep} wordState={word} changeWordState={setWords} />
             <AddExamples step={step} changeStep={setStep} />
             <AddTagsStep step={step} changeStep={setStep} />
         </div>
