@@ -53,6 +53,7 @@ const TranslationFields = ({groupState, groupId, changeTranslationGroup}: Props)
         })
 
         setMeanings(newState)
+        handleOnBlur()
     }
     return (
         <div className="py-4">
