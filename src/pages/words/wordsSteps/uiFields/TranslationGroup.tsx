@@ -4,6 +4,7 @@ import { PartOfSpeechSelect } from '../../../types/word';
 import { WordForm } from "../AddWordsWithSteps";
 import TranslationFields, { TranslationFieldsTest } from './TranslationFields';
 import { styleTW } from '../../../../style';
+import SelectPartOfSpeech from './SelectPartOfSpeech';
 
 export interface TranslationGroup {
     id: string,
@@ -38,25 +39,18 @@ const TranslationGroup = ({changeWordState, wordState}: Props) => {
         <div>
             {
                 wordState.translation.filter(g => g.show).map(g => <div key={g.id}>
-                <div>
-                    <label htmlFor={g.id}>Pick a part of speech: </label>
-                    <select value={g.name} onChange={(e) => handleSelect(g.id, e.target.value)} id={g.id}>
-                        <option value="noun">Noun</option>
-                        <option value="adjective">Adjective</option>
-                        <option value="verb">Verb</option>
-                        <option value="noun">Noun</option>
-                        <option value="phrasal verb">Phrasal verb</option>
-                        <option value="adverb">Adverb</option>
-                        <option value="preposition">Preposition</option>
-                        <option value="conjunctions">Conjunctions</option>
-                    </select>
-
-                    <div className={`${styleTW.bageRed}`} onClick={()=> deleteGroupHandler(g.id)}>X</div>
-                </div>
-                <TranslationFields
-                        wordState={wordState} 
-                        groupId={g.id}
-                        changeWordState={changeWordState} />
+                    <SelectPartOfSpeech
+                    value={g.name}
+                    formId={g.id}
+                    groupId={g.id}
+                    handleOption={handleSelect}
+                    deleteBtn={<div className={`${styleTW.bageRed}`} onClick={()=> deleteGroupHandler(g.id)}>X</div>}
+                    />
+                    <TranslationFields
+                    wordState={wordState} 
+                    groupId={g.id}
+                    changeWordState={changeWordState} 
+                    />
                 </div>)
             }
             <LineButton onClick={()=> changeWordState(wState => ({
