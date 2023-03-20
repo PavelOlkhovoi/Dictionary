@@ -1,6 +1,4 @@
-import { ReactNode, useState, useEffect } from "react";
-import { styleTW } from "../../../style";
-import { AdvanceMeanings } from "../../types/word";
+import { useState, useEffect } from "react";
 import AddExamples from "./AddExamples";
 import AddTagsStep from "./AddTagsStep";
 import AddTranslation from "./AddTranslation";
@@ -32,7 +30,7 @@ const AddWordsWithSteps = ({ }) => {
     })
 
     useEffect(() => {
-        console.log('Translation changed', word.translation)
+        console.log('Word Chenged', word)
     }, [word])
     return (
         <div>
