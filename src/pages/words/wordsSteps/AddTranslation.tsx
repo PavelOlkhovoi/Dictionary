@@ -14,7 +14,9 @@ const AddTranslation = ({step, changeStep, wordState, changeWordState}:Props) =>
         return null
     }
     return (
-        <CardStepsWords step={2} changeStep={changeStep} fieldSet={<TranslationGroup changeWordState={changeWordState}/>}/>
+        <CardStepsWords step={2} changeStep={changeStep} fieldSet={
+        <TranslationGroup changeWordState={changeWordState} wordState={wordState}/>
+    }/>
     )
 }
 

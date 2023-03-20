@@ -1,78 +1,81 @@
 import { nanoid } from "@reduxjs/toolkit";
-import { useState } from "react";
 import LineButton from "../../../../components/ui-elements/buttons/LineButton";
 import MyInput from "../../../../components/wordsForm/ui/MyInput";
-import useInput from "../../../../hooks/useInput";
 import { styleTW } from "../../../../style";
-import { PartOfSpeechSelect } from "../../../types/word";
 import { WordForm } from "../AddWordsWithSteps";
-import { TranslationGroup } from "./TranslationGroup";
 
-
-interface Props {
-    groupState: TranslationGroup[]
-    groupId: string
-    changeTranslationGroup: React.Dispatch<React.SetStateAction<TranslationGroup[]>>
+export interface TranslationFieldsTest {
+    id: string
+    name: string
+    show: boolean
 }
 
-const TranslationFields = ({groupState, groupId, changeTranslationGroup}: Props) => {
-    const [meanings, setMeanings] = useState([{
-        id: nanoid(),
-        name: '',
-        show: true
-    }])
+interface Props {
+    wordState: WordForm
+    groupId: string
+    changeWordState: React.Dispatch<React.SetStateAction<WordForm>>
+}
+
+const TranslationFields = ({wordState, groupId, changeWordState}: Props) => {
+    const targetGroup = wordState.translation.find(g => g.id === groupId)
+    if(!targetGroup){
+        throw new Error('Target group was not found')
+    }
+
+    const copyState = [...wordState.translation]
+
+    const updateTranslationCorrect = ()=> {
+        changeWordState(wordState => ({
+            ...wordState,
+            translation: copyState
+        }))
+    }
 
     const handleMeaning = (meaningId: string, text: string) => {
-        const newState = meanings.map(m => {
-            if(meaningId === m.id){
-                return {
-                    ...m,
-                    name: text
-                }
-            }
-            return m
-        })
-
-        setMeanings(newState)
-    }
-
-    const handleOnBlur = () => {
-        const cleanTranslation = meanings.filter(t => t.show).map(t => t.name)
-        const targetGroup = groupState.map(g => {
-            if(g.id === groupId){
-                g.translation = cleanTranslation
-            }
-            return g
-        })
-        changeTranslationGroup(targetGroup)
-    }
-    const deleteHandler = (id: string) => {
-        const newState = meanings.map(t => {
-            if(t.id === id){t.show = false}
+        targetGroup.translation.map(t => {
+            if(t.id === meaningId){t.name = text}
             return t
         })
 
-        setMeanings(newState)
-        handleOnBlur()
+        updateTranslationCorrect()
     }
+
+    const handleOnBlur = () => {
+        // changeTranslationGroup(targetGroup)
+    }
+    const deleteHandler = (id: string) => {
+        targetGroup.translation.map(t => {
+            if(t.id === id){t.show = false}
+            return t
+        })
+        
+        updateTranslationCorrect()
+        // handleOnBlur()
+    }
+
+    const addFields = () => {
+        targetGroup.translation = [...targetGroup.translation, {id: nanoid(), name: '', show: true}]
+        updateTranslationCorrect()
+    }
+
     return (
         <div className="py-4">
 
             {
-            meanings.map(m => {
+            targetGroup.translation.map(m => {
                 return m.show && <div key={m.id} className="flex items-start">
-                <MyInput 
-                name="translation" label="translation" 
-                value={m.name} onChange={(e) => handleMeaning(m.id, e.target.value)}
-                onBlur={handleOnBlur}
-                />
-                <div className={`${styleTW.bageRed}`} onClick={()=> deleteHandler(m.id)}>X</div>
+                    <MyInput 
+                    name="translation" label="translation" 
+                    value={m.name} onChange={(e) => handleMeaning(m.id, e.target.value)}
+                    onBlur={handleOnBlur}
+                    />
+                    <div className={`${styleTW.bageRed}`} onClick={()=> deleteHandler(m.id)}>X</div>
                 </div> 
                 })
             }
             
             <div>
-                <LineButton onClick={()=> setMeanings(prev => [...prev, {id: nanoid(), name: '', show: true}])}>New translation</LineButton>
+                <LineButton onClick={addFields}>New translation</LineButton>
             </div>
         </div>
     )

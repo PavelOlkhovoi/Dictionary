@@ -6,11 +6,12 @@ import AddTagsStep from "./AddTagsStep";
 import AddTranslation from "./AddTranslation";
 import FastMeaning from "./FastMeaning";
 import { nanoid } from '@reduxjs/toolkit'
+import { TranslationGroup } from "./uiFields/TranslationGroup";
 
 export interface WordForm {
     word: string,
     fastMeaning: string,
-    translation: AdvanceMeanings
+    translation: TranslationGroup[]
 }
 
 const AddWordsWithSteps = ({ }) => {
@@ -18,7 +19,16 @@ const AddWordsWithSteps = ({ }) => {
     const [word, setWords] = useState<WordForm>({
         word: '',
         fastMeaning: '',
-        translation: {}
+        translation: [{
+            id: nanoid(),
+            name: 'none',
+            translation: [{
+                id: nanoid(),
+                name: '',
+                show: true
+            }],
+            show: true
+        }],
     })
 
     useEffect(() => {

@@ -3,75 +3,71 @@ import {useState, useEffect} from 'react'
 import LineButton from '../../../../components/ui-elements/buttons/LineButton';
 import { PartOfSpeechSelect, AdvanceMeanings } from '../../../types/word';
 import { WordForm } from "../AddWordsWithSteps";
-import TranslationFields from './TranslationFields';
+import TranslationFields, { TranslationFieldsTest } from './TranslationFields';
 import { styleTW } from '../../../../style';
 
 export interface TranslationGroup {
     id: string,
     name: PartOfSpeechSelect,
-    translation: string[],
+    translation: TranslationFieldsTest[],
     show: boolean
 }
 
 interface Props {
+    wordState: WordForm
     changeWordState: React.Dispatch<React.SetStateAction<WordForm>> 
 }
-const TranslationGroup = ({changeWordState}: Props) => {
-    const [selectItems, setSelectItems] = useState<TranslationGroup[]>([{
-        id: nanoid(),
-        name: 'none',
-        translation: [''],
-        show: true
-    }])
+const TranslationGroup = ({changeWordState, wordState}: Props) => {
+    // const [selectItems, setSelectItems] = useState<WordForm>({...wordState})
 
     const handleSelect = (id: string, value: string) => {
-        const selectedGroup = selectItems.map(items => {
-            if(items.id === id){
-                items.name = value as PartOfSpeechSelect
-            }
-            return items
-        })
+        // const selectedGroup = selectItems.map(items => {
+        //     if(items.id === id){
+        //         items.name = value as PartOfSpeechSelect
+        //     }
+        //     return items
+        // })
 
-        setSelectItems(selectedGroup)
+        // setSelectItems(selectedGroup)
     }
 
     const deleteGroupHandler = (id: string) => {
-        const newState = selectItems.map(g => {
-            if(g.id === id){
-                g.show = false
-            }
-            return g
-        })
-        setSelectItems(newState)
+        // const newState = selectItems.map(g => {
+        //     if(g.id === id){
+        //         g.show = false
+        //     }
+        //     return g
+        // })
+        // setSelectItems(newState)
     }
 
-    useEffect(() => {
-        const meargedGroup: AdvanceMeanings = {}
-        selectItems.forEach(g => {
+    // useEffect(() => {
+    //     const meargedGroup: AdvanceMeanings = {}
+    //     selectItems.forEach(g => {
             
-            const allMeanings = selectItems.filter(g => meargedGroup.hasOwnProperty(g.name as keyof AdvanceMeanings))
-            .map(t => t.translation).flat()
-            if(allMeanings.length > 0){
-                meargedGroup[g.name as keyof AdvanceMeanings] = {
-                    translation: allMeanings
-                }
-            }else {
-                meargedGroup[g.name as keyof AdvanceMeanings] = {
-                    translation: g.translation
-                }
-            }
+    //         const allMeanings = selectItems.filter(g => meargedGroup.hasOwnProperty(g.name as keyof AdvanceMeanings))
+    //         .map(t => t.translation).flat()
+    //         if(allMeanings.length > 0){
+    //             meargedGroup[g.name as keyof AdvanceMeanings] = {
+    //                 translation: allMeanings
+    //             }
+    //         }else {
+    //             meargedGroup[g.name as keyof AdvanceMeanings] = {
+    //                 translation: g.translation
+    //             }
+    //         }
             
-        })
+    //     })
 
-        console.log('Translation group was changed', meargedGroup)
+    //     console.log('Translation group was changed', meargedGroup)
 
-        changeWordState(wState => ({...wState, translation: meargedGroup}))
+    //     changeWordState(wState => ({...wState, translation: meargedGroup}))
 
-    }, [selectItems])
+    // }, [selectItems])
     return (
         <div>
             {
-                selectItems.filter(g => g.show).map(g => <div key={g.id}>
+                wordState.translation.filter(g => g.show).map(g => <div key={g.id}>
                     <div>
                         <label>
                         Pick a part of speech: 
@@ -88,11 +84,23 @@ const TranslationGroup = ({changeWordState}: Props) => {
                         </label>
                         <div className={`${styleTW.bageRed}`} onClick={()=> deleteGroupHandler(g.id)}>X</div>
                     </div>
-                    <TranslationFields groupState={selectItems} groupId={g.id} changeTranslationGroup={setSelectItems} />
+                    <TranslationFields
+                            wordState={wordState} 
+                            groupId={g.id}
+                            changeWordState={changeWordState} />
                 </div>)
             }
-            <LineButton onClick={()=> setSelectItems(prev => 
-            [...prev, { id: nanoid(), name: 'none', translation: [''], show: true}])}
+            <LineButton onClick={()=> changeWordState(wState => ({
+                ...wState, translation: [...wState.translation, { id: nanoid(), name: 'none', translation: [{
+                    id: nanoid(),
+                    name: '',
+                    show: true
+                }], 
+                show: true}
+            ]
+            }))}
+            
+            
             >
                 New groupe
             </LineButton>
