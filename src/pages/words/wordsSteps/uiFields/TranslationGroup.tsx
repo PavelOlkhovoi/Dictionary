@@ -1,7 +1,7 @@
 import { nanoid } from '@reduxjs/toolkit';
 import {useState, useEffect} from 'react'
 import LineButton from '../../../../components/ui-elements/buttons/LineButton';
-import { PartOfSpeechSelect } from '../../../types/word';
+import { PartOfSpeechSelect, AdvanceMeanings } from '../../../types/word';
 import { WordForm } from "../AddWordsWithSteps";
 import TranslationFields from './TranslationFields';
 import { styleTW } from '../../../../style';
@@ -46,7 +46,27 @@ const TranslationGroup = ({changeWordState}: Props) => {
     }
 
     useEffect(() => {
-        console.log('Changed select items', selectItems)
+        const meargedGroup: AdvanceMeanings = {}
+        selectItems.forEach(g => {
+            
+            const allMeanings = selectItems.filter(g => meargedGroup.hasOwnProperty(g.name as keyof AdvanceMeanings))
+            .map(t => t.translation).flat()
+            if(allMeanings.length > 0){
+                meargedGroup[g.name as keyof AdvanceMeanings] = {
+                    translation: allMeanings
+                }
+            }else {
+                meargedGroup[g.name as keyof AdvanceMeanings] = {
+                    translation: g.translation
+                }
+            }
+            
+        })
+
+        console.log('Translation group was changed', meargedGroup)
+
+        changeWordState(wState => ({...wState, translation: meargedGroup}))
+
     }, [selectItems])
     return (
         <div>
@@ -79,7 +99,5 @@ const TranslationGroup = ({changeWordState}: Props) => {
         </div>
     )
 }
-
-// <TranslationFields wordState={wordState} changeWordState={changeWordState} />} changeStep={changeStep}
 
 export default TranslationGroup;
