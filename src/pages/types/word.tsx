@@ -1,5 +1,4 @@
 import { Timestamp } from "firebase/firestore";
-import { type } from "os";
 
 export interface Meaning {
     tempId: number;
@@ -97,3 +96,10 @@ export type AdvanceMeaningsForm = Record<PartOfSpeechSelect, {id: string, partOf
 export type AdvanceMeanings =  Partial<AdvanceMeaningsBack>
 
 export type MeaningForm = Partial<AdvanceMeaningsForm>
+
+export interface ExampleForm {
+    id: string;
+    example: string;
+    translation: string;
+    show: boolean
+}

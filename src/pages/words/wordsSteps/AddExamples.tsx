@@ -1,16 +1,22 @@
 import CardStepsWords from "./CardStepsWords";
+import { WordForm } from "./AddWordsWithSteps";
+import ExamplesFields from "./uiFields/ExamplesFields";
 
 interface Props {
     step: number
-    changeStep: React.Dispatch<React.SetStateAction<number>>
+    changeStep: React.Dispatch<React.SetStateAction<number>>,
+    wordState: WordForm,
+    changeWordState: React.Dispatch<React.SetStateAction<WordForm>>
 }
 
-const AddExamples = ({step, changeStep}: Props) => {
+const AddExamples = ({step, changeStep, wordState, changeWordState}: Props) => {
     if (step !== 3){
         return null
     }
     return (
-        <CardStepsWords step={3} fieldSet={<h1>Examples</h1>} changeStep={changeStep}/>
+        <CardStepsWords step={3} fieldSet={
+            <ExamplesFields wordState={wordState} changeWordState={changeWordState} />
+        } changeStep={changeStep}/>
     )
 }
 
