@@ -58,6 +58,8 @@ const initialState: IState = {
     return response
   })
 
+  export const selectAllTags = (state: RootState) => state.tag.tags
+
   export const selectWordsByTag = (state: RootState, ids?: string[]) => {
     const rangeWords: WordDb[] = []
     ids?.forEach(id => {
@@ -67,7 +69,6 @@ const initialState: IState = {
     })
 
     return rangeWords
-
 }
 
   export const { addTag, deleteWordFromTag, addWordToTag } = tagSlice.actions

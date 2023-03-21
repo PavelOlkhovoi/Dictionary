@@ -1,4 +1,6 @@
 import CardStepsWords from "./CardStepsWords";
+import AllTagsBar from "./uiFields/AllTagsBar";
+import ManageTags from "./uiFields/ManageTags";
 
 interface Props {
     step: number
@@ -10,7 +12,7 @@ const AddTagsStep = ({step, changeStep}:Props) => {
         return null
     }
     return (
-        <CardStepsWords step={4} fieldSet={<h1>Tags</h1>} changeStep={changeStep}/>
+        <CardStepsWords step={4} fieldSet={<ManageTags />} changeStep={changeStep}/>
     )
 }
 

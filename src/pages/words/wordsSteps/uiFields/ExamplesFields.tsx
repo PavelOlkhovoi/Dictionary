@@ -3,6 +3,7 @@ import { WordForm } from "../AddWordsWithSteps"
 import { styleTW } from "../../../../style";
 import { nanoid } from "@reduxjs/toolkit";
 import LineButton from "../../../../components/ui-elements/buttons/LineButton";
+
 interface Props {
     wordState: WordForm,
     changeWordState: React.Dispatch<React.SetStateAction<WordForm>>

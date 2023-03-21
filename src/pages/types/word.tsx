@@ -103,3 +103,9 @@ export interface ExampleForm {
     translation: string;
     show: boolean
 }
+
+export interface TagForm {
+    id: string
+    name: string
+    show: boolean
+}
