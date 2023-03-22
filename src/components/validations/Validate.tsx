@@ -1,4 +1,3 @@
-import React from 'react';
 import useValidation, { Validations } from '../../hooks/useValidation';
 
 interface Props {
@@ -8,8 +7,7 @@ interface Props {
     show: boolean
 }
 const Validate = ({value, pattern, isFormReady, show}: Props) => {
-    const validate = useValidation(value, pattern)
-   
+    const validate = useValidation(value, pattern, pattern.isTextUnique)
     if(!show){
         return null
     }
@@ -22,6 +20,10 @@ const Validate = ({value, pattern, isFormReady, show}: Props) => {
         {
             (!validate.minLengthError &&  pattern.minLength) &&
             <p className='text-red-600'>*Length should be more then {pattern.minLength} letters</p>
+        }
+        {
+            (!validate.uniqueTextError && pattern.isTextUnique) && 
+            <p className='text-red-600'>*This name has already exist</p>
         }
     </div>;
 }

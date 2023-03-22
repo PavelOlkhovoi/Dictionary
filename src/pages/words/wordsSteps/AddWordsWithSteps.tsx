@@ -47,7 +47,7 @@ const AddWordsWithSteps = ({ }) => {
             <FastMeaning step={step} changeStep={setStep} wordState={word} changeWordState={setWords}/>
             <AddTranslation step={step} changeStep={setStep} wordState={word} changeWordState={setWords} />
             <AddExamples step={step} changeStep={setStep} wordState={word} changeWordState={setWords}/>
-            <AddTagsStep step={step} changeStep={setStep} />
+            <AddTagsStep wordState={word} changeWordState={setWords} step={step} changeStep={setStep} />
         </div>
     )
 }

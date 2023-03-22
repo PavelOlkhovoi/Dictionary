@@ -1,19 +1,19 @@
-import useTags from "../../../../hooks/useTags";
 import { styleTW } from "../../../../style";
+import { Tag } from "../../../types/word";
 
 interface Props {
-    manageClick: Function
+    manageClick: Function,
+    tags: Tag[]
 }
 
-const AllTagsBar = ({manageClick}: Props) => {
-    const tags = useTags()
+const AllTagsBar = ({manageClick, tags}: Props) => {
     const handleClick = (id: string, tagName: string) => {
         manageClick(id, tagName)
     }
     return (
         <div className="flex flex-wrap gap-2">
             {
-                tags.all.map(t => <div 
+                tags.map(t => <div 
                     key={t.tagId}
                     className={`${styleTW.bageBlue}`}
                     onClick={() => handleClick(t.tagId, t.name)}
