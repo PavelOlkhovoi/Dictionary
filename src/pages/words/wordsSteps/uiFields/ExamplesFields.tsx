@@ -10,6 +10,7 @@ interface Props {
 }
 
 const ExamplesFields = ({wordState, changeWordState}: Props) => {
+    
     const changeInputs = (id: string, text: string, field: 'example' | 'translation') => {
         const targetGroup = wordState.examples.find(ex => ex.id === id)
         if(!targetGroup){return false}

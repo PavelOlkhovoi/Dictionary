@@ -13,28 +13,31 @@ interface Props {
 
 const ManageTags = ({wordState, changeWordState}: Props) => {
     const tags = useTags()
-    const [checkedTags, setCheckedTags] = useState<TagForm[]>([])
-    const checkHandle = (id: string, name: string) => {
-        const isTagadded = checkedTags.find(t => t.id === id)
-        if(isTagadded){return false}
 
-        setCheckedTags(prev => [...prev, {id, name, show: true}])
+    const addHandle = (id: string, name: string) => {
+        changeWordState(wState => ({...wState, tags: {
+            ...wState.tags,
+            addedTags: [...wState.tags.addedTags, {id, tagId: id, name, show: true}]
+        }}))
     }
 
     const removeChecked = (id: string) => {
-        const targetTag = checkedTags.map(t => {
+        const targetTag = wordState.tags.addedTags.map(t => {
             if(t.id === id) {
                 t.show = false
             }
             return t
         })
-        setCheckedTags(targetTag)
+        changeWordState(wState => ({...wState, tags: {
+            ...wState.tags,
+            addedTags: targetTag
+        }}))
     }
     return (
         <div>
-            <AllTagsBar tags={tags.all} manageClick={checkHandle}/>
+            <AllTagsBar tags={tags.all} manageClick={addHandle}/>
             {
-                checkedTags && checkedTags.filter(t => t.show).map(t => 
+                wordState.tags.addedTags.length > 0 && wordState.tags.addedTags.filter(t => t.show).map(t => 
                 <div 
                 key={t.id} className={`${styleTW.bageRed} cursor-pointer`}
                 onClick={()=> removeChecked(t.id)}

@@ -7,11 +7,11 @@ export interface Validations {
 } 
 
 const useValidation = (value: string, validations: Validations, textArr?: string[]) => {
-    debugger
     const [isEmpty, setIsEmpty] = useState(true)
     const [minLengthError, setMinLengthError] = useState(false)
     const [uniqueTextError, setUniqueTextError] = useState(false)
     const [correctField, setCorrectField] = useState(false)
+    
     useEffect(()=> {
         for (const validation in validations){
             switch(validation){
@@ -22,7 +22,7 @@ const useValidation = (value: string, validations: Validations, textArr?: string
                 value ? setIsEmpty(false) : setIsEmpty(true)
                 break;
                 case 'isTextUnique':
-                textArr?.map(t => t.toLocaleUpperCase()).includes(value.toLocaleUpperCase()) ? setUniqueTextError(false) : setUniqueTextError(true)
+                textArr?.map(t => t.toLocaleUpperCase().trim()).includes(value.toLocaleUpperCase().trim()) ? setUniqueTextError(false) : setUniqueTextError(true)
                 break;
             }
         }

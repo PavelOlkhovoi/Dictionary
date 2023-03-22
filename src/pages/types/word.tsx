@@ -109,3 +109,10 @@ export interface TagForm {
     name: string
     show: boolean
 }
+
+export interface AddedTagForm {
+    id: string
+    tagId: string
+    name: string
+    show: boolean
+}
