@@ -12,7 +12,10 @@ interface Props {
 }
 
 const CreateTagStep = ({wordState, changeWordState, tagsNames}: Props) => {
-    const [validated , setValidated ] = useState({isUniqueName: false})
+    const [validated , setValidated] = useState({
+        isFormReady: true,
+        isUniqueName: false
+    })
 
     const tagNameHandle = (id: string, text: string) => {
         const targetTag = wordState.tags.newTags.find(t => t.id === id)
@@ -49,7 +52,7 @@ const CreateTagStep = ({wordState, changeWordState, tagsNames}: Props) => {
                     <MyInput label="New tag" name="newtag" value={t.name} onChange={(e) => tagNameHandle(t.id, e.target.value)}/>
                     <DeleteBtn idBtn={t.id} deleteHandler={deleteNewTag}/>
                     </div>
-                    <Validate value={t.name} pattern={{isTextUnique: tagsNames}} show={validated.isUniqueName}/>
+                    {/* <Validate value={t.name} pattern={{isTextUnique: tagsNames}} show={validated.isUniqueName}/> */}
                 </div>
                 )
             }

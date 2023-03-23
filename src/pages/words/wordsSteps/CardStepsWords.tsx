@@ -7,9 +7,10 @@ interface Props {
     step: number
     fieldSet: ReactNode,
     changeStep: React.Dispatch<React.SetStateAction<number>>
+    errorless?: boolean
 }
 
-const CardStepsWords = ({fieldSet, step, changeStep}: Props) => {
+const CardStepsWords = ({fieldSet, step, changeStep, errorless = true}: Props) => {
     return (
         <div className={`${styleTW.containerWide}`}>
             <div className='border-2 flex-col'>
@@ -19,7 +20,7 @@ const CardStepsWords = ({fieldSet, step, changeStep}: Props) => {
                 </div>
                 {fieldSet}
                 <div className='flex gap-6 mt-6'>
-                    <LineButton>Save</LineButton>
+                    <LineButton disabled={errorless} detach={errorless} onClick={()=> console.log('I am not disable')}>Save</LineButton>
                     <WordStepPagination currentStep={step} changeStep={changeStep}/>
                 </div>
             </div>

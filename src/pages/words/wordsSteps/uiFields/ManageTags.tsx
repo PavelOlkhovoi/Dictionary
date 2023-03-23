@@ -1,10 +1,9 @@
 import AllTagsBar from "./AllTagsBar";
 import { WordForm } from "../AddWordsWithSteps";
-import { useState } from "react";
-import { TagForm } from "../../../types/word";
 import { styleTW } from "../../../../style";
 import CreateTagStep from "./CreateTagStep";
 import useTags from "../../../../hooks/useTags";
+import { nanoid } from "@reduxjs/toolkit";
 
 interface Props {
     wordState: WordForm,
@@ -15,10 +14,24 @@ const ManageTags = ({wordState, changeWordState}: Props) => {
     const tags = useTags()
 
     const addHandle = (id: string, name: string) => {
-        changeWordState(wState => ({...wState, tags: {
-            ...wState.tags,
-            addedTags: [...wState.tags.addedTags, {id, tagId: id, name, show: true}]
-        }}))
+        const isUnique = wordState.tags.addedTags.find(t => t.tagId === id)
+        if(!isUnique) {
+            changeWordState(wState => ({...wState, tags: {
+                ...wState.tags,
+                addedTags: [...wState.tags.addedTags, {id: nanoid(), tagId: id, name, show: true}]
+            }}))
+
+            return false
+        }
+
+        if(!isUnique.show){
+            isUnique.show = true
+            changeWordState(wState => ({...wState, tags: {
+                ...wState.tags,
+                addedTags: [...wState.tags.addedTags]
+            }}))
+        }
+            
     }
 
     const removeChecked = (id: string) => {

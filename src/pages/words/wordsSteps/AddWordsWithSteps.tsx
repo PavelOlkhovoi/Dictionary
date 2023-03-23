@@ -5,7 +5,7 @@ import AddTranslation from "./AddTranslation";
 import FastMeaning from "./FastMeaning";
 import { nanoid } from '@reduxjs/toolkit'
 import { TranslationGroup } from "./uiFields/TranslationGroup";
-import { AddedTagForm, ExampleForm, TagForm } from "../../types/word";
+import { AddedTagForm, ExampleForm, IsFormReady, TagForm } from "../../types/word";
 
 export interface WordForm {
     word: string,
@@ -15,11 +15,12 @@ export interface WordForm {
     tags: {
         newTags: TagForm[]
         addedTags: AddedTagForm[]
-    }
+    },
+    validFields: IsFormReady
 }
 
 const AddWordsWithSteps = ({ }) => {
-    const [step, setStep] = useState(2)
+    const [step, setStep] = useState(1)
     const [word, setWords] = useState<WordForm>({
         word: '',
         fastMeaning: '',
@@ -42,15 +43,15 @@ const AddWordsWithSteps = ({ }) => {
         tags: {
             newTags: [{id: nanoid(), name: '', show: true}],
             addedTags: []
-        }
+        },
+        validFields: {word: false, fastMeaning: false}
     })
 
     useEffect(() => {
-        console.log('Word Chenged', word)
     }, [word])
     return (
         <div>
-            <FastMeaning step={step} changeStep={setStep} wordState={word} changeWordState={setWords}/>
+            <FastMeaning step={step} changeStep={setStep} wordState={word} changeWordState={setWords} />
             <AddTranslation step={step} changeStep={setStep} wordState={word} changeWordState={setWords} />
             <AddExamples step={step} changeStep={setStep} wordState={word} changeWordState={setWords}/>
             <AddTagsStep wordState={word} changeWordState={setWords} step={step} changeStep={setStep} />

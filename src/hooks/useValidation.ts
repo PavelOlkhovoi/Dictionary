@@ -6,7 +6,7 @@ export interface Validations {
     isTextUnique?: string[]
 } 
 
-const useValidation = (value: string, validations: Validations, textArr?: string[]) => {
+const useValidation = (value: string, validations: Validations) => {
     const [isEmpty, setIsEmpty] = useState(true)
     const [minLengthError, setMinLengthError] = useState(false)
     const [uniqueTextError, setUniqueTextError] = useState(false)
@@ -16,13 +16,13 @@ const useValidation = (value: string, validations: Validations, textArr?: string
         for (const validation in validations){
             switch(validation){
                 case 'minLength': 
-                value.length < (validations.minLength as number) ? setMinLengthError(false) : setMinLengthError(true)
+                value.length < (validations.minLength as number) ? setMinLengthError(prev => false) : setMinLengthError(prev => true)
                 break;
                 case 'isEmpty':
-                value ? setIsEmpty(false) : setIsEmpty(true)
+                value === '' ? setIsEmpty(prev => true) : setIsEmpty(prev => false)
                 break;
                 case 'isTextUnique':
-                textArr?.map(t => t.toLocaleUpperCase().trim()).includes(value.toLocaleUpperCase().trim()) ? setUniqueTextError(false) : setUniqueTextError(true)
+                validations.isTextUnique?.map(t => t.toLocaleUpperCase().trim()).includes(value.toLocaleUpperCase().trim()) ? setUniqueTextError(prev => false) : setUniqueTextError(prev => true)
                 break;
             }
         }

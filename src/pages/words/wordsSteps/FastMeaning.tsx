@@ -15,8 +15,10 @@ const FastMeaning = ({step, changeStep, wordState, changeWordState}:Props) => {
     return (
         <CardStepsWords 
         step={step} 
-        fieldSet={<FastMeaningFields wordState={wordState} changeWordState={changeWordState}/>} 
-        changeStep={changeStep}/>
+        fieldSet={<FastMeaningFields wordState={wordState} changeWordState={changeWordState} />} 
+        changeStep={changeStep}
+        // errorless={wordState.isReady}
+        />
     )
 }
 

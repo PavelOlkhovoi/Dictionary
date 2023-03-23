@@ -15,6 +15,7 @@ export const styleTW = {
     exerciseWordCenter: "my-6 flex-1 flex items-center",
     exerciseCardSkeleton: "flex flex-col items-center m-auto max-w-xs w-full aspect-square",
     inputLine: 'border-b-2 w-full py-1 bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+    btnDisable: "text-white bg-blue-600 disabled:opacity-50",
     wordsMarker: {
         blue: 'text-blue-800 font-medium',
         yellow: 'text-yellow-800 font-medium',

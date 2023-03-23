@@ -9,7 +9,7 @@ interface Props {
     changeWordState: React.Dispatch<React.SetStateAction<WordForm>>
 }
 
-const AddTagsStep = ({step, changeStep, wordState, changeWordState}:Props) => {
+const AddTagsStep = ({step, changeStep, wordState, changeWordState}: Props) => {
     if (step !== 4){
         return null
     }

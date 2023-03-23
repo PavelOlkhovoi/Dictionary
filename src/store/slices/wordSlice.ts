@@ -76,9 +76,10 @@ export const fetchWords = createAsyncThunk('words/fetchWords', async (uid: strin
 })
 
 export const selectAllWords = (state: RootState) => {
-    console.log('Get all words with selector')
     return state.word.words
 }
+
+export const selectWordsAsStringInArr = createSelector(selectAllWords, words => words.map(w => w.word))
 
 export const selectWordsArrByName = (state: RootState, words: string[]) => {
     const res = state.word.words.filter(w => words.includes(w.word)).map(w => w.wordId)

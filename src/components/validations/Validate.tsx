@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useValidation, { Validations } from '../../hooks/useValidation';
 
 interface Props {
@@ -6,8 +7,14 @@ interface Props {
     isFormReady?: Function
     show: boolean
 }
-const Validate = ({value, pattern, isFormReady, show}: Props) => {
-    const validate = useValidation(value, pattern, pattern.isTextUnique)
+const Validate = ({value, pattern, isFormReady = () => null, show}: Props) => {
+    const validate = useValidation(value, pattern)
+    
+    useEffect(()=> {
+        console.log("Validate", Object.keys(pattern))
+        isFormReady(validate.correctField)
+    }, [])
+
     if(!show){
         return null
     }
