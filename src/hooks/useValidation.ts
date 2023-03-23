@@ -4,7 +4,15 @@ export interface Validations {
     minLength?: number
     isEmpty?: boolean
     isTextUnique?: string[]
-} 
+}
+
+export interface ErrorStatus {
+    isEmpty: boolean
+    minLengthError: boolean
+    uniqueTextError: boolean
+    patterns: string[]
+    correctField: boolean
+}
 
 const useValidation = (value: string, validations: Validations) => {
     const [isEmpty, setIsEmpty] = useState(true)
@@ -41,8 +49,9 @@ const useValidation = (value: string, validations: Validations) => {
         isEmpty,
         minLengthError,
         uniqueTextError,
+        patterns: Object.keys(validations),
         correctField
-    };
+    } as ErrorStatus;
 }
 
 
