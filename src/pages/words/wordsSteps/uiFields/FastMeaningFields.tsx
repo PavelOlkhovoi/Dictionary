@@ -36,6 +36,10 @@ const FastMeaningFields = ({wordState, changeWordState}: Props) => {
         handleValidFields(wordValid.uniqueTextError && !wordValid.isEmpty, 'word')
     }, [wordValid.isEmpty, wordValid.uniqueTextError])
 
+    useEffect(() => {
+        handleValidFields(fastMeaningValid.minLengthError, 'fastMeaning')
+    }, [fastMeaningValid.minLengthError])
+
     return (
         <div className="py-4">
             <MyInput 

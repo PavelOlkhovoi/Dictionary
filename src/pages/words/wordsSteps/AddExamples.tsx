@@ -10,13 +10,19 @@ interface Props {
 }
 
 const AddExamples = ({step, changeStep, wordState, changeWordState}: Props) => {
+    const errorless = wordState.validFields.word && wordState.validFields.fastMeaning
     if (step !== 3){
         return null
     }
     return (
-        <CardStepsWords step={3} fieldSet={
+        <CardStepsWords 
+        step={3} 
+        fieldSet={
             <ExamplesFields wordState={wordState} changeWordState={changeWordState} />
-        } changeStep={changeStep}/>
+        } 
+        changeStep={changeStep}
+        errorless={errorless}
+        />
     )
 }
 

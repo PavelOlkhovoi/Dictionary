@@ -7,7 +7,7 @@ interface Props {
     step: number
     fieldSet: ReactNode,
     changeStep: React.Dispatch<React.SetStateAction<number>>
-    errorless?: boolean
+    errorless: boolean
 }
 
 const CardStepsWords = ({fieldSet, step, changeStep, errorless = true}: Props) => {
@@ -20,7 +20,7 @@ const CardStepsWords = ({fieldSet, step, changeStep, errorless = true}: Props) =
                 </div>
                 {fieldSet}
                 <div className='flex gap-6 mt-6'>
-                    <LineButton disabled={errorless} detach={errorless} onClick={()=> console.log('I am not disable')}>Save</LineButton>
+                    <LineButton disabled={!errorless} detach={!errorless} onClick={()=> console.log('I am not disable')}>Save</LineButton>
                     <WordStepPagination currentStep={step} changeStep={changeStep}/>
                 </div>
             </div>

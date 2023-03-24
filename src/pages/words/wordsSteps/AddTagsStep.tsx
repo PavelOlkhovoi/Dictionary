@@ -10,11 +10,17 @@ interface Props {
 }
 
 const AddTagsStep = ({step, changeStep, wordState, changeWordState}: Props) => {
+    const errorless = wordState.validFields.word && wordState.validFields.fastMeaning
     if (step !== 4){
         return null
     }
     return (
-        <CardStepsWords step={4} fieldSet={<ManageTags wordState={wordState} changeWordState={changeWordState} />} changeStep={changeStep}/>
+        <CardStepsWords 
+        step={4} 
+        fieldSet={<ManageTags wordState={wordState} changeWordState={changeWordState} />} 
+        changeStep={changeStep}
+        errorless={errorless}
+        />
     )
 }
 

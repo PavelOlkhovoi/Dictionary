@@ -1,3 +1,4 @@
+import {useEffect, useState} from 'react'
 import { WordForm } from "./AddWordsWithSteps";
 import CardStepsWords from "./CardStepsWords";
 import FastMeaningFields from "./uiFields/FastMeaningFields";
@@ -8,7 +9,9 @@ interface Props {
     wordState: WordForm
     changeWordState: React.Dispatch<React.SetStateAction<WordForm>> 
 }
-const FastMeaning = ({step, changeStep, wordState, changeWordState}:Props) => {
+const FastMeaning = ({step, changeStep, wordState, changeWordState}: Props) => {
+    const errorless = wordState.validFields.word && wordState.validFields.fastMeaning
+
     if (step !== 1){
         return null
     }
@@ -17,7 +20,7 @@ const FastMeaning = ({step, changeStep, wordState, changeWordState}:Props) => {
         step={step} 
         fieldSet={<FastMeaningFields wordState={wordState} changeWordState={changeWordState} />} 
         changeStep={changeStep}
-        // errorless={wordState.isReady}
+        errorless={errorless}
         />
     )
 }

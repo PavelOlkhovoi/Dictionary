@@ -10,13 +10,18 @@ interface Props {
 }
 
 const AddTranslation = ({step, changeStep, wordState, changeWordState}:Props) => {
+    const errorless = wordState.validFields.word && wordState.validFields.fastMeaning
     if (step !== 2){
         return null
     }
     return (
-        <CardStepsWords step={2} changeStep={changeStep} fieldSet={
-        <TranslationGroup changeWordState={changeWordState} wordState={wordState}/>
-    }/>
+        <CardStepsWords 
+        step={2} 
+        changeStep={changeStep} 
+        fieldSet={
+        <TranslationGroup changeWordState={changeWordState} wordState={wordState}/>}   
+        errorless={errorless}
+        />
     )
 }
 
