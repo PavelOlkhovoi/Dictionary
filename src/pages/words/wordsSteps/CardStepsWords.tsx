@@ -1,6 +1,7 @@
 import {ReactNode} from 'react'
 import LineButton from '../../../components/ui-elements/buttons/LineButton';
 import { styleTW } from '../../../style';
+import AddNewWordToDb from './AddNewWordToDb';
 import WordStepPagination from './WordStepPagination';
 
 interface Props {

@@ -46,7 +46,7 @@ const userSlice = createSlice({
 })
 
 
-const userSelector = (state: StateUser) => state.userFake
+export const selectUserId = (state: StateUser) => state.userFake
 
 // export const activeUser = state => state.user
 
