@@ -17,36 +17,40 @@ export interface WordForm {
         newTags: TagForm[]
         addedTags: AddedTagForm[]
     },
-    validFields: IsFormReady
+    validFields: IsFormReady,
+    sendingData: boolean
+}
+
+export const basicAddWordStructure: WordForm = {
+    word: '',
+    fastMeaning: '',
+    translation: [{
+        id: nanoid(),
+        name: 'none',
+        translation: [{
+            id: nanoid(),
+            name: '',
+            show: true
+        }],
+        show: true
+    }],
+    examples: [{
+        id: nanoid(),
+        example: '',
+        translation: '',
+        show: true
+    }],
+    tags: {
+        newTags: [{id: nanoid(), name: '', show: true}],
+        addedTags: []
+    },
+    validFields: {word: false, fastMeaning: false},
+    sendingData: false
 }
 
 const AddWordsWithSteps = ({ }) => {
     const [step, setStep] = useState(1)
-    const [word, setWords] = useState<WordForm>({
-        word: '',
-        fastMeaning: '',
-        translation: [{
-            id: nanoid(),
-            name: 'none',
-            translation: [{
-                id: nanoid(),
-                name: '',
-                show: true
-            }],
-            show: true
-        }],
-        examples: [{
-            id: nanoid(),
-            example: '',
-            translation: '',
-            show: true
-        }],
-        tags: {
-            newTags: [{id: nanoid(), name: '', show: true}],
-            addedTags: []
-        },
-        validFields: {word: false, fastMeaning: false}
-    })
+    const [word, setWords] = useState<WordForm>(basicAddWordStructure)
 
     useEffect(() => {
     }, [word])
@@ -57,7 +61,7 @@ const AddWordsWithSteps = ({ }) => {
             <AddExamples step={step} changeStep={setStep} wordState={word} changeWordState={setWords}/>
             <AddTagsStep wordState={word} changeWordState={setWords} step={step} changeStep={setStep} />
 
-            <AddNewWordToDb wordFields={word} />
+            <AddNewWordToDb wordFields={word} changeWordSate={setWords}/>
         </div>
     )
 }

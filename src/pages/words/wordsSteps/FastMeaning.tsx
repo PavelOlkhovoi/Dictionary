@@ -20,6 +20,7 @@ const FastMeaning = ({step, changeStep, wordState, changeWordState}: Props) => {
         step={step} 
         fieldSet={<FastMeaningFields wordState={wordState} changeWordState={changeWordState} />} 
         changeStep={changeStep}
+        changeWordState={changeWordState}
         errorless={errorless}
         />
     )

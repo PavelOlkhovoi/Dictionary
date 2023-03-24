@@ -20,6 +20,7 @@ const AddTranslation = ({step, changeStep, wordState, changeWordState}:Props) =>
         changeStep={changeStep} 
         fieldSet={
         <TranslationGroup changeWordState={changeWordState} wordState={wordState}/>}   
+        changeWordState={changeWordState}
         errorless={errorless}
         />
     )

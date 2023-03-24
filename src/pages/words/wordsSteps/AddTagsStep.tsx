@@ -19,6 +19,7 @@ const AddTagsStep = ({step, changeStep, wordState, changeWordState}: Props) => {
         step={4} 
         fieldSet={<ManageTags wordState={wordState} changeWordState={changeWordState} />} 
         changeStep={changeStep}
+        changeWordState={changeWordState}
         errorless={errorless}
         />
     )

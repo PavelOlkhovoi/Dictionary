@@ -21,6 +21,7 @@ const AddExamples = ({step, changeStep, wordState, changeWordState}: Props) => {
             <ExamplesFields wordState={wordState} changeWordState={changeWordState} />
         } 
         changeStep={changeStep}
+        changeWordState={changeWordState}
         errorless={errorless}
         />
     )

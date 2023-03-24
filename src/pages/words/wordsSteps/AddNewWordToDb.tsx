@@ -1,23 +1,21 @@
-import { db, auth } from "../../..";
-import { collection, addDoc, serverTimestamp, query, where, updateDoc, DocumentData, setDoc } from "firebase/firestore";
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData} from 'react-firebase-hooks/firestore';
+import {useEffect} from 'react'
+import { db } from "../../..";
+import { collection, addDoc, serverTimestamp, DocumentData, setDoc } from "firebase/firestore";
 import { createTag, addWordIdxToTag  } from "../../../backend/crudFunctions";
 import { useAppSelector } from "../../../hooks/redux-hooks";
 import { selectUserId } from "../../../store/slices/userSlice";
-import { WordForm } from "./AddWordsWithSteps";
-import { AdvanceMeanings, PartOfSpeechSelect } from "../../types/word";
-import { TranslationGroup } from "./uiFields/TranslationGroup";
+import { basicAddWordStructure, WordForm } from "./AddWordsWithSteps";
+import { AdvanceMeanings, ExampleForServer, PartOfSpeechSelect, WordDb } from "../../types/word";
+import { BaseExtendedFirebaseInstance } from 'react-redux-firebase';
+import { nanoid } from '@reduxjs/toolkit';
 
 interface Props {
-    wordFields: WordForm,
+    wordFields: WordForm
+    changeWordSate:  React.Dispatch<React.SetStateAction<WordForm>>
 }
 
-const AddNewWordToDb = ({wordFields}: Props) => {
+const AddNewWordToDb = ({wordFields, changeWordSate}: Props) => {
     const userId = useAppSelector(state => selectUserId(state.user))
-    if(!userId){
-        return null
-    }
 
     const names: PartOfSpeechSelect[] = wordFields.translation.map(t => t.name)
     const translationObj: AdvanceMeanings = {}
@@ -34,31 +32,62 @@ const AddNewWordToDb = ({wordFields}: Props) => {
         }
     })
 
-    console.log('Clean translation', translationObj)
+              
+    const clearExamples: ExampleForServer[] = wordFields.examples.map(ex => ({example: ex.example, translation: ex.translation}))
 
-    // const addNewWord = async () => {
-    //     try {
-    //         const docRef = await addDoc(collection(db, "words"), {
-    //           uid: userId,
-    //           word: wordFields.word,
-    //           meaning: wordFields.translation.map(t => {t.name, t.translation, t.}),
-    //           examples: wordFields.examples.map(ex => {ex.example, ex.translation}),
-    //           level: 'low',
-    //           points: 0,
-    //           priority: 'low',
-    //           repeat: true,
-    //           createdAt: serverTimestamp()
-    //         });
-    //         console.log("Document written with ID: ", docRef.id);
+    const addNewWord = async () => {
+        try {
+            const docRef = await addDoc(collection(db, "words"), {
+              uid: userId?.uid,
+              word: wordFields.word,
+              meaning: translationObj,
+              examples: clearExamples,
+              fastMeaning: wordFields.fastMeaning,
+              level: 'low',
+              points: 0,
+              priority: 'low',
+              repeat: true,
+              createdAt: serverTimestamp()
+            } as WordDb);
+            console.log("Document written with ID: ", docRef.id);
 
-    //         setDoc(docRef, {wordId: docRef.id}, { merge: true })
+            setDoc(docRef, {wordId: docRef.id}, { merge: true })
 
-    //         // addTags(docRef.id)
+            // addTags(docRef.id)
 
-    //       } catch (e) {
-    //         console.error("Error adding document: ", e);
-    //       }
-    // }
+            if(docRef.id){
+                changeWordSate(prev =>({
+                    word: '',
+                    fastMeaning: '',
+                    translation: [{
+                        id: nanoid(),
+                        name: 'none',
+                        translation: [{
+                            id: nanoid(),
+                            name: '',
+                            show: true
+                        }],
+                        show: true
+                    }],
+                    examples: [{
+                        id: nanoid(),
+                        example: '',
+                        translation: '',
+                        show: true
+                    }],
+                    tags: {
+                        newTags: [{id: nanoid(), name: '', show: true}],
+                        addedTags: []
+                    },
+                    validFields: {word: false, fastMeaning: false},
+                    sendingData: false
+                }))
+            }
+
+          } catch (e) {
+            console.error("Error adding document: ", e);
+          }
+    }
 
 //     const addTags = async (wordIdx: string) => {
 
@@ -87,6 +116,11 @@ const AddNewWordToDb = ({wordFields}: Props) => {
 //     )
       
 //   }
+
+  useEffect(() => {
+    wordFields.sendingData &&
+    addNewWord()
+  }, [wordFields.sendingData])
     return <div></div>;
 }
 

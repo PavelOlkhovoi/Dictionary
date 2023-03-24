@@ -33,7 +33,7 @@ export interface WordDb {
     createdAt: Timestamp | string
     repeat: boolean;
     meaning: AdvanceMeanings
-    fastMeaning?: string
+    fastMeaning: string
     priority: string
     points: number
     level: string
