@@ -50,7 +50,6 @@ const AddText = ({setId = null, titleMode}:Props) => {
     const addTextHandler = async (words: AllWordsSorted[]) => {
         const ids: string[] = words.map(w => w.wordId)
         const response = await createText(title.value, text, ids, uid as string, setId)
-        console.log('Try to test')
     }
 
     const wordsBack = (words: AllWordsSorted[]) => {
@@ -115,7 +114,7 @@ const AddText = ({setId = null, titleMode}:Props) => {
                     />
                 </TextHighlighter>
         </div>
-        {validated.isValid && <Notification message={message}/>}
+        {validated.isValid && <Notification message={message} stopShowing={()=> console.log('Callback for notification')}/>}
         </section>
     );
 }

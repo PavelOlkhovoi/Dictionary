@@ -4,8 +4,9 @@ import { motion } from 'framer-motion';
 
 interface Props {
     message: string
+    stopShowing: Function
 }
-const Notification = ({message}: Props) => {
+const Notification = ({message, stopShowing}: Props) => {
     const [show, setShow] = useState(true)
     const cardAnimation = {
         hidden: { y: -100, opacity: 0 },
@@ -14,6 +15,7 @@ const Notification = ({message}: Props) => {
     useEffect(() => {
         const interval = setInterval(() => {
             setShow(false);
+            stopShowing() as Function
         }, 4000);
       
         return () => clearInterval(interval);

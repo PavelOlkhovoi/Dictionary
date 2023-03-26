@@ -53,6 +53,7 @@ const TranslationGroup = ({changeWordState, wordState}: Props) => {
                     />
                 </div>)
             }
+            
             <LineButton onClick={()=> changeWordState(wState => ({
                 ...wState, translation: [...wState.translation, { id: nanoid(), name: 'none', translation: [{
                     id: nanoid(),

@@ -42,24 +42,27 @@ const FastMeaningFields = ({wordState, changeWordState}: Props) => {
 
     return (
         <div className="py-4">
-            <MyInput 
-            name='word' 
-            label='word' 
-            value={wordState.word} 
-            onChange={(e)=> fieldsHandle(e)}
-            onBlur={(e) => onStartValidation(e.target.name)}
-            />
-            <ShowError show={startValidation.word} pattern={wordValid}  />
+            <div className='py-4'>
+                <MyInput 
+                name='word' 
+                label='word' 
+                value={wordState.word} 
+                onChange={(e)=> fieldsHandle(e)}
+                onBlur={(e) => onStartValidation(e.target.name)}
+                />
+                <ShowError show={startValidation.word} pattern={wordValid}  />
+            </div>
 
+            <div className='py-4'>
             <MyInput 
-            name='fastMeaning' 
+            name='main meaning' 
             label='main meaning' 
             value={wordState.fastMeaning} 
             onChange={(e)=> fieldsHandle(e)}
             onBlur={(e)=> onStartValidation(e.target.name)}
             />
-
             <ShowError show={startValidation.fastMeaning} pattern={fastMeaningValid} length={2} />
+            </div>
         </div>
     )
 }

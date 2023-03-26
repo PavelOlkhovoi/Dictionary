@@ -28,7 +28,7 @@ const CardPreview = ({link, wordsIds, content, title}: Props) => {
     const fullWords = useAppSelector(state => selectWordsArrById(state, wordsIds))
 
     return (
-        <div className='bg-white shadow px-8 py-6 cursor-pointer border-b-2 pb-2'>
+        <div className={`${styleTW.cardWhite}`}>
             <Link to={link} className="flex flex-col h-full">
             <h3 className={`${styleTW.title3} mb-2 border-b-2 pb-2 border-gray-200`}>{title}</h3>
             <div className='mb-2 text-sm font-medium text-gray-700'>Used words {wordsQuantity}</div>

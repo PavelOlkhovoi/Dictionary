@@ -41,16 +41,5 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ## Space to improvement
 
-1. Edit meanigs - delete all fields inteat one. Fix it
-2. Add Text:
-    - Text watcher: press KEYDOWN --> check if text contain any words
-    - If text contain a word: --> change color (color depends on status), --> add this word + 2 when it is added
-    - Add save text + dispatch
-    ---- NEXT TASK --- show words when tag is clicked
-    ------------------ Refactor wards whatcher
-    ------------------ Unsinc words by tag
-    4. Add a new created wordx to REDUX and Tags as well
-    6. https://libretranslate.com/ 
-    7. Make validation
-
+1. Upgrade Notification camponent
 

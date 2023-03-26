@@ -21,7 +21,7 @@ const MyInput: FC<Props> = ({name, label, edit = false, editFunct = () => consol
         <input
         name={name}
         {...rest} 
-        className="border-b-2 w-full py-1 text-gray-700 bg-transparent leading-tight focus:outline-none focus:shadow-outline"
+        className="border-b-2 w-full text-gray-700 bg-transparent leading-tight focus:outline-none focus:shadow-outline"
         />
         {
           edit && <MyButton onClick={() => editFunct()}>Save</MyButton>

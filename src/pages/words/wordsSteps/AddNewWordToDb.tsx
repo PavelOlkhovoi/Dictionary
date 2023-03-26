@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import { db } from "../../..";
 import { collection, addDoc, serverTimestamp, DocumentData, setDoc } from "firebase/firestore";
 import { createTag, addWordIdxToTag  } from "../../../backend/crudFunctions";
@@ -8,6 +8,7 @@ import { basicAddWordStructure, WordForm } from "./AddWordsWithSteps";
 import { AdvanceMeanings, ExampleForServer, PartOfSpeechSelect, WordDb } from "../../types/word";
 import { BaseExtendedFirebaseInstance } from 'react-redux-firebase';
 import { nanoid } from '@reduxjs/toolkit';
+import Notification from "../../../components/ui-elements/Notification"
 
 interface Props {
     wordFields: WordForm
@@ -16,6 +17,19 @@ interface Props {
 
 const AddNewWordToDb = ({wordFields, changeWordSate}: Props) => {
     const userId = useAppSelector(state => selectUserId(state.user))
+    const [showNotification, setShowNotification] = useState({
+        word: false,
+        tag: false,
+        message: "New word was added"
+    })
+
+    const stopShowingWord = () => {
+        setShowNotification(prev => ({...prev, word: false}))
+    }
+
+    const stopShowingTag = () => {
+        setShowNotification(prev => ({...prev, tag: false}))
+    }
 
     const names: PartOfSpeechSelect[] = wordFields.translation.map(t => t.name)
     const translationObj: AdvanceMeanings = {}
@@ -52,8 +66,7 @@ const AddNewWordToDb = ({wordFields, changeWordSate}: Props) => {
             console.log("Document written with ID: ", docRef.id);
 
             setDoc(docRef, {wordId: docRef.id}, { merge: true })
-
-            addTags(docRef.id)
+            setShowNotification(prev => ({...prev, word: true, message: `${wordFields.word} was successfully added`}))
 
             if(docRef.id){
                 changeWordSate(prev =>({
@@ -82,30 +95,54 @@ const AddNewWordToDb = ({wordFields, changeWordSate}: Props) => {
                     validFields: {word: false, fastMeaning: false},
                     sendingData: false
                 }))
+
+                addTags(docRef.id)
             }
 
+
           } catch (e) {
+            setShowNotification(prev => ({...prev, show: true, message: "The word was not added"}))
             console.error("Error adding document: ", e);
           }
     }
 
     const addTags = async (wordIdx: string) => {
-
       wordFields.tags.addedTags.length > 0 && 
       wordFields.tags.addedTags.filter(t => t.show).forEach(t => addWordIdxToTag(t.tagId, wordIdx))
 
       const newTags = wordFields.tags.newTags.filter(t => t.show).filter(t => t.name !== '')
 
-      newTags.length > 0 && newTags.forEach(t => 
-        createTag(userId?.uid as string, t.name, wordIdx))
+      try {
 
-  }
+        if(newTags.length > 0){
+            for (const tag of newTags) {
+                const result = await createTag(userId?.uid as string, tag.name, wordIdx)
+              }
+        setShowNotification(prev => ({...prev, tag: true, message: `${wordFields.word} with tag was added`}))
+        } 
+                
+    } catch (error) {
+        setShowNotification(prev => ({...prev, tag: true, message: `Tag was not added`}))
+    }
+      
+        
+    }
 
-  useEffect(() => {
-    wordFields.sendingData &&
-    addNewWord()
-  }, [wordFields.sendingData])
-    return <div></div>;
+    useEffect(() => {
+        wordFields.sendingData &&
+        addNewWord()
+    }, [wordFields.sendingData])
+
+    return (
+        <>
+        {
+            showNotification.word && <Notification message={showNotification.message} stopShowing={stopShowingWord}/>
+        }
+        {
+            showNotification.tag && <Notification message={showNotification.message} stopShowing={stopShowingTag}/>
+        }
+        </>
+    )
 }
 
 export default AddNewWordToDb;

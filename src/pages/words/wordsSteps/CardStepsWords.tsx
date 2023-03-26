@@ -3,7 +3,7 @@ import LineButton from '../../../components/ui-elements/buttons/LineButton';
 import { styleTW } from '../../../style';
 import WordStepPagination from './WordStepPagination'
 import { WordForm } from './AddWordsWithSteps';
-import { basicAddWordStructure } from "./AddWordsWithSteps";
+
 
 interface Props {
     step: number
@@ -21,14 +21,16 @@ const CardStepsWords = ({fieldSet, step, changeStep, changeWordState, errorless 
     }
 
     return (
-        <div className={`${styleTW.containerWide}`}>
-            <div className='border-2 flex-col'>
-                <div className='flex justify-between items-center'>
+        <div className={`${styleTW.containerWide} ${styleTW.cardWhite} bg-white`}>
+            <div className='flex-col p-4'>
+                <div className='flex justify-between items-baseline'>
                     <h1 className={`${styleTW.title1}`}>Add Words</h1>
                     <span>Step <span className='text-blue-600 font-medium'>{step}</span> of 4</span>
                 </div>
-                {fieldSet}
-                <div className='flex gap-6 mt-6'>
+                <div className='py-4'>
+                    {fieldSet}
+                </div>
+                <div className='flex gap-6 mt-6 justify-between'>
                     <LineButton 
                     disabled={!errorless} 
                     detach={!errorless} 

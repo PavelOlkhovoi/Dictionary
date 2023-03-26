@@ -9,7 +9,7 @@ const WordStepPagination = ({currentStep, changeStep}:Props) => {
     const [steps, setStep] = useState([{step: 1, text: 'Add word'}, {step: 2, text: 'Add translation'},
     {step: 3, text: 'Add example'}, {step: 4, text: 'Add tags'}])
     return (
-        <div className='flex gap-4'>
+        <div className='flex gap-6'>
             {
                 steps.map(s => {
                     if(s.step === currentStep){

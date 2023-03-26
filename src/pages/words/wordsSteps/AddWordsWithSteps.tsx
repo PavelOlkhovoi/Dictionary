@@ -48,7 +48,7 @@ export const basicAddWordStructure: WordForm = {
     sendingData: false
 }
 
-const AddWordsWithSteps = ({ }) => {
+const AddWordsWithSteps = () => {
     const [step, setStep] = useState(1)
     const [word, setWords] = useState<WordForm>(basicAddWordStructure)
 
