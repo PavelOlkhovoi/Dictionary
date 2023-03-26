@@ -47,12 +47,14 @@ const CreateTagStep = ({wordState, changeWordState, tagsNames}: Props) => {
         <div>
             {
                 wordState.tags.newTags.filter(t => t.show).map(t => 
-                <div key={t.id}>
-                    <div>
+                <div 
+                key={t.id}
+                className="my-5"
+                >
                     <MyInput label="New tag" name="newtag" value={t.name} onChange={(e) => tagNameHandle(t.id, e.target.value)}/>
-                    <DeleteBtn idBtn={t.id} deleteHandler={deleteNewTag}/>
+                    <div className='mt-1'>
+                        <DeleteBtn idBtn={t.id} deleteHandler={deleteNewTag}/> <span>delete tag</span>
                     </div>
-                    {/* <Validate value={t.name} pattern={{isTextUnique: tagsNames}} show={validated.isUniqueName}/> */}
                 </div>
                 )
             }

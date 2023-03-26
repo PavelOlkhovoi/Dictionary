@@ -1,4 +1,5 @@
 import {ReactNode} from 'react'
+import { styleTW } from '../../../../style';
 
 import { PartOfSpeechSelect } from "../../../types/word";
 
@@ -13,6 +14,7 @@ interface Props {
 const SelectPartOfSpeech = ({value, formId, groupId, handleOption, deleteBtn}: Props) => {
     return (
         <div>
+            <div className={`${styleTW.bottomBorder} pb-2 flex gap-4`}>
             <label htmlFor={formId}>Pick a part of speech: </label>
             <select value={value} onChange={(e) => handleOption(groupId, e.target.value)} id={formId}>
                 <option value="noun">Noun</option>
@@ -24,8 +26,10 @@ const SelectPartOfSpeech = ({value, formId, groupId, handleOption, deleteBtn}: P
                 <option value="preposition">Preposition</option>
                 <option value="conjunctions">Conjunctions</option>
             </select>
-            {deleteBtn}
-            {/* <div className={`${styleTW.bageRed}`} onClick={()=> deleteGroupHandler(g.id)}>X</div> */}
+        </div>
+        <div className='mt-1'>
+            {deleteBtn} <span>delete group</span>
+        </div>
         </div>
     )
 }

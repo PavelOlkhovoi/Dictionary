@@ -14,15 +14,14 @@ interface Props {
 }
 
 const CardStepsWords = ({fieldSet, step, changeStep, changeWordState, errorless = true}: Props) => {
-
     const sendData = () => {
         changeWordState(wState => ({...wState, sendingData: true}))
         changeStep(prev => 1)
     }
 
     return (
-        <div className={`${styleTW.containerWide} ${styleTW.cardWhite} bg-white`}>
-            <div className='flex-col p-4'>
+        <div className={`${styleTW.containerWide}`}>
+            <div className={`${styleTW.cardWhite} flex-col px-4 pt-8 pb-8 mb-16`}>
                 <div className='flex justify-between items-baseline'>
                     <h1 className={`${styleTW.title1}`}>Add Words</h1>
                     <span>Step <span className='text-blue-600 font-medium'>{step}</span> of 4</span>

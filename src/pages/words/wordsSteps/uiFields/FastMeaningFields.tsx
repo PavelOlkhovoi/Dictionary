@@ -15,7 +15,7 @@ interface Props {
 const FastMeaningFields = ({wordState, changeWordState}: Props) => {
     const words = useAppSelector(state => selectWordsAsStringInArr(state))
     const wordValid = useValidation(wordState.word, {isTextUnique: words, isEmpty: true})
-    const fastMeaningValid = useValidation(wordState.fastMeaning, {isEmpty: true, minLength: 2})
+    const fastMeaningValid = useValidation(wordState.meaning, {isEmpty: true, minLength: 2})
     
     const [startValidation, setStartValidation] = useState({word: false, fastMeaning: false})
 
@@ -55,9 +55,9 @@ const FastMeaningFields = ({wordState, changeWordState}: Props) => {
 
             <div className='py-4'>
             <MyInput 
-            name='main meaning' 
+            name='meaning' 
             label='main meaning' 
-            value={wordState.fastMeaning} 
+            value={wordState.meaning} 
             onChange={(e)=> fieldsHandle(e)}
             onBlur={(e)=> onStartValidation(e.target.name)}
             />

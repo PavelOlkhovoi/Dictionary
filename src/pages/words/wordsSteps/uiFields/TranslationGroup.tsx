@@ -3,8 +3,8 @@ import LineButton from '../../../../components/ui-elements/buttons/LineButton';
 import { PartOfSpeechSelect } from '../../../types/word';
 import { WordForm } from "../AddWordsWithSteps";
 import TranslationFields, { TranslationFieldsTest } from './TranslationFields';
-import { styleTW } from '../../../../style';
 import SelectPartOfSpeech from './SelectPartOfSpeech';
+import DeleteBtn from './DeleteBtn';
 
 export interface TranslationGroup {
     id: string,
@@ -36,7 +36,7 @@ const TranslationGroup = ({changeWordState, wordState}: Props) => {
     }
 
     return (
-        <div>
+        <div className='mt-4'>
             {
                 wordState.translation.filter(g => g.show).map(g => <div key={g.id}>
                     <SelectPartOfSpeech
@@ -44,7 +44,7 @@ const TranslationGroup = ({changeWordState, wordState}: Props) => {
                     formId={g.id}
                     groupId={g.id}
                     handleOption={handleSelect}
-                    deleteBtn={<div className={`${styleTW.bageRed}`} onClick={()=> deleteGroupHandler(g.id)}>X</div>}
+                    deleteBtn={<DeleteBtn deleteHandler={deleteGroupHandler} idBtn={g.id}/>}
                     />
                     <TranslationFields
                     wordState={wordState} 
@@ -54,7 +54,8 @@ const TranslationGroup = ({changeWordState, wordState}: Props) => {
                 </div>)
             }
             
-            <LineButton onClick={()=> changeWordState(wState => ({
+            <LineButton 
+            onClick={()=> changeWordState(wState => ({
                 ...wState, translation: [...wState.translation, { id: nanoid(), name: 'none', translation: [{
                     id: nanoid(),
                     name: '',

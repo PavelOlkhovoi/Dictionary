@@ -3,6 +3,7 @@ import { WordForm } from "../AddWordsWithSteps"
 import { styleTW } from "../../../../style";
 import { nanoid } from "@reduxjs/toolkit";
 import LineButton from "../../../../components/ui-elements/buttons/LineButton";
+import DeleteBtn from "./DeleteBtn";
 
 interface Props {
     wordState: WordForm,
@@ -36,10 +37,29 @@ const ExamplesFields = ({wordState, changeWordState}: Props) => {
         <div>
             {
                 wordState.examples.filter(ex => ex.show).map(ex => {
-                    return <div key={ex.id}>
-                        <MyInput label='Example' name="example" value={ex.example} onChange={(e)=> changeInputs(ex.id, e.target.value, 'example')}/>
-                        <MyInput label='Translation' name="translation" value={ex.translation} onChange={(e)=> changeInputs(ex.id, e.target.value, 'translation')}/>
-                        <div className={`${styleTW.bageRed}`} onClick={()=> deleteHandler(ex.id)}>X</div>
+                    return <div key={ex.id}
+                    className="my-8"
+                    >
+                        <div className="my-3">
+                            <MyInput 
+                            label='Example' 
+                            name="example" 
+                            value={ex.example} 
+                            onChange={(e)=> changeInputs(ex.id, e.target.value, 'example')}
+                            />
+                        </div>
+                        <div>
+                            <MyInput 
+                            label='Translation' 
+                            name="translation" 
+                            value={ex.translation} 
+                            onChange={(e)=> changeInputs(ex.id, e.target.value, 'translation')}
+                            />
+                        </div>
+                        <div className="flex-start itemes-center mt-1">
+                            <DeleteBtn deleteHandler={deleteHandler} idBtn={ex.id} /> <span>delete example</span>
+                        </div>
+
                     </div>
                 })
             }

@@ -56,7 +56,7 @@ const AddNewWordToDb = ({wordFields, changeWordSate}: Props) => {
               word: wordFields.word,
               meaning: translationObj,
               examples: clearExamples,
-              fastMeaning: wordFields.fastMeaning,
+              fastMeaning: wordFields.meaning,
               level: 'low',
               points: 0,
               priority: 'low',
@@ -71,7 +71,7 @@ const AddNewWordToDb = ({wordFields, changeWordSate}: Props) => {
             if(docRef.id){
                 changeWordSate(prev =>({
                     word: '',
-                    fastMeaning: '',
+                    meaning: '',
                     translation: [{
                         id: nanoid(),
                         name: 'none',

@@ -11,7 +11,7 @@ const AllTagsBar = ({manageClick, tags}: Props) => {
         manageClick(id, tagName)
     }
     return (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 my-2">
             {
                 tags.map(t => <div 
                     key={t.tagId}
@@ -24,6 +24,5 @@ const AllTagsBar = ({manageClick, tags}: Props) => {
         </div>
     )
 }
-
 
 export default AllTagsBar;

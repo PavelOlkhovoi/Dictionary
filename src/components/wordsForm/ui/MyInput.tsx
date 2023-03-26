@@ -1,7 +1,5 @@
 import {FC, InputHTMLAttributes} from 'react'
 import MyButton from './MyButton';
-import { styleTW } from '../../../style';
-
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
     name: string,
@@ -21,7 +19,7 @@ const MyInput: FC<Props> = ({name, label, edit = false, editFunct = () => consol
         <input
         name={name}
         {...rest} 
-        className="border-b-2 w-full text-gray-700 bg-transparent leading-tight focus:outline-none focus:shadow-outline"
+        className="border-b-2 pb-1 w-full text-gray-700 bg-transparent leading-tight focus:outline-none focus:shadow-outline"
         />
         {
           edit && <MyButton onClick={() => editFunct()}>Save</MyButton>

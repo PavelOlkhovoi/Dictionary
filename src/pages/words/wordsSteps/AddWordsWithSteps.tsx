@@ -10,7 +10,7 @@ import AddNewWordToDb from "./AddNewWordToDb";
 
 export interface WordForm {
     word: string,
-    fastMeaning: string,
+    meaning: string,
     translation: TranslationGroup[],
     examples: ExampleForm[]
     tags: {
@@ -23,7 +23,7 @@ export interface WordForm {
 
 export const basicAddWordStructure: WordForm = {
     word: '',
-    fastMeaning: '',
+    meaning: '',
     translation: [{
         id: nanoid(),
         name: 'none',
@@ -54,6 +54,7 @@ const AddWordsWithSteps = () => {
 
     useEffect(() => {
     }, [word])
+    
     return (
         <div>
             <FastMeaning step={step} changeStep={setStep} wordState={word} changeWordState={setWords} />

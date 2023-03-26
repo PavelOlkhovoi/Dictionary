@@ -13,7 +13,7 @@ const ListTexts = () => {
         return <Loading />
     }
     return (
-        <section className={`${styleTW.containerWide}`}>
+        <section className={`${styleTW.containerWide} mb-16`}>
             <div className="flex gap-8 items-center">
                 <h1 className={`${styleTW.title1} ${styleTW.title1Gap}`}>Texts</h1>
                 <div>

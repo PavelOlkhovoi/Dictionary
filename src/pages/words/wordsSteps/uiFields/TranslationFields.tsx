@@ -3,6 +3,7 @@ import LineButton from "../../../../components/ui-elements/buttons/LineButton";
 import MyInput from "../../../../components/wordsForm/ui/MyInput";
 import { styleTW } from "../../../../style";
 import { WordForm } from "../AddWordsWithSteps";
+import DeleteBtn from "./DeleteBtn";
 
 export interface TranslationFieldsTest {
     id: string
@@ -60,22 +61,23 @@ const TranslationFields = ({wordState, groupId, changeWordState}: Props) => {
 
     return (
         <div className="py-4">
-
             {
             targetGroup.translation.map(m => {
-                return m.show && <div key={m.id} className="flex items-start">
+                return m.show && <div key={m.id} className="w-full py-2 mb-2 relative">
                     <MyInput 
                     name="translation" label="translation" 
-                    value={m.name} onChange={(e) => handleMeaning(m.id, e.target.value)}
+                    value={m.name} 
+                    onChange={(e) => handleMeaning(m.id, e.target.value)}
                     onBlur={handleOnBlur}
                     />
-                    <div className={`${styleTW.bageRed}`} onClick={()=> deleteHandler(m.id)}>X</div>
+                    <div className="absolute bottom-7 right-0">
+                        <DeleteBtn deleteHandler={deleteHandler} idBtn={m.id} />
+                    </div>
                 </div> 
                 })
             }
-            
             <div>
-                <LineButton onClick={addFields}>New translation</LineButton>
+                <LineButton onClick={addFields} color="green">New translation</LineButton>
             </div>
         </div>
     )
