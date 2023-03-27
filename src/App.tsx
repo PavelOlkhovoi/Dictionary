@@ -17,6 +17,7 @@ import EditSet from './pages/sets/EditSet';
 import SetWordsToLern from './pages/exercise/SetWordsToLern';
 import AddWordsWithSteps from './pages/words/wordsSteps/AddWordsWithSteps';
 import BottomNavigation from './components/navigation/BottomNavigation';
+import Word from './pages/words/Word';
 
 
 function App() {
@@ -24,10 +25,12 @@ function App() {
   return (
     <>
     <Navbars />
-    <BottomNavigation />
+     <BottomNavigation />
     <Routes>
       <Route path="/" element={<Home />} />
+      {/* <Route path="words/:idword" element={<Word />} /> */}
       <Route path="words" element={<Words />} />
+      <Route path="words/:idword" element={<Word />} />
       <Route path="exercises/:idset" element={<SetWordsToLern />}/>
       <Route path="addwords" element={<AddWord />}/>
       <Route path="addwordsSteps" element={<AddWordsWithSteps />}/>
