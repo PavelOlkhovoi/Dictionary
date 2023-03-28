@@ -59,6 +59,8 @@ const initialState: IState = {
   })
 
   export const selectAllTags = (state: RootState) => state.tag.tags
+  
+  export const selectTagsOfWord = (state: RootState, wordId: string) => state.tag.tags.filter(t => t.word_id.includes(wordId))
 
   export const selectWordsByTag = (state: RootState, ids?: string[]) => {
     const rangeWords: WordDb[] = []
