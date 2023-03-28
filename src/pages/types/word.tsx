@@ -119,5 +119,5 @@ export interface AddedTagForm {
 
 export interface IsFormReady {
     word: boolean,
-    fastMeaning: boolean
+    meaning: boolean
 } 

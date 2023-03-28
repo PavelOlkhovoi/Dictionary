@@ -10,7 +10,7 @@ interface Props {
 }
 
 const AddTagsStep = ({step, changeStep, wordState, changeWordState}: Props) => {
-    const errorless = wordState.validFields.word && wordState.validFields.fastMeaning
+    const errorless = wordState.validFields.word && wordState.validFields.meaning
     if (step !== 4){
         return null
     }

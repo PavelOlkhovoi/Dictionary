@@ -92,7 +92,7 @@ const AddNewWordToDb = ({wordFields, changeWordSate}: Props) => {
                         newTags: [{id: nanoid(), name: '', show: true}],
                         addedTags: []
                     },
-                    validFields: {word: false, fastMeaning: false},
+                    validFields: {word: false, meaning: false},
                     sendingData: false
                 }))
 

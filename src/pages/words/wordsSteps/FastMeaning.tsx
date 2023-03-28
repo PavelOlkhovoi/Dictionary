@@ -10,7 +10,7 @@ interface Props {
     changeWordState: React.Dispatch<React.SetStateAction<WordForm>> 
 }
 const FastMeaning = ({step, changeStep, wordState, changeWordState}: Props) => {
-    const errorless = wordState.validFields.word && wordState.validFields.fastMeaning
+    const errorless = wordState.validFields.word && wordState.validFields.meaning
 
     if (step !== 1){
         return null

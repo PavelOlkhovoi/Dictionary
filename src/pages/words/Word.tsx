@@ -4,6 +4,8 @@ import MyButton from '../../components/wordsForm/ui/MyButton';
 import { styleTW } from '../../style';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import Loading from '../../components/Loading';
+import LineButton from "../../components/ui-elements/buttons/LineButton";
+import { Meaning } from "../types/word";
 
 const Word = () => {
     const { idword } = useParams()
@@ -19,22 +21,40 @@ const Word = () => {
 
     return (
         <section
-        className="container max-w-screen-lg mx-auto px-4 mt-5"
+        className={`${styleTW.containerWide}`}
         >
-            <div className='sm:flex gap-8 items-center'>
-            <h1 className='text-6xl font-normal leading-normal mt-0 mb-2'>{firstCapitalLetter(currentWord.word)}</h1>
+            <div className={`${styleTW.bottomBorder} md:flex md:items-center md:gap-12 mb-10 md:mb-12 pb-6`}>
+                 <h1 className='text-6xl font-normal leading-normal mt-0 mb-2'>{firstCapitalLetter(currentWord.word)}</h1>
                 
-                <MyButton>
+                <LineButton>
                     <Link to={{pathname: `/words/edit/${idword}`}}>Edit</Link>
-                </MyButton>
+                </LineButton>
 
             </div>
-            <dl className={styleTW.gridDl}>
+            {/* <dl className={styleTW.gridDl}>
                 <dt>Level:</dt>
                 <dd>{currentWord.level}</dd>
-                </dl>
-            <h2 className={styleTW.title2}>Meanings</h2>
-            {/* <ShowMeanings meanings={currentWord.meaning} wordId={idword as string}/> */}
+            </dl> */}
+            <div>
+                <h2 className={`${styleTW.title2} ${styleTW.bottomBorder} pb-2 mb-2`}>Meanings</h2>
+                <ul>
+                    <li>{currentWord.fastMeaning && currentWord.fastMeaning}</li>
+                    {
+                        Object.entries(currentWord.meaning).map(([key, value], idx) => {
+                            const translation = value.translation.map((t, idx) => <span key={`${t}-${idx}`}>t</span>)
+
+                            return <li key={`${key}-${idx}`}>
+                            <h3>{key}</h3>
+                            {
+                                translation
+                            }
+                        </li>
+                        })
+                        
+                    }
+                </ul>
+            </div>
+            
             <div>
             <h2 className={styleTW.title2}>Examples</h2>
                 {

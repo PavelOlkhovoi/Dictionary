@@ -15,9 +15,9 @@ interface Props {
 const FastMeaningFields = ({wordState, changeWordState}: Props) => {
     const words = useAppSelector(state => selectWordsAsStringInArr(state))
     const wordValid = useValidation(wordState.word, {isTextUnique: words, isEmpty: true})
-    const fastMeaningValid = useValidation(wordState.meaning, {isEmpty: true, minLength: 2})
+    const meaningValid = useValidation(wordState.meaning, {isEmpty: true, minLength: 2})
     
-    const [startValidation, setStartValidation] = useState({word: false, fastMeaning: false})
+    const [startValidation, setStartValidation] = useState({word: false, meaning: false})
 
     const handleValidFields = (isValid: boolean, field: string) => {
         changeWordState(wState => ({...wState, validFields: {...wState.validFields, [field as keyof IsFormReady]: isValid}}))
@@ -37,8 +37,8 @@ const FastMeaningFields = ({wordState, changeWordState}: Props) => {
     }, [wordValid.isEmpty, wordValid.uniqueTextError])
 
     useEffect(() => {
-        handleValidFields(fastMeaningValid.minLengthError, 'fastMeaning')
-    }, [fastMeaningValid.minLengthError])
+        handleValidFields(meaningValid.minLengthError, 'meaning')
+    }, [meaningValid.minLengthError])
 
     return (
         <div className="py-4">
@@ -61,7 +61,7 @@ const FastMeaningFields = ({wordState, changeWordState}: Props) => {
             onChange={(e)=> fieldsHandle(e)}
             onBlur={(e)=> onStartValidation(e.target.name)}
             />
-            <ShowError show={startValidation.fastMeaning} pattern={fastMeaningValid} length={2} />
+            <ShowError show={startValidation.meaning} pattern={meaningValid} length={2} />
             </div>
         </div>
     )

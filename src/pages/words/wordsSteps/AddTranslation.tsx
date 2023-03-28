@@ -10,7 +10,7 @@ interface Props {
 }
 
 const AddTranslation = ({step, changeStep, wordState, changeWordState}:Props) => {
-    const errorless = wordState.validFields.word && wordState.validFields.fastMeaning
+    const errorless = wordState.validFields.word && wordState.validFields.meaning
     if (step !== 2){
         return null
     }

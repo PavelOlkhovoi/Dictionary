@@ -28,7 +28,7 @@ function App() {
      <BottomNavigation />
     <Routes>
       <Route path="/" element={<Home />} />
-      {/* <Route path="words/:idword" element={<Word />} /> */}
+      <Route path="words/:idword" element={<Word />} />
       <Route path="words" element={<Words />} />
       <Route path="words/:idword" element={<Word />} />
       <Route path="exercises/:idset" element={<SetWordsToLern />}/>
