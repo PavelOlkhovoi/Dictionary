@@ -1,8 +1,8 @@
-import { collection, addDoc, setDoc, doc, updateDoc, arrayUnion} from "firebase/firestore";
+import { collection, addDoc, setDoc, doc, updateDoc, arrayUnion, arrayRemove} from "firebase/firestore";
 import { db } from "../..";
 import { Tag } from "../../pages/types/word";
 import { store } from "../../store";
-import { addTag, addWordToTag } from "../../store/slices/tagSlice";
+import { addTag, addWordToTag, deleteWordFromTag } from "../../store/slices/tagSlice";
 
 
 export const createTag = async (uid: string, name: string, wordIdx: string) => {
@@ -44,5 +44,18 @@ export const createOrUpdateTag = (name: string, wordId: string, tags: Tag[], uid
     addWordIdxToTag(isTagExist?.tagId, wordId)
   }{
     createTag(uid, name, wordId)
+  }
+}
+
+export const deleteWordIdFromTagDb = async (tagId: string, wordId: string) => {
+  try {
+    const setRef = doc(db, "tags", tagId);
+      await updateDoc(setRef, {
+        textIds: arrayRemove(wordId)
+    })
+
+    store.dispatch(deleteWordFromTag({tagId: tagId, wordId: wordId}))
+  } catch (error) {
+    console.log('Word has not been removed from the tag', error)
   }
 }

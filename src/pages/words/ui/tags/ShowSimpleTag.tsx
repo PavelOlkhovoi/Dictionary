@@ -6,7 +6,9 @@ interface Props {
     tag: Tag
 }
 const ShowSimpleTag = ({clickFunc, tag}: Props) => {
-    const handleClick = () => (clickFunc) && clickFunc()
+
+    const handleClick = () => (clickFunc) && clickFunc(tag.tagId)
+
     return (
         <span 
         className={`${styleTW.bageBlue}`}

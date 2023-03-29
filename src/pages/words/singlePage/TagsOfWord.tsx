@@ -7,6 +7,7 @@ import MyInput from "../../../components/wordsForm/ui/MyInput";
 import LineButton from "../../../components/ui-elements/buttons/LineButton";
 import ShowError from "../../../components/validations/ShowError";
 import useValidation from "../../../hooks/useValidation";
+import { addWordIdxToTag, deleteWordIdFromTagDb } from "../../../backend/crudFunctions";
 
 
 interface Props {
@@ -20,11 +21,17 @@ const TagsOfWord = ({wordId, addTag, createTag}: Props) => {
     const patterns = {minLength: 3, isTextUnique: tag.namesArr }
     const tagValidation = useValidation(tag.newTag.addTag.name, patterns)
     
-    //3. state for new tag
-    //4. delete tag
-    //6. create Tag 
+    //6. create Tag - sendToDB
 
     const startValidate = () => setStartValidation(prev => true)
+
+    const deleteTagFromWord = (tagId: string) => {
+        deleteWordIdFromTagDb(tagId, wordId)
+    }
+
+    const addWordIdToTag = (tagId: string) => {
+        addWordIdxToTag(tagId, wordId)
+    }
 
     useEffect(()=> {
         console.log(tagValidation)
@@ -36,7 +43,7 @@ const TagsOfWord = ({wordId, addTag, createTag}: Props) => {
                 tag.tagsArr?.map(t => <ShowAddeTag
                     key={t.tagId} 
                     tagName={t.name}
-                    clickFunc={console.log}
+                    clickFunc={deleteTagFromWord}
                     tagId={t.tagId} 
                     />)
             }
@@ -44,7 +51,7 @@ const TagsOfWord = ({wordId, addTag, createTag}: Props) => {
             {
                 addTag && <div className="flex flex-wrap gap-2 gap-4 my-4">
                 {
-                    tag.all.map(t => <ShowSimpleTag tag={t} key={t.tagId}/>)
+                    tag.all.map(t => <ShowSimpleTag tag={t} key={t.tagId} clickFunc={addWordIdToTag}/>)
                 }
                 </div>
             }
