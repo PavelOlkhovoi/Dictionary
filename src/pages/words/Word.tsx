@@ -8,6 +8,10 @@ import TagsOfWord from "./singlePage/TagsOfWord";
 import {useState} from 'react'
 import MyInput from "../../components/wordsForm/ui/MyInput";
 
+interface ShowTagControlBar {
+    createTag: boolean
+    addTag: boolean
+}
 
 const Word = () => {
     const { idword } = useParams()
@@ -15,7 +19,9 @@ const Word = () => {
     const wordStatus = useAppSelector(state => state.word.status)
     const tagStatus = useAppSelector(state => state.tag.status)
     // const tags = useAppSelector(state => state.tag.tags.filter(tag => tag.word_id.includes(idword as string)))
-    const [editFields, setEditFields] = useState({addTag: false})
+    const [showTagEditeFields, setShowTagEditeFields] = useState<ShowTagControlBar>({createTag: false, addTag: false})
+
+    const toggleTagControlBare = (id: string) => setShowTagEditeFields(pr => ({...pr, [id]: !pr[id as keyof ShowTagControlBar] }))
     
 
     if( wordStatus === 'pending' || tagStatus === 'pending' || !currentWord ){
@@ -58,7 +64,7 @@ const Word = () => {
                 <div className={`${styleTW.title2} ${styleTW.bottomBorder} ${styleTW.gridLineTitle} pb-2`}>
                     <h2 className={`${styleTW.title2}`}>Examples</h2>
                     <div className="flex gap-6">
-                        <LineButton>Add tag</LineButton>
+                        <LineButton onClick={(e)=> console.log(e.currentTarget)}>Add tag</LineButton>
                         <LineButton>Create tag</LineButton>
                     </div>
                 </div>
@@ -75,12 +81,16 @@ const Word = () => {
                 <div className={`${styleTW.title2} ${styleTW.bottomBorder} ${styleTW.gridLineTitle} pb-4`}>
                     <h2 className="">Tags</h2>
                     <div className="flex gap-6">
-                        <LineButton>Add tags</LineButton>
-                        <LineButton>Create tag</LineButton>
+                        <LineButton  onClick={e => toggleTagControlBare(e.currentTarget.id)} id="addTag">Add tags</LineButton>
+                        <LineButton onClick={e => toggleTagControlBare(e.currentTarget.id)} id="createTag">Create tag</LineButton>
                     </div>
                 </div>
                 {
-                    currentWord.wordId && <TagsOfWord wordId={currentWord.wordId} />
+                    currentWord.wordId && <TagsOfWord 
+                    addTag={showTagEditeFields.addTag} 
+                    createTag={showTagEditeFields.createTag}
+                    wordId={currentWord.wordId} 
+                    />
                 }
             </div>
         </section>

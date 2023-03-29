@@ -31,7 +31,7 @@ const CardStepsWords = ({fieldSet, step, changeStep, changeWordState, errorless 
                 </div>
                 <div className='flex gap-6 mt-6 justify-between'>
                     <LineButton 
-                    disabled={!errorless} 
+                    // disabled={!errorless} 
                     detach={!errorless} 
                     onClick={sendData}
                     >

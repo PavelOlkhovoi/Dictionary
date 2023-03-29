@@ -10,7 +10,7 @@ export interface ErrorStatus {
     isEmpty: boolean
     minLengthError: boolean
     uniqueTextError: boolean
-    patterns: string[]
+    patternNames: string[]
     correctField: boolean
 }
 
@@ -19,6 +19,7 @@ const useValidation = (value: string, validations: Validations) => {
     const [minLengthError, setMinLengthError] = useState(false)
     const [uniqueTextError, setUniqueTextError] = useState(false)
     const [correctField, setCorrectField] = useState(false)
+    const validationNames = Object.keys(validations)
     
     useEffect(()=> {
         for (const validation in validations){
@@ -38,9 +39,14 @@ const useValidation = (value: string, validations: Validations) => {
     }, [value])
 
     useEffect(()=> {
-        if(isEmpty || !minLengthError || !uniqueTextError) {
+        if(isEmpty && validationNames.includes('isEmpty')){
             setCorrectField(false)
-        }else {
+        }else if(!minLengthError && validationNames.includes('minLength')){
+            setCorrectField(false)
+        }else if(!uniqueTextError && validationNames.includes('isTextUnique')){
+            setCorrectField(false)
+        }
+        else {
             setCorrectField(true)
         }
     }, [isEmpty, minLengthError, uniqueTextError])
@@ -49,7 +55,7 @@ const useValidation = (value: string, validations: Validations) => {
         isEmpty,
         minLengthError,
         uniqueTextError,
-        patterns: Object.keys(validations),
+        patternNames: validationNames,
         correctField
     } as ErrorStatus;
 }

@@ -50,7 +50,7 @@ const FastMeaningFields = ({wordState, changeWordState}: Props) => {
                 onChange={(e)=> fieldsHandle(e)}
                 onBlur={(e) => onStartValidation(e.target.name)}
                 />
-                <ShowError show={startValidation.word} pattern={wordValid}  />
+                <ShowError show={startValidation.word} hookName={wordValid}  />
             </div>
 
             <div className='py-4'>
@@ -61,7 +61,7 @@ const FastMeaningFields = ({wordState, changeWordState}: Props) => {
             onChange={(e)=> fieldsHandle(e)}
             onBlur={(e)=> onStartValidation(e.target.name)}
             />
-            <ShowError show={startValidation.meaning} pattern={meaningValid} length={2} />
+            <ShowError show={startValidation.meaning} hookName={meaningValid} length={2} />
             </div>
         </div>
     )
