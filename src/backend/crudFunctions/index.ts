@@ -51,8 +51,10 @@ export const deleteWordIdFromTagDb = async (tagId: string, wordId: string) => {
   try {
     const setRef = doc(db, "tags", tagId);
       await updateDoc(setRef, {
-        textIds: arrayRemove(wordId)
+        word_id: arrayRemove(wordId)
     })
+
+
 
     store.dispatch(deleteWordFromTag({tagId: tagId, wordId: wordId}))
   } catch (error) {
