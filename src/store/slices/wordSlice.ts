@@ -38,7 +38,7 @@ const wordSlice = createSlice({
                 word.fastMeaning = action.payload.translation
             }
         },
-        updateExamplex(state, action: PayloadAction<{id: string, examples: ExampleForServer[]}>){
+        updateExample(state, action: PayloadAction<{id: string, examples: ExampleForServer[]}>){
             const word = state.words.find(word => word.wordId === action.payload.id)
             if(word){ word.examples = action.payload.examples }
         },
@@ -149,5 +149,5 @@ export const selectWordsForFirstExercise = createSelector([selectSortedByTimeWor
 
 })
 
-export const { addWord, updateWord, updateExamplex, updateMeanings, updateFastMeaning, addPointsAndChangeRepetition } = wordSlice.actions
+export const { addWord, updateWord, updateExample, updateMeanings, updateFastMeaning, addPointsAndChangeRepetition } = wordSlice.actions
 export default wordSlice.reducer

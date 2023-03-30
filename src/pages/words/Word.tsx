@@ -12,6 +12,7 @@ interface ShowEditeFields {
     createTag: boolean
     addTag: boolean
     editExample: boolean
+    addExample: number
 }
 
 const Word = () => {
@@ -20,10 +21,10 @@ const Word = () => {
     const wordStatus = useAppSelector(state => state.word.status)
     const tagStatus = useAppSelector(state => state.tag.status)
     const [showEditeFields, setShowEditeFields] = useState<ShowEditeFields>({createTag: false, addTag: false, 
-        editExample: false})
+        editExample: false, addExample: 0})
 
     const toggleTagControlBare = (id: string) => setShowEditeFields(pr => ({...pr, [id]: !pr[id as keyof ShowEditeFields] }))
-    
+    const addExample = () => setShowEditeFields(prev => ({...prev, addExample: prev.addExample + 1, editExample: true}))
 
     if( wordStatus === 'pending' || tagStatus === 'pending' || !currentWord ){
         return <Loading />
@@ -66,7 +67,7 @@ const Word = () => {
                     <h2 className={`${styleTW.title2}`}>Examples</h2>
                     <div className="flex gap-6">
                         <LineButton onClick={(e)=> toggleTagControlBare(e.currentTarget.id)} id="editExample">Edit</LineButton>
-                        <LineButton>Add example</LineButton>
+                        <LineButton onClick={addExample}>Add example</LineButton>
                     </div>
                 </div>
                 {
@@ -79,7 +80,7 @@ const Word = () => {
                     })
                 }
                 {
-                    showEditeFields.editExample && <CrudExamples word={currentWord} edit={true} />
+                    showEditeFields.editExample && <CrudExamples word={currentWord} edit={true} add={showEditeFields.addExample}/>
                 }
             </div>
             <div className="my-8">
