@@ -13,7 +13,9 @@ interface ShowEditeFields {
     createTag: boolean
     addTag: boolean
     editExample: boolean
-    addExample: number
+    addExample: number,
+    editMeanings: boolean,
+    fastMeanings: boolean
 }
 
 const Word = () => {
@@ -21,8 +23,14 @@ const Word = () => {
     const currentWord = useAppSelector(state => state.word.words.find(w => w.wordId === idword))
     const wordStatus = useAppSelector(state => state.word.status)
     const tagStatus = useAppSelector(state => state.tag.status)
-    const [showEditeFields, setShowEditeFields] = useState<ShowEditeFields>({createTag: false, addTag: false, 
-        editExample: false, addExample: 0})
+    const [showEditeFields, setShowEditeFields] = useState<ShowEditeFields>({
+        createTag: false, 
+        addTag: false, 
+        editExample: false, 
+        addExample: 0,
+        editMeanings: false,
+        fastMeanings: false
+    })
 
     const toggleTagControlBare = (id: string) => setShowEditeFields(pr => ({...pr, [id]: !pr[id as keyof ShowEditeFields] }))
     const addExample = () => setShowEditeFields(prev => ({...prev, addExample: prev.addExample + 1, editExample: true}))
@@ -45,13 +53,34 @@ const Word = () => {
                 </div>
             </div>
             <div className="my-8">
-                <h2 className={`${styleTW.title2} ${styleTW.bottomBorder} pb-2 mb-2`}>Meanings</h2>
+                <div className={`${styleTW.title2} ${styleTW.bottomBorder} ${styleTW.gridLineTitle} pb-2`}>
+                    <h2 className={`${styleTW.title2}`}>Meanings</h2>
+                    <div className="flex gap-6">
+                        <LineButton
+                        onClick={(e) => toggleTagControlBare(e.currentTarget.id)}
+                         id='editMeanings'
+                         >
+                            Edit
+                        </LineButton>
+                        <LineButton
+                        onClick={(e) => toggleTagControlBare(e.currentTarget.id)}
+                        id='fastMeanings'
+                        >
+                            Edit main meaning
+                        </LineButton>
+                    </div>
+                </div>
                 <h3 className={`${styleTW.title4}`}>Main meaning</h3>
                 <ul>
-                    <li>{currentWord.fastMeaning && currentWord.fastMeaning}</li>
+                    <li>
+                    {
+                        (currentWord.fastMeaning && !showEditeFields.fastMeanings) && currentWord.fastMeaning
+                    }
+                    </li>
                 </ul>
                 {
-                    Object.entries(currentWord.meaning).map(([key, value], idx) => {
+                   !showEditeFields.editMeanings && Object.entries(currentWord.meaning)
+                    .map(([key, value], idx) => {
                         const translation = value.translation.map((t, idx) => <li key={`${t}-${idx}`}>{t}</li>)
 
                         return <div key={`${key}-${idx}`}>
@@ -66,7 +95,9 @@ const Word = () => {
                     
                 }
 
-                    <CrudMeanings word={currentWord}/>
+                    {
+                        showEditeFields.editMeanings && <CrudMeanings word={currentWord}/>
+                    }
             </div>
             <div className="my-8">
                 <div className={`${styleTW.title2} ${styleTW.bottomBorder} ${styleTW.gridLineTitle} pb-2`}>

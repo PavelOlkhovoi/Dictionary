@@ -1,7 +1,7 @@
 import { db } from '../..';
 import { collection, query, Timestamp, where, getDocs, addDoc, setDoc, doc, updateDoc } from 'firebase/firestore';
 import { parseISO, formatDistanceToNow } from 'date-fns'
-import { Repetition, WordDb } from '../../pages/types/word';
+import { AdvanceMeanings, Repetition, WordDb } from '../../pages/types/word';
 import { Tag } from '../../pages/types/word';
 import { store } from '../../store';
 import { addPointsAndChangeRepetition, addWord, updateFastMeaning } from '../../store/slices/wordSlice';
@@ -35,6 +35,24 @@ export const updateUserFastMeaning = async(wordid: string, name: string, transla
       name,
       translation
     }))
+
+    } catch (error) {
+      console.log("Word has not updated yet", error)
+  }
+}
+
+export const updatetMeaningDb = async(wordid: string, meaning: AdvanceMeanings) => {
+  try {
+    const wordRef = doc(db, "words", wordid);
+    const res = await updateDoc(wordRef, {
+      meaning
+    })
+
+    // store.dispatch(updateFastMeaning({
+    //   id: wordid,
+    //   name,
+    //   translation
+    // }))
 
     } catch (error) {
       console.log("Word has not updated yet", error)

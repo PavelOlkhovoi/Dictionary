@@ -76,7 +76,7 @@ const TranslationFields = ({wordState, groupId, changeWordState}: Props) => {
                 })
             }
             <div>
-                <LineButton onClick={addFields} color="green">New translation</LineButton>
+                <LineButton onClick={addFields} color="blue">New translation</LineButton>
             </div>
         </div>
     )

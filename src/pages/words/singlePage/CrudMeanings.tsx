@@ -1,11 +1,10 @@
-import { PartOfSpeechSelect, WordDb } from "../../types/word";
+import { AdvanceMeanings, PartOfSpeechSelect, WordDb } from "../../types/word";
 import {useState} from 'react'
 import { nanoid } from "@reduxjs/toolkit";
 import MeainingCrudUi from "../ui/meanings/MeainingCrudUi";
 import { TranslationGroup } from "../wordsSteps/uiFields/TranslationGroup";
 import { DeleteBtnIds } from "../../types/word";
-import { setgroups } from "process";
-
+import { updatetMeaningDb } from "../../../backend/crudFunctions/words";
 
 interface Props {
     word: WordDb
@@ -90,6 +89,26 @@ const CrudMeanings = ({word}: Props) => {
 
     }
 
+    const updateMeaningsDB = () => {
+        const names: PartOfSpeechSelect[] = meanings.map(t => t.name)
+        const translationObj: AdvanceMeanings = {}
+
+        names.forEach(n => {
+            const allTranslationGroupByName = meanings.filter(t => t.name === n && t.show)
+            const translationClean = allTranslationGroupByName.map(g => g.translation.filter(t => t.show)).flat().map(t => t.name)
+            const cleanEmptyString = translationClean.filter(s => s !== '')
+        
+            if(!translationObj[n]){
+                translationObj[n] = {
+                    translation: cleanEmptyString
+                }
+            }
+        })
+
+        updatetMeaningDb(word.wordId as string, translationObj)
+        
+    }
+
     return (
         <div>
             {
@@ -105,6 +124,7 @@ const CrudMeanings = ({word}: Props) => {
                     deleteTranslation={deleteTranslation}
                     addTranslation={addTranslation}
                     addGroup={addGroup}
+                    updateMeaningsDB={updateMeaningsDB}
                     />
                 })
             }

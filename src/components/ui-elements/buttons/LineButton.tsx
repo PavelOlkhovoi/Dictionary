@@ -20,6 +20,12 @@ const LineButton: FC<ButtonProps> = ({children, color, detach, ...rest}) => {
         normalColor = "border-green-500"
         hoverColor = "hover:border-green-700"
     }
+
+    if(color === 'blue'){
+        normalColor = "border-blue-500"
+        hoverColor = "hover:border-blue-700"
+    }
+
     return <button 
     className={`${normalColor} ${hoverColor} ${active} border-b-2 text-sm font-medium`}
     disabled={detach}

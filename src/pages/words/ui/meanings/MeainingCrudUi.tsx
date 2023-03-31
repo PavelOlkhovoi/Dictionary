@@ -16,6 +16,7 @@ interface Props {
     deleteTranslation: (ids: DeleteBtnIds) => void
     addTranslation: (idGroup: string) => void
     addGroup: () => void
+    updateMeaningsDB: () => void
 }
 const MeainingCrudUi = ({
     typeOfGroup, 
@@ -26,7 +27,8 @@ const MeainingCrudUi = ({
     deleteGroup,
     deleteTranslation,
     addTranslation,
-    addGroup
+    addGroup,
+    updateMeaningsDB
 }: Props) => {
     return (
         <div>
@@ -56,7 +58,10 @@ const MeainingCrudUi = ({
                 <LineButton onClick={() => addTranslation(groupId)}>Add translation</LineButton>
             </div>
             <div>
-                <LineButton onClick={addGroup} color="green">Add group</LineButton>
+                <LineButton onClick={addGroup} color="blue">Add group</LineButton>
+            </div>
+            <div>
+                <LineButton onClick={updateMeaningsDB} color="blue">Save changes</LineButton>
             </div>
         </div>
     )
