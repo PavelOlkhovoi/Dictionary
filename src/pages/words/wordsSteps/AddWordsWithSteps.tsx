@@ -61,7 +61,6 @@ const AddWordsWithSteps = () => {
             <AddTranslation step={step} changeStep={setStep} wordState={word} changeWordState={setWords} />
             <AddExamples step={step} changeStep={setStep} wordState={word} changeWordState={setWords}/>
             <AddTagsStep wordState={word} changeWordState={setWords} step={step} changeStep={setStep} />
-
             <AddNewWordToDb wordFields={word} changeWordSate={setWords}/>
         </div>
     )

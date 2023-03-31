@@ -17,7 +17,7 @@ const SelectPartOfSpeech = ({value, formId, groupId, handleOption, deleteBtn}: P
             <div className={`${styleTW.bottomBorder} pb-2 flex gap-4`}>
             <label htmlFor={formId}>Pick a part of speech: </label>
             <select value={value} onChange={(e) => handleOption(groupId, e.target.value)} id={formId}>
-                <option value="noun">Noun</option>
+                <option value="none">None</option>
                 <option value="adjective">Adjective</option>
                 <option value="verb">Verb</option>
                 <option value="noun">Noun</option>

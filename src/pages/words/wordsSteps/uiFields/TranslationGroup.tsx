@@ -5,6 +5,7 @@ import { WordForm } from "../AddWordsWithSteps";
 import TranslationFields, { TranslationFieldsTest } from './TranslationFields';
 import SelectPartOfSpeech from './SelectPartOfSpeech';
 import DeleteBtn from './DeleteBtn';
+import { DeleteBtnIds } from '../../../types/word';
 
 export interface TranslationGroup {
     id: string,
@@ -27,8 +28,8 @@ const TranslationGroup = ({changeWordState, wordState}: Props) => {
         changeWordState(wState => ({...wState, translation: [...wordState.translation] }))
     }
 
-    const deleteGroupHandler = (id: string) => {
-        const targetGroup = [...wordState.translation].find(g => g.id === id)
+    const deleteGroupHandler = (id: DeleteBtnIds) => {
+        const targetGroup = [...wordState.translation].find(g => g.id === id.idMain)
         if(!targetGroup){return false}
         targetGroup.show = false
 
@@ -44,7 +45,7 @@ const TranslationGroup = ({changeWordState, wordState}: Props) => {
                     formId={g.id}
                     groupId={g.id}
                     handleOption={handleSelect}
-                    deleteBtn={<DeleteBtn deleteHandler={deleteGroupHandler} idBtn={g.id}/>}
+                    deleteBtn={<DeleteBtn deleteHandler={deleteGroupHandler} idsBtn={{idMain: g.id}}/>}
                     />
                     <TranslationFields
                     wordState={wordState} 

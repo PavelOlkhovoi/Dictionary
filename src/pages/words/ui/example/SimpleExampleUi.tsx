@@ -5,12 +5,13 @@ import { ExampleForm } from "../../../types/word";
 import DeleteBtn from "../../wordsSteps/uiFields/DeleteBtn";
 import {useState} from 'react'
 import ShowError from "../../../../components/validations/ShowError";
+import { DeleteBtnIds } from "../../../types/word";
 
 interface Props {
     example: ExampleForm
     setExample: (id: string, name: string, text: string) => void
     updateDB: () => void
-    deleteExample: (id: string) => void
+    deleteExample: (id: DeleteBtnIds) => void
 }
 const SimpleExampleUi = ({example, setExample, updateDB, deleteExample}: Props) => {
     const exampleValidation = useValidation(example.example, {minLength: 10})
@@ -50,7 +51,7 @@ const SimpleExampleUi = ({example, setExample, updateDB, deleteExample}: Props) 
                 >
                     Save
                 </LineButton>
-                <span><DeleteBtn idBtn={example.id} deleteHandler={() => deleteExample(example.id)}  /> delete</span> 
+                <span><DeleteBtn idsBtn={{idMain: example.id}} deleteHandler={() => deleteExample({idMain: example.id})}  /> delete</span> 
             </div>   
         </div>
     )

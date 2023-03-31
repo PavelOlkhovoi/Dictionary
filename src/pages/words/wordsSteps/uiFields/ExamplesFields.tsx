@@ -4,6 +4,7 @@ import { styleTW } from "../../../../style";
 import { nanoid } from "@reduxjs/toolkit";
 import LineButton from "../../../../components/ui-elements/buttons/LineButton";
 import DeleteBtn from "./DeleteBtn";
+import { DeleteBtnIds } from "../../../types/word";
 
 interface Props {
     wordState: WordForm,
@@ -18,8 +19,8 @@ const ExamplesFields = ({wordState, changeWordState}: Props) => {
         field === 'example' ? targetGroup.example = text : targetGroup.translation = text
         changeWordState(wState => ({...wState, examples: [...wordState.examples]}))
     }
-    const deleteHandler = (id: string) => {
-        const targetGroup = wordState.examples.find(ex => ex.id === id)
+    const deleteHandler = (id: DeleteBtnIds) => {
+        const targetGroup = wordState.examples.find(ex => ex.id === id.idMain)
         if(!targetGroup){return false}
         targetGroup.show = false
         changeWordState(wState => ({...wState, examples: [...wordState.examples]}))
@@ -57,7 +58,7 @@ const ExamplesFields = ({wordState, changeWordState}: Props) => {
                             />
                         </div>
                         <div className="flex-start itemes-center mt-1">
-                            <DeleteBtn deleteHandler={deleteHandler} idBtn={ex.id} /> <span>delete example</span>
+                            <DeleteBtn deleteHandler={deleteHandler} idsBtn={{idMain: ex.id}} /> <span>delete example</span>
                         </div>
 
                     </div>

@@ -1,10 +1,12 @@
+import { DeleteBtnIds } from "../../../types/word"
+
 interface Props {
     deleteHandler: Function,
-    idBtn: string
+    idsBtn: DeleteBtnIds
 }
-const DeleteBtn = ({deleteHandler, idBtn}:Props) => {
+const DeleteBtn = ({deleteHandler, idsBtn}:Props) => {
     const manageHandler = () => {
-        deleteHandler(idBtn)
+        deleteHandler(idsBtn)
     }
     return (
       <span className="inline-flex items-center p-1 mr-2 text-gray-800 bg-transporent rounded-full border border-red-500 dark:bg-gray-700"

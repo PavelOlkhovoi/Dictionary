@@ -3,6 +3,7 @@ import {useState} from 'react'
 import LineButton from '../../../../components/ui-elements/buttons/LineButton';
 import Validate from "../../../../components/validations/Validate";
 import MyInput from "../../../../components/wordsForm/ui/MyInput";
+import { DeleteBtnIds } from '../../../types/word';
 import { WordForm } from "../AddWordsWithSteps"
 import DeleteBtn from './DeleteBtn';
 interface Props {
@@ -27,9 +28,9 @@ const CreateTagStep = ({wordState, changeWordState, tagsNames}: Props) => {
         setValidated(prev => ({...prev, isUniqueName: true }))
     }
 
-    const deleteNewTag = (id: string) => {
+    const deleteNewTag = (id: DeleteBtnIds) => {
         const targetTag = wordState.tags.newTags.map(t => {
-            if(t.id === id){t.show = false}
+            if(t.id === id.idMain){t.show = false}
             return t
         })
             
@@ -53,7 +54,7 @@ const CreateTagStep = ({wordState, changeWordState, tagsNames}: Props) => {
                 >
                     <MyInput label="New tag" name="newtag" value={t.name} onChange={(e) => tagNameHandle(t.id, e.target.value)}/>
                     <div className='mt-1'>
-                        <DeleteBtn idBtn={t.id} deleteHandler={deleteNewTag}/> <span>delete tag</span>
+                        <DeleteBtn idsBtn={{idMain: t.id}} deleteHandler={deleteNewTag}/> <span>delete tag</span>
                     </div>
                 </div>
                 )

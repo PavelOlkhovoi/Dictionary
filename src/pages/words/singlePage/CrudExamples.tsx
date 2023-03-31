@@ -1,12 +1,9 @@
 import { nanoid } from "@reduxjs/toolkit";
-import { ExampleForm, ExampleForServer, WordDb } from "../../types/word";
+import { DeleteBtnIds, ExampleForm, ExampleForServer, WordDb } from "../../types/word";
 import {useState} from 'react'
 import SimpleExampleUi from "../ui/example/SimpleExampleUi";
 import { updateExampleDB } from "../../../backend/crudFunctions/example";
 import {useEffect} from 'react'
-import { de } from "date-fns/locale";
-
-
 
 interface Props {
     word: WordDb
@@ -41,8 +38,8 @@ const CrudExamples = ({word, edit, add}: Props) => {
         updateExampleDB(word.wordId as string, dbExample)
     }
 
-    const deleteExample = (id: string) => {
-        const formExample = examples.filter(ex => ex.id !== id)
+    const deleteExample = (id: DeleteBtnIds) => {
+        const formExample = examples.filter(ex => ex.id !== id.idMain)
         setExamples(prev => formExample)
         const dbExample: ExampleForServer[] = formExample.map(ex => ({example: ex.example, translation: ex.translation}))
         updateExampleDB(word.wordId as string, dbExample)

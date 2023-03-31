@@ -2,6 +2,7 @@ import { nanoid } from "@reduxjs/toolkit";
 import LineButton from "../../../../components/ui-elements/buttons/LineButton";
 import MyInput from "../../../../components/wordsForm/ui/MyInput";
 import { styleTW } from "../../../../style";
+import { DeleteBtnIds } from "../../../types/word";
 import { WordForm } from "../AddWordsWithSteps";
 import DeleteBtn from "./DeleteBtn";
 
@@ -44,14 +45,12 @@ const TranslationFields = ({wordState, groupId, changeWordState}: Props) => {
     const handleOnBlur = () => {
         // changeTranslationGroup(targetGroup)
     }
-    const deleteHandler = (id: string) => {
+    const deleteHandler = (id: DeleteBtnIds) => {
         targetGroup.translation.map(t => {
-            if(t.id === id){t.show = false}
+            if(t.id === id.idMain){t.show = false}
             return t
         })
         
-        updateTranslationCorrect()
-        // handleOnBlur()
     }
 
     const addFields = () => {
@@ -71,7 +70,7 @@ const TranslationFields = ({wordState, groupId, changeWordState}: Props) => {
                     onBlur={handleOnBlur}
                     />
                     <div className="absolute bottom-7 right-0">
-                        <DeleteBtn deleteHandler={deleteHandler} idBtn={m.id} />
+                        <DeleteBtn deleteHandler={deleteHandler} idsBtn={{idMain: m.id}} />
                     </div>
                 </div> 
                 })

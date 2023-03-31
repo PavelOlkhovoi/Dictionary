@@ -88,14 +88,7 @@ export interface Repetition {
 export type TypeOfExercise = 'firstRepetition' | 'secondRepetition' | 'thirdRepetition' | 'thirdRepetition' | 
 'fourthRepetition' | 'fifthRepetition' | 'sixthRepetition' | 'seventhRepetition'
 
-export type PartOfSpeechSelect = 'none' | 'adjective' | 'verb' | 'noun' | 'phrasal verb' | 'preposition' | 'conjunctions' | 'adverb'
 
-export type AdvanceMeaningsBack = Record<PartOfSpeechSelect, {translation: string[]}>
-export type AdvanceMeaningsForm = Record<PartOfSpeechSelect, {id: string, partOfSpeech: PartOfSpeechSelect, translation: string[], show: boolean}>
-
-export type AdvanceMeanings =  Partial<AdvanceMeaningsBack>
-
-export type MeaningForm = Partial<AdvanceMeaningsForm>
 
 export interface ExampleForm {
     id: string;
@@ -121,3 +114,15 @@ export interface IsFormReady {
     word: boolean,
     meaning: boolean
 } 
+
+
+export type PartOfSpeechSelect = 'none' | 'adjective' | 'verb' | 'noun' | 'phrasal verb' | 'preposition' | 'conjunctions' | 'adverb'
+
+export type AdvanceMeaningsBack = Record<PartOfSpeechSelect, {translation: string[]}>
+export type AdvanceMeaningsForm = Record<PartOfSpeechSelect, {id: string, partOfSpeech: PartOfSpeechSelect, translation: string[], show: boolean}>
+
+export type AdvanceMeanings =  Partial<AdvanceMeaningsBack>
+
+export type MeaningForm = Partial<AdvanceMeaningsForm>
+
+export type DeleteBtnIds = {idMain: string, idEmbedded?: string}

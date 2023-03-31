@@ -7,6 +7,7 @@ import LineButton from "../../components/ui-elements/buttons/LineButton";
 import TagsOfWord from "./singlePage/TagsOfWord";
 import {useState} from 'react'
 import CrudExamples from "./singlePage/CrudExamples";
+import CrudMeanings from "./singlePage/CrudMeanings";
 
 interface ShowEditeFields {
     createTag: boolean
@@ -45,22 +46,27 @@ const Word = () => {
             </div>
             <div className="my-8">
                 <h2 className={`${styleTW.title2} ${styleTW.bottomBorder} pb-2 mb-2`}>Meanings</h2>
+                <h3 className={`${styleTW.title4}`}>Main meaning</h3>
                 <ul>
                     <li>{currentWord.fastMeaning && currentWord.fastMeaning}</li>
-                    {
-                        Object.entries(currentWord.meaning).map(([key, value], idx) => {
-                            const translation = value.translation.map((t, idx) => <span key={`${t}-${idx}`}>{t}</span>)
-
-                            return <li key={`${key}-${idx}`}>
-                            <h3>{key}</h3>
-                            {
-                                translation
-                            }
-                        </li>
-                        })
-                        
-                    }
                 </ul>
+                {
+                    Object.entries(currentWord.meaning).map(([key, value], idx) => {
+                        const translation = value.translation.map((t, idx) => <li key={`${t}-${idx}`}>{t}</li>)
+
+                        return <div key={`${key}-${idx}`}>
+                            <h3 className={`${styleTW.title4}`}>{firstCapitalLetter(key)}</h3>
+                            <ul>
+                                {
+                                    translation
+                                }
+                            </ul>
+                        </div>
+                    })
+                    
+                }
+
+                    <CrudMeanings word={currentWord}/>
             </div>
             <div className="my-8">
                 <div className={`${styleTW.title2} ${styleTW.bottomBorder} ${styleTW.gridLineTitle} pb-2`}>
