@@ -3,7 +3,7 @@ export const styleTW = {
     title1: "text-4xl md:text-6xl font-normal",
     title2: "text-3xl md:text-4xl",
     title3: "text-2xl md:text-3xl",
-    title4: "text-2xl font-medium",
+    title4: "text-1xl font-medium",
     bageBlue: "text-xs inline-block py-2 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded cursor-pointer",
     bageRed: "text-xs inline-block py-2 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 text-white rounded hover:bg-red-800",
     shadow: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",

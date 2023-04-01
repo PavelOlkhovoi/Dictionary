@@ -45,7 +45,6 @@ const Word = () => {
         >
             <div className={`${styleTW.bottomBorder} ${styleTW.gridLineTitle} pb-6`}>
                  <h1 className={`${styleTW.title1}`}>{firstCapitalLetter(currentWord.word)}</h1>
-                
                 <div className="">
                     <LineButton>
                         <Link to={{pathname: `/words/edit/${idword}`}}>Edit</Link>
@@ -70,7 +69,7 @@ const Word = () => {
                         </LineButton>
                     </div>
                 </div>
-                <h3 className={`${styleTW.title4}`}>Main meaning</h3>
+                <h3 className={`${styleTW.title4} mt-2`}>Main meaning</h3>
                 <ul>
                     <li>
                     {
@@ -84,7 +83,7 @@ const Word = () => {
                         const translation = value.translation.map((t, idx) => <li key={`${t}-${idx}`}>{t}</li>)
 
                         return <div key={`${key}-${idx}`}>
-                            <h3 className={`${styleTW.title4}`}>{firstCapitalLetter(key)}</h3>
+                            <h3 className={`${styleTW.title4} mt-2`}>{firstCapitalLetter(key)}</h3>
                             <ul>
                                 {
                                     translation

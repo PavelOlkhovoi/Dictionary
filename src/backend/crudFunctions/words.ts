@@ -4,7 +4,7 @@ import { parseISO, formatDistanceToNow } from 'date-fns'
 import { AdvanceMeanings, Repetition, WordDb } from '../../pages/types/word';
 import { Tag } from '../../pages/types/word';
 import { store } from '../../store';
-import { addPointsAndChangeRepetition, addWord, updateFastMeaning } from '../../store/slices/wordSlice';
+import { addPointsAndChangeRepetition, addWord, updateFastMeaning, updateMeanings } from '../../store/slices/wordSlice';
 
 export const createFastWord = async(word: WordDb) => {
     try {
@@ -48,11 +48,10 @@ export const updatetMeaningDb = async(wordid: string, meaning: AdvanceMeanings) 
       meaning
     })
 
-    // store.dispatch(updateFastMeaning({
-    //   id: wordid,
-    //   name,
-    //   translation
-    // }))
+    store.dispatch(updateMeanings({
+      id: wordid,
+      meanings: meaning
+    }))
 
     } catch (error) {
       console.log("Word has not updated yet", error)

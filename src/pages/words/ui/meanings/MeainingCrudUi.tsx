@@ -31,37 +31,39 @@ const MeainingCrudUi = ({
     updateMeaningsDB
 }: Props) => {
     return (
-        <div>
+        <div className="my-2">
+        <div className="mt-4">
             <SelectPartOfSpeech 
-            value={typeOfGroup} 
-            formId={groupId} 
-            groupId={groupId}
-            handleOption={handleGroupe}
-            deleteBtn={<DeleteBtn deleteHandler={deleteGroup} idsBtn={{idMain: groupId}}/> }
-            />
+                value={typeOfGroup} 
+                formId={groupId} 
+                groupId={groupId}
+                handleOption={handleGroupe}
+                deleteBtn={<DeleteBtn deleteHandler={deleteGroup} idsBtn={{idMain: groupId}}/> }
+                />
+           </div>
             {
                 translation.filter(t => t.show).map(t => {
-                    return <div key={t.id} className="w-full py-2 mb-2 relative">
+                    return <div key={t.id} className="w-full my-4 relative">
                         <MyInput
                         label="meaning"   
                         name="meaning"
                         value={t.name}
                         onChange={(e) => handleTranslation(t.id, groupId, e.target.value)}   
                         />
-                        <div className="absolute bottom-10 right-0">
+                        <div className="absolute bottom-2 right-0">
                             <DeleteBtn deleteHandler={deleteTranslation} idsBtn={{idMain: groupId, idEmbedded: t.id}} />
                         </div>
                     </div>
                 })
             }
-            <div>
+            <div className="my-2">
                 <LineButton onClick={() => addTranslation(groupId)}>Add translation</LineButton>
             </div>
-            <div>
+            <div className="my-2">
                 <LineButton onClick={addGroup} color="blue">Add group</LineButton>
             </div>
-            <div>
-                <LineButton onClick={updateMeaningsDB} color="blue">Save changes</LineButton>
+            <div className="my-2">
+                <LineButton onClick={updateMeaningsDB} color="green">Save changes</LineButton>
             </div>
         </div>
     )
