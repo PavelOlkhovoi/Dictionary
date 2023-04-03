@@ -11,6 +11,7 @@ import CrudMeanings from "./singlePage/CrudMeanings";
 import FastMeaningUpdate from "./singlePage/FastMeaningUpdate";
 
 interface ShowEditeFields {
+    word: boolean
     createTag: boolean
     addTag: boolean
     editExample: boolean
@@ -25,6 +26,7 @@ const Word = () => {
     const wordStatus = useAppSelector(state => state.word.status)
     const tagStatus = useAppSelector(state => state.tag.status)
     const [showEditeFields, setShowEditeFields] = useState<ShowEditeFields>({
+        word: false,
         createTag: false, 
         addTag: false, 
         editExample: false, 
@@ -44,14 +46,20 @@ const Word = () => {
         <section
         className={`${styleTW.containerWide} pb-20`}
         >
-            <div className={`${styleTW.bottomBorder} ${styleTW.gridLineTitle} pb-6`}>
-                 <h1 className={`${styleTW.title1}`}>{firstCapitalLetter(currentWord.word)}</h1>
+            <div className={`${styleTW.bottomBorder} ${styleTW.gridLineTitle} mb-2 pb-6`}>
+                <h1 className={`${styleTW.title1}`}>{firstCapitalLetter(currentWord.word)}</h1>
                 <div className="">
-                    <LineButton>
-                        <Link to={{pathname: `/words/edit/${idword}`}}>Edit</Link>
+                    <LineButton
+                    onClick={(e) => toggleTagControlBare(e.currentTarget.id)}
+                    id='word'
+                    >
+                        Edit
                     </LineButton>
                 </div>
             </div>
+            {
+                showEditeFields.word && <div>Change input</div>
+            }
             <div className="my-8">
                 <div className={`${styleTW.title2} ${styleTW.bottomBorder} ${styleTW.gridLineTitle} pb-2`}>
                     <h2 className={`${styleTW.title2}`}>Meanings</h2>

@@ -56,13 +56,9 @@ const MeainingCrudUi = ({
                     </div>
                 })
             }
-            <div className="my-2">
+            <div className="my-2 flex flex-col gap-4 justify-start items-start">
                 <LineButton onClick={() => addTranslation(groupId)}>Add translation</LineButton>
-            </div>
-            <div className="my-2">
                 <LineButton onClick={addGroup} color="blue">Add group</LineButton>
-            </div>
-            <div className="my-2">
                 <LineButton onClick={updateMeaningsDB} color="green">Save changes</LineButton>
             </div>
         </div>

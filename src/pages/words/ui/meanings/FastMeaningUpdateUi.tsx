@@ -7,7 +7,7 @@ interface Props {
 }
 const FastMeaningUpdateUi = ({value, changeValue, sendToDb, fireValidation}: Props) => {
     return (
-        <div className="w-full my-2 relative">
+        <div className="w-full my-1 relative">
                 <MyInput
                 label="meaning"   
                 name="meaning"
