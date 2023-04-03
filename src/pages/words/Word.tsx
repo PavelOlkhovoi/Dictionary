@@ -8,6 +8,7 @@ import TagsOfWord from "./singlePage/TagsOfWord";
 import {useState} from 'react'
 import CrudExamples from "./singlePage/CrudExamples";
 import CrudMeanings from "./singlePage/CrudMeanings";
+import FastMeaningUpdate from "./singlePage/FastMeaningUpdate";
 
 interface ShowEditeFields {
     createTag: boolean
@@ -73,7 +74,14 @@ const Word = () => {
                 <ul>
                     <li>
                     {
-                        (currentWord.fastMeaning && !showEditeFields.fastMeanings) && currentWord.fastMeaning
+                        (currentWord.fastMeaning && showEditeFields.fastMeanings) ? 
+                        <FastMeaningUpdate
+                        fastMeaning={currentWord.fastMeaning}
+                        word={currentWord.word}
+                        wordId={currentWord.wordId as string} 
+                        />
+                        :
+                        <span>{currentWord.fastMeaning}</span>
                     }
                     </li>
                 </ul>

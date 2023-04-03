@@ -31,10 +31,10 @@ const wordSlice = createSlice({
             const word = state.words.find(word => word.wordId === action.payload.id)
             if(word){ word.word = action.payload.newWord }
         },
-        updateFastMeaning(state, action: PayloadAction<{id: string, name: string, translation: string}>){
+        updateFastMeaning(state, action: PayloadAction<{id: string, word: string, translation: string}>){
             const word = state.words.find(word => word.wordId === action.payload.id)
             if(word){ 
-                word.word = action.payload.name
+                word.word = action.payload.word
                 word.fastMeaning = action.payload.translation
             }
         },

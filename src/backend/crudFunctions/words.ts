@@ -22,18 +22,17 @@ export const createFastWord = async(word: WordDb) => {
     }
 }
 
-export const updateUserFastMeaning = async(wordid: string, name: string, translation: string) => {
+export const updateUserFastMeaning = async(wordid: string, word: string, translation: string) => {
   try {
     const wordRef = doc(db, "words", wordid);
     const res = await updateDoc(wordRef, {
-      word: name,
       fastMeaning: translation
     })
 
     store.dispatch(updateFastMeaning({
       id: wordid,
-      name,
-      translation
+      word,
+      translation,
     }))
 
     } catch (error) {
