@@ -1,22 +1,20 @@
 import {useState} from 'react'
-import OneInputUi from '../ui/meanings/OneInputUi'
-import { updateUserFastMeaning } from '../../../backend/crudFunctions/words'
+import OneInputUi from '../ui/OneInputUi'
 import useValidation from '../../../hooks/useValidation'
 import ShowError from '../../../components/validations/ShowError'
 
 interface Props {
-    fastMeaning: string
-    wordId: string,
-    word: string,
+    value: string
+    name: string
+    sendToDB: (id: string) => void
 }
-const OneInputUpdate = ({fastMeaning, wordId, word}: Props) => {
-    const [meaning, setMeaning] = useState(fastMeaning)
-    const meaningValidation = useValidation(meaning, {isEmpty: true})
+const OneInputUpdate = ({value, sendToDB, name}: Props) => {
+    const [text, setText] = useState(value)
+    const textValidation = useValidation(text, {isEmpty: true})
     const [startValidation, setStartValidation] = useState(false)
 
-
-    const updateMeaning = (text: string) => {
-        setMeaning(prev => text)
+    const updateText = (inputValue: string) => {
+        setText(prev => inputValue)
     }
 
     const fireValidation = () => {
@@ -27,9 +25,9 @@ const OneInputUpdate = ({fastMeaning, wordId, word}: Props) => {
         setStartValidation(prev => false)
     }
 
-    const sendToDb = () => {
-        if(meaningValidation.correctField){
-            updateUserFastMeaning(wordId, word, meaning)
+    const sendInputToDb = () => {
+        if(textValidation.correctField){
+            sendToDB(text)
             stopValidation()
         }
     }
@@ -37,13 +35,14 @@ const OneInputUpdate = ({fastMeaning, wordId, word}: Props) => {
     return (
         <>
         <OneInputUi 
-        value={meaning} 
-        changeValue={updateMeaning}
-        sendToDb={sendToDb}
+        value={text} 
+        name={name}
+        changeValue={updateText}
+        sendToDb={sendInputToDb}
         fireValidation={fireValidation}
         />
 
-        <ShowError show={startValidation} hookName={meaningValidation}/>
+        <ShowError show={startValidation} hookName={textValidation}/>
         </>
     )
 }

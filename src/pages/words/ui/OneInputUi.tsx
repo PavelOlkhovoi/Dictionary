@@ -1,16 +1,17 @@
-import MyInput from "../../../../components/wordsForm/ui/MyInput";
+import MyInput from "../../../components/wordsForm/ui/MyInput";
 interface Props {
     value: string
     changeValue: (text: string) => void
     sendToDb: () => void
     fireValidation: () => void
+    name: string
 }
-const OneInputUi = ({value, changeValue, sendToDb, fireValidation}: Props) => {
+const OneInputUi = ({value, name, changeValue, sendToDb, fireValidation}: Props) => {
     return (
         <div className="w-full my-1 relative">
                 <MyInput
-                label="meaning"   
-                name="meaning"
+                label={name}   
+                name={name}
                 value={value}
                 onChange={(e) => changeValue(e.target.value)}  
                 onBlur={sendToDb} 

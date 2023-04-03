@@ -9,6 +9,7 @@ import {useState} from 'react'
 import CrudExamples from "./singlePage/CrudExamples";
 import CrudMeanings from "./singlePage/CrudMeanings";
 import OneInputUpdate from "./singlePage/OneInputUpdate";
+import { updateUserFastMeaning } from "../../backend/crudFunctions/words";
 
 interface ShowEditeFields {
     word: boolean
@@ -37,6 +38,10 @@ const Word = () => {
 
     const toggleTagControlBare = (id: string) => setShowEditeFields(pr => ({...pr, [id]: !pr[id as keyof ShowEditeFields] }))
     const addExample = () => setShowEditeFields(prev => ({...prev, addExample: prev.addExample + 1, editExample: true}))
+
+    const sendFastMeaningDB = (text: string) => {
+        updateUserFastMeaning(currentWord?.wordId as string, currentWord?.word as string, text)
+    }
 
     if( wordStatus === 'pending' || tagStatus === 'pending' || !currentWord ){
         return <Loading />
@@ -84,9 +89,9 @@ const Word = () => {
                     {
                         (currentWord.fastMeaning && showEditeFields.fastMeanings) ? 
                         <OneInputUpdate
-                        fastMeaning={currentWord.fastMeaning}
-                        word={currentWord.word}
-                        wordId={currentWord.wordId as string} 
+                        value={currentWord.fastMeaning}
+                        name="meaning"
+                        sendToDB={sendFastMeaningDB} 
                         />
                         :
                         <span>{currentWord.fastMeaning}</span>
