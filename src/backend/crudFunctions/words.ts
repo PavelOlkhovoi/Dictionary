@@ -1,10 +1,10 @@
 import { db } from '../..';
-import { collection, query, Timestamp, where, getDocs, addDoc, setDoc, doc, updateDoc } from 'firebase/firestore';
+import { collection, query, Timestamp, where, getDocs, addDoc, setDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { parseISO, formatDistanceToNow } from 'date-fns'
 import { AdvanceMeanings, Repetition, WordDb } from '../../pages/types/word';
 import { Tag } from '../../pages/types/word';
 import { store } from '../../store';
-import { addPointsAndChangeRepetition, addWord, updateFastMeaning, updateMeanings } from '../../store/slices/wordSlice';
+import { addPointsAndChangeRepetition, addWord, updateFastMeaning, updateMeanings, updateWord, deleteWord } from '../../store/slices/wordSlice';
 
 export const createFastWord = async(word: WordDb) => {
     try {
@@ -20,6 +20,32 @@ export const createFastWord = async(word: WordDb) => {
     } catch (error) {
       console.log(`The word ${word.word} has not been`, error)
     }
+}
+
+export const updateWordDb = async(wordid: string, word: string) => {
+  try {
+    const wordRef = doc(db, "words", wordid);
+    const res = await updateDoc(wordRef, {
+      word
+    })
+
+    store.dispatch(updateWord({
+      id: wordid,
+      newWord: word,
+    }))
+
+    } catch (error) {
+      console.log("Word has not updated yet", error)
+  }
+}
+
+export const deleteWordDb = async (wordId: string) => {
+  try {
+    await deleteDoc(doc(db, "words", wordId));
+    store.dispatch(deleteWord({id: wordId}))
+  } catch (error) {
+    console.log("Set has not been deleted", error)
+  }
 }
 
 export const updateUserFastMeaning = async(wordid: string, word: string, translation: string) => {
@@ -56,6 +82,8 @@ export const updatetMeaningDb = async(wordid: string, meaning: AdvanceMeanings) 
       console.log("Word has not updated yet", error)
   }
 }
+
+
 
 export const addManyWords = async(words: WordDb[]) => {
   const idsResArr: string[] = []

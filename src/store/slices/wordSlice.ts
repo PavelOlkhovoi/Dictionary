@@ -46,6 +46,9 @@ const wordSlice = createSlice({
             const word = state.words.find(word => word.wordId === action.payload.id)
             if(word){ word.meaning = action.payload.meanings }
         },
+        deleteWord(state, action: PayloadAction<{id: string}>){
+            state.words.splice(state.words.findIndex((w) => w.wordId === action.payload.id), 1);
+        },
         addPointsAndChangeRepetition(state, action: PayloadAction<{id: string, points: number, repetition: Repetition}>){
             const word = state.words.find(word => word.wordId === action.payload.id)
             if(word){
@@ -149,5 +152,6 @@ export const selectWordsForFirstExercise = createSelector([selectSortedByTimeWor
 
 })
 
-export const { addWord, updateWord, updateExample, updateMeanings, updateFastMeaning, addPointsAndChangeRepetition } = wordSlice.actions
+export const { addWord, updateWord, updateExample, updateMeanings, updateFastMeaning, addPointsAndChangeRepetition,
+    deleteWord } = wordSlice.actions
 export default wordSlice.reducer

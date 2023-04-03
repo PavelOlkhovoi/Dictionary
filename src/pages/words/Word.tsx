@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { firstCapitalLetter } from '../../helpers/display';
 import { styleTW } from '../../style';
 import { useAppSelector } from '../../hooks/redux-hooks';
@@ -9,7 +9,7 @@ import {useState} from 'react'
 import CrudExamples from "./singlePage/CrudExamples";
 import CrudMeanings from "./singlePage/CrudMeanings";
 import OneInputUpdate from "./singlePage/OneInputUpdate";
-import { updateUserFastMeaning } from "../../backend/crudFunctions/words";
+import { deleteWordDb, updateUserFastMeaning, updateWordDb } from "../../backend/crudFunctions/words";
 
 interface ShowEditeFields {
     word: boolean
@@ -26,6 +26,7 @@ const Word = () => {
     const currentWord = useAppSelector(state => state.word.words.find(w => w.wordId === idword))
     const wordStatus = useAppSelector(state => state.word.status)
     const tagStatus = useAppSelector(state => state.tag.status)
+    const navigate = useNavigate()
     const [showEditeFields, setShowEditeFields] = useState<ShowEditeFields>({
         word: false,
         createTag: false, 
@@ -39,9 +40,19 @@ const Word = () => {
     const toggleTagControlBare = (id: string) => setShowEditeFields(pr => ({...pr, [id]: !pr[id as keyof ShowEditeFields] }))
     const addExample = () => setShowEditeFields(prev => ({...prev, addExample: prev.addExample + 1, editExample: true}))
 
+    const sendWordDB = (word: string) => {
+        updateWordDb(currentWord?.wordId as string, word)
+    }
+
     const sendFastMeaningDB = (text: string) => {
         updateUserFastMeaning(currentWord?.wordId as string, currentWord?.word as string, text)
     }
+
+    const deleteWordHandler = () => {
+        deleteWordDb(currentWord?.wordId as string)
+        navigate('/words');
+    }
+
 
     if( wordStatus === 'pending' || tagStatus === 'pending' || !currentWord ){
         return <Loading />
@@ -53,17 +64,28 @@ const Word = () => {
         >
             <div className={`${styleTW.bottomBorder} ${styleTW.gridLineTitle} mb-2 pb-6`}>
                 <h1 className={`${styleTW.title1}`}>{firstCapitalLetter(currentWord.word)}</h1>
-                <div className="">
+                <div className="flex gap-6 justify-start items-start">
                     <LineButton
                     onClick={(e) => toggleTagControlBare(e.currentTarget.id)}
                     id='word'
                     >
                         Edit
                     </LineButton>
+                    <LineButton
+                    color="red"
+                    onClick={deleteWordHandler}
+                    >
+                        Delete
+                    </LineButton>
                 </div>
             </div>
             {
-                showEditeFields.word && <div>Change input</div>
+                showEditeFields.word &&
+                <OneInputUpdate
+                value={currentWord.word}
+                name="word"
+                sendToDB={sendWordDB}
+                />
             }
             <div className="my-8">
                 <div className={`${styleTW.title2} ${styleTW.bottomBorder} ${styleTW.gridLineTitle} pb-2`}>
