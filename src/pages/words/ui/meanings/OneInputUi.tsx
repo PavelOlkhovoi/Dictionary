@@ -5,7 +5,7 @@ interface Props {
     sendToDb: () => void
     fireValidation: () => void
 }
-const FastMeaningUpdateUi = ({value, changeValue, sendToDb, fireValidation}: Props) => {
+const OneInputUi = ({value, changeValue, sendToDb, fireValidation}: Props) => {
     return (
         <div className="w-full my-1 relative">
                 <MyInput
@@ -20,4 +20,4 @@ const FastMeaningUpdateUi = ({value, changeValue, sendToDb, fireValidation}: Pro
     )
 }
 
-export default FastMeaningUpdateUi;
+export default OneInputUi;

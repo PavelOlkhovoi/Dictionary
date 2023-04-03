@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import FastMeaningUpdateUi from '../ui/meanings/FastMeaningUpdateUi'
+import OneInputUi from '../ui/meanings/OneInputUi'
 import { updateUserFastMeaning } from '../../../backend/crudFunctions/words'
 import useValidation from '../../../hooks/useValidation'
 import ShowError from '../../../components/validations/ShowError'
@@ -9,7 +9,7 @@ interface Props {
     wordId: string,
     word: string,
 }
-const FastMeaningUpdate = ({fastMeaning, wordId, word}: Props) => {
+const OneInputUpdate = ({fastMeaning, wordId, word}: Props) => {
     const [meaning, setMeaning] = useState(fastMeaning)
     const meaningValidation = useValidation(meaning, {isEmpty: true})
     const [startValidation, setStartValidation] = useState(false)
@@ -28,7 +28,6 @@ const FastMeaningUpdate = ({fastMeaning, wordId, word}: Props) => {
     }
 
     const sendToDb = () => {
-
         if(meaningValidation.correctField){
             updateUserFastMeaning(wordId, word, meaning)
             stopValidation()
@@ -37,7 +36,7 @@ const FastMeaningUpdate = ({fastMeaning, wordId, word}: Props) => {
     
     return (
         <>
-        <FastMeaningUpdateUi 
+        <OneInputUi 
         value={meaning} 
         changeValue={updateMeaning}
         sendToDb={sendToDb}
@@ -49,4 +48,4 @@ const FastMeaningUpdate = ({fastMeaning, wordId, word}: Props) => {
     )
 }
 
-export default FastMeaningUpdate;
+export default OneInputUpdate;
