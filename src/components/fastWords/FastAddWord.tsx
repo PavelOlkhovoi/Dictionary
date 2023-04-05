@@ -1,16 +1,20 @@
 import {useState, useEffect} from 'react'
 import { nanoid } from '@reduxjs/toolkit'
-import MyButton from '../wordsForm/ui/MyButton'
 import { styleTW } from '../../style'
 import { WordDb } from '../../pages/types/word'
 import { makeObjForFastAdding } from '../../helpers/manipulateArr'
+import LineButton from '../ui-elements/buttons/LineButton'
+import { Validations } from '../../hooks/useValidation'
+import OneSimpleInput from '../../pages/sets/singlePageUi/OneSimpleInput'
+import { useAppSelector } from '../../hooks/redux-hooks'
+import { selectWordsArrWithName } from '../../store/slices/wordSlice'
 
 export interface WordsBasicWithId {
     [index: string]: WordsBasic
 }
 
 interface WordsBasic {
-    name: string
+    word: string
     translation: string
     show: Boolean
 }
@@ -18,76 +22,88 @@ interface WordsBasic {
 interface Props {
     getWords: Function
     oldWords?: WordDb[] | null
+    customHook: (id: string, fieldsName: string, isValid: boolean) => void
+    formReady: boolean
+    isNameValid: boolean
 }
 
-const FastAddWord = ({getWords, oldWords = null}: Props) => {
- 
+const FastAddWord = ({getWords, oldWords = null, customHook, formReady, isNameValid}: Props) => {
+const allWords = useAppSelector(state => selectWordsArrWithName(state))
 const [words, setWords] = useState<WordsBasicWithId>(oldWords ? makeObjForFastAdding(oldWords) : {
-    [nanoid()]: {
-        name: '',
-        translation: '',
-        show: true
-    } 
-})
+    [nanoid()]: { word: '', translation: '', show: true} 
+    })
 
-useEffect(()=> {
-    if(oldWords){
-        setWords(makeObjForFastAdding(oldWords as WordDb[]))
+    const wordPattern: Validations = {isEmpty: true, isTextUnique: allWords}
+
+    const valueHandle = (name: string, value: string, wordId: string, isValid: boolean) => {
+        setWords(prev => ({
+            ...prev,
+            [wordId as keyof WordsBasicWithId]: {
+                ...prev[wordId as keyof WordsBasicWithId],
+                [name]: value
+            }
+        }))
     }
-}, [oldWords])
+
+    useEffect(()=> {
+        if(oldWords){
+            setWords(makeObjForFastAdding(oldWords as WordDb[]))
+        }
+    }, [oldWords])
 
     
     return (
         <div>
-                <div className='[&>:last-child]:my-8'>
+            <div className='[&>:last-child]:my-8'>
             {
-                 Object.keys(words).map(w => words[w as keyof WordsBasicWithId].show && <div key={w} className={`${styleTW.card} mt-6`}>
-                    <label className="block mb-2 text-sm font-medium text-gray-700">
-                    <input className={`${styleTW.shadow} w-full`} value={words[w as keyof WordsBasicWithId].name}
-                    onChange={(e) => setWords(prev => ({
+                Object.keys(words).map(wordId => words[wordId as keyof WordsBasicWithId].show && 
+                <div 
+                key={wordId} 
+                className={`${styleTW.card} mt-6 [&>div]:my-4`}>
+
+                <OneSimpleInput
+                    label='word'
+                    wordId={wordId}
+                    name='word'
+                    pattern={wordPattern}
+                    value={ words[wordId as keyof WordsBasicWithId].word}
+                    valueHandle={valueHandle}
+                    customHook={customHook}
+                />
+
+                <OneSimpleInput
+                    label='translation'
+                    wordId={wordId}
+                    name='translation'
+                    pattern={wordPattern}
+                    value={ words[wordId as keyof WordsBasicWithId].translation}
+                    valueHandle={valueHandle}
+                    customHook={customHook}
+                />   
+
+                <LineButton
+                onClick={()=> setWords(prev => {
+                    return ({
                         ...prev,
-                        [w as keyof WordsBasicWithId]: {
-                            ...prev[w as keyof WordsBasicWithId],
-                            name: e.target.value
+                        [wordId as keyof WordsBasicWithId]: {
+                            ...prev[wordId as keyof WordsBasicWithId],
+                            show: false
                         }
-                    }))}
-                    />
-                    </label>
-                    <label className="block mb-2 text-sm font-medium text-gray-700">
-                    {oldWords ? 'Last Translation' : 'translation'}
-                    <input className={`${styleTW.shadow} w-full`} value={words[w as keyof WordsBasicWithId].translation}
-                    onChange={(e) => setWords(prev => ({
-                        ...prev,
-                        [w as keyof WordsBasicWithId]: {
-                            ...prev[w as keyof WordsBasicWithId],
-                            translation: e.target.value
-                        }
-                    }))}
-                    />
-                    </label>
-                    <MyButton
-                    onClick={()=> setWords(prev => {
-                        return ({
-                            ...prev,
-                            [w as keyof WordsBasicWithId]: {
-                                ...prev[w as keyof WordsBasicWithId],
-                                show: false
-                            }
-                        })
-                    })}
-                    color="red"
-                    >
-                        Delete
-                    </MyButton>
+                    })
+                })}
+                color="red"
+                >
+                    Delete
+                </LineButton>
+
                 </div>)
             }
-            <MyButton
+            <LineButton
              onClick={()=> setWords(prev => {
                 const ids = nanoid()
-                return ({
-                    ...prev,
+                return ({...prev,
                     [ids]: {
-                        name: '',
+                        word: '',
                     translation: '',
                     show: true
                     }
@@ -95,9 +111,15 @@ useEffect(()=> {
             })}
             >
                 Add Word
-            </MyButton>
+            </LineButton>
         </div>
-        <MyButton onClick={()=> getWords(words)} color='green'>Add Set</MyButton>
+        <LineButton 
+        detach={!(isNameValid && formReady)} 
+        onClick={()=> getWords(words)} 
+        color='green'
+        >
+            Save set
+        </LineButton>
     </div>
     );
 }

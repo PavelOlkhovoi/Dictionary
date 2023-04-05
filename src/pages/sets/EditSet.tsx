@@ -100,7 +100,7 @@ const EditSet = () => {
                         <input className={`${styleTW.shadow} w-full my-2`} type="text" value={source.value} onChange={source.onChange}/>
                     </label>
                 </div>
-                <FastAddWord getWords={updateWords} oldWords={words}/>
+                {/* <FastAddWord getWords={updateWords} oldWords={words}/> */}
 
                 <div className="mt-4"><MyButton color='red' onClick={()=> deleteSet(set?.setId as string)}>Delete set</MyButton></div>
             </div>

@@ -1,5 +1,7 @@
 import {FC} from 'react'
 import { styleTW } from '../../../style'
+import { useEffect } from 'react'
+
 export interface ButtonProps extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, React.AriaAttributes  {
     children: React.ReactNode, 
     color?: string

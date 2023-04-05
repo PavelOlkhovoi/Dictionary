@@ -89,12 +89,17 @@ export const selectWordsArrByName = (state: RootState, words: string[]) => {
     return res
 }
 
+export const selectWordsArrWithName = (state: RootState) => {
+    return state.word.words.map(w => w.word)
+}
+
 export const selectWordsArrById = (state: RootState, ids: string[] | null | undefined) => {
     if(ids){
         const words = state.word.words.filter(w => ids.includes(w.wordId as string))
         return words
     }
 }
+
 export const selectWordById = (state: RootState, id: string) => {
     return state.word.words.find(w => w.wordId === id)
 }
