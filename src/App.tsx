@@ -1,7 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
-import SignUp from './pages/SignUp';
 import Words from './pages/words/Words';
 import NotFound from './pages/NotFound';
 import AddWord from './pages/words/AddWord';
