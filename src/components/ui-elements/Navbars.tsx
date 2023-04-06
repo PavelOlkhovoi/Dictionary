@@ -8,9 +8,9 @@ import useAuthHook from '../../hooks/useAuthHook'
 const navigation = [
     { name: 'Dashboard', href: '/', current: true },
     { name: 'Add word', href: '/addwordsSteps', current: false },
-    { name: 'Auth', href: '/auth', current: false },
     { name: 'Texts', href: '/texts', current: false },
-    { name: 'Sets', href: '/sets', current: false }
+    { name: 'Sets', href: '/sets', current: false },
+    { name: 'Auth', href: '/auth', current: false },
   ]
 
   function classNames(...classes: string[]) {

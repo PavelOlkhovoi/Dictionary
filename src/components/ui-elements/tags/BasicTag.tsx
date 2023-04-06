@@ -4,7 +4,6 @@ type Props = {
     children: string | JSX.Element | JSX.Element[]
   }
 const BasicTag: FC<Props> = ({children}) => {
-  console.log(children)
     return <div className={`${styleTW.bageBlue} mt-3`}>{children}</div>;
 }
 
