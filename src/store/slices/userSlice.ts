@@ -13,6 +13,7 @@ export interface FakeUser {
     email: string
     uid: string
     token: string
+    photoURL: string | null
 }
 
 const initialState: StateUser = {
@@ -20,6 +21,7 @@ const initialState: StateUser = {
         email: '',
         uid: '',
         token: '',
+        photoURL: null
     },
     status: 'idle',
     error: null,
@@ -39,7 +41,7 @@ const userSlice = createSlice({
                 state.userFake = action.payload
             },
             prepare: (payload: FakeUser) => {
-                return { payload: { email: payload.email, uid: payload.uid, token: '111' } }
+                return { payload: { email: payload.email, uid: payload.uid, token: '111', photoURL: payload.photoURL } }
             }
         }
     }

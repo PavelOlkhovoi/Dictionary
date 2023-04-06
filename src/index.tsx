@@ -27,12 +27,14 @@ const testUser = () => {
     onAuthStateChanged(auth, user => {
 
         if(user){
-          const {email, uid } = user
+          const {email, uid, photoURL} = user
           // const token = user.getIdToken()
           const newUser: FakeUser = {
             email: email as string,
             uid,
-            token: 'test'
+            token: 'test',
+            photoURL
+
           }
           store.dispatch(setUser(newUser))
           store.dispatch(fetchWords(newUser.uid))

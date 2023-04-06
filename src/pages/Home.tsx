@@ -1,5 +1,4 @@
 import { signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
-import { useEffect, useState } from 'react';
 import { auth } from "..";
 import { useAppSelector } from "../hooks/redux-hooks";
 // import { useMyAuth } from "../hooks/useMyAuth";

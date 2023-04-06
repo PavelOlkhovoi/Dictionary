@@ -27,13 +27,13 @@ function App() {
     <Navbars />
      <BottomNavigation />
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Words />} />
       <Route path="words" element={<Words />} />
       <Route path="words/:idword" element={<Word />} />
       <Route path="exercises/:idset" element={<SetWordsToLern />}/>
       <Route path="addwords" element={<AddWord />}/>
       <Route path="addwordsSteps" element={<AddWordsWithSteps />}/>
-      <Route path="auth" element={<SignUp />} />
+      <Route path="auth" element={<Home />} />
       <Route path='/texts'>
         <Route index element={<ListTexts />} />
         <Route path=":idtext" element={<SingleText />} />
