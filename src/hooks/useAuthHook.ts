@@ -30,9 +30,9 @@ const useAuthHook = () => {
       }
       
       const logout = () => {
-        navigate('/auth')
         signOut(auth).then(() => {
           console.log('Sign-out successful')
+          navigate('/auth')
         }).catch((error) => {
           console.log('An error happened!', error)
         });

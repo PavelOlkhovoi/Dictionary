@@ -3,6 +3,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { NavLink } from 'react-router-dom'
 import { useAppSelector } from '../../hooks/redux-hooks'
+import useAuthHook from '../../hooks/useAuthHook'
 
 const navigation = [
     { name: 'Dashboard', href: '/', current: true },
@@ -18,6 +19,7 @@ const navigation = [
 
 const Navbars = () => {
   const user = useAppSelector(state => state.user.userFake)
+  const {logout} = useAuthHook()
      return (
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
@@ -86,23 +88,14 @@ const Navbars = () => {
                               </NavLink>
                             )}
                           </Menu.Item>
-                          {/* <Menu.Item>
-                            {({ active }) => (
-                              <NavLink
-                                to="#"
-                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                              >
-                                
-                              </NavLink>
-                            )}
-                          </Menu.Item> */}
                           <Menu.Item>
                             {({ active }) => (
                               <NavLink
                                 to="#"
                                 className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                onClick={logout}
                               >
-                                Sign out
+                                Logout
                               </NavLink>
                             )}
                           </Menu.Item>
