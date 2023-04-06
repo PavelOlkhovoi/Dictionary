@@ -43,7 +43,6 @@ const testUser = () => {
           return user
         }
     
-    // console.log('thunc User', user)
     return user
     })
 }

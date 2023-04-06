@@ -1,26 +1,20 @@
-import { collection, addDoc, serverTimestamp, query, where, updateDoc, DocumentData, setDoc} from "firebase/firestore"; 
+import { collection, DocumentData } from "firebase/firestore"; 
 import { useState, useEffect } from "react";
 import { db, auth, app } from "../..";
-import ExamplesConstructor from "../../components/wordsForm/examples/ExamplesConstructor";
-import MeaningsConstructor from "../../components/wordsForm/meanings/MeaningsConstructor";
-import TagsConstructor from "../../components/wordsForm/TagsConstructor";
-import {ISingleWord, MeanigsForServer, Meaning, InputExamples, ExampleForServer } from '../types/word';
 import useInput from "../../hooks/useInput";
-import { NavLink } from "react-router-dom";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData} from 'react-firebase-hooks/firestore';
 import { createTag, addWordIdxToTag } from "../../backend/crudFunctions";
-import MyInput from "../../components/wordsForm/ui/MyInput";
-import MyButton from "../../components/wordsForm/ui/MyButton";
 
 
 const AddWord = () => {
     const word = useInput('')
-    const [meanings, setMeanings] = useState<MeanigsForServer>()
-    const [examples, setExamples] = useState<ExampleForServer[]>([])
+    // const [meanings, setMeanings] = useState<MeanigsForServer>()
+    // const [examples, setExamples] = useState<ExampleForServer[]>([])
     const [tags, setTags] = useState<string[]>([])
 
-    const [user, loading, error] = useAuthState(auth);
+    // const [user, loading, error] = useAuthState(auth);
+    const user = {uid: '1234'}
 
     // TODO: I need to search tags by user ID. If not the search process will be too long and incorrect
     const [oldTags, loadingTag, errorTag] = useCollectionData(
@@ -28,29 +22,29 @@ const AddWord = () => {
     );
 
     
-    const addNewWord = async () => {
-        try {
-            const docRef = await addDoc(collection(db, "words"), {
-              uid: user?.uid ? user.uid : '12345',
-              word: word.value,
-              meaning: meanings,
-              examples,
-              level: 'low',
-              points: 0,
-              priority: 'low',
-              repeat: true,
-              createdAt: serverTimestamp()
-            });
-            console.log("Document written with ID: ", docRef.id);
+    // const addNewWord = async () => {
+    //     try {
+    //         const docRef = await addDoc(collection(db, "words"), {
+    //           uid: user?.uid ? user.uid : '12345',
+    //           word: word.value,
+    //           meaning: meanings,
+    //           examples,
+    //           level: 'low',
+    //           points: 0,
+    //           priority: 'low',
+    //           repeat: true,
+    //           createdAt: serverTimestamp()
+    //         });
+    //         console.log("Document written with ID: ", docRef.id);
 
-            setDoc(docRef, {wordId: docRef.id}, { merge: true })
+    //         setDoc(docRef, {wordId: docRef.id}, { merge: true })
 
-            addTags(docRef.id)
+    //         // addTags(docRef.id)
 
-          } catch (e) {
-            console.error("Error adding document: ", e);
-          }
-    }
+    //       } catch (e) {
+    //         console.error("Error adding document: ", e);
+    //       }
+    // }
 
     const addTags = async (wordIdx: string) => {
 
@@ -80,56 +74,56 @@ const AddWord = () => {
       
   }
 
-  function handleMeanings(meaningsGroup: Meaning[]){
-    // const objMeanings: MeanigsForServer = {}
+//   function handleMeanings(meaningsGroup: Meaning[]){
+//     const objMeanings: MeanigsForServer = {}
 
-    // meaningsGroup.forEach(m => {
-    //   Object.keys(m).forEach(el => {
-    //       if(el !== 'tempId') {
-    //         objMeanings[el] = m[el] as string[]
+//     meaningsGroup.forEach(m => {
+//       Object.keys(m).forEach(el => {
+//           if(el !== 'tempId') {
+//             objMeanings[el] = m[el] as string[]
+//         }
+//       })
+//     })
+
+//     console.log('TTTT', objMeanings)
+//   setMeanings(objMeanings)
+// }
+
+    // function handleExamples(examplesArr: InputExamples[]){
+    //   const pure: ExampleForServer[] = []
+    //   examplesArr.forEach(ex => {
+    //     const cleanedExample: ExampleForServer = {
+    //       example: ex.example,
+    //       translation: ex.translation
     //     }
+
+    //     pure.push(cleanedExample)
     //   })
-    // })
+    //   setExamples(pure)
+    // }
 
-  //   console.log('TTTT', objMeanings)
-  // setMeanings(objMeanings)
-}
-
-    function handleExamples(examplesArr: InputExamples[]){
-      const pure: ExampleForServer[] = []
-      examplesArr.forEach(ex => {
-        const cleanedExample: ExampleForServer = {
-          example: ex.example,
-          translation: ex.translation
-        }
-
-        pure.push(cleanedExample)
-      })
-      setExamples(pure)
-    }
-
-    function handleTag(tagsArr: ISingleWord[]){ 
-        setTags([...tagsArr].map(t => {
-        return t.name
-        }))
-    }
+    // function handleTag(tagsArr: ISingleWord[]){ 
+    //     setTags([...tagsArr].map(t => {
+    //     return t.name
+    //     }))
+    // }
 
 
-    useEffect(() => {
-      console.log("Meanigs Form", meanings)
-    }, [meanings])
+  //   useEffect(() => {
+  //     console.log("Meanigs Form", meanings)
+  //   }, [meanings])
 
-    useEffect(() => {
-        console.log('Example Form', examples)
-    }, [examples])
+  //   useEffect(() => {
+  //       console.log('Example Form', examples)
+  //   }, [examples])
 
 
-    useEffect(()=>{
-      console.log('Word form', word.value)
-  }, [word])
-    useEffect(()=>{
-      console.log('Tag form', tags)
-  }, [tags])
+  //   useEffect(()=>{
+  //     console.log('Word form', word.value)
+  // }, [word])
+  //   useEffect(()=>{
+  //     console.log('Tag form', tags)
+  // }, [tags])
 
 
     return (
@@ -137,13 +131,13 @@ const AddWord = () => {
           maxWidth: '600px',
           margin: '0 auto'
           }}>
-            <div className="[&>div]:my-8">
+            {/* <div className="[&>div]:my-8">
                 <MyInput name="word" label="word" value={word.value} onChange={word.onChange} placeholder="word"/>
                 <MeaningsConstructor attachToForm={handleMeanings}/>
                 <TagsConstructor attachTag={handleTag} />
                 <ExamplesConstructor attachExamples={handleExamples}/>
                 <MyButton onClick={addNewWord} color="green">Save a new word </MyButton>
-            </div>
+            </div> */}
         </section>
     );
 }

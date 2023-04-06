@@ -54,8 +54,6 @@ export const deleteWordIdFromTagDb = async (tagId: string, wordId: string) => {
         word_id: arrayRemove(wordId)
     })
 
-
-
     store.dispatch(deleteWordFromTag({tagId: tagId, wordId: wordId}))
   } catch (error) {
     console.log('Word has not been removed from the tag', error)

@@ -6,7 +6,8 @@ import { NavLink } from 'react-router-dom'
 const navigation = [
     { name: 'Dashboard', href: '/', current: true },
     { name: 'Words', href: '/words', current: false },
-    { name: 'Add word', href: '/addwords', current: false },
+    // { name: 'Add word', href: '/addwords', current: false },
+    { name: 'Add word', href: '/addwordsSteps', current: false },
     { name: 'Auth', href: '/auth', current: false },
     { name: 'Texts', href: '/texts', current: false },
     { name: 'Sets', href: '/sets', current: false }
