@@ -4,7 +4,7 @@ import { styleTW } from "../../../../style";
 import { nanoid } from "@reduxjs/toolkit";
 import LineButton from "../../../../components/ui-elements/buttons/LineButton";
 import DeleteBtn from "./DeleteBtn";
-import { DeleteBtnIds } from "../../../types/word";
+import { DeleteBtnIds } from "../../../../types/word";
 
 interface Props {
     wordState: WordForm,

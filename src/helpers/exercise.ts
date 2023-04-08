@@ -1,4 +1,4 @@
-import { TypeOfExercise } from "../pages/types/word"
+import { TypeOfExercise } from "../types/word"
 
 export const defineTypeOfExercise = (exType: string) => {
     if(exType === '1'){

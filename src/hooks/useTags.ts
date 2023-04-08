@@ -1,6 +1,6 @@
 import { nanoid } from '@reduxjs/toolkit';
 import {useState} from 'react'
-import { TagForm } from '../pages/types/word';
+import { TagForm } from '../types/word';
 import { selectAllTags } from "../store/slices/tagSlice";
 import { useAppSelector } from "./redux-hooks";
 

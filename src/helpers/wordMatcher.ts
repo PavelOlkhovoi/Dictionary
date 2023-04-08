@@ -1,5 +1,5 @@
-import { WordDb } from "../pages/types/word"
-import { AllWordsSorted } from "../pages/types/word"
+import { WordDb } from "../types/word"
+import { AllWordsSorted } from "../types/word"
 
 export const compoundWordsPosition = (words: string, text: string) => {
     const mapIds: number[] = []

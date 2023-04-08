@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
 import { getUserSets } from "../../backend/crudFunctions/set";
-import { Set } from "../../pages/types/word";
+import { Set } from "../../types/word";
 
 interface InitialState {
     sets: Set[],

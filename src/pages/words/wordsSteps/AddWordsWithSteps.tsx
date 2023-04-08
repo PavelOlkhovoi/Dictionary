@@ -5,7 +5,7 @@ import AddTranslation from "./AddTranslation";
 import FastMeaning from "./FastMeaning";
 import { nanoid } from '@reduxjs/toolkit'
 import { TranslationGroup } from "./uiFields/TranslationGroup";
-import { AddedTagForm, ExampleForm, IsFormReady, TagForm } from "../../types/word";
+import { AddedTagForm, ExampleForm, IsFormReady, TagForm } from "../../../types/word";
 import AddNewWordToDb from "./AddNewWordToDb";
 
 export interface WordForm {

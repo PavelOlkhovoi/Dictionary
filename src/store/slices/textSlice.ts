@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
 import { createText, fetchUserTexts } from "../../backend/crudFunctions/text";
-import { Text } from "../../pages/types/word";
+import { Text } from "../../types/word";
 
 interface TextState {
     texts: Text[]

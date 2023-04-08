@@ -1,11 +1,11 @@
 import { nanoid } from '@reduxjs/toolkit';
 import LineButton from '../../../../components/ui-elements/buttons/LineButton';
-import { PartOfSpeechSelect } from '../../../types/word';
+import { PartOfSpeechSelect } from '../../../../types/word';
 import { WordForm } from "../AddWordsWithSteps";
 import TranslationFields, { TranslationFieldsTest } from './TranslationFields';
 import SelectPartOfSpeech from './SelectPartOfSpeech';
 import DeleteBtn from './DeleteBtn';
-import { DeleteBtnIds } from '../../../types/word';
+import { DeleteBtnIds } from '../../../../types/word';
 
 export interface TranslationGroup {
     id: string,

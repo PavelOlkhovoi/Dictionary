@@ -5,7 +5,7 @@ import { useAppSelector } from "../../hooks/redux-hooks";
 import useInput from "../../hooks/useInput";
 import { styleTW } from "../../style";
 import { serverTimestamp, Timestamp} from "firebase/firestore"; 
-import { Set, WordDb } from "../types/word";
+import { Set, WordDb } from "../../types/word";
 import { addManyWords } from "../../backend/crudFunctions/words";
 import { createUserSet } from "../../backend/crudFunctions/set";
 import MyInput from "../../components/wordsForm/ui/MyInput";

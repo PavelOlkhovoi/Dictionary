@@ -1,5 +1,5 @@
 import { useAppSelector } from "./redux-hooks"
-import { Set } from "../pages/types/word"
+import { Set } from "../types/word"
 import { selectWordsArrById } from "../store/slices/wordSlice"
 import { selectTextsByIds } from "../store/slices/textSlice"
 

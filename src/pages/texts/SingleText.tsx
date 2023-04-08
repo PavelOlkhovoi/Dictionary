@@ -3,7 +3,7 @@ import { useAppSelector } from '../../hooks/redux-hooks';
 import { selectWordsArrById } from '../../store/slices/wordSlice';
 import { styleTW } from '../../style';
 import TextHighlighter from '../../components/text/TextHighlighter';
-import { AllWordsSorted, WordDb } from '../types/word';
+import { AllWordsSorted, WordDb } from '../../types/word';
 import { useState, useEffect } from 'react';
 import LineButton from '../../components/ui-elements/buttons/LineButton';
 import { firstCapitalLetter } from '../../helpers/display';

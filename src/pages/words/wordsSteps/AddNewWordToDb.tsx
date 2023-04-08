@@ -5,7 +5,7 @@ import { createTag, addWordIdxToTag  } from "../../../backend/crudFunctions";
 import { useAppSelector } from "../../../hooks/redux-hooks";
 import { selectUserId } from "../../../store/slices/userSlice";
 import { basicAddWordStructure, WordForm } from "./AddWordsWithSteps";
-import { AdvanceMeanings, ExampleForServer, PartOfSpeechSelect, WordDb } from "../../types/word";
+import { AdvanceMeanings, ExampleForServer, PartOfSpeechSelect, WordDb } from "../../../types/word";
 import { BaseExtendedFirebaseInstance } from 'react-redux-firebase';
 import { nanoid } from '@reduxjs/toolkit';
 import Notification from "../../../components/ui-elements/Notification"

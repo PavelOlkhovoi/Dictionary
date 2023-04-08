@@ -1,4 +1,4 @@
-import { Tag } from '../../../types/word';
+import { Tag } from '../../../../types/word';
 import { styleTW } from '../../../../style';
 
 interface Props {

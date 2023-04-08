@@ -1,6 +1,6 @@
 import { db } from '../..';
 import { doc, updateDoc } from 'firebase/firestore';
-import { ExampleForServer } from '../../pages/types/word';
+import { ExampleForServer } from '../../types/word';
 import { store } from '../../store';
 import { updateExample} from '../../store/slices/wordSlice';
 

@@ -5,7 +5,7 @@ import { styleTW } from '../../style';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import Loading from '../../components/Loading';
 import ShowTagWithWords from '../../components/tags/ShowTagWithWords';
-import { AllWordsSorted } from '../types/word';
+import { AllWordsSorted } from '../../types/word';
 import TextHighlighter from '../../components/text/TextHighlighter';
 import { createText } from '../../backend/crudFunctions/text';
 import Notification from '../../components/ui-elements/Notification';
@@ -68,7 +68,7 @@ const AddText = ({setId = null, titleMode}:Props) => {
 
 
     return (
-        <section className={styleTW.containerWide}>
+        <section className={`${styleTW.containerWide} mb-40`}>
             <div className={titleMode === 'h2' ? '-mt-8' : ''}>
                 <div className={`${styleTW.title1} mb-8`}>
                     <h1 className={`${titleStyle}`}>Add text</h1>

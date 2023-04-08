@@ -1,9 +1,9 @@
 import MyInput from "../../../../components/wordsForm/ui/MyInput";
-import { PartOfSpeechSelect } from "../../../types/word";
+import { PartOfSpeechSelect } from "../../../../types/word";
 import DeleteBtn from "../../wordsSteps/uiFields/DeleteBtn";
 import SelectPartOfSpeech from "../../wordsSteps/uiFields/SelectPartOfSpeech";
 import { TranslationFieldsTest } from "../../wordsSteps/uiFields/TranslationFields";
-import { DeleteBtnIds } from "../../../types/word";
+import { DeleteBtnIds } from "../../../../types/word";
 import LineButton from "../../../../components/ui-elements/buttons/LineButton";
 
 interface Props {

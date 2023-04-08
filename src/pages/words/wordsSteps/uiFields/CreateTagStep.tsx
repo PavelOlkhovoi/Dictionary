@@ -3,7 +3,7 @@ import {useState} from 'react'
 import LineButton from '../../../../components/ui-elements/buttons/LineButton';
 import Validate from "../../../../components/validations/Validate";
 import MyInput from "../../../../components/wordsForm/ui/MyInput";
-import { DeleteBtnIds } from '../../../types/word';
+import { DeleteBtnIds } from '../../../../types/word';
 import { WordForm } from "../AddWordsWithSteps"
 import DeleteBtn from './DeleteBtn';
 interface Props {

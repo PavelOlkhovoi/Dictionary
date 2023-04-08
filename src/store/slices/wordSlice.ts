@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction, createAsyncThunk, current} from "@reduxjs/toolkit"
 import { RootState } from "..";
 import { getUserWords } from "../../backend/crudFunctions/words";
-import { AdvanceMeanings, ExampleForServer, MeanigsForServer, Repetition, WordDb } from "../../pages/types/word";
+import { AdvanceMeanings, ExampleForServer, MeanigsForServer, Repetition, WordDb } from "../../types/word";
 import { parseISO } from "date-fns";
 import { createSelector } from "@reduxjs/toolkit";
 import { daysDifferent } from "../../helpers/time";

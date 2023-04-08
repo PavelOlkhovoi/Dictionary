@@ -5,7 +5,7 @@ import { useAppSelector } from "../../../hooks/redux-hooks"
 import { selectAllWordsIdsInArr, selectWordsArrById } from "../../../store/slices/wordSlice"
 import { useEffect } from "react"
 import TextHighlighter from "../../text/TextHighlighter"
-import { WordDb } from "../../../pages/types/word"
+import { WordDb } from "../../../types/word"
 
 interface Props {
     link: string

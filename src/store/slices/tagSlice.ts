@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { Tag } from "../../pages/types/word"
+import { Tag } from "../../types/word"
 import { fetchUserTags } from "../../backend/crudFunctions/words";
 import { RootState } from "..";
-import { WordDb } from "../../pages/types/word";
+import { WordDb } from "../../types/word";
 
 interface IState {
   tags: Tag[],

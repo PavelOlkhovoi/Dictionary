@@ -1,4 +1,4 @@
-import { MeanigsForServer, Repetition, TypeOfExercise, WordDb } from "../../pages/types/word";
+import { MeanigsForServer, Repetition, TypeOfExercise, WordDb } from "../../types/word";
 import { styleTW } from "../../style";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { useState } from "react";

@@ -2,7 +2,7 @@ import { nanoid } from "@reduxjs/toolkit";
 import LineButton from "../../../../components/ui-elements/buttons/LineButton";
 import MyInput from "../../../../components/wordsForm/ui/MyInput";
 import { styleTW } from "../../../../style";
-import { DeleteBtnIds } from "../../../types/word";
+import { DeleteBtnIds } from "../../../../types/word";
 import { WordForm } from "../AddWordsWithSteps";
 import DeleteBtn from "./DeleteBtn";
 

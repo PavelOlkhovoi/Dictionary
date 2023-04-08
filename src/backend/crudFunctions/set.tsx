@@ -1,7 +1,7 @@
 import { db } from '../..';
 import { collection, query, Timestamp, arrayUnion, where, getDocs, addDoc, setDoc, doc, updateDoc, arrayRemove, deleteDoc} from 'firebase/firestore';
 import { parseISO, formatDistanceToNow } from 'date-fns'
-import { Set } from '../../pages/types/word';
+import { Set } from '../../types/word';
 import { store } from '../../store';
 import { addSet, deleteSet, deleteWordFromSet, deleteWordIdFromRepeatArr, updateSet,
   restartRepeatReduxSet, addTextIdToTextArrRedux, deleteTextIdFromTextArrRedux

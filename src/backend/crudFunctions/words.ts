@@ -1,8 +1,8 @@
 import { db } from '../..';
 import { collection, query, Timestamp, where, getDocs, addDoc, setDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { parseISO, formatDistanceToNow } from 'date-fns'
-import { AdvanceMeanings, Repetition, WordDb } from '../../pages/types/word';
-import { Tag } from '../../pages/types/word';
+import { AdvanceMeanings, Repetition, WordDb } from '../../types/word';
+import { Tag } from '../../types/word';
 import { store } from '../../store';
 import { addPointsAndChangeRepetition, addWord, updateFastMeaning, updateMeanings, updateWord, deleteWord } from '../../store/slices/wordSlice';
 

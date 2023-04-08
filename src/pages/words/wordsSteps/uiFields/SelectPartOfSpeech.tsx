@@ -1,7 +1,7 @@
 import {ReactNode} from 'react'
 import { styleTW } from '../../../../style';
 
-import { PartOfSpeechSelect } from "../../../types/word";
+import { PartOfSpeechSelect } from "../../../../types/word";
 
 interface Props {
     value: PartOfSpeechSelect

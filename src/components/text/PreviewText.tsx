@@ -1,4 +1,4 @@
-import { Text } from '../../pages/types/word';
+import { Text } from '../../types/word';
 import CardPreview from '../ui-elements/cards/CardPreview';
 
 interface Props {

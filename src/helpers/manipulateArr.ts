@@ -1,4 +1,4 @@
-import { WordDb } from "../pages/types/word"
+import { WordDb } from "../types/word"
 import { WordsBasicWithId } from "../components/fastWords/FastAddWord"
 
 type tempInd = number

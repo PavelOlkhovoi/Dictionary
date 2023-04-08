@@ -1,5 +1,5 @@
 import { useAppSelector } from "../../hooks/redux-hooks";
-import { Tag } from "../../pages/types/word";
+import { Tag } from "../../types/word";
 import {useState} from 'react'
 import { styleTW } from "../../style";
 import { selectWordsByTag } from "../../store/slices/tagSlice";

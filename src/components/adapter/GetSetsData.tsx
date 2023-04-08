@@ -1,5 +1,5 @@
 import useGetDataForSet from "../../hooks/useExerciseSpaceWords";
-import { Set, WordDb } from "../../pages/types/word";
+import { Set, WordDb } from "../../types/word";
 import CardPreview from "../ui-elements/cards/CardPreview";
 
 interface Props {

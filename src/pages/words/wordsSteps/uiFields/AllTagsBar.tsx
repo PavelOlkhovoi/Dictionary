@@ -1,5 +1,5 @@
 import { styleTW } from "../../../../style";
-import { Tag } from "../../../types/word";
+import { Tag } from "../../../../types/word";
 
 interface Props {
     manageClick: Function,

@@ -1,6 +1,6 @@
 import { collection, addDoc, setDoc, doc, updateDoc, arrayUnion, arrayRemove} from "firebase/firestore";
 import { db } from "../..";
-import { Tag } from "../../pages/types/word";
+import { Tag } from "../../types/word";
 import { store } from "../../store";
 import { addTag, addWordToTag, deleteWordFromTag } from "../../store/slices/tagSlice";
 

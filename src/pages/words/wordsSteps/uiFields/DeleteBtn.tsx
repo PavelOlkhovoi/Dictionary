@@ -1,4 +1,4 @@
-import { DeleteBtnIds } from "../../../types/word"
+import { DeleteBtnIds } from "../../../../types/word"
 
 interface Props {
     deleteHandler: Function,

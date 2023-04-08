@@ -1,11 +1,11 @@
 import LineButton from "../../../../components/ui-elements/buttons/LineButton";
 import MyInput from "../../../../components/wordsForm/ui/MyInput";
 import useValidation from "../../../../hooks/useValidation";
-import { ExampleForm } from "../../../types/word";
+import { ExampleForm } from "../../../../types/word";
 import DeleteBtn from "../../wordsSteps/uiFields/DeleteBtn";
 import {useState} from 'react'
 import ShowError from "../../../../components/validations/ShowError";
-import { DeleteBtnIds } from "../../../types/word";
+import { DeleteBtnIds } from "../../../../types/word";
 
 interface Props {
     example: ExampleForm

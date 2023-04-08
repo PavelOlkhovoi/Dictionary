@@ -1,9 +1,9 @@
-import { AdvanceMeanings, PartOfSpeechSelect, WordDb } from "../../types/word";
+import { AdvanceMeanings, PartOfSpeechSelect, WordDb } from "../../../types/word";
 import {useState} from 'react'
 import { nanoid } from "@reduxjs/toolkit";
 import MeainingCrudUi from "../ui/meanings/MeainingCrudUi";
 import { TranslationGroup } from "../wordsSteps/uiFields/TranslationGroup";
-import { DeleteBtnIds } from "../../types/word";
+import { DeleteBtnIds } from "../../../types/word";
 import { updatetMeaningDb } from "../../../backend/crudFunctions/words";
 
 interface Props {

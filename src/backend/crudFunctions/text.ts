@@ -1,7 +1,7 @@
 import { collection, addDoc, setDoc, query, where, getDocs, updateDoc, doc, arrayUnion} from "firebase/firestore";
 import { db } from "../..";
 import { store } from "../../store";
-import { Text } from "../../pages/types/word";
+import { Text } from "../../types/word";
 import { addText, updateText } from "../../store/slices/textSlice";
 import { addTextIdToTextArr } from "./set";
 

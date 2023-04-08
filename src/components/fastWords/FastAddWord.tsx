@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import { nanoid } from '@reduxjs/toolkit'
 import { styleTW } from '../../style'
-import { WordDb } from '../../pages/types/word'
+import { WordDb } from '../../types/word'
 import { makeObjForFastAdding } from '../../helpers/manipulateArr'
 import LineButton from '../ui-elements/buttons/LineButton'
 import { Validations } from '../../hooks/useValidation'

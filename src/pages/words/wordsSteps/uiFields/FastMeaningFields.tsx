@@ -4,7 +4,7 @@ import MyInput from "../../../../components/wordsForm/ui/MyInput";
 import { useAppSelector } from "../../../../hooks/redux-hooks";
 import useValidation from '../../../../hooks/useValidation';
 import { selectWordsAsStringInArr } from "../../../../store/slices/wordSlice";
-import { IsFormReady } from '../../../types/word';
+import { IsFormReady } from '../../../../types/word';
 import { WordForm } from "../AddWordsWithSteps";
 
 interface Props {

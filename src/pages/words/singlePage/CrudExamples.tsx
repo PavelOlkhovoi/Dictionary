@@ -1,5 +1,5 @@
 import { nanoid } from "@reduxjs/toolkit";
-import { DeleteBtnIds, ExampleForm, ExampleForServer, WordDb } from "../../types/word";
+import { DeleteBtnIds, ExampleForm, ExampleForServer, WordDb } from "../../../types/word";
 import {useState} from 'react'
 import SimpleExampleUi from "../ui/example/SimpleExampleUi";
 import { updateExampleDB } from "../../../backend/crudFunctions/example";
