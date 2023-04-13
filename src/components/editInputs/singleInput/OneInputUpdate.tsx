@@ -1,12 +1,12 @@
 import {useState} from 'react'
-import OneInputUi from '../ui/OneInputUi'
+import OneInputUi from './OneInputUi'
 import useValidation from '../../../hooks/useValidation'
-import ShowError from '../../../components/validations/ShowError'
+import ShowError from '../../validations/ShowError'
 
 interface Props {
     value: string
     name: string
-    sendToDB: (id: string) => void
+    sendToDB: (text: string) => void
 }
 const OneInputUpdate = ({value, sendToDB, name}: Props) => {
     const [text, setText] = useState(value)

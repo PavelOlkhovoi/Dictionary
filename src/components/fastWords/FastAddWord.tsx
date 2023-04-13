@@ -5,7 +5,7 @@ import { WordDb } from '../../types/word'
 import { makeObjForFastAdding } from '../../helpers/manipulateArr'
 import LineButton from '../ui-elements/buttons/LineButton'
 import { Validations } from '../../hooks/useValidation'
-import OneSimpleInput from '../../pages/sets/singlePageUi/OneSimpleInput'
+import OneSimpleInput from '../../pages/sets/singlePage/singlePageUi/OneSimpleInput'
 import { useAppSelector } from '../../hooks/redux-hooks'
 import { selectWordsArrWithName } from '../../store/slices/wordSlice'
 

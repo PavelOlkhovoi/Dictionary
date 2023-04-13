@@ -41,7 +41,7 @@ export const updateUserSet = async (setId: string, name: string, source: string 
     const res = await updateDoc(setRef, {
       wordsIds,
       source,
-      name: name,
+      name,
     })
 
     store.dispatch(updateSet({

@@ -8,7 +8,7 @@ import TagsOfWord from "./singlePage/TagsOfWord";
 import {useState} from 'react'
 import CrudExamples from "./singlePage/CrudExamples";
 import CrudMeanings from "./singlePage/CrudMeanings";
-import OneInputUpdate from "./singlePage/OneInputUpdate";
+import OneInputUpdate from "../../components/editInputs/singleInput/OneInputUpdate";
 import { deleteWordDb, updateUserFastMeaning, updateWordDb } from "../../backend/crudFunctions/words";
 
 interface ShowEditeFields {
@@ -38,6 +38,7 @@ const Word = () => {
     })
 
     const toggleTagControlBare = (id: string) => setShowEditeFields(pr => ({...pr, [id]: !pr[id as keyof ShowEditeFields] }))
+
     const addExample = () => setShowEditeFields(prev => ({...prev, addExample: prev.addExample + 1, editExample: true}))
 
     const sendWordDB = (word: string) => {

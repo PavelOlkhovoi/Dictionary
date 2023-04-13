@@ -11,7 +11,6 @@ const Validate = ({value, pattern, isFormReady = () => null, show}: Props) => {
     const validate = useValidation(value, pattern)
     
     useEffect(()=> {
-        console.log("Validate", Object.keys(pattern))
         isFormReady(validate.correctField)
     }, [])
 

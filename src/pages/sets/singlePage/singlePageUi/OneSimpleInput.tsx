@@ -1,7 +1,7 @@
-import useValidation from "../../../hooks/useValidation"
-import { Validations } from "../../../hooks/useValidation"
-import MyInput from "../../../components/wordsForm/ui/MyInput"
-import ShowError from "../../../components/validations/ShowError"
+import useValidation from "../../../../hooks/useValidation"
+import { Validations } from "../../../../hooks/useValidation"
+import MyInput from "../../../../components/wordsForm/ui/MyInput"
+import ShowError from "../../../../components/validations/ShowError"
 import {useState} from 'react'
 
 
