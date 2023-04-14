@@ -17,7 +17,7 @@ const TextHighlighter: FC<Props> = ({words, text, wordsBack, children, textButto
     const res: AllWordsSorted[] = sortSimpleAndCompoundWordsFromWordDb(words, text)
 
     return (
-        <div>
+        <div className='pb-20'>
              <div className='my-3 md:my-4 text-lg'>
              {
                 text.split(' ').map((tw, idx) => {

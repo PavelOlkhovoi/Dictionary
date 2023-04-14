@@ -9,6 +9,8 @@ import LineButton from "../../components/ui-elements/buttons/LineButton";
 import { useState } from "react";
 import OneInputUpdate from "../../components/editInputs/singleInput/OneInputUpdate";
 import AddWordToSet from "./singlePage/edit/AddWordToSet";
+import DeleteBtn from "../words/wordsSteps/uiFields/DeleteBtn";
+import { firstCapitalLetter } from "../../helpers/display";
 
 interface SetEditStatus {
     title: boolean
@@ -37,7 +39,7 @@ const SingleSet = () => {
     return (
     <>
         <section className={`${styleTW.containerWide}`}>
-            <div className={`${styleTW.bottomBorder} md:flex md:items-center md:gap-12`}>
+            <div className={`${styleTW.bottomBorder} md:flex md:items-center md:gap-12 pb-4`}>
                 <h1 className={`${styleTW.title1}`}>{set && set.name}</h1>
                 <div className="flex mt-2 gap-6 md:justify-center">
                     <LineButton 
@@ -66,10 +68,10 @@ const SingleSet = () => {
                     
                 }
             </div>
-            <div className={`${styleTW.bottomBorder} md:flex md:items-center md:gap-12`}>
-                <h2 className={`${styleTW.title2} mb-2`}>Words</h2>
+            <div className={`${styleTW.bottomBorder} md:flex md:items-center md:gap-12 pb-2`}>
+                <h2 className={`${styleTW.title2} my-4`}>Words</h2>
             </div>
-            <ul>
+            <ul className="mt-1 mb-2">
             {
                 words && words.map(w => <li key={w.wordId}>{w.word}</li>)
             }
@@ -93,17 +95,22 @@ const SingleSet = () => {
             <div className="mt-8">
                 {
                     texts.length > 0 && <div>
-                    <h2 className={`${styleTW.title2} ${styleTW.bottomBorder} pb-2`}>Related Texts</h2>
+                    <h2 className={`${styleTW.title2} ${styleTW.bottomBorder} pb-4`}>Related texts</h2>
                     {
-                        texts.map(t => <Link 
-                        to={{pathname: `/texts/${idtext}`}} key={t.textId}>{t.title} 
-                        <div
-                        className={`${styleTW.bageRed} m-2`} 
-                        onClick={()=> deleteTextIdFromTextArr(set?.setId as string, t.textId)}
-                        >
-                            x
+                        texts.map(t => <div 
+                            key={t.textId}
+                            className="flex justify-start justify-items-start gap-4 mt-2"
+                            >
+                            <Link 
+                            to={{pathname: `/texts/${idtext}`}}>{firstCapitalLetter(t.title)} 
+                            </Link>
+                            <div className="cursor-pointer">
+                                <DeleteBtn
+                                deleteHandler={()=> deleteTextIdFromTextArr(set?.setId as string, t.textId)}
+                                />
+                            </div>
                         </div>
-                        </Link>)
+                        )
                     }
                     </div>
                     

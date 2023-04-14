@@ -55,7 +55,7 @@ const EditText = () => {
                 name='text'
                 value={title.value} 
                 onChange={title.onChange}
-                className={`${styleTW.shadow}`} 
+                className="border-b-2 pb-1 w-full text-gray-700 bg-transparent leading-tight focus:outline-none focus:shadow-outline"
             />
             <div className='my-8'>
                 <h3 className="block mb-2 mt-8 text-sm font-medium text-gray-700">
@@ -74,10 +74,12 @@ const EditText = () => {
                 wordsBack={getUsedWords}
                 textButton="Save text"
             >
-                <textarea className={`${styleTW.shadow} mb-8`} name="text" 
-                    value={oldText}
-                    onChange={(e)=> setOldText(e.target.value)}
-                    rows={10}
+                <textarea 
+                className={`${styleTW.shadow}`}
+                name="text" 
+                value={oldText}
+                onChange={(e)=> setOldText(e.target.value)}
+                rows={10}
                 />
             </TextHighlighter>
             }

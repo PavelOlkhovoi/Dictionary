@@ -31,7 +31,7 @@ const Notification = ({message, stopShowing}: Props) => {
         animate={'visible'}
         variants={cardAnimation}
         
-        className={`shadow appearance-none border rounded w-full absolute bottom-0 right-0 
+        className={`shadow appearance-none border rounded w-full absolute top-0 right-0 
         max-w-md m-4 bg-white py-10 px-6`}>
             {message} 
             <span 

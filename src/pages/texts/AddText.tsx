@@ -9,9 +9,7 @@ import { AllWordsSorted } from '../../types/word';
 import TextHighlighter from '../../components/text/TextHighlighter';
 import { createText } from '../../backend/crudFunctions/text';
 import Notification from '../../components/ui-elements/Notification';
-import useValidation from '../../hooks/useValidation';
 import Validate from '../../components/validations/Validate';
-import { isEmpty } from 'react-redux-firebase';
 
 interface Props {
     setId?: string | null

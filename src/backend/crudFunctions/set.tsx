@@ -134,6 +134,7 @@ export const deleteTextIdFromTextArr = async (setId: string, textId: string) => 
     })
 
     store.dispatch(deleteTextIdFromTextArrRedux({setId, textId}))
+    
   } catch (error) {
     console.log('Word id has not been removed from set', error)
   }
