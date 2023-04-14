@@ -8,9 +8,11 @@ import { deleteTextIdFromTextArr, updateUserSet } from "../../backend/crudFuncti
 import LineButton from "../../components/ui-elements/buttons/LineButton";
 import { useState } from "react";
 import OneInputUpdate from "../../components/editInputs/singleInput/OneInputUpdate";
+import AddWordToSet from "./singlePage/edit/AddWordToSet";
 
 interface SetEditStatus {
     title: boolean
+    word: boolean
 }
 
 const SingleSet = () => {
@@ -19,7 +21,8 @@ const SingleSet = () => {
     const texts = useAppSelector(state => selectTextsByIds(state, set?.textIds as string[]))
     const words = useAppSelector(state => selectWordsArrById(state, set?.wordsIds))
     const [editStatus, setEditStatus] = useState<SetEditStatus>({
-        title: false
+        title: false,
+        word: false
     })
 
     const toggleEditStatus = (field: keyof SetEditStatus) => {
@@ -28,7 +31,8 @@ const SingleSet = () => {
 
     const updateName = (name: string) => updateUserSet(
         set?.setId as string, name, set?.source, set?.wordsIds as string[]
-        )  
+        )
+    
 
     return (
     <>
@@ -62,14 +66,31 @@ const SingleSet = () => {
                     
                 }
             </div>
-            <div>
-                <h2 className={`${styleTW.title2} ${styleTW.bottomBorder} pb-2 mb-2`}>Words</h2>
-                <ul>
-                {
-                    words && words.map(w => <li key={w.wordId}>{w.word}</li>)
-                }
-                </ul>
-                <div className="mt-8">
+            <div className={`${styleTW.bottomBorder} md:flex md:items-center md:gap-12`}>
+                <h2 className={`${styleTW.title2} mb-2`}>Words</h2>
+            </div>
+            <ul>
+            {
+                words && words.map(w => <li key={w.wordId}>{w.word}</li>)
+            }
+            </ul>
+            <LineButton 
+                    color="green"
+                    onClick={() => toggleEditStatus('word')}
+                    >
+                        {editStatus.word ? "Hide button" : "Add word"}
+                    </LineButton>
+            {
+                editStatus.word &&
+               <AddWordToSet 
+               uid={set?.uid as string} 
+               setId={set?.setId as string}
+               name={set?.name as string}
+               wordsIds={set?.wordsIds as string[]}
+               />
+                
+            }
+            <div className="mt-8">
                 {
                     texts.length > 0 && <div>
                     <h2 className={`${styleTW.title2} ${styleTW.bottomBorder} pb-2`}>Related Texts</h2>
@@ -88,7 +109,6 @@ const SingleSet = () => {
                     
                 }
                 </div>
-            </div>
         </section>
         <AddText setId={set?.setId} titleMode={"h2"}/>
     </>

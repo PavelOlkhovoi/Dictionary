@@ -14,6 +14,7 @@ export const createFastWord = async(word: WordDb) => {
 
       setDoc(docRef, {wordId: docRef.id}, { merge: true })
       const today = new Date().toDateString()
+
       store.dispatch(addWord({...word, wordId: docRef.id, createdAt: today}))
 
       return docRef.id
@@ -82,8 +83,6 @@ export const updatetMeaningDb = async(wordid: string, meaning: AdvanceMeanings) 
       console.log("Word has not updated yet", error)
   }
 }
-
-
 
 export const addManyWords = async(words: WordDb[]) => {
   const idsResArr: string[] = []
