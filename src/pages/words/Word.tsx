@@ -10,6 +10,7 @@ import CrudExamples from "./singlePage/CrudExamples";
 import CrudMeanings from "./singlePage/CrudMeanings";
 import OneInputUpdate from "../../components/editInputs/singleInput/OneInputUpdate";
 import { deleteWordDb, updateUserFastMeaning, updateWordDb } from "../../backend/crudFunctions/words";
+import TitleGrid from "../../components/ui-elements/grids/TitleGrid";
 
 interface ShowEditeFields {
     word: boolean
@@ -60,26 +61,24 @@ const Word = () => {
     }
 
     return (
-        <section
-        className={`${styleTW.containerWide} pb-20`}
-        >
-            <div className={`${styleTW.bottomBorder} ${styleTW.gridLineTitle} mb-2 pb-6`}>
-                <h1 className={`${styleTW.title1}`}>{firstCapitalLetter(currentWord.word)}</h1>
-                <div className="flex gap-6 justify-start items-start">
-                    <LineButton
-                    onClick={(e) => toggleTagControlBare(e.currentTarget.id)}
-                    id='word'
-                    >
-                        Edit
-                    </LineButton>
-                    <LineButton
-                    color="red"
-                    onClick={deleteWordHandler}
-                    >
-                        Delete
-                    </LineButton>
-                </div>
-            </div>
+        <section className={`${styleTW.containerWide} pb-20`}>
+            <TitleGrid
+            title={currentWord.word}
+            typeOfTitle="h1"
+            >
+                <LineButton
+                onClick={(e) => toggleTagControlBare(e.currentTarget.id)}
+                id='word'
+                >
+                    Edit
+                </LineButton>
+                <LineButton
+                color="red"
+                onClick={deleteWordHandler}
+                >
+                    Delete
+                </LineButton>
+            </TitleGrid>
             {
                 showEditeFields.word &&
                 <OneInputUpdate
