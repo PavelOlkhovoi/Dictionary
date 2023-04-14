@@ -62,23 +62,15 @@ const Word = () => {
 
     return (
         <section className={`${styleTW.containerWide} pb-20`}>
-            <TitleGrid
-            title={currentWord.word}
-            typeOfTitle="h1"
-            >
-                <LineButton
-                onClick={(e) => toggleTagControlBare(e.currentTarget.id)}
-                id='word'
-                >
+            <TitleGrid title={currentWord.word} typeOfTitle="h1">
+                <LineButton onClick={(e) => toggleTagControlBare(e.currentTarget.id)} id='word'>
                     Edit
                 </LineButton>
-                <LineButton
-                color="red"
-                onClick={deleteWordHandler}
-                >
+                <LineButton color="red" onClick={deleteWordHandler}>
                     Delete
                 </LineButton>
             </TitleGrid>
+
             {
                 showEditeFields.word &&
                 <OneInputUpdate
@@ -87,24 +79,16 @@ const Word = () => {
                 sendToDB={sendWordDB}
                 />
             }
+
             <div className="my-8">
-                <div className={`${styleTW.title2} ${styleTW.bottomBorder} ${styleTW.gridLineTitle} pb-2`}>
-                    <h2 className={`${styleTW.title2}`}>Meanings</h2>
-                    <div className="flex gap-6">
-                        <LineButton
-                        onClick={(e) => toggleTagControlBare(e.currentTarget.id)}
-                         id='editMeanings'
-                         >
-                            Edit
-                        </LineButton>
-                        <LineButton
-                        onClick={(e) => toggleTagControlBare(e.currentTarget.id)}
-                        id='fastMeanings'
-                        >
-                            Edit main meaning
-                        </LineButton>
-                    </div>
-                </div>
+                <TitleGrid title="Meanings" typeOfTitle="h2">
+                    <LineButton onClick={(e) => toggleTagControlBare(e.currentTarget.id)} id='editMeanings'>
+                        Edit
+                    </LineButton>
+                    <LineButton onClick={(e) => toggleTagControlBare(e.currentTarget.id)} id='fastMeanings'>
+                        Edit main meaning
+                    </LineButton>
+                </TitleGrid>
                 <h3 className={`${styleTW.title4} mt-2`}>Main meaning</h3>
                 <ul>
                     <li>
@@ -134,21 +118,17 @@ const Word = () => {
                             </ul>
                         </div>
                     })
-                    
                 }
 
-                    {
-                        showEditeFields.editMeanings && <CrudMeanings word={currentWord}/>
-                    }
+                {
+                    showEditeFields.editMeanings && <CrudMeanings word={currentWord}/>
+                }
             </div>
             <div className="my-8">
-                <div className={`${styleTW.title2} ${styleTW.bottomBorder} ${styleTW.gridLineTitle} pb-2`}>
-                    <h2 className={`${styleTW.title2}`}>Examples</h2>
-                    <div className="flex gap-6">
-                        <LineButton onClick={(e)=> toggleTagControlBare(e.currentTarget.id)} id="editExample">Edit</LineButton>
-                        <LineButton onClick={addExample}>Add example</LineButton>
-                    </div>
-                </div>
+                <TitleGrid title="Examples" typeOfTitle="h2">
+                <LineButton onClick={(e)=> toggleTagControlBare(e.currentTarget.id)} id="editExample">Edit</LineButton>
+                <LineButton onClick={addExample}>Add example</LineButton>
+                </TitleGrid>
                 {
                     (currentWord.examples && !showEditeFields.editExample) && 
                     currentWord.examples.length !== 0 && currentWord.examples.map(ex => {
@@ -163,13 +143,10 @@ const Word = () => {
                 }
             </div>
             <div className="my-8">
-                <div className={`${styleTW.title2} ${styleTW.bottomBorder} ${styleTW.gridLineTitle} pb-4`}>
-                    <h2 className="">Tags</h2>
-                    <div className="flex gap-6">
-                        <LineButton  onClick={e => toggleTagControlBare(e.currentTarget.id)} id="addTag">Add tags</LineButton>
-                        <LineButton onClick={e => toggleTagControlBare(e.currentTarget.id)} id="createTag">Create tag</LineButton>
-                    </div>
-                </div>
+                <TitleGrid title="Tags" typeOfTitle="h2">
+                <LineButton  onClick={e => toggleTagControlBare(e.currentTarget.id)} id="addTag">Add tags</LineButton>
+                <LineButton onClick={e => toggleTagControlBare(e.currentTarget.id)} id="createTag">Create tag</LineButton>
+                </TitleGrid>
                 {
                     currentWord.wordId && <TagsOfWord 
                     addTag={showEditeFields.addTag} 

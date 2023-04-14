@@ -11,6 +11,7 @@ import OneInputUpdate from "../../components/editInputs/singleInput/OneInputUpda
 import AddWordToSet from "./singlePage/edit/AddWordToSet";
 import DeleteBtn from "../words/wordsSteps/uiFields/DeleteBtn";
 import { firstCapitalLetter } from "../../helpers/display";
+import TitleGrid from "../../components/ui-elements/grids/TitleGrid";
 
 interface SetEditStatus {
     title: boolean
@@ -39,38 +40,33 @@ const SingleSet = () => {
     return (
     <>
         <section className={`${styleTW.containerWide}`}>
-            <div className={`${styleTW.bottomBorder} md:flex md:items-center md:gap-12 pb-4`}>
-                <h1 className={`${styleTW.title1}`}>{set && set.name}</h1>
-                <div className="flex mt-2 gap-6 md:justify-center">
-                    <LineButton 
-                    color="green"
-                    onClick={() => toggleEditStatus('title')}
+            <TitleGrid title={set?.name as string} typeOfTitle="h1" >
+                <LineButton 
+                color="green"
+                onClick={() => toggleEditStatus('title')}
+                >
+                    Edit title
+                </LineButton>
+                <LineButton>
+                    <Link
+                    to={{pathname: `/exercises/${idtext}`}}
                     >
-                        Edit title
-                    </LineButton>
-                    <LineButton>
-                        <Link
-                        to={{pathname: `/exercises/${idtext}`}}
-                        >
-                            Work Out
-                        </Link>
-                    </LineButton>
-                </div>
-            </div>
+                        Work Out
+                    </Link>
+                </LineButton>
+            </TitleGrid>
             <div className="my-4">
-                {
-                    editStatus.title && 
-                    <OneInputUpdate
-                    name="name"
-                    sendToDB={updateName}
-                    value={set?.name as string}
-                    />
-                    
-                }
+            {
+                editStatus.title && 
+                <OneInputUpdate
+                name="name"
+                sendToDB={updateName}
+                value={set?.name as string}
+                />
+            }
             </div>
-            <div className={`${styleTW.bottomBorder} md:flex md:items-center md:gap-12 pb-2`}>
-                <h2 className={`${styleTW.title2} my-4`}>Words</h2>
-            </div>
+
+            <TitleGrid title="Words" typeOfTitle="h2" />
             <ul className="mt-1 mb-2">
             {
                 words && words.map(w => <li key={w.wordId}>{w.word}</li>)
@@ -93,29 +89,29 @@ const SingleSet = () => {
                 
             }
             <div className="mt-8">
+            {
+                texts.length > 0 && <div>
+                <h2 className={`${styleTW.title2} ${styleTW.bottomBorder} pb-4`}>Related texts</h2>
                 {
-                    texts.length > 0 && <div>
-                    <h2 className={`${styleTW.title2} ${styleTW.bottomBorder} pb-4`}>Related texts</h2>
-                    {
-                        texts.map(t => <div 
-                            key={t.textId}
-                            className="flex justify-start justify-items-start gap-4 mt-2"
-                            >
-                            <Link 
-                            to={{pathname: `/texts/${idtext}`}}>{firstCapitalLetter(t.title)} 
-                            </Link>
-                            <div className="cursor-pointer">
-                                <DeleteBtn
-                                deleteHandler={()=> deleteTextIdFromTextArr(set?.setId as string, t.textId)}
-                                />
-                            </div>
+                    texts.map(t => <div 
+                        key={t.textId}
+                        className="flex justify-start justify-items-start gap-4 mt-2"
+                        >
+                        <Link 
+                        to={{pathname: `/texts/${idtext}`}}>{firstCapitalLetter(t.title)} 
+                        </Link>
+                        <div className="cursor-pointer">
+                            <DeleteBtn
+                            deleteHandler={()=> deleteTextIdFromTextArr(set?.setId as string, t.textId)}
+                            />
                         </div>
-                        )
-                    }
                     </div>
-                    
+                    )
                 }
                 </div>
+                
+            }
+            </div>
         </section>
         <AddText setId={set?.setId} titleMode={"h2"}/>
     </>

@@ -4,7 +4,7 @@ import { firstCapitalLetter } from "../../../helpers/display"
 
 interface Props {
     title: string
-    children: ReactNode
+    children?: ReactNode
     typeOfTitle: 'h1' | 'h2'
 }
 const TitleGrid = ({title, children, typeOfTitle}: Props) => {
