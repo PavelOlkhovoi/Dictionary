@@ -17,6 +17,7 @@ import SetWordsToLern from './pages/exercise/SetWordsToLern';
 import AddWordsWithSteps from './pages/words/wordsSteps/AddWordsWithSteps';
 import BottomNavigation from './components/navigation/BottomNavigation';
 import Word from './pages/words/Word';
+import AppRouter from './router/AppRouter';
 
 
 function App() {
@@ -25,9 +26,10 @@ function App() {
     <>
     <Navbars />
      <BottomNavigation />
+     {/* <AppRouter /> */}
     <Routes>
       <Route path="/" element={<Words />} />
-      <Route path="words" element={<Words />} />
+      {/* <Route path="words" element={<Words />} /> */}
       <Route path="words/:idword" element={<Word />} />
       <Route path="exercises/:idset" element={<SetWordsToLern />}/>
       <Route path="addwords" element={<AddWord />}/>
@@ -43,7 +45,7 @@ function App() {
         <Route index element={<ListSets />} />
         <Route path="add" element={<AddSet />} />
         <Route path=":idtext" element={<SingleSet />} />
-        <Route path="edit/:idtext" element={<EditSet />} />
+        {/* <Route path="edit/:idtext" element={<EditSet />} /> */}
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
