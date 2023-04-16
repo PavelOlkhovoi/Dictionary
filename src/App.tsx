@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import AppRouter from './router/AppRouter';
 import './App.css';
 import Home from './pages/Home';
 import Words from './pages/words/Words';
@@ -12,40 +13,46 @@ import EditText from './pages/texts/EditText';
 import AddSet from './pages/sets/AddSet';
 import ListSets from './pages/sets/ListSets';
 import SingleSet from './pages/sets/SingleSet';
-import EditSet from './pages/sets/EditSet';
 import SetWordsToLern from './pages/exercise/SetWordsToLern';
 import AddWordsWithSteps from './pages/words/wordsSteps/AddWordsWithSteps';
 import BottomNavigation from './components/navigation/BottomNavigation';
 import Word from './pages/words/Word';
-import AppRouter from './router/AppRouter';
+import IsAuthorized from './HOCs/IsAuthorized';
+
 
 
 function App() {
 
   return (
     <>
+
     <Navbars />
-     <BottomNavigation />
-     {/* <AppRouter /> */}
-    <Routes>
-      <Route path="/" element={<Words />} />
-      {/* <Route path="words" element={<Words />} /> */}
-      <Route path="words/:idword" element={<Word />} />
-      <Route path="exercises/:idset" element={<SetWordsToLern />}/>
-      <Route path="addwords" element={<AddWord />}/>
-      <Route path="addwordsSteps" element={<AddWordsWithSteps />}/>
+    <BottomNavigation />
+
+    // TODO: I can't refactor routes. I have an error presumably with circular dependencies
+    {/* <AppRouter /> */}
+
+     <Routes>
+      <Route path="/" element={<IsAuthorized><Words /></IsAuthorized>} />
       <Route path="auth" element={<Home />} />
+      <Route path="addwordsSteps" element={<IsAuthorized><AddWordsWithSteps /></IsAuthorized>}/>
+      <Route path="words/:idword" element={<IsAuthorized><Word /></IsAuthorized>} />
+      <Route path="exercises/:idset" element={<IsAuthorized><SetWordsToLern /></IsAuthorized>}/>
+
+      // TODO: Can't delete the route because of circular dependencies
+      <Route path="addwords" element={<IsAuthorized><AddWord /></IsAuthorized>}/>
+
       <Route path='/texts'>
-        <Route index element={<ListTexts />} />
-        <Route path=":idtext" element={<SingleText />} />
-        <Route path="edit/:idtext" element={<EditText />} />
-        <Route path="add" element={<AddText />} />
+        <Route index element={<IsAuthorized><ListTexts /></IsAuthorized>} />
+        <Route path=":idtext" element={<IsAuthorized><SingleText /></IsAuthorized>} />
+        <Route path="edit/:idtext" element={<IsAuthorized><EditText /></IsAuthorized>} />
+        <Route path="add" element={<IsAuthorized><AddText /></IsAuthorized>} />
       </Route>
+
       <Route path="/sets">
-        <Route index element={<ListSets />} />
-        <Route path="add" element={<AddSet />} />
-        <Route path=":idtext" element={<SingleSet />} />
-        {/* <Route path="edit/:idtext" element={<EditSet />} /> */}
+        <Route index element={<IsAuthorized><ListSets /></IsAuthorized>} />
+        <Route path="add" element={<IsAuthorized><AddSet /></IsAuthorized>} />
+        <Route path=":idtext" element={<IsAuthorized></IsAuthorized>} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

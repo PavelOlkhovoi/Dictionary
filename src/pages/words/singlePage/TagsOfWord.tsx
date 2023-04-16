@@ -7,8 +7,8 @@ import MyInput from "../../../components/wordsForm/ui/MyInput";
 import LineButton from "../../../components/ui-elements/buttons/LineButton";
 import ShowError from "../../../components/validations/ShowError";
 import useValidation from "../../../hooks/useValidation";
-import { addWordIdxToTag, deleteWordIdFromTagDb } from "../../../backend/crudFunctions";
-import { createTag } from "../../../backend/crudFunctions";
+import { addWordIdxToTag, deleteWordIdFromTagDb } from "../../../backend/crudFunctions/tag";
+import { createTag } from "../../../backend/crudFunctions/tag";
 
 
 interface Props {

@@ -9,10 +9,10 @@ import setSlice from './slices/setSlice'
 export const store = configureStore({
   reducer: {
     user: userReduser,
+    set: setSlice,
     word: wordReducer,
     tag: tagSlice,
     text: textSlice,
-    set: setSlice
   }
 })
 

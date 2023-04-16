@@ -50,15 +50,12 @@ export const fetchUserTexts = async (uid: string) => {
 
 export const updateUserText = async (textId: string, wordsIds: string[], text: string, title: string, uid: string) => {
   try {
-    console.log("Start updateRespond")
     const textRef = doc(db, "text", textId);
     const res = await updateDoc(textRef, {
       wordsIds: wordsIds,
       title,
       text
     })
-
-    console.log("Respond", res)
 
     store.dispatch(updateText({
       title,

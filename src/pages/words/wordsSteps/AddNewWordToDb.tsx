@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import { db } from "../../..";
 import { collection, addDoc, serverTimestamp, DocumentData, setDoc } from "firebase/firestore";
-import { createTag, addWordIdxToTag  } from "../../../backend/crudFunctions";
+import { createTag, addWordIdxToTag  } from "../../../backend/crudFunctions/tag";
 import { useAppSelector } from "../../../hooks/redux-hooks";
 import { selectUserId } from "../../../store/slices/userSlice";
 import { basicAddWordStructure, WordForm } from "./AddWordsWithSteps";
