@@ -29,7 +29,7 @@ function App() {
     <Navbars />
     <BottomNavigation />
 
-    // TODO: I can't refactor routes. I have an error presumably with circular dependencies
+    {/* // TODO: I can't refactor routes. I have an error presumably with circular dependencies */}
     {/* <AppRouter /> */}
 
      <Routes>
@@ -39,7 +39,7 @@ function App() {
       <Route path="words/:idword" element={<IsAuthorized><Word /></IsAuthorized>} />
       <Route path="exercises/:idset" element={<IsAuthorized><SetWordsToLern /></IsAuthorized>}/>
 
-      // TODO: Can't delete the route because of circular dependencies
+      {/* // TODO: Can't delete the route because of circular dependencies */}
       <Route path="addwords" element={<IsAuthorized><AddWord /></IsAuthorized>}/>
 
       <Route path='/texts'>
