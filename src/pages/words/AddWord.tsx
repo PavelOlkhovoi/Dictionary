@@ -7,8 +7,7 @@ const AddWord = () => {
 
     const addTags = async (wordIdx: string) => {
 
-      console.log('111111111111')
-      await createTag(user.uid, 'dddddd', wordIdx)
+      await createTag(user.uid, 'test', wordIdx)
           
   }
 

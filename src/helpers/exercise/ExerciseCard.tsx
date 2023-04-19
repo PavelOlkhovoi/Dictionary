@@ -1,4 +1,4 @@
-import { MeanigsForServer, Repetition, TypeOfExercise, WordDb } from "../../types/word";
+import { Repetition, TypeOfExercise, WordDb } from "../../types/word";
 import { styleTW } from "../../style";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { useState } from "react";
@@ -28,7 +28,7 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExer
 
     const [meaning, setMeaning] = useState('')
 
-    // const translation = word.fastMeaning ? word.fastMeaning : Object.keys(word.meaning).map(m => word.meaning[m as keyof MeanigsForServer][0])
+    const translation = word.fastMeaning
 
     const cardAnimation = {
         hidden: { x: -100, opacity: 0 },
@@ -60,6 +60,7 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExer
     }
 
     const setHidden = () => {
+        console.log('Toster')
         setStages(prev => ({...prev, showCard: isSingle, wordKnown: isSingle, repeat: false}))
         changeShowOrder(false, last)
     }
@@ -93,13 +94,10 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExer
                 <motion.div 
                 initial={{ x: -100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                whileTap={{ scale: 0.9 }}
                 className={`${styleTW.card} ${styleTW.exerciseCardSkeleton}`}
                 >
-                    {/* <span className={`${styleTW.exerciseWordCenter} text-xl`}>{translation}</span> */}
-                    <div className="flex gap-4 justify-items-stretch mt-auto items-center">
-                        <LineButton onClick={setHidden} color='red'>Hide</LineButton>
-                    </div>
+                    <span className={`${styleTW.exerciseWordCenter} text-xl`}>{translation}</span>
+                    <LineButton onClick={setHidden} color='red'>Hide</LineButton>
                 </motion.div>
             }
             {

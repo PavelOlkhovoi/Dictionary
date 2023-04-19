@@ -6,13 +6,7 @@ import ExerciseCard from "../../helpers/exercise/ExerciseCard";
 import { useAppSelector } from "../../hooks/redux-hooks";
 import { selectWordsForFirstExercise } from "../../store/slices/wordSlice";
 import { styleTW } from "../../style";
-import { WordDb } from "../../types/word";
 
-interface Exersice {
-    id: string
-    display: Boolean,
-    word: WordDb
-}
 
 const SetWordsToLern = () => {
     const idOfexercise = useParams()
