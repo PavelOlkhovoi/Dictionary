@@ -10,12 +10,12 @@ export interface ButtonProps extends React.DetailedHTMLProps<React.ButtonHTMLAtt
 
 const LineButton: FC<ButtonProps> = ({children, color, detach, ...rest}) => {
     let normalColor = `border-yellow-500`
-    let hoverColor = `hover:border-yellow-700`
-    const active = detach ? styleTW.btnDisable : ''
+    let hoverColor = `hover:border-yellow-600`
+    const activeForAction = detach ? styleTW.btnDisable : ''
 
     if(color === 'red'){
         normalColor = "border-red-500"
-        hoverColor = "hover:border-red-700"
+        hoverColor = "md:hover:border-red-700"
     }
 
     if(color === 'green'){
@@ -29,7 +29,7 @@ const LineButton: FC<ButtonProps> = ({children, color, detach, ...rest}) => {
     }
 
     return <button 
-    className={`${normalColor} ${hoverColor} ${active} border-b-2 text-sm font-medium`}
+    className={`${normalColor} ${hoverColor} ${activeForAction} visited:border-yellow-500 active:border-yellow-500 border-b-2 text-sm font-medium`}
     disabled={detach}
     {...rest}
     >

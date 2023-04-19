@@ -10,7 +10,7 @@ interface Props {
 const TitleGrid = ({title, children, typeOfTitle}: Props) => {
     return (
         <>
-         <div className={`${styleTW.bottomBorder} ${styleTW.gridLineTitle} mb-2 pb-6`}>
+         <div className={`${styleTW.bottomBorder} ${styleTW.gridLineTitle} pb-4`}>
             {
                 typeOfTitle === 'h1' && <h1 className={`${styleTW.title1}`}>{firstCapitalLetter(title)}</h1>
             }

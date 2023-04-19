@@ -29,9 +29,8 @@ const CardStepsWords = ({fieldSet, step, changeStep, changeWordState, errorless 
                 <div className='py-4'>
                     {fieldSet}
                 </div>
-                <div className='flex gap-6 mt-6 justify-between'>
-                    <LineButton 
-                    // disabled={!errorless} 
+                <div className='flex gap-6 mt-6 justify-between items-center'>
+                    <LineButton
                     detach={!errorless} 
                     onClick={sendData}
                     >

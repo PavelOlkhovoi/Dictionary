@@ -3,7 +3,7 @@ import { useAppSelector } from '../hooks/redux-hooks';
 import Words from '../pages/words/Words';
 import Word from '../pages/words/Word';
 import SetWordsToLern from '../pages/exercise/SetWordsToLern';
-import Home from '../pages/Home';
+import Home from '../pages/Authorization';
 import AddWord from '../pages/words/AddWord';
 import AddWordsWithSteps from '../pages/words/wordsSteps/AddWordsWithSteps';
 import ListTexts from '../pages/texts/ListTexts';

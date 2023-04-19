@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import AppRouter from './router/AppRouter';
 import './App.css';
-import Home from './pages/Home';
+import Home from './pages/Authorization';
 import Words from './pages/words/Words';
 import NotFound from './pages/NotFound';
 import AddWord from './pages/words/AddWord';

@@ -8,7 +8,7 @@ export const styleTW = {
     bageRed: "text-xs inline-block py-2 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 text-white rounded hover:bg-red-800",
     shadow: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
     container: "container mx-auto lg:max-w-[800px]",
-    gridLineTitle: "grid grid-cols-2 items-center gap-4",
+    gridLineTitle: "grid grid-cols-1 sm:grid-cols-2 items-center gap-4",
     containerWide: 'container max-w-screen-lg mx-auto p-4 md:p-8 mt-5', 
     card: "mt-4 mb-2 p-6 md:p-8 shadow bg-white rounded-md",
     cardWhite: "bg-white shadow px-8 py-6 cursor-pointer border-b-2 pb-2",

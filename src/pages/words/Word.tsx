@@ -64,7 +64,7 @@ const Word = () => {
         <section className={`${styleTW.containerWide} pb-20`}>
             <TitleGrid title={currentWord.word} typeOfTitle="h1">
                 <LineButton onClick={(e) => toggleTagControlBare(e.currentTarget.id)} id='word'>
-                    Edit
+                    {!showEditeFields.word ? "Edit" : "Clean" }
                 </LineButton>
                 <LineButton color="red" onClick={deleteWordHandler}>
                     Delete
@@ -82,11 +82,11 @@ const Word = () => {
 
             <div className="my-8">
                 <TitleGrid title="Meanings" typeOfTitle="h2">
-                    <LineButton onClick={(e) => toggleTagControlBare(e.currentTarget.id)} id='editMeanings'>
-                        Edit
-                    </LineButton>
                     <LineButton onClick={(e) => toggleTagControlBare(e.currentTarget.id)} id='fastMeanings'>
-                        Edit main meaning
+                       { !showEditeFields.fastMeanings ? "Edit main meaning" : "Close main meaning"}
+                    </LineButton>
+                    <LineButton onClick={(e) => toggleTagControlBare(e.currentTarget.id)} id='editMeanings'>
+                        {!showEditeFields.editMeanings ? "Edit meanings" : "Stop edit meanings"}
                     </LineButton>
                 </TitleGrid>
                 <h3 className={`${styleTW.title4} mt-2`}>Main meaning</h3>
@@ -132,14 +132,17 @@ const Word = () => {
                 {
                     (currentWord.examples && !showEditeFields.editExample) && 
                     currentWord.examples.length !== 0 && currentWord.examples.map(ex => {
-                        return <div key={ex.example} className='my-4'>
-                            <p>{ex.example}</p>
+                        return <div key={ex.example} className='my-5'>
+                            <h4 className="font-medium text-sm">Example</h4>
+                            <p className="mb-2">{ex.example}</p>
+                            <h4 className="font-medium text-sm">Translation</h4>
                             <p>{ex.translation}</p>
                         </div>
                     })
                 }
                 {
-                    showEditeFields.editExample && <CrudExamples word={currentWord} edit={true} add={showEditeFields.addExample}/>
+                    showEditeFields.editExample && 
+                    <CrudExamples word={currentWord} edit={true} add={showEditeFields.addExample}/>
                 }
             </div>
             <div className="my-8">
