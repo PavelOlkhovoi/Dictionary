@@ -11,6 +11,9 @@ import CrudMeanings from "./singlePage/CrudMeanings";
 import OneInputUpdate from "../../components/editInputs/singleInput/OneInputUpdate";
 import { deleteWordDb, updateUserFastMeaning, updateWordDb } from "../../backend/crudFunctions/words";
 import TitleGrid from "../../components/ui-elements/grids/TitleGrid";
+import { selectAllTags } from "../../store/slices/tagSlice";
+import { selectTagsOfWord } from "../../store/slices/tagSlice";
+import { deleteWordIdFromTagDb } from "../../backend/crudFunctions/tag";
 
 interface ShowEditeFields {
     word: boolean
@@ -26,6 +29,7 @@ const Word = () => {
     const { idword } = useParams()
     const currentWord = useAppSelector(state => state.word.words.find(w => w.wordId === idword))
     const wordStatus = useAppSelector(state => state.word.status)
+    const tags = useAppSelector(state => selectTagsOfWord(state, idword as string))
     const tagStatus = useAppSelector(state => state.tag.status)
     const navigate = useNavigate()
     const [showEditeFields, setShowEditeFields] = useState<ShowEditeFields>({
@@ -50,9 +54,16 @@ const Word = () => {
         updateUserFastMeaning(currentWord?.wordId as string, currentWord?.word as string, text)
     }
 
-    const deleteWordHandler = () => {
+    const deleteWordHandler = async () => {
         deleteWordDb(currentWord?.wordId as string)
-        navigate('/words');
+        if (tags.length > 0){
+            for (let tag in tags){
+                const oneTag = tags[tag]
+                console.log(oneTag.tagId)
+                await deleteWordIdFromTagDb(oneTag.tagId, idword as string)
+            }
+        }
+        navigate('/');
     }
 
 

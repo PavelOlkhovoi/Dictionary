@@ -1,6 +1,19 @@
 import { db } from '../..';
-import { collection, query, Timestamp, arrayUnion, where, getDocs, addDoc, setDoc, doc, updateDoc, arrayRemove, deleteDoc} from 'firebase/firestore';
-import { parseISO, formatDistanceToNow } from 'date-fns'
+import { 
+  collection, 
+  query, 
+  Timestamp, 
+  arrayUnion, 
+  where, 
+  getDocs, 
+  addDoc, 
+  setDoc, 
+  doc, 
+  updateDoc, 
+  arrayRemove, 
+  deleteDoc
+} from 'firebase/firestore';
+import { parseISO} from 'date-fns'
 import { Set } from '../../types/word';
 import { store } from '../../store';
 import { addSet, deleteSet, deleteWordFromSet, deleteWordIdFromRepeatArr, updateSet,
@@ -121,6 +134,8 @@ export const addTextIdToTextArr = async (setId: string, textId: string) => {
     })
 
     store.dispatch(addTextIdToTextArrRedux({setId, textId}))
+
+
   } catch (error) {
     console.log('Word id has not been removed from set', error)
   }
@@ -136,7 +151,7 @@ export const deleteTextIdFromTextArr = async (setId: string, textId: string) => 
     store.dispatch(deleteTextIdFromTextArrRedux({setId, textId}))
     
   } catch (error) {
-    console.log('Word id has not been removed from set', error)
+    console.log('Text id has not been removed from set', error)
   }
 }
 

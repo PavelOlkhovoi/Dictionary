@@ -44,6 +44,7 @@ export const deleteWordDb = async (wordId: string) => {
   try {
     await deleteDoc(doc(db, "words", wordId));
     store.dispatch(deleteWord({id: wordId}))
+    
   } catch (error) {
     console.log("Set has not been deleted", error)
   }
