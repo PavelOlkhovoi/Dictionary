@@ -1,9 +1,8 @@
-import {FC, useEffect} from 'react'
+import {FC} from 'react'
 import { sortSimpleAndCompoundWordsFromWordDb } from '../../helpers/wordMatcher'
 import { WordDb } from '../../types/word'
 import { AllWordsSorted } from '../../types/word'
 import LineButton from '../ui-elements/buttons/LineButton'
-import MyButton from '../wordsForm/ui/MyButton'
 
 interface Props {
     words: WordDb[]
@@ -11,13 +10,14 @@ interface Props {
     wordsBack: Function
     children?: React.ReactNode
     textButton?: string
+    customPadding?: string
 }
 
-const TextHighlighter: FC<Props> = ({words, text, wordsBack, children, textButton}) => {
+const TextHighlighter: FC<Props> = ({words, text, wordsBack, children, textButton, customPadding = 'pb-20'}) => {
     const res: AllWordsSorted[] = sortSimpleAndCompoundWordsFromWordDb(words, text)
 
     return (
-        <div className='pb-20'>
+        <div className={customPadding}>
              <div className='my-3 md:my-4 text-lg'>
              {
                 text.split(' ').map((tw, idx) => {

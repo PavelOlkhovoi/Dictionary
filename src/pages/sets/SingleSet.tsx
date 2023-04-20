@@ -34,7 +34,7 @@ const SingleSet = () => {
 
     const updateName = (name: string) => updateUserSet(
         set?.setId as string, name, set?.source, set?.wordsIds as string[]
-        )
+    )
     
 
     return (
@@ -98,7 +98,7 @@ const SingleSet = () => {
                         className="flex justify-start justify-items-start gap-4 mt-2"
                         >
                         <Link 
-                        to={{pathname: `/texts/${idtext}`}}>{firstCapitalLetter(t.title)} 
+                        to={{pathname: `/texts/${t.textId}`}}>{firstCapitalLetter(t.title)} 
                         </Link>
                         <div className="cursor-pointer">
                             <DeleteBtn
