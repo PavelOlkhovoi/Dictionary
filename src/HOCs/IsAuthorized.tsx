@@ -7,9 +7,10 @@ interface Props {
     children?: ReactNode
 }
 const IsAuthorized = ({children}: Props) => {
-    const user = useAppSelector(state => state.user.userFake)
+    const user = useAppSelector(state => state.user.user)
+    const storedUser = JSON.parse(localStorage.getItem("userLocal") || "null");
 
-    if(user?.uid === ''){
+    if(user?.uid === '' && storedUser === null){
         return <Navigate to='/auth' />
     }
 

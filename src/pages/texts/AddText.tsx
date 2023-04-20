@@ -19,7 +19,7 @@ interface Props {
 const AddText = ({setId = null, titleMode}:Props) => {
     const tags = useAppSelector(state => state.tag.tags)
     const words = useAppSelector(state => state.word.words)
-    const uid = useAppSelector(state => state.user.userFake?.uid)
+    const uid = useAppSelector(state => state.user.user?.uid)
     const tagsStatus = useAppSelector(state => state.tag.status)
     const wordStatus = useAppSelector(state => state.word.status)
     const title = useInput('')

@@ -22,7 +22,7 @@ interface Router {
   }
   
 const AppRouter = () => {
-    const user = useAppSelector(state => state.user.userFake)
+    const user = useAppSelector(state => state.user.user)
     // const routeList: Router[] = [
     //     {
     //       path: '/',

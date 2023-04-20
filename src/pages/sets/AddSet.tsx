@@ -16,7 +16,7 @@ import ShowError from "../../components/validations/ShowError";
 const AddSet = () => {
     const wordsStatus = useAppSelector(state => state.word.status)
     const textsStatus = useAppSelector(state => state.text.status)
-    const user = useAppSelector(state => state.user.userFake)
+    const user = useAppSelector(state => state.user.user)
     const uidStatus = useAppSelector(state => state.user.status)
     
     const name = useInput('')

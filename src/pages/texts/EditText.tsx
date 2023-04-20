@@ -16,7 +16,7 @@ const EditText = () => {
     const text = useAppSelector(state => selectTextById(state, idtext as string))
     const words = useAppSelector(state => state.word.words)
     const tags = useAppSelector(state => state.tag.tags)
-    const uid = useAppSelector(state => state.user.userFake?.uid)
+    const uid = useAppSelector(state => state.user.user?.uid)
     const tagsStatus = useAppSelector(state => state.tag.status)
     const wordsStatus = useAppSelector(state => state.word.status)
     const textsStatus = useAppSelector(state => state.text.status)

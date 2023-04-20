@@ -21,17 +21,19 @@ import IsAuthorized from './HOCs/IsAuthorized';
 import { useAppDispatch, useAppSelector } from './hooks/redux-hooks';
 import { auth } from '.';
 import {onAuthStateChanged} from "firebase/auth";
-import { FakeUser } from './store/slices/userSlice';
+import { User } from './store/slices/userSlice';
 import { setUser } from './store/slices/userSlice';
 import { fetchWords } from './store/slices/wordSlice';
 import { fetchTags } from './store/slices/tagSlice';
 import { fetchTexts } from './store/slices/textSlice';
 import { fetchSets } from './store/slices/setSlice';
 import { useEffect } from 'react';
+import useLocalStorage from './hooks/useLocalStorage';
 
 
 function App() {
   const dispatch = useAppDispatch()
+  const [userLocal, setUserLocal] = useLocalStorage<User | null>('user', null)
   const userStatus = useAppSelector(state => state.user.status)
   const wordsStatus = useAppSelector(state => state.word.status)
   const setStatus = useAppSelector(state => state.set.status)
@@ -40,17 +42,15 @@ function App() {
   const getInitialData = () => {
     const user = auth.currentUser
       onAuthStateChanged(auth, async (user) => {
-  
           if(user){
             const {email, uid, photoURL} = user
-            // const token = user.getIdToken()
-            const newUser: FakeUser = {
+            const newUser: User = {
               email: email as string,
               uid,
-              token: 'test',
               photoURL
-  
             }
+
+            setUserLocal(newUser)
   
             const res = await Promise.all([
               dispatch(setUser(newUser)), 
@@ -59,8 +59,6 @@ function App() {
               dispatch(fetchTexts(newUser.uid)),
               dispatch(fetchSets(newUser.uid))
             ])
-
-            console.log('All fetch', res)
             
             
             return user

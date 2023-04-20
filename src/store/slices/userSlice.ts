@@ -1,26 +1,22 @@
-import {createSlice, createAsyncThunk, PayloadAction, current, createAction} from "@reduxjs/toolkit"
-// import { auth } from "../.."
-// import {onAuthStateChanged} from "firebase/auth";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit"
 
 
 interface StateUser {
-    userFake: FakeUser | null
+    user: User | null
     status: 'idle' | 'pending' | 'succeeded' | 'failed'
     error: string | null
 }
 
-export interface FakeUser {
+export interface User {
     email: string
     uid: string
-    token: string
     photoURL: string | null
 }
 
 const initialState: StateUser = {
-    userFake: {
+    user: {
         email: '',
         uid: '',
-        token: '',
         photoURL: null
     },
     status: 'idle',
@@ -33,24 +29,23 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         setUser: (state, action) => {
-            state.userFake = action.payload
+            state.user = action.payload
         },
 
         setUserPrepare: {
-            reducer: (state, action: PayloadAction<FakeUser>) => {
-                state.userFake = action.payload
+            reducer: (state, action: PayloadAction<User>) => {
+                state.user = action.payload
             },
-            prepare: (payload: FakeUser) => {
-                return { payload: { email: payload.email, uid: payload.uid, token: '111', photoURL: payload.photoURL } }
+            prepare: (payload: User) => {
+                return { payload: { email: payload.email, uid: payload.uid, photoURL: payload.photoURL } }
             }
         }
     }
 })
 
 
-export const selectUserId = (state: StateUser) => state.userFake
+export const selectUserId = (state: StateUser) => state.user
 
-// export const activeUser = state => state.user
 
 export const { setUser } = userSlice.actions
 

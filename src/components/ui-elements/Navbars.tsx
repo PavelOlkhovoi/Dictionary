@@ -18,7 +18,7 @@ const navigation = [
   }
 
 const Navbars = () => {
-  const user = useAppSelector(state => state.user.userFake)
+  const user = useAppSelector(state => state.user.user)
   const {logout} = useAuthHook()
      return (
         <Disclosure as="nav" className="bg-gray-800">
