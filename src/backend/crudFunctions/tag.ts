@@ -15,12 +15,12 @@ export const createTag = async (uid: string, name: string, wordIdx: string) => {
         setDoc(docRef, {tagId: docRef.id}, {merge: true})
 
         console.log("Tag Document written with ID: ", docRef.id)
-        store.dispatch(addTag({
-          tagId: docRef.id,
-          userId: uid,
-          name: name,
-          word_id: [wordIdx]
-        }))
+        // store.dispatch(addTag({
+        //   tagId: docRef.id,
+        //   userId: uid,
+        //   name: name,
+        //   word_id: [wordIdx]
+        // }))
 
         return docRef.id
       } catch (e) {

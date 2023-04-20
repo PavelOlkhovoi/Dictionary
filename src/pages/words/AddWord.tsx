@@ -9,7 +9,7 @@ const AddWord = () => {
 
       await createTag(user.uid, 'test', wordIdx)
           
-  }
+    }
 
     return (
         <section style={{
