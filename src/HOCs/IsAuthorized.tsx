@@ -9,8 +9,6 @@ interface Props {
 const IsAuthorized = ({children}: Props) => {
     const user = useAppSelector(state => state.user.userFake)
 
-    console.log(user?.uid)
-
     if(user?.uid === ''){
         return <Navigate to='/auth' />
     }

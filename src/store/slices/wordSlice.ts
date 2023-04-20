@@ -82,6 +82,11 @@ export const selectAllWords = (state: RootState) => {
     return state.word.words
 }
 
+export const selectAllWordsTest = createSelector(
+    [selectAllWords],
+    words => words
+)
+
 export const selectWordsAsStringInArr = createSelector(selectAllWords, words => words.map(w => w.word))
 
 export const selectWordsArrByName = (state: RootState, words: string[]) => {
@@ -107,8 +112,7 @@ export const selectWordById = (state: RootState, id: string) => {
 export const selectAllWordsIdsInArr = (state: RootState) => state.word.words.map(w => w.wordId)
 
 
-export const selectSortedByTimeWords = (state: RootState) => {
-    const words = state.word.words
+export const selectSortedByTimeWords = createSelector([selectAllWords], words => {
     if(words.length > 0){
         const sortedArr =  [...words].sort((a, b)=> {
             return parseISO(a.createdAt as string).getTime() - parseISO(b.createdAt as string).getTime()
@@ -116,7 +120,7 @@ export const selectSortedByTimeWords = (state: RootState) => {
 
         return sortedArr
     }
-}
+})
 
 
 export const selectWordsForFirstExercise = createSelector([selectSortedByTimeWords, selectAllSets,
@@ -160,3 +164,4 @@ export const selectWordsForFirstExercise = createSelector([selectSortedByTimeWor
 export const { addWord, updateWord, updateExample, updateMeanings, updateFastMeaning, addPointsAndChangeRepetition,
     deleteWord } = wordSlice.actions
 export default wordSlice.reducer
+

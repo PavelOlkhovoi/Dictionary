@@ -22,34 +22,38 @@ export const auth = getAuth();
 export const db = getFirestore(app);
 
 
-const testUser = () => {
-  const user = auth.currentUser
-    onAuthStateChanged(auth, user => {
+// const getInitialData = () => {
+//   const user = auth.currentUser
+//     onAuthStateChanged(auth, async (user) => {
 
-        if(user){
-          const {email, uid, photoURL} = user
-          // const token = user.getIdToken()
-          const newUser: FakeUser = {
-            email: email as string,
-            uid,
-            token: 'test',
-            photoURL
+//         if(user){
+//           const {email, uid, photoURL} = user
+//           // const token = user.getIdToken()
+//           const newUser: FakeUser = {
+//             email: email as string,
+//             uid,
+//             token: 'test',
+//             photoURL
 
-          }
-          store.dispatch(setUser(newUser))
-          store.dispatch(fetchWords(newUser.uid))
-          store.dispatch(fetchTags(newUser.uid))
-          store.dispatch(fetchTexts(newUser.uid))
-          store.dispatch(fetchSets(newUser.uid))
+//           }
+
+//           await Promise.all([
+//             store.dispatch(setUser(newUser)), 
+//             store.dispatch(fetchWords(newUser.uid)),
+//             store.dispatch(fetchTags(newUser.uid)),
+//             store.dispatch(fetchTexts(newUser.uid)),
+//             store.dispatch(fetchSets(newUser.uid))
+//           ])
           
-          return user
-        }
+          
+//           return user
+//         }
     
-    return user
-    })
-}
+//     return user
+//     })
+// }
 
-testUser()
+// getInitialData()
 
 
 const root = ReactDOM.createRoot(
