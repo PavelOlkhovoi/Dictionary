@@ -29,6 +29,7 @@ import { fetchTexts } from './store/slices/textSlice';
 import { fetchSets } from './store/slices/setSlice';
 import { useEffect } from 'react';
 import useLocalStorage from './hooks/useLocalStorage';
+import Loading from './components/Loading';
 
 
 function App() {
@@ -74,7 +75,7 @@ function App() {
   
 
   if(userStatus === "pending" || wordsStatus === "pending" || setStatus === "pending" || textStatus === "pending"){
-    return <h1>Загрузка</h1>
+    return <Loading />
   }
 
   return (

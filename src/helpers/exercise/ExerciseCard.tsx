@@ -77,15 +77,24 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExer
             initial={'hidden'}
             animate={'visible'}
             variants={cardAnimation}
-            className={`${styleTW.card} ${styleTW.exerciseCardSkeleton}`}
+            className={`p-6 md:p-8 shadow bg-white rounded-md ${styleTW.exerciseCardSkeleton}`}
             >
                 <div className="translate-x-[-8] text-xs p-1">
                     {readableTime}
                 </div>
                 <span className={`${styleTW.exerciseWordCenter} text-xl`}>{word.word}</span>
                 <div className="flex gap-4 justify-between mt-auto w-full">
-                    <LineButton onClick={()=> setStages(prev => ({...prev, spelling: true, wordKnown: false}))}>Confirm</LineButton>
-                    <LineButton color="red" onClick={()=> setStages(prev => ({...prev, wordKnown: false, repeat: true}))}>Repeat</LineButton>
+                    <LineButton 
+                    onClick={()=> setStages(prev => ({...prev, spelling: true, wordKnown: false}))}
+                    >
+                        Confirm
+                    </LineButton>
+                    <LineButton 
+                    color="red" 
+                    onClick={()=> setStages(prev => ({...prev, wordKnown: false, repeat: true}))}
+                    >
+                        Repeat
+                    </LineButton>
                 </div>
             </motion.div>
             }
@@ -94,7 +103,7 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExer
                 <motion.div 
                 initial={{ x: -100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                className={`${styleTW.card} ${styleTW.exerciseCardSkeleton}`}
+                className={`p-6 md:p-8 shadow bg-white rounded-md ${styleTW.exerciseCardSkeleton}`}
                 >
                     <span className={`${styleTW.exerciseWordCenter} text-xl`}>{translation}</span>
                     <LineButton onClick={setHidden} color='red'>Hide</LineButton>
@@ -105,14 +114,14 @@ const ExerciseCard = ({word, changeShowOrder, last, isSingle = false, typeOfExer
             <motion.div 
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }} 
-            className={`${styleTW.card} ${styleTW.exerciseCardSkeleton}`}
+            className={`p-6 md:p-8 shadow bg-white rounded-md ${styleTW.exerciseCardSkeleton}`}
             >
                 <div className="mb-3 w-full">
-                    {/* Translation: <span className={styleTW.wordsMarker.blue}>{translation}</span> */}
+                    Translation: <span className={styleTW.wordsMarker.blue}>{translation}</span>
                 </div>
                 <label className="my-auto">
                 <span className="w-full">
-                    {!wrongAnswer ? 'Type the word' + ' ✔' : <>Word: <span className={styleTW.wordsMarker.green}>{word.word}</span></>}
+                    {!wrongAnswer ? 'Type the word' : <>Word: <span className={styleTW.wordsMarker.green}>{word.word}</span></>}
                 </span>
                 <textarea 
                 value={meaning}

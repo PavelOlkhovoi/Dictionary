@@ -4,20 +4,29 @@ import { WordDb } from "../../../types/word";
 import { styleTW } from "../../../style";
 import { Link } from "react-router-dom";
 import LineButton from "../../../components/ui-elements/buttons/LineButton";
+import { useState } from "react";
+import { PlusIcon } from '@heroicons/react/24/outline'
 
 interface Props {
     words: WordDb[]
 }
 
 const SortedWordsPrew = ({words}:Props) => {
-    // const words = useAppSelector(state => selectAllWords(state))
+    const [visiblePosts, setVisiblePosts] = useState(7);
+
     const sortedArr =  [...words].sort((a, b)=> {
         return parseISO(b.createdAt as string).getTime() - parseISO(a.createdAt as string).getTime()
     })
+
+    const handleLoadBtn = () => {
+        setVisiblePosts((prevVisiblePosts) => prevVisiblePosts + 7);
+      };
+
+
     return (
         <div>
             {
-             sortedArr.map(w => 
+             sortedArr.slice(0, visiblePosts).map(w => 
                 <div 
                 key={w.wordId}
                 className={`${styleTW.bottomBorder} py-2 flex gap-8 items-center`}
@@ -39,6 +48,14 @@ const SortedWordsPrew = ({words}:Props) => {
                     </div>
                 </div>)
             }
+
+            <div
+            className="cursor-pointer flex gap-3 items-center mt-6 hover:text-yellow-700 transition-opacity" 
+            onClick={handleLoadBtn}
+            >
+                Load more
+                <PlusIcon className="w-4 h-4 text-yellow-800 transition-opacity" />
+            </div>
         </div>
     )
 }

@@ -32,7 +32,7 @@ const useAuthHook = () => {
       const logout = () => {
         signOut(auth).then(() => {
           console.log('Sign-out successful')
-          localStorage.removeItem("userLocal")
+          localStorage.removeItem("user")
           navigate('/auth')
           window.location.reload()
         }).catch((error) => {

@@ -27,7 +27,6 @@ const SetWordsToLern = () => {
 
     return (
         <section className={styleTW.containerWide}>
-            <h1 className={`${styleTW.title1} text-center mb-8`}>Words to learn</h1>
             {
                 sortedWords?.length !== 1 && sortedWords?.filter((w, idx) => wordStage === idx ).map((w, idx) =>{
                     if(sortedWords[sortedWords.length - 1].word === w.word){
@@ -41,13 +40,14 @@ const SetWordsToLern = () => {
             }
 
             {
-                sortedWords?.length === 1 && wordStage === 0 && <ExerciseCard word={sortedWords[0]} changeShowOrder={changeShowOrder}
+                sortedWords?.length === 1 && wordStage === 0 && 
+                <ExerciseCard word={sortedWords[0]} changeShowOrder={changeShowOrder}
                 typeOfExercise={typeOfExercise} last={true} isSingle={true} isSet={idOfexercise?.idset as string}/>
             }
 
             {
-                 sortedWords?.length === 0 && 
-                 <div className={`${styleTW.card} text-center py-40`}>
+                sortedWords?.length === 0 && 
+                <div className={`${styleTW.card} text-center py-40`}>
                     It is finished. Congratulation &#127881;
                     {(idOfexercise?.idset as string).length > 0 && 
                         <span onClick={() => restartRepeatArrInSet(set?.setId as string, set?.wordsIds as string[])}>Repeat</span>

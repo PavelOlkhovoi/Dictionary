@@ -12,7 +12,7 @@ const MyInput: FC<Props> = ({name, label, edit = false, editFunct = () => consol
         <div>
         <label
         htmlFor={label}
-          className="block text-sm font-medium text-gray-700 undefined"
+          className="block text-sm font-medium text-gray-700"
         >
           Type {name}
         </label>

@@ -32,7 +32,7 @@ const Words = () => {
                 </div>
 
                 <div className='sm:w-full md:w-6/12 mt-12 md:mt-0 pb-20'>
-                    <h2 className={`${styleTW.title2}`}>20 last added words</h2>
+                    <h2 className={`${styleTW.title2}`}>7 last added words</h2>
                     <div className='mt-4'>
                     <SortedWordsPrew words={words} />
                     </div>
