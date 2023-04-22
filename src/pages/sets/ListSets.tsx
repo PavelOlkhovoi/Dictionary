@@ -3,6 +3,8 @@ import { useAppSelector } from "../../hooks/redux-hooks";
 import { styleTW } from "../../style";
 import LineButton from "../../components/ui-elements/buttons/LineButton";
 import GetSetsData from "../../components/adapter/GetSetsData";
+import CreateFfirstRecord from "../../components/ui-elements/records/CreateFfirstRecord";
+
 
 const ListSets = () => {
     const sets = useAppSelector(state => state.set.sets)
@@ -24,6 +26,12 @@ const ListSets = () => {
                 })
             }
             </div>
+            <CreateFfirstRecord 
+            link="/sets/add"
+            message="You have not added any sets yet"
+            recordsLength={sets.length}
+            textBtn="Create set"
+            />
         </section>
     )
 }

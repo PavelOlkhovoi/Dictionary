@@ -4,6 +4,7 @@ import { styleTW } from "../../style";
 import PreviewText from "../../components/text/PreviewText";
 import LineButton from "../../components/ui-elements/buttons/LineButton";
 import { Link } from "react-router-dom";
+import CreateFfirstRecord from "../../components/ui-elements/records/CreateFfirstRecord";
 
 const ListTexts = () => {
     const texts = useAppSelector(state => state.text.texts)
@@ -27,6 +28,12 @@ const ListTexts = () => {
             {
                 texts.map(t => <PreviewText text={t} key={t.textId}/>)
             }
+            <CreateFfirstRecord
+            link="/texts/add"
+            recordsLength={texts.length}
+            textBtn="Create text"
+            message="You have not added any texts yet"
+            />
             </div>
         </section>
     );
