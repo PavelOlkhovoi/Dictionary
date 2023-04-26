@@ -1,45 +1,47 @@
-# Getting Started with Create React App
+# Words Space - Boost your vocabulary online
+> Live demo [_here_](https://dictionary-dca22.web.app).
+> Authorization via Google
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Algorithm schema](./public/words.jpg)
 
-## Available Scripts
+## Table of Contents
+* [General Info](#general-information)
+* [Technologies Used](#technologies-used)
+* [Features](#features)
 
-In the project directory, you can run:
 
-### `npm start`
+## General Information
+I'm building my own app to improve my knowledge of modern JavaScript and help me remember English words. The app includes features like spaced repetition and text-writing exercises to make language learning more effective and engaging. I'm excited to see how this project will enhance my skills and benefit others in learning a new language.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Technologies Used
+- React  - version 18.2.0
+- React-router-dom  - version 6.4.2
+- Redux toolkit - version 1.9.1
+- Firebase - version 9.14.0
+- Framer-motion - version 9.0.4
+- Jest - version 27.5.2
+- Date-fns - version 2.29.3
+- Tailwindcss - version 3.2.4
+- Typescript - version 4.9.3
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+## Features
+List the ready features here:
+- Google authentication
+- CRUD operations for words, texts, sets, and tags
+- Four-step process for creating a word
+- Spaced repetition for learning words
+- Repetition of word sets
+- Data formatting for a better user experience
+- Color highlighting of simple and compound words
+- Custom input validation
+- Custom notifications
+- Public and private routing for secure access to content
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Space to improvement
-
-1. Upgrade Notification camponent
+![Algorithm schema](./public/addword.jpg)
+![Algorithm schema](./public/simpleword.jpg)
+![Algorithm schema](./public/exercise.jpg)
+![Algorithm schema](./public/sets.jpg)
+![Algorithm schema](./public/simpleset.jpg)
+![Algorithm schema](./public/simpletext.jpg)
 
