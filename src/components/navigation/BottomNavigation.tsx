@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 const BottomNavigation = () => {
+    // Perhaps it would be better to use import { Link } from "react-router-dom"; instead of buttons
     const navigate = useNavigate()
     const wordsRedirect = () => navigate('/')
     const textRedirect = () => navigate('/texts')

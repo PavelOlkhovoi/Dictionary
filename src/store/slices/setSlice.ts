@@ -84,6 +84,8 @@ const setSlice = createSlice({
 })
 
 export const fetchSets = createAsyncThunk('sets/fetchSets', async (uid: string)=>{
+    // return getUserSets(uid)
+
     const res = await getUserSets(uid)
     return res
 })

@@ -10,9 +10,11 @@ const navigation = [
     { name: 'Add word', href: '/addwordsSteps', current: false },
     { name: 'Texts', href: '/texts', current: false },
     { name: 'Sets', href: '/sets', current: false },
+    // I think, this point should be available only if user is not logged in
     { name: 'Auth', href: '/auth', current: false },
   ]
 
+  // seems like you can use https://www.npmjs.com/package/classnames
   function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
   }
@@ -63,7 +65,7 @@ const Navbars = () => {
                           <span className="sr-only">Open user menu</span>
                           <img
                             className="h-8 w-8 rounded-full"
-                            src={user?.photoURL ? user.photoURL : require('./../../img/avatar.jpg')}
+                            src={user?.photoURL ? user.photoURL : require('../../img/avatar.jpg')}
                             alt="avatar"
                           />
                         </Menu.Button>

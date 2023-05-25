@@ -8,6 +8,8 @@ const useAuthHook = () => {
 
     const navigate = useNavigate()
 
+    // async await is better
+    // I see unused variables
     const handleAuth = () => {
         signInWithPopup(auth, provider)
         .then((result) => {

@@ -31,14 +31,26 @@ import { useEffect } from 'react';
 import useLocalStorage from './hooks/useLocalStorage';
 import Loading from './components/Loading';
 
+ // TODO: Move it to a separate file
+const getUserStatus = state => state.user.status
+const getWordsStatus = state => state.word.status
+const getSetStatus = state => state.set.status
+const getTextStatus = state => state.text.status
+
+const checkIfStatusPending = (state) => {
+    const userStatus = getUserStatus(state);
+    const wordsStatus = getWordsStatus(state);
+    const setStatus = getSetStatus(state);
+    const textStatus = getTextStatus(state);
+
+    return [userStatus, wordsStatus, setStatus, textStatus].some(item => item === "pending")
+}
 
 function App() {
   const dispatch = useAppDispatch()
   const [userLocal, setUserLocal] = useLocalStorage<User | null>('user', null)
-  const userStatus = useAppSelector(state => state.user.status)
-  const wordsStatus = useAppSelector(state => state.word.status)
-  const setStatus = useAppSelector(state => state.set.status)
-  const textStatus = useAppSelector(state => state.text.status)
+
+  const isStatusPending = useAppSelector(checkIfStatusPending)
 
   const getInitialData = () => {
     const user = auth.currentUser
@@ -52,19 +64,20 @@ function App() {
             }
 
             setUserLocal(newUser)
-  
+
+              // Should think about errors
             const res = await Promise.all([
-              dispatch(setUser(newUser)), 
+              dispatch(setUser(newUser)),
               dispatch(fetchWords(newUser.uid)),
               dispatch(fetchTags(newUser.uid)),
               dispatch(fetchTexts(newUser.uid)),
               dispatch(fetchSets(newUser.uid))
             ])
-            
-            
+
+
             return user
           }
-      
+
       return user
       })
   }
@@ -73,8 +86,7 @@ function App() {
     getInitialData()
   },[])
   
-
-  if(userStatus === "pending" || wordsStatus === "pending" || setStatus === "pending" || textStatus === "pending"){
+  if(isStatusPending){
     return <Loading />
   }
 

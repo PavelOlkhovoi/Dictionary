@@ -1,13 +1,17 @@
 import { Navigate } from "react-router-dom"
-import {ReactNode} from "react"
+import {FC, PropsWithChildren} from "react"
 import { useAppSelector } from "../hooks/redux-hooks"
 
 
 interface Props {
-    children?: ReactNode
+    // you shouldn't add children to the interface. You can write simpler a bit
+    // the component could be like
+    // const IsAuthorized: FC = ({children}) => <>{children}</>
 }
-const IsAuthorized = ({children}: Props) => {
+
+const IsAuthorized: FC<PropsWithChildren<Props>> = ({ children }) => {
     const user = useAppSelector(state => state.user.user)
+    // TODO: between renders?
     const storedUser = JSON.parse(localStorage.getItem("user") || "null");
 
     if(user?.uid === '' && storedUser === null){
